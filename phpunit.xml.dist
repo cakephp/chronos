@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="tests/TestFixture.php"
+         bootstrap="tests/TestCase.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -13,12 +13,12 @@
 
   <filter>
     <whitelist>
-      <directory>src/Carbon</directory>
+      <directory>src</directory>
     </whitelist>
   </filter>
 
    <testsuites>
-      <testsuite name="Carbon Test Suite">
+      <testsuite name="Chronos Test Suite">
          <directory>tests</directory>
       </testsuite>
    </testsuites>

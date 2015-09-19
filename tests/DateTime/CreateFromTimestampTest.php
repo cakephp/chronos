@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class CreateFromTimestampTest extends TestFixture
+class CreateFromTimestampTest extends TestCase
 {
 
     /**
@@ -24,7 +24,7 @@ class CreateFromTimestampTest extends TestFixture
     public function testCreateReturnsDatingInstance($class)
     {
         $d = $class::createFromTimestamp(Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp);
-        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5);
+        $this->assertDateTime($d, 1975, 5, 21, 22, 32, 5);
     }
 
     /**
@@ -48,7 +48,7 @@ class CreateFromTimestampTest extends TestFixture
     {
         $d = $class::createFromTimestamp(0, new \DateTimeZone('UTC'));
         $this->assertSame('UTC', $d->tzName);
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -58,7 +58,7 @@ class CreateFromTimestampTest extends TestFixture
     public function testCreateFromTimestampWithString($class)
     {
         $d = $class::createFromTimestamp(0, 'UTC');
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
         $this->assertSame('UTC', $d->tzName);
     }
@@ -70,7 +70,7 @@ class CreateFromTimestampTest extends TestFixture
     public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone($class)
     {
         $d = $class::createFromTimestampUTC(0);
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
     }
 }

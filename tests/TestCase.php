@@ -15,7 +15,7 @@ use Cake\Chronos\Carbon;
 use Cake\Chronos\CarbonImmutable;
 use Cake\Chronos\CarbonInterval;
 
-class TestFixture extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     public static $class = Carbon::class;
 
@@ -42,7 +42,7 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    protected function assertCarbon($d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    protected function assertDateTime($d, $year, $month, $day, $hour = null, $minute = null, $second = null)
     {
         $this->assertSame($year, $d->year, 'Carbon->year');
         $this->assertSame($month, $d->month, 'Carbon->month');
@@ -61,36 +61,7 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function assertInstanceOfCarbon($d)
-    {
-        $this->assertInstanceOf(Carbon::class, $d);
-    }
-
-    protected function assertCarbonImmutable(CarbonImmutable $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
-    {
-        $this->assertSame($year, $d->year, 'CarbonImmutable->year');
-        $this->assertSame($month, $d->month, 'CarbonImmutable->month');
-        $this->assertSame($day, $d->day, 'CarbonImmutable->day');
-
-        if ($hour !== null) {
-            $this->assertSame($hour, $d->hour, 'CarbonImmutable->hour');
-        }
-
-        if ($minute !== null) {
-            $this->assertSame($minute, $d->minute, 'CarbonImmutable->minute');
-        }
-
-        if ($second !== null) {
-            $this->assertSame($second, $d->second, 'CarbonImmutable->second');
-        }
-    }
-
-    protected function assertInstanceOfCarbonImmutable($d)
-    {
-        $this->assertInstanceOf(CarbonImmutable::class, $d);
-    }
-
-    protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    protected function assertDateTimeInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
         $this->assertSame($years, $ci->years, 'CarbonInterval->years');
 

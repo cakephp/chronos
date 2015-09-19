@@ -12,13 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class MyCarbon extends Carbon
-{
-}
-
-class StringsTest extends TestFixture
+class StringsTest extends TestCase
 {
     /**
      * @dataProvider classNameProvider

@@ -12,9 +12,9 @@
 namespace Interval;
 
 use Cake\Chronos\CarbonInterval;
-use TestFixture;
+use TestCase;
 
-class CarbonIntervalGettersTest extends TestFixture
+class CarbonIntervalGettersTest extends TestCase
 {
 
     public function testGettersThrowExceptionOnUnknownGetter()

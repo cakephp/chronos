@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class NowAndOtherStaticHelpersTest extends TestFixture
+class NowAndOtherStaticHelpersTest extends TestCase
 {
 
     /**

@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class CreateFromDateTest extends TestFixture
+class CreateFromDateTest extends TestCase
 {
 
     /**
@@ -34,7 +34,7 @@ class CreateFromDateTest extends TestFixture
     public function testCreateFromDate($class)
     {
         $d = $class::createFromDate(1975, 5, 21);
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertDateTime($d, 1975, 5, 21);
     }
 
     /**
@@ -74,7 +74,7 @@ class CreateFromDateTest extends TestFixture
     public function testCreateFromDateWithTimezone($class)
     {
         $d = $class::createFromDate(1975, 5, 21, 'Europe/London');
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertDateTime($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
@@ -85,7 +85,7 @@ class CreateFromDateTest extends TestFixture
     public function testCreateFromDateWithDateTimeZone($class)
     {
         $d = $class::createFromDate(1975, 5, 21, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertDateTime($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class GettersTest extends TestFixture
+class GettersTest extends TestCase
 {
 
     /**
@@ -247,7 +247,7 @@ class GettersTest extends TestFixture
      */
     public function testGetLocalTrue($class)
     {
-        // Default timezone has been set to America/Toronto in TestFixture.php
+        // Default timezone has been set to America/Toronto in TestCase.php
         // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
         $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/Toronto')->local);
         $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/New_York')->local);

@@ -12,7 +12,7 @@
 use Cake\Chronos\Carbon;
 use Cake\Chronos\CarbonImmutable;
 
-class MutabilityConversionTest extends TestFixture
+class MutabilityConversionTest extends TestCase
 {
     public function testImmutableInstanceFromMutable()
     {
@@ -60,9 +60,8 @@ class MutabilityConversionTest extends TestFixture
 
     protected function checkBothInstances(Carbon $dt1, CarbonImmutable $dt2)
     {
-        $this->assertInstanceOfCarbon($dt1);
-        $this->assertCarbon($dt1, 2001, 2, 3, 10, 20, 30);
-        $this->assertInstanceOfCarbonImmutable($dt2);
-        $this->assertCarbonImmutable($dt2, 2001, 2, 3, 10, 20, 30);
+        $this->assertDateTime($dt1, 2001, 2, 3, 10, 20, 30);
+        $this->assertInstanceOf(CarbonImmutable::class, $dt2);
+        $this->assertDateTime($dt2, 2001, 2, 3, 10, 20, 30);
     }
 }

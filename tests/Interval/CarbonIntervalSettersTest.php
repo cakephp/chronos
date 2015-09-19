@@ -12,9 +12,9 @@
 namespace Interval;
 
 use Cake\Chronos\CarbonInterval;
-use TestFixture;
+use TestCase;
 
-class CarbonIntervalSettersTest extends TestFixture
+class CarbonIntervalSettersTest extends TestCase
 {
 
     public function testYearsSetter()
@@ -73,29 +73,29 @@ class CarbonIntervalSettersTest extends TestFixture
     {
         $ci = CarbonInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
         $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 4, 2, 5, 3, 1, 59);
+        $this->assertDateTimeInterval($ci, 4, 2, 5, 3, 1, 59);
 
         $ci = CarbonInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
         $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 4, 2, 14, 3, 1, 59);
+        $this->assertDateTimeInterval($ci, 4, 2, 14, 3, 1, 59);
     }
 
     public function testFluentSettersDaysOverwritesWeeks()
     {
         $ci = CarbonInterval::weeks(3)->days(5);
-        $this->assertCarbonInterval($ci, 0, 0, 5, 0, 0, 0);
+        $this->assertDateTimeInterval($ci, 0, 0, 5, 0, 0, 0);
     }
 
     public function testFluentSettersWeeksOverwritesDays()
     {
         $ci = CarbonInterval::days(5)->weeks(3);
-        $this->assertCarbonInterval($ci, 0, 0, 3 * 7, 0, 0, 0);
+        $this->assertDateTimeInterval($ci, 0, 0, 3 * 7, 0, 0, 0);
     }
 
     public function testFluentSettersWeeksAndDaysIsCumulative()
     {
         $ci = CarbonInterval::year(5)->weeksAndDays(2, 6);
-        $this->assertCarbonInterval($ci, 5, 0, 20, 0, 0, 0);
+        $this->assertDateTimeInterval($ci, 5, 0, 20, 0, 0, 0);
         $this->assertSame(20, $ci->dayz);
         $this->assertSame(2, $ci->weeks);
         $this->assertSame(6, $ci->dayzExcludeWeeks);

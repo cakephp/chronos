@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class CreateTest extends TestFixture
+class CreateTest extends TestCase
 {
 
     /**
@@ -84,7 +84,7 @@ class CreateTest extends TestFixture
     public function testCreateMonthWraps($class)
     {
         $d = $class::create(2011, 0, 1, 0, 0, 0);
-        $this->assertCarbon($d, 2010, 12, 1, 0, 0, 0);
+        $this->assertDateTime($d, 2010, 12, 1, 0, 0, 0);
     }
 
     /**
@@ -114,7 +114,7 @@ class CreateTest extends TestFixture
     public function testCreateDayWraps($class)
     {
         $d = $class::create(2011, 1, 40, 0, 0, 0);
-        $this->assertCarbon($d, 2011, 2, 9, 0, 0, 0);
+        $this->assertDateTime($d, 2011, 2, 9, 0, 0, 0);
     }
 
     /**
@@ -146,7 +146,7 @@ class CreateTest extends TestFixture
     public function testCreateHourWraps($class)
     {
         $d = $class::create(2011, 1, 1, 24, 0, 0);
-        $this->assertCarbon($d, 2011, 1, 2, 0, 0, 0);
+        $this->assertDateTime($d, 2011, 1, 2, 0, 0, 0);
     }
 
     /**
@@ -176,7 +176,7 @@ class CreateTest extends TestFixture
     public function testCreateMinuteWraps($class)
     {
         $d = $class::create(2011, 1, 1, 0, 62, 0);
-        $this->assertCarbon($d, 2011, 1, 1, 1, 2, 0);
+        $this->assertDateTime($d, 2011, 1, 1, 1, 2, 0);
     }
 
     /**
@@ -206,7 +206,7 @@ class CreateTest extends TestFixture
     public function testCreateSecondsWrap($class)
     {
         $d = $class::create(2012, 1, 1, 0, 0, 61);
-        $this->assertCarbon($d, 2012, 1, 1, 0, 1, 1);
+        $this->assertDateTime($d, 2012, 1, 1, 0, 1, 1);
     }
 
     /**
@@ -216,7 +216,7 @@ class CreateTest extends TestFixture
     public function testCreateWithDateTimeZone($class)
     {
         $d = $class::create(2012, 1, 1, 0, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
+        $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
@@ -227,7 +227,7 @@ class CreateTest extends TestFixture
     public function testCreateWithTimeZoneString($class)
     {
         $d = $class::create(2012, 1, 1, 0, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
+        $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

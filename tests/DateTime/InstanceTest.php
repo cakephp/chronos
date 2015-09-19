@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class InstanceTest extends TestFixture
+class InstanceTest extends TestCase
 {
 
     /**
@@ -24,7 +24,7 @@ class InstanceTest extends TestFixture
     public function testInstanceFromDateTime($class)
     {
         $dating = $class::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
-        $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
+        $this->assertDateTime($dating, 1975, 5, 21, 22, 32, 11);
     }
 
     /**

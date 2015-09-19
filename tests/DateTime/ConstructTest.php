@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class ConstructTest extends TestFixture
+class ConstructTest extends TestCase
 {
 
     /**
@@ -27,7 +27,7 @@ class ConstructTest extends TestFixture
         $now = $class::now();
         $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
-        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+        $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
     /**
@@ -40,7 +40,7 @@ class ConstructTest extends TestFixture
         $now = $class::now();
         $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
-        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+        $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
     /**
@@ -50,7 +50,7 @@ class ConstructTest extends TestFixture
     public function testWithFancyString($class)
     {
         $c = new $class('first day of January 2008');
-        $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -60,7 +60,7 @@ class ConstructTest extends TestFixture
     public function testParseWithFancyString($class)
     {
         $c = $class::parse('first day of January 2008');
-        $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
     /**

@@ -13,10 +13,10 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
 use Cake\Chronos\CarbonInterval;
-use TestFixture;
+use TestCase;
 use Closure;
 
-class DiffTest extends TestFixture
+class DiffTest extends TestCase
 {
 
     protected function wrapWithTestNow(Closure $func, $dt = null)

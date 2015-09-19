@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class FluidSettersTest extends TestFixture
+class FluidSettersTest extends TestCase
 {
 
     /**
@@ -86,7 +86,7 @@ class FluidSettersTest extends TestFixture
         $d = $class::createFromDate(2000, 1, 1);
         $d = $d->setDate(1995, 13, 32);
         $this->assertTrue($d instanceof $class);
-        $this->assertCarbon($d, 1996, 2, 1);
+        $this->assertDateTime($d, 1996, 2, 1);
     }
 
     /**
@@ -170,7 +170,7 @@ class FluidSettersTest extends TestFixture
         $d = $class::createFromDate(2000, 1, 1);
         $d = $d->setTime(25, 61, 61);
         $this->assertTrue($d instanceof $class);
-        $this->assertCarbon($d, 2000, 1, 2, 2, 2, 1);
+        $this->assertDateTime($d, 2000, 1, 2, 2, 2, 1);
     }
 
     /**

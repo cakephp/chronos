@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class CreateFromTimeTest extends TestFixture
+class CreateFromTimeTest extends TestCase
 {
 
     /**
@@ -34,7 +34,7 @@ class CreateFromTimeTest extends TestFixture
     public function testCreateFromDate($class)
     {
         $d = $class::createFromTime(23, 5, 21);
-        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
+        $this->assertDateTime($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
     }
 
     /**
@@ -76,7 +76,7 @@ class CreateFromTimeTest extends TestFixture
     public function testCreateFromTimeWithDateTimeZone($class)
     {
         $d = $class::createFromTime(12, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $this->assertDateTime($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
@@ -87,7 +87,7 @@ class CreateFromTimeTest extends TestFixture
     public function testCreateFromTimeWithTimeZoneString($class)
     {
         $d = $class::createFromTime(12, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $this->assertDateTime($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

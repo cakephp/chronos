@@ -11,10 +11,10 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use TestFixture;
+use TestCase;
 use Cake\Chronos\Carbon;
 
-class MutabilityTest extends TestFixture
+class MutabilityTest extends TestCase
 {
 
     public function testAdd()

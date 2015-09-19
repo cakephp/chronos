@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class StartEndOfTest extends TestFixture
+class StartEndOfTest extends TestCase
 {
 
     /**
@@ -26,7 +26,7 @@ class StartEndOfTest extends TestFixture
         $dt = $class::now();
         $dt = $dt->startOfDay();
         $this->assertTrue($dt instanceof $class);
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
+        $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
     }
 
     /**
@@ -38,7 +38,7 @@ class StartEndOfTest extends TestFixture
         $dt = $class::now();
         $dt = $dt->endOfDay();
         $this->assertTrue($dt instanceof $class);
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
+        $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
     }
 
     /**
@@ -59,7 +59,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfMonthFromNow($class)
     {
         $dt = $class::now()->startOfMonth();
-        $this->assertCarbon($dt, $dt->year, $dt->month, 1, 0, 0, 0);
+        $this->assertDateTime($dt, $dt->year, $dt->month, 1, 0, 0, 0);
     }
 
     /**
@@ -69,7 +69,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfMonthFromLastDay($class)
     {
         $dt = $class::create(2000, 1, 31, 2, 3, 4)->startOfMonth();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -90,7 +90,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfYearFromNow($class)
     {
         $dt = $class::now()->startOfYear();
-        $this->assertCarbon($dt, $dt->year, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, $dt->year, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -100,7 +100,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfYearFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfYear();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -110,7 +110,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfYearFromLastDay($class)
     {
         $dt = $class::create(2000, 12, 31, 23, 59, 59)->startOfYear();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -131,7 +131,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfMonth($class)
     {
         $dt = $class::create(2000, 1, 1, 2, 3, 4)->endOfMonth();
-        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2000, 1, 31, 23, 59, 59);
     }
 
     /**
@@ -141,7 +141,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfMonthFromLastDay($class)
     {
         $dt = $class::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
-        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2000, 1, 31, 23, 59, 59);
     }
 
     /**
@@ -162,7 +162,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfYearFromNow($class)
     {
         $dt = $class::now()->endOfYear();
-        $this->assertCarbon($dt, $dt->year, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, $dt->year, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -172,7 +172,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfYearFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfYear();
-        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2000, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -182,7 +182,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfYearFromLastDay($class)
     {
         $dt = $class::create(2000, 12, 31, 23, 59, 59)->endOfYear();
-        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2000, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -203,7 +203,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfDecadeFromNow($class)
     {
         $dt = $class::now()->startOfDecade();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 10, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, $dt->year - $dt->year % 10, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -213,7 +213,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfDecadeFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfDecade();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -223,7 +223,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfDecadeFromLastDay($class)
     {
         $dt = $class::create(2009, 12, 31, 23, 59, 59)->startOfDecade();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -243,7 +243,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfDecadeFromNow($class)
     {
         $dt = $class::now()->endOfDecade();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -253,7 +253,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfDecadeFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfDecade();
-        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2009, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -263,7 +263,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfDecadeFromLastDay($class)
     {
         $dt = $class::create(2009, 12, 31, 23, 59, 59)->endOfDecade();
-        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2009, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -283,7 +283,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfCenturyFromNow($class)
     {
         $dt = $class::now()->startOfCentury();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 100, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, $dt->year - $dt->year % 100, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -293,7 +293,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfCenturyFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfCentury();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -303,7 +303,7 @@ class StartEndOfTest extends TestFixture
     public function testStartOfCenturyFromLastDay($class)
     {
         $dt = $class::create(2009, 12, 31, 23, 59, 59)->startOfCentury();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -324,7 +324,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfCenturyFromNow($class)
     {
         $dt = $class::now()->endOfCentury();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 100 + 99, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, $dt->year - $dt->year % 100 + 99, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -334,7 +334,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfCenturyFromFirstDay($class)
     {
         $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfCentury();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -344,7 +344,7 @@ class StartEndOfTest extends TestFixture
     public function testEndOfCenturyFromLastDay($class)
     {
         $dt = $class::create(2099, 12, 31, 23, 59, 59)->endOfCentury();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -365,7 +365,7 @@ class StartEndOfTest extends TestFixture
     {
         $dt1 = $class::create(2000, 1, 31, 2, 3, 4);
         $dt2 = $class::create(2000, 1, 31, 2, 3, 4)->average($dt1);
-        $this->assertCarbon($dt2, 2000, 1, 31, 2, 3, 4);
+        $this->assertDateTime($dt2, 2000, 1, 31, 2, 3, 4);
     }
 
     /**
@@ -376,7 +376,7 @@ class StartEndOfTest extends TestFixture
     {
         $dt1 = $class::create(2000, 1, 1, 1, 1, 1);
         $dt2 = $class::create(2009, 12, 31, 23, 59, 59)->average($dt1);
-        $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
+        $this->assertDateTime($dt2, 2004, 12, 31, 12, 30, 30);
     }
 
     /**
@@ -387,6 +387,6 @@ class StartEndOfTest extends TestFixture
     {
         $dt1 = $class::create(2009, 12, 31, 23, 59, 59);
         $dt2 = $class::create(2000, 1, 1, 1, 1, 1)->average($dt1);
-        $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
+        $this->assertDateTime($dt2, 2004, 12, 31, 12, 30, 30);
     }
 }

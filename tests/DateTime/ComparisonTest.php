@@ -12,9 +12,9 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Carbon;
-use TestFixture;
+use TestCase;
 
-class ComparisonTest extends TestFixture
+class ComparisonTest extends TestCase
 {
 
     /**
@@ -292,7 +292,7 @@ class ComparisonTest extends TestFixture
     public function testMinWithNow($class)
     {
         $dt = $class::create(2012, 1, 1, 0, 0, 0)->min();
-        $this->assertCarbon($dt, 2012, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, 2012, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -303,7 +303,7 @@ class ComparisonTest extends TestFixture
     {
         $dt1 = $class::create(2013, 12, 31, 23, 59, 59);
         $dt2 = $class::create(2012, 1, 1, 0, 0, 0)->min($dt1);
-        $this->assertCarbon($dt2, 2012, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt2, 2012, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -323,7 +323,7 @@ class ComparisonTest extends TestFixture
     public function testMaxWithNow($class)
     {
         $dt = $class::create(2099, 12, 31, 23, 59, 59)->max();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -334,7 +334,7 @@ class ComparisonTest extends TestFixture
     {
         $dt1 = $class::create(2012, 1, 1, 0, 0, 0);
         $dt2 = $class::create(2099, 12, 31, 23, 59, 59)->max($dt1);
-        $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt2, 2099, 12, 31, 23, 59, 59);
     }
 
     /**

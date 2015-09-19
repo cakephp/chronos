@@ -13,9 +13,9 @@ namespace Cake\Chronos\Test;
 
 use Cake\Chronos\Carbon;
 use InvalidArgumentException;
-use TestFixture;
+use TestCase;
 
-class SettersTest extends TestFixture
+class SettersTest extends TestCase
 {
 
     public function testYearSetter()
@@ -136,7 +136,7 @@ class SettersTest extends TestFixture
         $this->assertInstanceOf(Carbon::class, $d);
         $d->setDateTime(2014, 10, 25, 18, 5, 30);
         $this->assertInstanceOf(Carbon::class, $d);
-        $this->assertCarbon($d, 2014, 10, 25, 18, 5, 30);
+        $this->assertDateTime($d, 2014, 10, 25, 18, 5, 30);
     }
 
     public function testSecondSetterWithWrap()
