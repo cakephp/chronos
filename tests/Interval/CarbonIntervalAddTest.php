@@ -12,7 +12,7 @@
 namespace Cake\Chronos\Test\Interval;
 
 use Cake\Chronos\CarbonInterval;
-use Cake\Chronos\Carbon;
+use Cake\Chronos\Chronos;
 use DateInterval;
 use TestCase;
 
@@ -27,14 +27,14 @@ class CarbonIntervalAddTest extends TestCase
 
     public function testAddWithDiffDateInterval()
     {
-        $diff = Carbon::now()->diff(Carbon::now()->addWeeks(3));
+        $diff = Chronos::now()->diff(Chronos::now()->addWeeks(3));
         $ci   = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertDateTimeInterval($ci, 4, 3, 70, 8, 10, 11);
     }
 
     public function testAddWithNegativeDiffDateInterval()
     {
-        $diff = Carbon::now()->diff(Carbon::now()->subWeeks(3));
+        $diff = Chronos::now()->diff(Chronos::now()->subWeeks(3));
         $ci   = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertDateTimeInterval($ci, 4, 3, 28, 8, 10, 11);
     }

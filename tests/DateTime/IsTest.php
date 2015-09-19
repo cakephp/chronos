@@ -11,7 +11,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class IsTest extends TestCase
@@ -236,19 +235,19 @@ class IsTest extends TestCase
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 5, 31)->isSunday());
         $this->assertTrue($class::createFromDate(2015, 6, 21)->isSunday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::SUNDAY)->isSunday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::SUNDAY)->isSunday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::SUNDAY)->isSunday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::SUNDAY)->isSunday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::MONDAY)->isSunday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::MONDAY)->isSunday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::MONDAY)->isSunday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::MONDAY)->isSunday());
     }
 
     /**
@@ -259,19 +258,19 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 1)->isMonday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::MONDAY)->isMonday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::MONDAY)->isMonday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::MONDAY)->isMonday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::MONDAY)->isMonday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::MONDAY)->isMonday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::MONDAY)->isMonday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::TUESDAY)->isMonday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::TUESDAY)->isMonday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::TUESDAY)->isMonday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::TUESDAY)->isMonday());
     }
 
     /**
@@ -282,19 +281,19 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 2)->isTuesday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::TUESDAY)->isTuesday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::TUESDAY)->isTuesday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::TUESDAY)->isTuesday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::TUESDAY)->isTuesday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::TUESDAY)->isTuesday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::TUESDAY)->isTuesday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::WEDNESDAY)->isTuesday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::WEDNESDAY)->isTuesday());
     }
 
     /**
@@ -305,19 +304,19 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 3)->isWednesday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::WEDNESDAY)->isWednesday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::WEDNESDAY)->isWednesday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::THURSDAY)->isWednesday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::THURSDAY)->isWednesday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::THURSDAY)->isWednesday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::THURSDAY)->isWednesday());
     }
 
     /**
@@ -328,19 +327,19 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 4)->isThursday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::THURSDAY)->isThursday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::THURSDAY)->isThursday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::THURSDAY)->isThursday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::THURSDAY)->isThursday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::THURSDAY)->isThursday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::THURSDAY)->isThursday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::FRIDAY)->isThursday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::FRIDAY)->isThursday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::FRIDAY)->isThursday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::FRIDAY)->isThursday());
     }
 
     /**
@@ -351,19 +350,19 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 5)->isFriday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::FRIDAY)->isFriday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::FRIDAY)->isFriday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::FRIDAY)->isFriday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::FRIDAY)->isFriday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::FRIDAY)->isFriday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::FRIDAY)->isFriday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::SATURDAY)->isFriday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::SATURDAY)->isFriday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::SATURDAY)->isFriday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::SATURDAY)->isFriday());
     }
 
     /**
@@ -374,18 +373,18 @@ class IsTest extends TestCase
     {
         // True in the past past
         $this->assertTrue($class::createFromDate(2015, 6, 6)->isSaturday());
-        $this->assertTrue($class::now()->subWeek()->previous(Carbon::SATURDAY)->isSaturday());
+        $this->assertTrue($class::now()->subWeek()->previous($class::SATURDAY)->isSaturday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeek()->previous(Carbon::SATURDAY)->isSaturday());
-        $this->assertTrue($class::now()->addMonth()->previous(Carbon::SATURDAY)->isSaturday());
+        $this->assertTrue($class::now()->addWeek()->previous($class::SATURDAY)->isSaturday());
+        $this->assertTrue($class::now()->addMonth()->previous($class::SATURDAY)->isSaturday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeek()->previous(Carbon::SUNDAY)->isSaturday());
-        $this->assertFalse($class::now()->subMonth()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->subWeek()->previous($class::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->subMonth()->previous($class::SUNDAY)->isSaturday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeek()->previous(Carbon::SUNDAY)->isSaturday());
-        $this->assertFalse($class::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->addWeek()->previous($class::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->addMonth()->previous($class::SUNDAY)->isSaturday());
     }
 }

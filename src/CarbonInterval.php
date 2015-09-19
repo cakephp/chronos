@@ -13,9 +13,6 @@ namespace Cake\Chronos;
 
 use DateInterval;
 use InvalidArgumentException;
-use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Translation\Loader\ArrayLoader;
 
 /**
  * A simple API extension for DateInterval.
@@ -120,7 +117,7 @@ class CarbonInterval extends DateInterval
         $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
 
         $specDays = 0;
-        $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
+        $specDays += $weeks > 0 ? $weeks * ChronosInterface::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
         $spec .= ($specDays > 0) ? $specDays.static::PERIOD_DAYS : '';
@@ -261,11 +258,11 @@ class CarbonInterval extends DateInterval
                 return $this->s;
 
             case 'weeks':
-                return (int)floor($this->d / Carbon::DAYS_PER_WEEK);
+                return (int)floor($this->d / ChronosInterface::DAYS_PER_WEEK);
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
-                return $this->d % Carbon::DAYS_PER_WEEK;
+                return $this->d % ChronosInterface::DAYS_PER_WEEK;
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
@@ -292,7 +289,7 @@ class CarbonInterval extends DateInterval
                 break;
 
             case 'weeks':
-                $this->d = $val * Carbon::DAYS_PER_WEEK;
+                $this->d = $val * ChronosInterface::DAYS_PER_WEEK;
                 break;
 
             case 'dayz':
@@ -323,7 +320,7 @@ class CarbonInterval extends DateInterval
      */
     public function weeksAndDays($weeks, $days)
     {
-        $this->dayz = ($weeks * Carbon::DAYS_PER_WEEK) + $days;
+        $this->dayz = ($weeks * ChronosInterface::DAYS_PER_WEEK) + $days;
         return $this;
     }
 
@@ -355,7 +352,7 @@ class CarbonInterval extends DateInterval
 
             case 'weeks':
             case 'week':
-                $this->dayz = $arg * Carbon::DAYS_PER_WEEK;
+                $this->dayz = $arg * ChronosInterface::DAYS_PER_WEEK;
                 break;
 
             case 'days':

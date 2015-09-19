@@ -11,14 +11,12 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use Cake\Chronos\Carbon;
-use Cake\Chronos\Chronos;
 use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\Chronos;
+use Cake\Chronos\MutableDateTime;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
-    public static $class = Carbon::class;
-
     private $saveTz;
 
     protected function setUp()
@@ -37,27 +35,27 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     public function classNameProvider()
     {
         return [
-            'mutable' => [Carbon::class],
+            'mutable' => [MutableDateTime::class],
             'immutable' => [Chronos::class]
         ];
     }
 
     protected function assertDateTime($d, $year, $month, $day, $hour = null, $minute = null, $second = null)
     {
-        $this->assertSame($year, $d->year, 'Carbon->year');
-        $this->assertSame($month, $d->month, 'Carbon->month');
-        $this->assertSame($day, $d->day, 'Carbon->day');
+        $this->assertSame($year, $d->year, 'Chronos->year');
+        $this->assertSame($month, $d->month, 'Chronos->month');
+        $this->assertSame($day, $d->day, 'Chronos->day');
 
         if ($hour !== null) {
-            $this->assertSame($hour, $d->hour, 'Carbon->hour');
+            $this->assertSame($hour, $d->hour, 'Chronos->hour');
         }
 
         if ($minute !== null) {
-            $this->assertSame($minute, $d->minute, 'Carbon->minute');
+            $this->assertSame($minute, $d->minute, 'Chronos->minute');
         }
 
         if ($second !== null) {
-            $this->assertSame($second, $d->second, 'Carbon->second');
+            $this->assertSame($second, $d->second, 'Chronos->second');
         }
     }
 
@@ -93,8 +91,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        Carbon::setTestNow(($dt === null) ? Carbon::now() : $dt);
+        Chronos::setTestNow(($dt === null) ? Chronos::now() : $dt);
         $func();
-        Carbon::setTestNow();
+        Chronos::setTestNow();
     }
 }

@@ -15,12 +15,12 @@ use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
 
-class Carbon extends DateTime implements ChronosInterface
+class MutableDateTime extends DateTime implements ChronosInterface
 {
     use DateTimeTrait;
 
     /**
-     * Create a new Carbon instance.
+     * Create a new MutableDateTime instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
@@ -60,7 +60,7 @@ class Carbon extends DateTime implements ChronosInterface
     /**
      * Create a new immutable instance from current mutable instance.
      *
-     * @return CarbonImmutable
+     * @return Chronos
      */
     public function toImmutable()
     {
@@ -70,7 +70,7 @@ class Carbon extends DateTime implements ChronosInterface
     /**
      * Set a part of the CarbonInterface object
      *
-     * @param string                      $name
+     * @param string $name
      * @param string|integer|DateTimeZone $value
      *
      * @throws InvalidArgumentException
@@ -79,36 +79,36 @@ class Carbon extends DateTime implements ChronosInterface
     {
         switch ($name) {
             case 'year':
-                return $this->year($value);
+                $this->year($value);
                 break;
 
             case 'month':
-                return $this->month($value);
+                $this->month($value);
                 break;
 
             case 'day':
-                return $this->day($value);
+                $this->day($value);
                 break;
 
             case 'hour':
-                return $this->hour($value);
+                $this->hour($value);
                 break;
 
             case 'minute':
-                return $this->minute($value);
+                $this->minute($value);
                 break;
 
             case 'second':
-                return $this->second($value);
+                $this->second($value);
                 break;
 
             case 'timestamp':
-                return $this->timestamp($value);
+                $this->timestamp($value);
                 break;
 
             case 'timezone':
             case 'tz':
-                return $this->timezone($value);
+                $this->timezone($value);
                 break;
 
             default:

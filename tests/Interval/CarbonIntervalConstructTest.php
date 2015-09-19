@@ -12,7 +12,7 @@
 namespace Interval;
 
 use Cake\Chronos\CarbonInterval;
-use Cake\Chronos\Carbon;
+use Cake\Chronos\Chronos;
 use DateInterval;
 use Exception;
 use InvalidArgumentException;
@@ -226,6 +226,6 @@ class CarbonIntervalConstructTest extends TestCase
      */
     public function testInstanceWithDaysThrowsException()
     {
-        $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
+        $ci = CarbonInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
     }
 }

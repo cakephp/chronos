@@ -78,10 +78,10 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Create a new mutable instance from current immutable instance.
      *
-     * @return Carbon
+     * @return MutableDateTime
      */
     public function toMutable()
     {
-        return Carbon::instance($this);
+        return MutableDateTime::instance($this);
     }
 }

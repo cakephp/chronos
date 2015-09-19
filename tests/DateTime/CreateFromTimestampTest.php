@@ -11,7 +11,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class CreateFromTimestampTest extends TestCase
@@ -23,7 +22,7 @@ class CreateFromTimestampTest extends TestCase
      */
     public function testCreateReturnsDatingInstance($class)
     {
-        $d = $class::createFromTimestamp(Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp);
+        $d = $class::createFromTimestamp($class::create(1975, 5, 21, 22, 32, 5)->timestamp);
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 5);
     }
 

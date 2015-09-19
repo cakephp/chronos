@@ -11,7 +11,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class DayOfWeekModifiersTest extends TestCase
@@ -93,7 +92,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNextMonday($class)
     {
-        $d = $class::createFromDate(1975, 5, 21)->next(Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 5, 21)->next($class::MONDAY);
         $this->assertDateTime($d, 1975, 5, 26, 0, 0, 0);
     }
 
@@ -133,7 +132,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testPreviousMonday($class)
     {
-        $d = $class::createFromDate(1975, 5, 21)->previous(Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 5, 21)->previous($class::MONDAY);
         $this->assertDateTime($d, 1975, 5, 19, 0, 0, 0);
     }
 
@@ -173,7 +172,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testFirstWednesdayOfMonth($class)
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth($class::WEDNESDAY);
         $this->assertDateTime($d, 1975, 11, 5, 0, 0, 0);
     }
 
@@ -203,7 +202,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testLastTuesdayOfMonth($class)
     {
-        $d = $class::createFromDate(1975, 12, 1)->lastOfMonth(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 12, 1)->lastOfMonth($class::TUESDAY);
         $this->assertDateTime($d, 1975, 12, 30, 0, 0, 0);
     }
 
@@ -223,7 +222,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfMonthOutsideScope($class)
     {
-        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(6, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(6, $class::MONDAY));
     }
 
     /**
@@ -232,7 +231,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfMonthOutsideYear($class)
     {
-        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(55, $class::MONDAY));
     }
 
     /**
@@ -241,7 +240,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function test2ndMondayOfMonth($class)
     {
-        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(2, $class::MONDAY);
         $this->assertDateTime($d, 1975, 12, 8, 0, 0, 0);
     }
 
@@ -271,7 +270,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testFirstWednesdayOfQuarter($class)
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter($class::WEDNESDAY);
         $this->assertDateTime($d, 1975, 10, 1, 0, 0, 0);
     }
 
@@ -311,7 +310,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testLastTuesdayOfQuarter($class)
     {
-        $d = $class::createFromDate(1975, 8, 1)->lastOfQuarter(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 8, 1)->lastOfQuarter($class::TUESDAY);
         $this->assertDateTime($d, 1975, 9, 30, 0, 0, 0);
     }
 
@@ -341,7 +340,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfQuarterOutsideScope($class)
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(20, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(20, $class::MONDAY));
     }
 
     /**
@@ -350,7 +349,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfQuarterOutsideYear($class)
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(55, $class::MONDAY));
     }
 
     /**
@@ -359,7 +358,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth($class)
     {
-        $d = $class::createFromDate(2014, 5, 31)->nthOfQuarter(2, Carbon::MONDAY);
+        $d = $class::createFromDate(2014, 5, 31)->nthOfQuarter(2, $class::MONDAY);
         $this->assertDateTime($d, 2014, 4, 14, 0, 0, 0);
     }
 
@@ -369,7 +368,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function test2ndMondayOfQuarter($class)
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(2, $class::MONDAY);
         $this->assertDateTime($d, 1975, 7, 14, 0, 0, 0);
     }
 
@@ -399,7 +398,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testFirstWednesdayOfYear($class)
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfYear(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfYear($class::WEDNESDAY);
         $this->assertDateTime($d, 1975, 1, 1, 0, 0, 0);
     }
 
@@ -429,7 +428,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testLastTuesdayOfYear($class)
     {
-        $d = $class::createFromDate(1975, 8, 1)->lastOfYear(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 8, 1)->lastOfYear($class::TUESDAY);
         $this->assertDateTime($d, 1975, 12, 30, 0, 0, 0);
     }
 
@@ -449,7 +448,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testNthOfYearOutsideScope($class)
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfYear(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfYear(55, $class::MONDAY));
     }
 
     /**
@@ -458,7 +457,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function test2ndMondayOfYear($class)
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(2, $class::MONDAY);
         $this->assertDateTime($d, 1975, 1, 13, 0, 0, 0);
     }
 

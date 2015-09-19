@@ -11,7 +11,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class ComparisonTest extends TestCase
@@ -23,7 +22,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->eq(Carbon::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -32,7 +31,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->eq(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -41,7 +40,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneTrue($class)
     {
-        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq(Carbon::create(2000, 1, 1, 9, 0,
+        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq($class::create(2000, 1, 1, 9, 0,
             0, 'America/Vancouver')));
     }
 
@@ -51,7 +50,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->eq(Carbon::createFromDate(2000, 1, 1,
+        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->eq($class::createFromDate(2000, 1, 1,
             'America/Vancouver')));
     }
 
@@ -61,7 +60,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->ne(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -70,7 +69,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->ne(Carbon::createFromDate(2000, 1, 1)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -79,7 +78,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualWithTimezone($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->ne(Carbon::createFromDate(2000, 1, 1,
+        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->ne($class::createFromDate(2000, 1, 1,
             'America/Vancouver')));
     }
 
@@ -89,7 +88,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gt(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->gt($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -98,7 +97,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->gt(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->gt($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -129,7 +128,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -138,7 +137,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualTrueEqual($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -147,7 +146,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -156,7 +155,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lt(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lt($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -165,7 +164,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lt(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->lt($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -174,7 +173,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -183,7 +182,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualTrueEqual($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -192,7 +191,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -201,7 +200,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1),
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 1),
             $class::createFromDate(2000, 1, 31), true));
     }
 
@@ -211,7 +210,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1),
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 1),
             $class::createFromDate(2000, 1, 31), false));
     }
 
@@ -221,7 +220,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 1),
+        $this->assertFalse($class::createFromDate(1999, 12, 31)->between($class::createFromDate(2000, 1, 1),
             $class::createFromDate(2000, 1, 31), true));
     }
 
@@ -231,7 +230,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 1),
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->between($class::createFromDate(2000, 1, 1),
             $class::createFromDate(2000, 1, 31), false));
     }
 
@@ -241,7 +240,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualSwitchTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 31),
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 31),
             $class::createFromDate(2000, 1, 1), true));
     }
 
@@ -251,7 +250,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualSwitchTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 31),
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 31),
             $class::createFromDate(2000, 1, 1), false));
     }
 
@@ -261,7 +260,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualSwitchFalse($class)
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 31),
+        $this->assertFalse($class::createFromDate(1999, 12, 31)->between($class::createFromDate(2000, 1, 31),
             $class::createFromDate(2000, 1, 1), true));
     }
 
@@ -271,7 +270,7 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualSwitchFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 31),
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->between($class::createFromDate(2000, 1, 31),
             $class::createFromDate(2000, 1, 1), false));
     }
 

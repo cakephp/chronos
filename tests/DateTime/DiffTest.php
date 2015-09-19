@@ -11,7 +11,7 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
+use Cake\Chronos\Chronos;
 use Cake\Chronos\CarbonInterval;
 use TestCase;
 use Closure;
@@ -21,7 +21,7 @@ class DiffTest extends TestCase
 
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        parent::wrapWithTestNow($func, ($dt === null) ? Carbon::createFromDate(2012, 1, 1) : $dt);
+        parent::wrapWithTestNow($func, ($dt === null) ? Chronos::createFromDate(2012, 1, 1) : $dt);
     }
 
     /**
