@@ -56,7 +56,7 @@ trait CarbonTrait
      *
      * @var array
      */
-    protected static $days = array(
+    protected static $days = [
         CarbonInterface::SUNDAY    => 'Sunday',
         CarbonInterface::MONDAY    => 'Monday',
         CarbonInterface::TUESDAY   => 'Tuesday',
@@ -64,14 +64,14 @@ trait CarbonTrait
         CarbonInterface::THURSDAY  => 'Thursday',
         CarbonInterface::FRIDAY    => 'Friday',
         CarbonInterface::SATURDAY  => 'Saturday',
-    );
+    ];
 
     /**
      * Terms used to detect if a time passed is a relative date for testing purposes
      *
      * @var array
      */
-    protected static $relativeKeywords = array(
+    protected static $relativeKeywords = [
         'this',
         'next',
         'last',
@@ -82,7 +82,7 @@ trait CarbonTrait
         'first',
         'last',
         'ago',
-    );
+    ];
 
     /**
      * Format to use for __toString method when type juggling occurs.
@@ -111,7 +111,7 @@ trait CarbonTrait
      *
      * @var array
      */
-    protected static $weekendDays = array(CarbonInterface::SATURDAY, CarbonInterface::SUNDAY);
+    protected static $weekendDays = [CarbonInterface::SATURDAY, CarbonInterface::SUNDAY];
 
     /**
      * A test CarbonInterface instance to be returned when now instances are created
@@ -163,6 +163,9 @@ trait CarbonTrait
      */
     public static function instance(DateTimeInterface $dt)
     {
+        if ($dt instanceof static) {
+            return clone $dt;
+        }
         return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
     }
 
@@ -398,7 +401,7 @@ trait CarbonTrait
     public function __get($name)
     {
         switch (true) {
-            case array_key_exists($name, $formats = array(
+            case array_key_exists($name, $formats = [
                 'year' => 'Y',
                 'yearIso' => 'o',
                 'month' => 'n',
@@ -412,7 +415,7 @@ trait CarbonTrait
                 'weekOfYear' => 'W',
                 'daysInMonth' => 't',
                 'timestamp' => 'U',
-            )):
+            ]):
                 return (int) $this->format($formats[$name]);
 
             case $name === 'weekOfMonth':
