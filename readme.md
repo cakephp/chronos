@@ -61,7 +61,7 @@ $ composer require nesbot/carbon
 <?php
 require 'vendor/autoload.php';
 
-use Carbon\Carbon;
+use Cake\Chronos\Carbon;
 
 printf("Now: %s", Carbon::now());
 ```
@@ -75,7 +75,7 @@ Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php]
 <?php
 require 'path/to/Carbon.php';
 
-use Carbon\Carbon;
+use Cake\Chronos\Carbon;
 
 printf("Now: %s", Carbon::now());
 ```

@@ -11,7 +11,7 @@
 
 namespace Interval;
 
-use Carbon\CarbonInterval;
+use Cake\Chronos\CarbonInterval;
 use TestFixture;
 
 class CarbonIntervalSettersTest extends TestFixture

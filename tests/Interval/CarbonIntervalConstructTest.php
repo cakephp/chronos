@@ -11,8 +11,8 @@
 
 namespace Interval;
 
-use Carbon\CarbonInterval;
-use Carbon\Carbon;
+use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\Carbon;
 use DateInterval;
 use Exception;
 use InvalidArgumentException;

@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
+use Cake\Chronos\Carbon;
+use Cake\Chronos\CarbonImmutable;
 
 class MutabilityConversionTest extends TestFixture
 {

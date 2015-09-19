@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Interval;
+namespace Cake\Chronos\Test\Interval;
 
-use Carbon\CarbonInterval;
-use Carbon\Carbon;
+use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\Carbon;
 use DateInterval;
 use TestFixture;
 
