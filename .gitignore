@@ -1,0 +1,6 @@
+.idea
+*.iml
+.hhconfig
+vendor
+composer.phar
+composer.lock
