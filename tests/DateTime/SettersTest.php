@@ -156,45 +156,37 @@ class SettersTest extends TestCase
         $this->assertSame(11, $d->timestamp);
     }
 
+     /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unknown or bad timezone
+     * @return void
+     */
     public function testSetTimezoneWithInvalidTimezone()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $d = Carbon::now();
         $d->setTimezone('sdf');
     }
 
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unknown or bad timezone
+     * @return void
+     */
     public function testTimezoneWithInvalidTimezone()
     {
         $d = Carbon::now();
-
-        try {
-            $d->timezone = 'sdf';
-            $this->fail('InvalidArgumentException was not been raised.');
-        } catch (InvalidArgumentException $expected) {
-        }
-
-        try {
-            $d->timezone('sdf');
-            $this->fail('InvalidArgumentException was not been raised.');
-        } catch (InvalidArgumentException $expected) {
-        }
+        $d->timezone = 'sdf';
     }
 
+     /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unknown or bad timezone
+     * @return void
+     */
     public function testTzWithInvalidTimezone()
     {
         $d = Carbon::now();
-
-        try {
-            $d->tz = 'sdf';
-            $this->fail('InvalidArgumentException was not been raised.');
-        } catch (InvalidArgumentException $expected) {
-        }
-
-        try {
-            $d->tz('sdf');
-            $this->fail('InvalidArgumentException was not been raised.');
-        } catch (InvalidArgumentException $expected) {
-        }
+        $d->tz('sdf');
     }
 
     public function testSetTimezoneUsingString()

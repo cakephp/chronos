@@ -116,13 +116,7 @@ trait CarbonTrait
             return $object;
         }
 
-        $tz = @timezone_open((string) $object);
-
-        if ($tz === false) {
-            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
-        }
-
-        return $tz;
+        return new DateTimeZone($object);
     }
 
     ///////////////////////////////////////////////////////////////////

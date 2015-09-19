@@ -44,30 +44,32 @@ class Chronos extends DateTimeImmutable implements CarbonInterface
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string              $time
+     * @param string $time
      * @param DateTimeZone|string $tz
      */
     public function __construct($time = null, $tz = null)
     {
-        // If the class has a test now set and we are trying to create a now()
-        // instance then override as required
-        if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
-            $testInstance = clone static::getTestNow();
-            if (static::hasRelativeKeywords($time)) {
-                $testInstance = $testInstance->modify($time);
-            }
-
-            //shift the time according to the given time zone
-            if ($tz !== NULL && $tz != static::getTestNow()->tz) {
-                $testInstance = $testInstance->setTimezone($tz);
-            } else {
-                $tz = $testInstance->tz;
-            }
-
-            $time = $testInstance->toDateTimeString();
+        $tz = static::safeCreateDateTimeZone($tz);
+        if (static::$testNow === null) {
+            return parent::__construct($time, $tz);
         }
 
-        parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        $relative = static::hasRelativeKeywords($time);
+        if (!empty($time) && $time !== 'now' && !$relative) {
+            return parent::__construct($time, $tz);
+        }
+
+        $testInstance = static::getTestNow();
+        if ($relative) {
+            $testInstance = $testInstance->modify($time);
+        }
+
+        if ($tz !== $testInstance->getTimezone()) {
+            $testInstance = $testInstance->setTimezone($tz);
+        }
+
+        $time = $testInstance->format('Y-m-d H:i:s.u');
+        parent::__construct($time, $tz);
     }
 
     /**
