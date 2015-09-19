@@ -34,9 +34,9 @@ use DateTimeZone;
  * @property-read string  $timezoneName
  * @property-read string  $tzName
  */
-class Chronos extends DateTimeImmutable implements CarbonInterface
+class Chronos extends DateTimeImmutable implements ChronosInterface
 {
-    use CarbonTrait;
+    use DateTimeTrait;
 
     /**
      * Create a new Chronos instance.

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the CarbonInterface package.
+ * This file is part of the ChronosInterface package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
  *
@@ -11,7 +11,6 @@
 
 namespace Cake\Chronos;
 
-use Closure;
 use DateTimeInterface;
 use DateTimeZone;
 use DateTime;
@@ -23,7 +22,7 @@ use LogicException;
  * A simple API extension for DateTimeInterface
  *
  */
-trait CarbonTrait
+trait DateTimeTrait
 {
 
     /**
@@ -32,13 +31,13 @@ trait CarbonTrait
      * @var array
      */
     protected static $days = [
-        CarbonInterface::SUNDAY    => 'Sunday',
-        CarbonInterface::MONDAY    => 'Monday',
-        CarbonInterface::TUESDAY   => 'Tuesday',
-        CarbonInterface::WEDNESDAY => 'Wednesday',
-        CarbonInterface::THURSDAY  => 'Thursday',
-        CarbonInterface::FRIDAY    => 'Friday',
-        CarbonInterface::SATURDAY  => 'Saturday',
+        ChronosInterface::SUNDAY    => 'Sunday',
+        ChronosInterface::MONDAY    => 'Monday',
+        ChronosInterface::TUESDAY   => 'Tuesday',
+        ChronosInterface::WEDNESDAY => 'Wednesday',
+        ChronosInterface::THURSDAY  => 'Thursday',
+        ChronosInterface::FRIDAY    => 'Friday',
+        ChronosInterface::SATURDAY  => 'Saturday',
     ];
 
     /**
@@ -64,7 +63,7 @@ trait CarbonTrait
      *
      * @var string
      */
-    protected static $toStringFormat = CarbonInterface::DEFAULT_TO_STRING_FORMAT;
+    protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
 
 
     /**
@@ -72,24 +71,24 @@ trait CarbonTrait
      *
      * @var int
      */
-    protected static $weekStartsAt = CarbonInterface::MONDAY;
+    protected static $weekStartsAt = ChronosInterface::MONDAY;
 
     /**
      * Last day of week
      *
      * @var int
      */
-    protected static $weekEndsAt = CarbonInterface::SUNDAY;
+    protected static $weekEndsAt = ChronosInterface::SUNDAY;
 
     /**
      * Days of weekend
      *
      * @var array
      */
-    protected static $weekendDays = [CarbonInterface::SATURDAY, CarbonInterface::SUNDAY];
+    protected static $weekendDays = [ChronosInterface::SATURDAY, ChronosInterface::SUNDAY];
 
     /**
-     * A test CarbonInterface instance to be returned when now instances are created
+     * A test ChronosInterface instance to be returned when now instances are created
      *
      * @var Carbon
      */
@@ -124,7 +123,7 @@ trait CarbonTrait
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Create a CarbonInterface instance from a DateTimeInterface one
+     * Create a ChronosInterface instance from a DateTimeInterface one
      *
      * @param DateTimeInterface $dt
      *
@@ -139,9 +138,9 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from a string.  This is an alias for the
+     * Create a ChronosInterface instance from a string.  This is an alias for the
      * constructor that allows better fluent syntax as it allows you to do
-     * CarbonInterface::parse('Monday next week')->fn() rather than
+     * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Carbon('Monday next week'))->fn()
      *
      * @param string              $time
@@ -155,7 +154,7 @@ trait CarbonTrait
     }
 
     /**
-     * Get a CarbonInterface instance for the current date and time
+     * Get a ChronosInterface instance for the current date and time
      *
      * @param DateTimeZone|string $tz
      *
@@ -167,7 +166,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance for today
+     * Create a ChronosInterface instance for today
      *
      * @param DateTimeZone|string $tz
      *
@@ -179,7 +178,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance for tomorrow
+     * Create a ChronosInterface instance for tomorrow
      *
      * @param DateTimeZone|string $tz
      *
@@ -191,7 +190,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance for yesterday
+     * Create a ChronosInterface instance for yesterday
      *
      * @param DateTimeZone|string $tz
      *
@@ -203,7 +202,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance for the greatest supported date.
+     * Create a ChronosInterface instance for the greatest supported date.
      *
      * @return Carbon
      */
@@ -213,7 +212,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance for the lowest supported date.
+     * Create a ChronosInterface instance for the lowest supported date.
      *
      * @return Carbon
      */
@@ -224,7 +223,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a new CarbonInterface instance from a specific date and time.
+     * Create a new ChronosInterface instance from a specific date and time.
      *
      * If any of $year, $month or $day are set to null their now() values
      * will be used.
@@ -263,7 +262,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from just a date. The time portion is set to now.
+     * Create a ChronosInterface instance from just a date. The time portion is set to now.
      *
      * @param integer             $year
      * @param integer             $month
@@ -278,7 +277,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from just a time. The date portion is set to today.
+     * Create a ChronosInterface instance from just a time. The date portion is set to today.
      *
      * @param integer             $hour
      * @param integer             $minute
@@ -293,7 +292,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from a specific format
+     * Create a ChronosInterface instance from a specific format
      *
      * @param string              $format
      * @param string              $time
@@ -320,7 +319,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from a timestamp
+     * Create a ChronosInterface instance from a timestamp
      *
      * @param integer             $timestamp
      * @param DateTimeZone|string $tz
@@ -333,7 +332,7 @@ trait CarbonTrait
     }
 
     /**
-     * Create a CarbonInterface instance from an UTC timestamp
+     * Create a ChronosInterface instance from an UTC timestamp
      *
      * @param integer $timestamp
      *
@@ -359,7 +358,7 @@ trait CarbonTrait
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Get a part of the CarbonInterface object
+     * Get a part of the ChronosInterface object
      *
      * @param string $name
      *
@@ -388,7 +387,7 @@ trait CarbonTrait
                 return (int) $this->format($formats[$name]);
 
             case $name === 'weekOfMonth':
-                return (int) ceil($this->day / CarbonInterface::DAYS_PER_WEEK);
+                return (int) ceil($this->day / ChronosInterface::DAYS_PER_WEEK);
 
             case $name === 'age':
                 return (int) $this->diffInYears();
@@ -400,7 +399,7 @@ trait CarbonTrait
                 return $this->getOffset();
 
             case $name === 'offsetHours':
-                return $this->getOffset() / CarbonInterface::SECONDS_PER_MINUTE / CarbonInterface::MINUTES_PER_HOUR;
+                return $this->getOffset() / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR;
 
             case $name === 'dst':
                 return $this->format('I') == '1';
@@ -646,10 +645,10 @@ trait CarbonTrait
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Set a CarbonInterface instance (real or mock) to be returned when a "now"
+     * Set a ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
-     *   - A call to the static now() method, ex. CarbonInterface::now()
+     *   - A call to the static now() method, ex. ChronosInterface::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *
@@ -659,15 +658,15 @@ trait CarbonTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param CarbonInterface $testNow
+     * @param ChronosInterface $testNow
      */
-    public static function setTestNow(CarbonInterface $testNow = null)
+    public static function setTestNow(ChronosInterface $testNow = null)
     {
         static::$testNow = $testNow;
     }
 
     /**
-     * Get the CarbonInterface instance (real or mock) to be returned when a "now"
+     * Get the ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.
      *
      * @return static the current instance used for testing
@@ -734,16 +733,16 @@ trait CarbonTrait
     }
 
     /**
-     * Reset the format used to the default when type juggling a CarbonInterface instance to a string
+     * Reset the format used to the default when type juggling a ChronosInterface instance to a string
      *
      */
     public static function resetToStringFormat()
     {
-        static::setToStringFormat(CarbonInterface::DEFAULT_TO_STRING_FORMAT);
+        static::setToStringFormat(ChronosInterface::DEFAULT_TO_STRING_FORMAT);
     }
 
     /**
-     * Set the default format used when type juggling a CarbonInterface instance to a string
+     * Set the default format used when type juggling a ChronosInterface instance to a string
      *
      * @param string $format
      */
@@ -929,11 +928,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function eq(CarbonInterface $dt)
+    public function eq(ChronosInterface $dt)
     {
         return $this == $dt;
     }
@@ -941,11 +940,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is not equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function ne(CarbonInterface $dt)
+    public function ne(ChronosInterface $dt)
     {
         return !$this->eq($dt);
     }
@@ -953,11 +952,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function gt(CarbonInterface $dt)
+    public function gt(ChronosInterface $dt)
     {
         return $this > $dt;
     }
@@ -965,11 +964,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function gte(CarbonInterface $dt)
+    public function gte(ChronosInterface $dt)
     {
         return $this >= $dt;
     }
@@ -977,11 +976,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function lt(CarbonInterface $dt)
+    public function lt(ChronosInterface $dt)
     {
         return $this < $dt;
     }
@@ -989,11 +988,11 @@ trait CarbonTrait
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function lte(CarbonInterface $dt)
+    public function lte(ChronosInterface $dt)
     {
         return $this <= $dt;
     }
@@ -1001,13 +1000,13 @@ trait CarbonTrait
     /**
      * Determines if the instance is between two others
      *
-     * @param  CarbonInterface  $dt1
-     * @param  CarbonInterface  $dt2
+     * @param  ChronosInterface  $dt1
+     * @param  ChronosInterface  $dt2
      * @param  boolean $equal  Indicates if a > and < comparison should be used or <= or >=
      *
      * @return boolean
      */
-    public function between(CarbonInterface $dt1, CarbonInterface $dt2, $equal = true)
+    public function between(ChronosInterface $dt1, ChronosInterface $dt2, $equal = true)
     {
         if ($dt1->gt($dt2)) {
             $temp = $dt1;
@@ -1025,11 +1024,11 @@ trait CarbonTrait
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function min(CarbonInterface $dt = null)
+    public function min(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1039,11 +1038,11 @@ trait CarbonTrait
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function max(CarbonInterface $dt = null)
+    public function max(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1133,10 +1132,10 @@ trait CarbonTrait
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param  CarbonInterface  $dt
+     * @param  ChronosInterface  $dt
      * @return boolean
      */
-    public function isSameDay(CarbonInterface $dt)
+    public function isSameDay(ChronosInterface $dt)
     {
         return $this->toDateString() === $dt->toDateString();
     }
@@ -1148,7 +1147,7 @@ trait CarbonTrait
      */
     public function isSunday()
     {
-        return $this->dayOfWeek === CarbonInterface::SUNDAY;
+        return $this->dayOfWeek === ChronosInterface::SUNDAY;
     }
 
     /**
@@ -1158,7 +1157,7 @@ trait CarbonTrait
      */
     public function isMonday()
     {
-        return $this->dayOfWeek === CarbonInterface::MONDAY;
+        return $this->dayOfWeek === ChronosInterface::MONDAY;
     }
 
     /**
@@ -1168,7 +1167,7 @@ trait CarbonTrait
      */
     public function isTuesday()
     {
-        return $this->dayOfWeek === CarbonInterface::TUESDAY;
+        return $this->dayOfWeek === ChronosInterface::TUESDAY;
     }
 
     /**
@@ -1178,7 +1177,7 @@ trait CarbonTrait
      */
     public function isWednesday()
     {
-        return $this->dayOfWeek === CarbonInterface::WEDNESDAY;
+        return $this->dayOfWeek === ChronosInterface::WEDNESDAY;
     }
 
     /**
@@ -1188,7 +1187,7 @@ trait CarbonTrait
      */
     public function isThursday()
     {
-        return $this->dayOfWeek === CarbonInterface::THURSDAY;
+        return $this->dayOfWeek === ChronosInterface::THURSDAY;
     }
 
     /**
@@ -1198,7 +1197,7 @@ trait CarbonTrait
      */
     public function isFriday()
     {
-        return $this->dayOfWeek === CarbonInterface::FRIDAY;
+        return $this->dayOfWeek === ChronosInterface::FRIDAY;
     }
 
     /**
@@ -1208,7 +1207,7 @@ trait CarbonTrait
      */
     public function isSaturday()
     {
-        return $this->dayOfWeek === CarbonInterface::SATURDAY;
+        return $this->dayOfWeek === ChronosInterface::SATURDAY;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1672,12 +1671,12 @@ trait CarbonTrait
     /**
      * Get the difference in years
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInYears(CarbonInterface $dt = null, $abs = true)
+    public function diffInYears(ChronosInterface $dt = null, $abs = true)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1687,40 +1686,40 @@ trait CarbonTrait
     /**
      * Get the difference in months
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInMonths(CarbonInterface $dt = null, $abs = true)
+    public function diffInMonths(ChronosInterface $dt = null, $abs = true)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->diffInYears($dt, $abs) * CarbonInterface::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
+        return $this->diffInYears($dt, $abs) * ChronosInterface::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
 
     /**
      * Get the difference in weeks
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInWeeks(CarbonInterface $dt = null, $abs = true)
+    public function diffInWeeks(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInDays($dt, $abs) / CarbonInterface::DAYS_PER_WEEK);
+        return (int) ($this->diffInDays($dt, $abs) / ChronosInterface::DAYS_PER_WEEK);
     }
 
     /**
      * Get the difference in days
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInDays(CarbonInterface $dt = null, $abs = true)
+    public function diffInDays(ChronosInterface $dt = null, $abs = true)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1728,44 +1727,44 @@ trait CarbonTrait
     }
 
     /**
-     * Get the difference in days using a filter closure
+     * Get the difference in days using a filter callable
      *
-     * @param Closure $callback
-     * @param CarbonInterface  $dt
+     * @param callable $callback
+     * @param ChronosInterface  $dt
      * @param boolean $abs      Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInDaysFiltered(Closure $callback, CarbonInterface $dt = null, $abs = true)
+    public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffFiltered(CarbonInterval::day(), $callback, $dt, $abs);
     }
 
     /**
-     * Get the difference in hours using a filter closure
+     * Get the difference in hours using a filter callable
      *
-     * @param Closure $callback
-     * @param CarbonInterface  $dt
+     * @param callable $callback
+     * @param ChronosInterface  $dt
      * @param boolean $abs      Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInHoursFiltered(Closure $callback, CarbonInterface $dt = null, $abs = true)
+    public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffFiltered(CarbonInterval::hour(), $callback, $dt, $abs);
     }
 
     /**
-     * Get the difference by the given interval using a filter closure
+     * Get the difference by the given interval using a filter callable
      *
      * @param CarbonInterval $ci An interval to traverse by
-     * @param Closure $callback
-     * @param CarbonInterface  $dt
+     * @param callable $callback
+     * @param ChronosInterface  $dt
      * @param boolean $abs      Get the absolute of the difference
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, Closure $callback, CarbonInterface $dt = null, $abs = true)
+    public function diffFiltered(CarbonInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
     {
         $start = $this;
         $end = ($dt === null) ? static::now($this->tz) : $dt;
@@ -1790,14 +1789,14 @@ trait CarbonTrait
     /**
      * Get the difference in weekdays
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekdays(CarbonInterface $dt = null, $abs = true)
+    public function diffInWeekdays(ChronosInterface $dt = null, $abs = true)
     {
-        return $this->diffInDaysFiltered(function (CarbonInterface $date) {
+        return $this->diffInDaysFiltered(function (ChronosInterface $date) {
             return $date->isWeekday();
         }, $dt, $abs);
     }
@@ -1805,14 +1804,14 @@ trait CarbonTrait
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekendDays(CarbonInterface $dt = null, $abs = true)
+    public function diffInWeekendDays(ChronosInterface $dt = null, $abs = true)
     {
-        return $this->diffInDaysFiltered(function (CarbonInterface $date) {
+        return $this->diffInDaysFiltered(function (ChronosInterface $date) {
             return $date->isWeekend();
         }, $dt, $abs);
     }
@@ -1820,38 +1819,38 @@ trait CarbonTrait
     /**
      * Get the difference in hours
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInHours(CarbonInterface $dt = null, $abs = true)
+    public function diffInHours(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / CarbonInterface::SECONDS_PER_MINUTE / CarbonInterface::MINUTES_PER_HOUR);
+        return (int) ($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR);
     }
 
     /**
      * Get the difference in minutes
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInMinutes(CarbonInterface $dt = null, $abs = true)
+    public function diffInMinutes(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / CarbonInterface::SECONDS_PER_MINUTE);
+        return (int) ($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE);
     }
 
     /**
      * Get the difference in seconds
      *
-     * @param CarbonInterface  $dt
+     * @param ChronosInterface  $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInSeconds(CarbonInterface $dt = null, $abs = true)
+    public function diffInSeconds(ChronosInterface $dt = null, $abs = true)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
         $value = $dt->getTimestamp() - $this->getTimestamp();
@@ -1940,7 +1939,7 @@ trait CarbonTrait
      */
     public function endOfYear()
     {
-        return $this->month(CarbonInterface::MONTHS_PER_YEAR)->endOfMonth();
+        return $this->month(ChronosInterface::MONTHS_PER_YEAR)->endOfMonth();
     }
 
     /**
@@ -1950,7 +1949,7 @@ trait CarbonTrait
      */
     public function startOfDecade()
     {
-        return $this->startOfYear()->year($this->year - $this->year % CarbonInterface::YEARS_PER_DECADE);
+        return $this->startOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_DECADE);
     }
 
     /**
@@ -1960,7 +1959,7 @@ trait CarbonTrait
      */
     public function endOfDecade()
     {
-        return $this->endOfYear()->year($this->year - $this->year % CarbonInterface::YEARS_PER_DECADE + CarbonInterface::YEARS_PER_DECADE - 1);
+        return $this->endOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_DECADE + ChronosInterface::YEARS_PER_DECADE - 1);
     }
 
     /**
@@ -1970,7 +1969,7 @@ trait CarbonTrait
      */
     public function startOfCentury()
     {
-        return $this->startOfYear()->year($this->year - $this->year % CarbonInterface::YEARS_PER_CENTURY);
+        return $this->startOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY);
     }
 
     /**
@@ -1980,7 +1979,7 @@ trait CarbonTrait
      */
     public function endOfCentury()
     {
-        return $this->endOfYear()->year($this->year - $this->year % CarbonInterface::YEARS_PER_CENTURY + CarbonInterface::YEARS_PER_CENTURY - 1);
+        return $this->endOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY - 1);
     }
 
     /**
@@ -2017,7 +2016,7 @@ trait CarbonTrait
      * Modify to the next occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the next occurrence
      * of the current day of the week.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2036,7 +2035,7 @@ trait CarbonTrait
      * Modify to the previous occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the previous occurrence
      * of the current day of the week.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2055,7 +2054,7 @@ trait CarbonTrait
      * Modify to the first occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2075,7 +2074,7 @@ trait CarbonTrait
      * Modify to the last occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * last day of the current month.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2095,7 +2094,7 @@ trait CarbonTrait
      * Modify to the given occurrence of a given day of the week
      * in the current month. If the calculated occurrence is outside the scope
      * of the current month, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -2115,7 +2114,7 @@ trait CarbonTrait
      * Modify to the first occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2130,7 +2129,7 @@ trait CarbonTrait
      * Modify to the last occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * last day of the current quarter.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2145,7 +2144,7 @@ trait CarbonTrait
      * Modify to the given occurrence of a given day of the week
      * in the current quarter. If the calculated occurrence is outside the scope
      * of the current quarter, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -2166,7 +2165,7 @@ trait CarbonTrait
      * Modify to the first occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * first day of the current year.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2181,7 +2180,7 @@ trait CarbonTrait
      * Modify to the last occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * last day of the current year.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $dayOfWeek
      *
@@ -2189,14 +2188,14 @@ trait CarbonTrait
      */
     public function lastOfYear($dayOfWeek = null)
     {
-        return $this->month(CarbonInterface::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
+        return $this->month(ChronosInterface::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
     }
 
     /**
      * Modify to the given occurrence of a given day of the week
      * in the current year. If the calculated occurrence is outside the scope
      * of the current year, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. CarbonInterface::MONDAY.
+     * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -2213,11 +2212,11 @@ trait CarbonTrait
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function average(CarbonInterface $dt = null)
+    public function average(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -2227,17 +2226,17 @@ trait CarbonTrait
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function isBirthday(CarbonInterface $dt)
+    public function isBirthday(ChronosInterface $dt)
     {
         return $this->format('md') === $dt->format('md');
     }
 
     /**
-     * Check if instance of CarbonInterface is mutable.
+     * Check if instance of ChronosInterface is mutable.
      *
      * @return boolean
      */

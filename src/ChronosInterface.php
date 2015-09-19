@@ -3,42 +3,13 @@
 namespace Cake\Chronos;
 
 use DateTimeInterface;
-use InvalidArgumentException;
 use DateTimeZone;
-use Symfony\Component\Translation\TranslatorInterface;
-use Closure;
-
+use InvalidArgumentException;
 
 /**
- * A simple API extension for DateTimeInterface
- *
- * @property      integer $year
- * @property      integer $yearIso
- * @property      integer $month
- * @property      integer $day
- * @property      integer $hour
- * @property      integer $minute
- * @property      integer $second
- * @property      integer $timestamp seconds since the Unix Epoch
- * @property      DateTimeZone $timezone the current timezone
- * @property      DateTimeZone $tz alias of timezone
- * @property-read integer $micro
- * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
- * @property-read integer $dayOfYear 0 through 365
- * @property-read integer $weekOfMonth 1 through 5
- * @property-read integer $weekOfYear ISO-8601 week number of year, weeks starting on Monday
- * @property-read integer $daysInMonth number of days in the given month
- * @property-read integer $age does a diffInYears() with default parameters
- * @property-read integer $quarter the quarter of this instance, 1 - 4
- * @property-read integer $offset the timezone offset in seconds from UTC
- * @property-read integer $offsetHours the timezone offset in hours from UTC
- * @property-read boolean $dst daylight savings time indicator, true if DST, false otherwise
- * @property-read boolean $local checks if the timezone is local, true if local, false otherwise
- * @property-read boolean $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * An extension to the DateTimeInterface for a friendlier API
  */
-interface CarbonInterface extends DateTimeInterface
+interface ChronosInterface extends DateTimeInterface
 {
 
     /**
@@ -72,7 +43,7 @@ interface CarbonInterface extends DateTimeInterface
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
-     * Create a CarbonInterface instance from a DateTimeInterface one
+     * Create a ChronosInterface instance from a DateTimeInterface one
      *
      * @param DateTimeInterface $dt
      *
@@ -81,9 +52,9 @@ interface CarbonInterface extends DateTimeInterface
     public static function instance(DateTimeInterface $dt);
 
     /**
-     * Create a CarbonInterface instance from a string.  This is an alias for the
+     * Create a ChronosInterface instance from a string.  This is an alias for the
      * constructor that allows better fluent syntax as it allows you to do
-     * CarbonInterface::parse('Monday next week')->fn() rather than
+     * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Carbon('Monday next week'))->fn()
      *
      * @param string $time
@@ -94,7 +65,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function parse($time = null, $tz = null);
 
     /**
-     * Get a CarbonInterface instance for the current date and time
+     * Get a ChronosInterface instance for the current date and time
      *
      * @param DateTimeZone|string $tz
      *
@@ -103,7 +74,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function now($tz = null);
 
     /**
-     * Create a CarbonInterface instance for today
+     * Create a ChronosInterface instance for today
      *
      * @param DateTimeZone|string $tz
      *
@@ -112,7 +83,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function today($tz = null);
 
     /**
-     * Create a CarbonInterface instance for tomorrow
+     * Create a ChronosInterface instance for tomorrow
      *
      * @param DateTimeZone|string $tz
      *
@@ -121,7 +92,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function tomorrow($tz = null);
 
     /**
-     * Create a CarbonInterface instance for yesterday
+     * Create a ChronosInterface instance for yesterday
      *
      * @param DateTimeZone|string $tz
      *
@@ -130,21 +101,21 @@ interface CarbonInterface extends DateTimeInterface
     public static function yesterday($tz = null);
 
     /**
-     * Create a CarbonInterface instance for the greatest supported date.
+     * Create a ChronosInterface instance for the greatest supported date.
      *
      * @return Carbon
      */
     public static function maxValue();
 
     /**
-     * Create a CarbonInterface instance for the lowest supported date.
+     * Create a ChronosInterface instance for the lowest supported date.
      *
      * @return Carbon
      */
     public static function minValue();
 
     /**
-     * Create a new CarbonInterface instance from a specific date and time.
+     * Create a new ChronosInterface instance from a specific date and time.
      *
      * If any of $year, $month or $day are set to null their now() values
      * will be used.
@@ -175,7 +146,7 @@ interface CarbonInterface extends DateTimeInterface
     );
 
     /**
-     * Create a CarbonInterface instance from just a date. The time portion is set to now.
+     * Create a ChronosInterface instance from just a date. The time portion is set to now.
      *
      * @param integer $year
      * @param integer $month
@@ -187,7 +158,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null);
 
     /**
-     * Create a CarbonInterface instance from just a time. The date portion is set to today.
+     * Create a ChronosInterface instance from just a time. The date portion is set to today.
      *
      * @param integer $hour
      * @param integer $minute
@@ -199,7 +170,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null);
 
     /**
-     * Create a CarbonInterface instance from a specific format
+     * Create a ChronosInterface instance from a specific format
      *
      * @param string $format
      * @param string $time
@@ -212,7 +183,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function createFromFormat($format, $time, $tz = null);
 
     /**
-     * Create a CarbonInterface instance from a timestamp
+     * Create a ChronosInterface instance from a timestamp
      *
      * @param integer $timestamp
      * @param DateTimeZone|string $tz
@@ -222,7 +193,7 @@ interface CarbonInterface extends DateTimeInterface
     public static function createFromTimestamp($timestamp, $tz = null);
 
     /**
-     * Create a CarbonInterface instance from an UTC timestamp
+     * Create a ChronosInterface instance from an UTC timestamp
      *
      * @param integer $timestamp
      *
@@ -384,10 +355,10 @@ interface CarbonInterface extends DateTimeInterface
     public static function setWeekendDays($days);
 
     /**
-     * Set a CarbonInterface instance (real or mock) to be returned when a "now"
+     * Set a ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
-     *   - A call to the static now() method, ex. CarbonInterface::now()
+     *   - A call to the static now() method, ex. ChronosInterface::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *
@@ -397,12 +368,12 @@ interface CarbonInterface extends DateTimeInterface
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param CarbonInterface $testNow
+     * @param ChronosInterface $testNow
      */
-    public static function setTestNow(CarbonInterface $testNow = null);
+    public static function setTestNow(ChronosInterface $testNow = null);
 
     /**
-     * Get the CarbonInterface instance (real or mock) to be returned when a "now"
+     * Get the ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.
      *
      * @return static the current instance used for testing
@@ -428,13 +399,13 @@ interface CarbonInterface extends DateTimeInterface
     public static function hasRelativeKeywords($time);
 
     /**
-     * Reset the format used to the default when type juggling a CarbonInterface instance to a string
+     * Reset the format used to the default when type juggling a ChronosInterface instance to a string
      *
      */
     public static function resetToStringFormat();
 
     /**
-     * Set the default format used when type juggling a CarbonInterface instance to a string
+     * Set the default format used when type juggling a ChronosInterface instance to a string
      *
      * @param string $format
      */
@@ -555,85 +526,85 @@ interface CarbonInterface extends DateTimeInterface
     /**
      * Determines if the instance is equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function eq(CarbonInterface $dt);
+    public function eq(ChronosInterface $dt);
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function ne(CarbonInterface $dt);
+    public function ne(ChronosInterface $dt);
 
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function gt(CarbonInterface $dt);
+    public function gt(ChronosInterface $dt);
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function gte(CarbonInterface $dt);
+    public function gte(ChronosInterface $dt);
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function lt(CarbonInterface $dt);
+    public function lt(ChronosInterface $dt);
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function lte(CarbonInterface $dt);
+    public function lte(ChronosInterface $dt);
 
     /**
      * Determines if the instance is between two others
      *
-     * @param  CarbonInterface $dt1
-     * @param  CarbonInterface $dt2
+     * @param  ChronosInterface $dt1
+     * @param  ChronosInterface $dt2
      * @param  boolean $equal Indicates if a > and < comparison should be used or <= or >=
      *
      * @return boolean
      */
-    public function between(CarbonInterface $dt1, CarbonInterface $dt2, $equal = true);
+    public function between(ChronosInterface $dt1, ChronosInterface $dt2, $equal = true);
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function min(CarbonInterface $dt = null);
+    public function min(ChronosInterface $dt = null);
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function max(CarbonInterface $dt = null);
+    public function max(ChronosInterface $dt = null);
 
     /**
      * Determines if the instance is a weekday
@@ -694,10 +665,10 @@ interface CarbonInterface extends DateTimeInterface
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param  CarbonInterface $dt
+     * @param  ChronosInterface $dt
      * @return boolean
      */
-    public function isSameDay(CarbonInterface $dt);
+    public function isSameDay(ChronosInterface $dt);
 
     /**
      * Checks if this day is a Sunday.
@@ -1084,126 +1055,126 @@ interface CarbonInterface extends DateTimeInterface
     /**
      * Get the difference in years
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInYears(CarbonInterface $dt = null, $abs = true);
+    public function diffInYears(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in months
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInMonths(CarbonInterface $dt = null, $abs = true);
+    public function diffInMonths(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weeks
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInWeeks(CarbonInterface $dt = null, $abs = true);
+    public function diffInWeeks(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in days
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInDays(CarbonInterface $dt = null, $abs = true);
+    public function diffInDays(ChronosInterface $dt = null, $abs = true);
 
     /**
-     * Get the difference in days using a filter closure
+     * Get the difference in days using a filter callable
      *
-     * @param Closure $callback
-     * @param CarbonInterface $dt
+     * @param callable $callback
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInDaysFiltered(Closure $callback, CarbonInterface $dt = null, $abs = true);
+    public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true);
 
     /**
-     * Get the difference in hours using a filter closure
+     * Get the difference in hours using a filter callable
      *
-     * @param Closure $callback
-     * @param CarbonInterface $dt
+     * @param callable $callback
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInHoursFiltered(Closure $callback, CarbonInterface $dt = null, $abs = true);
+    public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true);
 
     /**
-     * Get the difference by the given interval using a filter closure
+     * Get the difference by the given interval using a filter callable
      *
      * @param CarbonInterval $ci An interval to traverse by
-     * @param Closure $callback
-     * @param CarbonInterface $dt
+     * @param callable $callback
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, Closure $callback, CarbonInterface $dt = null, $abs = true);
+    public function diffFiltered(CarbonInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weekdays
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekdays(CarbonInterface $dt = null, $abs = true);
+    public function diffInWeekdays(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekendDays(CarbonInterface $dt = null, $abs = true);
+    public function diffInWeekendDays(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in hours
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInHours(CarbonInterface $dt = null, $abs = true);
+    public function diffInHours(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in minutes
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInMinutes(CarbonInterface $dt = null, $abs = true);
+    public function diffInMinutes(ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in seconds
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return integer
      */
-    public function diffInSeconds(CarbonInterface $dt = null, $abs = true);
+    public function diffInSeconds(ChronosInterface $dt = null, $abs = true);
 
     /**
      * The number of seconds since midnight.
@@ -1441,23 +1412,23 @@ interface CarbonInterface extends DateTimeInterface
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return static
      */
-    public function average(CarbonInterface $dt = null);
+    public function average(ChronosInterface $dt = null);
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param CarbonInterface $dt
+     * @param ChronosInterface $dt
      *
      * @return boolean
      */
-    public function isBirthday(CarbonInterface $dt);
+    public function isBirthday(ChronosInterface $dt);
 
     /**
-     * Check if instance of CarbonInterface is mutable.
+     * Check if instance of ChronosInterface is mutable.
      *
      * @return boolean
      */

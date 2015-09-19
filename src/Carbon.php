@@ -15,9 +15,9 @@ use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
 
-class Carbon extends DateTime implements CarbonInterface
+class Carbon extends DateTime implements ChronosInterface
 {
-    use CarbonTrait;
+    use DateTimeTrait;
 
     /**
      * Create a new Carbon instance.
