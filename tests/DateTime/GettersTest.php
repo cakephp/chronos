@@ -17,273 +17,449 @@ use TestFixture;
 class GettersTest extends TestFixture
 {
 
-    public function testGettersThrowExceptionOnUnknownGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGettersThrowExceptionOnUnknownGetter($class)
     {
         $this->setExpectedException('InvalidArgumentException');
-        Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
+        $class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
 
-    public function testYearGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testYearGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(1234, $d->year);
     }
 
-    public function testYearIsoGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testYearIsoGetter($class)
     {
-        $d = Carbon::createFromDate(2012, 12, 31);
+        $d = $class::createFromDate(2012, 12, 31);
         $this->assertSame(2013, $d->yearIso);
     }
 
-    public function testMonthGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMonthGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(5, $d->month);
     }
 
-    public function testDayGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDayGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(6, $d->day);
     }
 
-    public function testHourGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testHourGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(7, $d->hour);
     }
 
-    public function testMinuteGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMinuteGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(8, $d->minute);
     }
 
-    public function testSecondGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSecondGetter($class)
     {
-        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d = $class::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(9, $d->second);
     }
 
-    public function testMicroGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMicroGetter($class)
     {
         $micro = 345678;
-        $d     = Carbon::parse('2014-01-05 12:34:11.' . $micro);
+        $d     = $class::parse('2014-01-05 12:34:11.' . $micro);
         $this->assertSame($micro, $d->micro);
     }
 
-    public function testMicroGetterWithDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMicroGetterWithDefaultNow($class)
     {
-        $d = Carbon::now();
+        $d = $class::now();
         $this->assertSame(0, $d->micro);
     }
 
-    public function testDayOfWeeGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDayOfWeeGetter($class)
     {
-        $d = Carbon::create(2012, 5, 7, 7, 8, 9);
-        $this->assertSame(Carbon::MONDAY, $d->dayOfWeek);
+        $d = $class::create(2012, 5, 7, 7, 8, 9);
+        $this->assertSame($class::MONDAY, $d->dayOfWeek);
     }
 
-    public function testDayOfYearGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDayOfYearGetter($class)
     {
-        $d = Carbon::createFromDate(2012, 5, 7);
+        $d = $class::createFromDate(2012, 5, 7);
         $this->assertSame(127, $d->dayOfYear);
     }
 
-    public function testDaysInMonthGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDaysInMonthGetter($class)
     {
-        $d = Carbon::createFromDate(2012, 5, 7);
+        $d = $class::createFromDate(2012, 5, 7);
         $this->assertSame(31, $d->daysInMonth);
     }
 
-    public function testTimestampGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testTimestampGetter($class)
     {
-        $d = Carbon::create();
-        $d->setTimezone('GMT');
-        $this->assertSame(0, $d->setDateTime(1970, 1, 1, 0, 0, 0)->timestamp);
+        $d = $class::create();
+        $d = $d->setTimezone('GMT')->setDateTime(1970, 1, 1, 0, 0, 0);
+        $this->assertSame(0, $d->timestamp);
     }
 
-    public function testGetAge()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetAge($class)
     {
-        $d = Carbon::now();
+        $d = $class::now();
         $this->assertSame(0, $d->age);
     }
 
-    public function testGetAgeWithRealAge()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetAgeWithRealAge($class)
     {
-        $d   = Carbon::createFromDate(1975, 5, 21);
+        $d   = $class::createFromDate(1975, 5, 21);
         $age = intval(substr(date('Ymd') - date('Ymd', $d->timestamp), 0, -4));
 
         $this->assertSame($age, $d->age);
     }
 
-    public function testGetQuarterFirst()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterFirst($class)
     {
-        $d = Carbon::createFromDate(2012, 1, 1);
+        $d = $class::createFromDate(2012, 1, 1);
         $this->assertSame(1, $d->quarter);
     }
 
-    public function testGetQuarterFirstEnd()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterFirstEnd($class)
     {
-        $d = Carbon::createFromDate(2012, 3, 31);
+        $d = $class::createFromDate(2012, 3, 31);
         $this->assertSame(1, $d->quarter);
     }
 
-    public function testGetQuarterSecond()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterSecond($class)
     {
-        $d = Carbon::createFromDate(2012, 4, 1);
+        $d = $class::createFromDate(2012, 4, 1);
         $this->assertSame(2, $d->quarter);
     }
 
-    public function testGetQuarterThird()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterThird($class)
     {
-        $d = Carbon::createFromDate(2012, 7, 1);
+        $d = $class::createFromDate(2012, 7, 1);
         $this->assertSame(3, $d->quarter);
     }
 
-    public function testGetQuarterFourth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterFourth($class)
     {
-        $d = Carbon::createFromDate(2012, 10, 1);
+        $d = $class::createFromDate(2012, 10, 1);
         $this->assertSame(4, $d->quarter);
     }
 
-    public function testGetQuarterFirstLast()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetQuarterFirstLast($class)
     {
-        $d = Carbon::createFromDate(2012, 12, 31);
+        $d = $class::createFromDate(2012, 12, 31);
         $this->assertSame(4, $d->quarter);
     }
 
-    public function testGetLocalTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetLocalTrue($class)
     {
         // Default timezone has been set to America/Toronto in TestFixture.php
         // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
-        $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->local);
-        $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->local);
+        $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/Toronto')->local);
+        $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }
 
-    public function testGetLocalFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetLocalFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'UTC')->local);
-        $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->local);
+        $this->assertFalse($class::createFromDate(2012, 7, 1, 'UTC')->local);
+        $this->assertFalse($class::createFromDate(2012, 7, 1, 'Europe/London')->local);
     }
 
-    public function testGetUtcFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetUtcFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
-        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
+        $this->assertFalse($class::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
+        $this->assertFalse($class::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
     }
 
-    public function testGetUtcTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetUtcTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/London')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'UTC')->utc);
-        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'GMT')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/London')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'UTC')->utc);
+        $this->assertTrue($class::createFromDate(2013, 1, 1, 'GMT')->utc);
     }
 
-    public function testGetDstFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetDstFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
+        $this->assertFalse($class::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
     }
 
-    public function testGetDstTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetDstTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
+        $this->assertTrue($class::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
     }
 
-    public function testOffsetForTorontoWithDST()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetForTorontoWithDST($class)
     {
-        $this->assertSame(-18000, Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
+        $this->assertSame(-18000, $class::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForTorontoNoDST()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetForTorontoNoDST($class)
     {
-        $this->assertSame(-14400, Carbon::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
+        $this->assertSame(-14400, $class::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForGMT()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetForGMT($class)
     {
-        $this->assertSame(0, Carbon::createFromDate(2012, 6, 1, 'GMT')->offset);
+        $this->assertSame(0, $class::createFromDate(2012, 6, 1, 'GMT')->offset);
     }
 
-    public function testOffsetHoursForTorontoWithDST()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetHoursForTorontoWithDST($class)
     {
-        $this->assertSame(-5, Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
+        $this->assertSame(-5, $class::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForTorontoNoDST()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetHoursForTorontoNoDST($class)
     {
-        $this->assertSame(-4, Carbon::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
+        $this->assertSame(-4, $class::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForGMT()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testOffsetHoursForGMT($class)
     {
-        $this->assertSame(0, Carbon::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
+        $this->assertSame(0, $class::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
     }
 
-    public function testIsLeapYearTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLeapYearTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2012, 1, 1)->isLeapYear());
+        $this->assertTrue($class::createFromDate(2012, 1, 1)->isLeapYear());
     }
 
-    public function testIsLeapYearFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLeapYearFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2011, 1, 1)->isLeapYear());
+        $this->assertFalse($class::createFromDate(2011, 1, 1)->isLeapYear());
     }
 
-    public function testWeekOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testWeekOfMonth($class)
     {
-        $this->assertSame(5, Carbon::createFromDate(2012, 9, 30)->weekOfMonth);
-        $this->assertSame(4, Carbon::createFromDate(2012, 9, 28)->weekOfMonth);
-        $this->assertSame(3, Carbon::createFromDate(2012, 9, 20)->weekOfMonth);
-        $this->assertSame(2, Carbon::createFromDate(2012, 9, 8)->weekOfMonth);
-        $this->assertSame(1, Carbon::createFromDate(2012, 9, 1)->weekOfMonth);
+        $this->assertSame(5, $class::createFromDate(2012, 9, 30)->weekOfMonth);
+        $this->assertSame(4, $class::createFromDate(2012, 9, 28)->weekOfMonth);
+        $this->assertSame(3, $class::createFromDate(2012, 9, 20)->weekOfMonth);
+        $this->assertSame(2, $class::createFromDate(2012, 9, 8)->weekOfMonth);
+        $this->assertSame(1, $class::createFromDate(2012, 9, 1)->weekOfMonth);
     }
 
-    public function testWeekOfYearFirstWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testWeekOfYearFirstWeek($class)
     {
-        $this->assertSame(52, Carbon::createFromDate(2012, 1, 1)->weekOfYear);
-        $this->assertSame(1, Carbon::createFromDate(2012, 1, 2)->weekOfYear);
+        $this->assertSame(52, $class::createFromDate(2012, 1, 1)->weekOfYear);
+        $this->assertSame(1, $class::createFromDate(2012, 1, 2)->weekOfYear);
     }
 
-    public function testWeekOfYearLastWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testWeekOfYearLastWeek($class)
     {
-        $this->assertSame(52, Carbon::createFromDate(2012, 12, 30)->weekOfYear);
-        $this->assertSame(1, Carbon::createFromDate(2012, 12, 31)->weekOfYear);
+        $this->assertSame(52, $class::createFromDate(2012, 12, 30)->weekOfYear);
+        $this->assertSame(1, $class::createFromDate(2012, 12, 31)->weekOfYear);
     }
 
-    public function testGetTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetTimezone($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezone->getName());
     }
 
-    public function testGetTz()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetTz($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tz->getName());
     }
 
-    public function testGetTimezoneName()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetTimezoneName($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezoneName);
     }
 
-    public function testGetTzName()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetTzName($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tzName);
     }
 
-    public function testInvalidGetter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testInvalidGetter($class)
     {
         $this->setExpectedException('InvalidArgumentException');
-        $d  = Carbon::now();
+        $d  = $class::now();
         $bb = $d->doesNotExit;
     }
 }

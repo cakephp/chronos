@@ -469,59 +469,6 @@ trait CarbonTrait
     }
 
     /**
-     * Set a part of the CarbonInterface object
-     *
-     * @param string                      $name
-     * @param string|integer|DateTimeZone $value
-     *
-     * @throws InvalidArgumentException
-     */
-    public function __set($name, $value)
-    {
-        if ($this instanceof CarbonImmutable) {
-            throw new LogicException('Magic setters not usable for immutable implementation.');
-        }
-
-        switch ($name) {
-            case 'year':
-                $this->year($value);
-                break;
-
-            case 'month':
-                $this->month($value);
-                break;
-
-            case 'day':
-                $this->day($value);
-                break;
-
-            case 'hour':
-                $this->hour($value);
-                break;
-
-            case 'minute':
-                $this->minute($value);
-                break;
-
-            case 'second':
-                $this->second($value);
-                break;
-
-            case 'timestamp':
-                $this->timestamp($value);
-                break;
-
-            case 'timezone':
-            case 'tz':
-                $this->timezone($value);
-                break;
-
-            default:
-                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
-        }
-    }
-
-    /**
      * Set the instance's year
      *
      * @param integer $value

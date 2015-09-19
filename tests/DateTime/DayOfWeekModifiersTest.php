@@ -17,276 +17,458 @@ use TestFixture;
 class DayOfWeekModifiersTest extends TestFixture
 {
 
-    public function testStartOfWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testStartOfWeek($class)
     {
-        $d = Carbon::create(1980, 8, 7, 12, 11, 9)->startOfWeek();
+        $d = $class::create(1980, 8, 7, 12, 11, 9)->startOfWeek();
         $this->assertCarbon($d, 1980, 8, 4, 0, 0, 0);
     }
 
-    public function testStartOfWeekFromWeekStart()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testStartOfWeekFromWeekStart($class)
     {
-        $d = Carbon::createFromDate(1980, 8, 4)->startOfWeek();
+        $d = $class::createFromDate(1980, 8, 4)->startOfWeek();
         $this->assertCarbon($d, 1980, 8, 4, 0, 0, 0);
     }
 
-    public function testStartOfWeekCrossingYearBoundary()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testStartOfWeekCrossingYearBoundary($class)
     {
-        $d = Carbon::createFromDate(2013, 12, 31, 'GMT');
-        $d->startOfWeek();
-        $this->assertCarbon($d, 2013, 12, 30, 0, 0, 0);
+        $d = $class::createFromDate(2013, 12, 31, 'GMT');
+        $this->assertCarbon($d->startOfWeek(), 2013, 12, 30, 0, 0, 0);
     }
 
-    public function testEndOfWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testEndOfWeek($class)
     {
-        $d = Carbon::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
+        $d = $class::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
         $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
     }
 
-    public function testEndOfWeekFromWeekEnd()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testEndOfWeekFromWeekEnd($class)
     {
-        $d = Carbon::createFromDate(1980, 8, 9)->endOfWeek();
+        $d = $class::createFromDate(1980, 8, 9)->endOfWeek();
         $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
     }
 
-    public function testEndOfWeekCrossingYearBoundary()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testEndOfWeekCrossingYearBoundary($class)
     {
-        $d = Carbon::createFromDate(2013, 12, 31, 'GMT');
-        $d->endOfWeek();
-        $this->assertCarbon($d, 2014, 1, 5, 23, 59, 59);
+        $d = $class::createFromDate(2013, 12, 31, 'GMT');
+        $this->assertCarbon($d->endOfWeek(), 2014, 1, 5, 23, 59, 59);
     }
 
-    public function testNext()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNext($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->next();
+        $d = $class::createFromDate(1975, 5, 21)->next();
         $this->assertCarbon($d, 1975, 5, 28, 0, 0, 0);
     }
 
-    public function testNextMonday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNextMonday($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->next(Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 5, 21)->next(Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 5, 26, 0, 0, 0);
     }
 
-    public function testNextSaturday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNextSaturday($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->next(6);
+        $d = $class::createFromDate(1975, 5, 21)->next(6);
         $this->assertCarbon($d, 1975, 5, 24, 0, 0, 0);
     }
 
-    public function testNextTimestamp()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNextTimestamp($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 14)->next();
+        $d = $class::createFromDate(1975, 11, 14)->next();
         $this->assertCarbon($d, 1975, 11, 21, 0, 0, 0);
     }
 
-    public function testPrevious()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testPrevious($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->previous();
+        $d = $class::createFromDate(1975, 5, 21)->previous();
         $this->assertCarbon($d, 1975, 5, 14, 0, 0, 0);
     }
 
-    public function testPreviousMonday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testPreviousMonday($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->previous(Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 5, 21)->previous(Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 5, 19, 0, 0, 0);
     }
 
-    public function testPreviousSaturday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testPreviousSaturday($class)
     {
-        $d = Carbon::createFromDate(1975, 5, 21)->previous(6);
+        $d = $class::createFromDate(1975, 5, 21)->previous(6);
         $this->assertCarbon($d, 1975, 5, 17, 0, 0, 0);
     }
 
-    public function testPreviousTimestamp()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testPreviousTimestamp($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 28)->previous();
+        $d = $class::createFromDate(1975, 11, 28)->previous();
         $this->assertCarbon($d, 1975, 11, 21, 0, 0, 0);
     }
 
-    public function testFirstDayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstDayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfMonth();
+        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth();
         $this->assertCarbon($d, 1975, 11, 1, 0, 0, 0);
     }
 
-    public function testFirstWednesdayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstWednesdayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfMonth(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth(Carbon::WEDNESDAY);
         $this->assertCarbon($d, 1975, 11, 5, 0, 0, 0);
     }
 
-    public function testFirstFridayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstFridayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfMonth(5);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth(5);
         $this->assertCarbon($d, 1975, 11, 7, 0, 0, 0);
     }
 
-    public function testLastDayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastDayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 12, 5)->lastOfMonth();
+        $d = $class::createFromDate(1975, 12, 5)->lastOfMonth();
         $this->assertCarbon($d, 1975, 12, 31, 0, 0, 0);
     }
 
-    public function testLastTuesdayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastTuesdayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 12, 1)->lastOfMonth(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 12, 1)->lastOfMonth(Carbon::TUESDAY);
         $this->assertCarbon($d, 1975, 12, 30, 0, 0, 0);
     }
 
-    public function testLastFridayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastFridayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 12, 5)->lastOfMonth(5);
+        $d = $class::createFromDate(1975, 12, 5)->lastOfMonth(5);
         $this->assertCarbon($d, 1975, 12, 26, 0, 0, 0);
     }
 
-    public function testNthOfMonthOutsideScope()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfMonthOutsideScope($class)
     {
-        $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(6, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(6, Carbon::MONDAY));
     }
 
-    public function testNthOfMonthOutsideYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfMonthOutsideYear($class)
     {
-        $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(55, Carbon::MONDAY));
     }
 
-    public function test2ndMondayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test2ndMondayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 12, 5)->nthOfMonth(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(2, Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 12, 8, 0, 0, 0);
     }
 
-    public function test3rdWednesdayOfMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test3rdWednesdayOfMonth($class)
     {
-        $d = Carbon::createFromDate(1975, 12, 5)->nthOfMonth(3, 3);
+        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(3, 3);
         $this->assertCarbon($d, 1975, 12, 17, 0, 0, 0);
     }
 
-    public function testFirstDayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstDayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfQuarter();
+        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter();
         $this->assertCarbon($d, 1975, 10, 1, 0, 0, 0);
     }
 
-    public function testFirstWednesdayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstWednesdayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfQuarter(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter(Carbon::WEDNESDAY);
         $this->assertCarbon($d, 1975, 10, 1, 0, 0, 0);
     }
 
-    public function testFirstFridayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstFridayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfQuarter(5);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter(5);
         $this->assertCarbon($d, 1975, 10, 3, 0, 0, 0);
     }
 
-    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth($class)
     {
-        $d = Carbon::createFromDate(2014, 5, 31)->firstOfQuarter();
+        $d = $class::createFromDate(2014, 5, 31)->firstOfQuarter();
         $this->assertCarbon($d, 2014, 4, 1, 0, 0, 0);
     }
 
-    public function testLastDayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastDayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->lastOfQuarter();
+        $d = $class::createFromDate(1975, 8, 5)->lastOfQuarter();
         $this->assertCarbon($d, 1975, 9, 30, 0, 0, 0);
     }
 
-    public function testLastTuesdayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastTuesdayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 1)->lastOfQuarter(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 8, 1)->lastOfQuarter(Carbon::TUESDAY);
         $this->assertCarbon($d, 1975, 9, 30, 0, 0, 0);
     }
 
-    public function testLastFridayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastFridayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 7, 5)->lastOfQuarter(5);
+        $d = $class::createFromDate(1975, 7, 5)->lastOfQuarter(5);
         $this->assertCarbon($d, 1975, 9, 26, 0, 0, 0);
     }
 
-    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth($class)
     {
-        $d = Carbon::createFromDate(2014, 5, 31)->lastOfQuarter();
+        $d = $class::createFromDate(2014, 5, 31)->lastOfQuarter();
         $this->assertCarbon($d, 2014, 6, 30, 0, 0, 0);
     }
 
-    public function testNthOfQuarterOutsideScope()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfQuarterOutsideScope($class)
     {
-        $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(20, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(20, Carbon::MONDAY));
     }
 
-    public function testNthOfQuarterOutsideYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfQuarterOutsideYear($class)
     {
-        $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(55, Carbon::MONDAY));
     }
 
-    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth($class)
     {
-        $d = Carbon::createFromDate(2014, 5, 31)->nthOfQuarter(2, Carbon::MONDAY);
+        $d = $class::createFromDate(2014, 5, 31)->nthOfQuarter(2, Carbon::MONDAY);
         $this->assertCarbon($d, 2014, 4, 14, 0, 0, 0);
     }
 
-    public function test2ndMondayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test2ndMondayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 7, 14, 0, 0, 0);
     }
 
-    public function test3rdWednesdayOfQuarter()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test3rdWednesdayOfQuarter($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(3, 3);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(3, 3);
         $this->assertCarbon($d, 1975, 7, 16, 0, 0, 0);
     }
 
-    public function testFirstDayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstDayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfYear();
+        $d = $class::createFromDate(1975, 11, 21)->firstOfYear();
         $this->assertCarbon($d, 1975, 1, 1, 0, 0, 0);
     }
 
-    public function testFirstWednesdayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstWednesdayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfYear(Carbon::WEDNESDAY);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfYear(Carbon::WEDNESDAY);
         $this->assertCarbon($d, 1975, 1, 1, 0, 0, 0);
     }
 
-    public function testFirstFridayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFirstFridayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 11, 21)->firstOfYear(5);
+        $d = $class::createFromDate(1975, 11, 21)->firstOfYear(5);
         $this->assertCarbon($d, 1975, 1, 3, 0, 0, 0);
     }
 
-    public function testLastDayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastDayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->lastOfYear();
+        $d = $class::createFromDate(1975, 8, 5)->lastOfYear();
         $this->assertCarbon($d, 1975, 12, 31, 0, 0, 0);
     }
 
-    public function testLastTuesdayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastTuesdayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 1)->lastOfYear(Carbon::TUESDAY);
+        $d = $class::createFromDate(1975, 8, 1)->lastOfYear(Carbon::TUESDAY);
         $this->assertCarbon($d, 1975, 12, 30, 0, 0, 0);
     }
 
-    public function testLastFridayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testLastFridayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 7, 5)->lastOfYear(5);
+        $d = $class::createFromDate(1975, 7, 5)->lastOfYear(5);
         $this->assertCarbon($d, 1975, 12, 26, 0, 0, 0);
     }
 
-    public function testNthOfYearOutsideScope()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNthOfYearOutsideScope($class)
     {
-        $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfYear(55, Carbon::MONDAY));
+        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfYear(55, Carbon::MONDAY));
     }
 
-    public function test2ndMondayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test2ndMondayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->nthOfYear(2, Carbon::MONDAY);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(2, Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 1, 13, 0, 0, 0);
     }
 
-    public function test3rdWednesdayOfYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function test3rdWednesdayOfYear($class)
     {
-        $d = Carbon::createFromDate(1975, 8, 5)->nthOfYear(3, 3);
+        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(3, 3);
         $this->assertCarbon($d, 1975, 1, 15, 0, 0, 0);
     }
 }

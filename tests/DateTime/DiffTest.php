@@ -19,474 +19,722 @@ use Closure;
 class DiffTest extends TestFixture
 {
 
-    protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    protected function wrapWithTestNow(Closure $func, $dt = null)
     {
         parent::wrapWithTestNow($func, ($dt === null) ? Carbon::createFromDate(2012, 1, 1) : $dt);
     }
 
-    public function testDiffInYearsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInYearsPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()));
     }
 
-    public function testDiffInYearsNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInYearsNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-1, $dt->diffInYears($dt->copy()->subYear(), false));
     }
 
-    public function testDiffInYearsNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInYearsNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->copy()->subYear()));
     }
 
-    public function testDiffInYearsVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInYearsVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(1, Carbon::now()->subYear()->diffInYears());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(1, $class::now()->subYear()->diffInYears());
         });
     }
 
-    public function testDiffInYearsEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInYearsEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()->addMonths(7)));
     }
 
-    public function testDiffInMonthsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMonthsPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(13, $dt->diffInMonths($dt->copy()->addYear()->addMonth()));
     }
 
-    public function testDiffInMonthsNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMonthsNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-11, $dt->diffInMonths($dt->copy()->subYear()->addMonth(), false));
     }
 
-    public function testDiffInMonthsNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMonthsNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(11, $dt->diffInMonths($dt->copy()->subYear()->addMonth()));
     }
 
-    public function testDiffInMonthsVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMonthsVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(12, Carbon::now()->subYear()->diffInMonths());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(12, $class::now()->subYear()->diffInMonths());
         });
     }
 
-    public function testDiffInMonthsEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMonthsEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInMonths($dt->copy()->addMonth()->addDays(16)));
     }
 
-    public function testDiffInDaysPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(366, $dt->diffInDays($dt->copy()->addYear()));
     }
 
-    public function testDiffInDaysNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-365, $dt->diffInDays($dt->copy()->subYear(), false));
     }
 
-    public function testDiffInDaysNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(365, $dt->diffInDays($dt->copy()->subYear()));
     }
 
-    public function testDiffInDaysVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(7, Carbon::now()->subWeek()->diffInDays());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(7, $class::now()->subWeek()->diffInDays());
         });
     }
 
-    public function testDiffInDaysEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInDays($dt->copy()->addDay()->addHours(13)));
     }
 
-    public function testDiffInDaysFilteredPositiveWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredPositiveWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date) {
+        $dt = $class::createFromDate(2000, 1, 1);
+        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->copy()->endOfMonth()));
     }
 
-    public function testDiffInDaysFilteredPositiveWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredPositiveWithSecondObject($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 1);
-        $dt2 = Carbon::createFromDate(2000, 1, 31);
+        $dt1 = $class::createFromDate(2000, 1, 1);
+        $dt2 = $class::createFromDate(2000, 1, 31);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date) {
-            return $date->dayOfWeek === Carbon::SUNDAY;
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
+            return $date->dayOfWeek === $class::SUNDAY;
         }, $dt2));
     }
 
-    public function testDiffInDaysFilteredNegativeNoSignWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredNegativeNoSignWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date) {
-            return $date->dayOfWeek === Carbon::SUNDAY;
+        $dt = $class::createFromDate(2000, 1, 31);
+        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) use ($class) {
+            return $date->dayOfWeek === $class::SUNDAY;
         }, $dt->copy()->startOfMonth()));
     }
 
-    public function testDiffInDaysFilteredNegativeNoSignWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredNegativeNoSignWithSecondObject($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 31);
-        $dt2 = Carbon::createFromDate(2000, 1, 1);
+        $dt1 = $class::createFromDate(2000, 1, 31);
+        $dt2 = $class::createFromDate(2000, 1, 1);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date) {
-            return $date->dayOfWeek === Carbon::SUNDAY;
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
+            return $date->dayOfWeek === $class::SUNDAY;
         }, $dt2));
     }
 
-    public function testDiffInDaysFilteredNegativeWithSignWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredNegativeWithSignWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(-5, $dt->diffInDaysFiltered(function (Carbon $date) {
+        $dt = $class::createFromDate(2000, 1, 31);
+        $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) use ($class) {
             return $date->dayOfWeek === 1;
         }, $dt->copy()->startOfMonth(), false));
     }
 
-    public function testDiffInDaysFilteredNegativeWithSignWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInDaysFilteredNegativeWithSignWithSecondObject($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 31);
-        $dt2 = Carbon::createFromDate(2000, 1, 1);
+        $dt1 = $class::createFromDate(2000, 1, 31);
+        $dt2 = $class::createFromDate(2000, 1, 1);
 
-        $this->assertSame(-5, $dt1->diffInDaysFiltered(function (Carbon $date) {
-            return $date->dayOfWeek === Carbon::SUNDAY;
+        $this->assertSame(-5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
+            return $date->dayOfWeek === $class::SUNDAY;
         }, $dt2, false));
     }
 
-    public function testDiffInHoursFiltered()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursFiltered($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
-        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = $class::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(31, $dt1->diffInHoursFiltered(function (Carbon $date) {
+        $this->assertSame(31, $dt1->diffInHoursFiltered(function ($date) {
             return $date->hour === 9;
         }, $dt2));
     }
 
-    public function testDiffInHoursFilteredNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursFilteredNegative($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
-        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = $class::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(-31, $dt1->diffInHoursFiltered(function (Carbon $date) {
+        $this->assertSame(-31, $dt1->diffInHoursFiltered(function ($date) {
             return $date->hour === 9;
         }, $dt2, false));
     }
 
-    public function testDiffInHoursFilteredWorkHoursPerWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursFilteredWorkHoursPerWeek($class)
     {
-        $dt1 = Carbon::createFromDate(2000, 1, 5)->endOfDay();
-        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = $class::createFromDate(2000, 1, 5)->endOfDay();
+        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(40, $dt1->diffInHoursFiltered(function (Carbon $date) {
+        $this->assertSame(40, $dt1->diffInHoursFiltered(function ($date) {
             return ($date->hour > 8 && $date->hour < 17);
         }, $dt2));
     }
 
-    public function testDiffFilteredUsingMinutesPositiveWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredUsingMinutesPositiveWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1)->startOfDay();
-        $this->assertSame(60, $dt->diffFiltered(CarbonInterval::minute(), function (Carbon $date) {
+        $dt = $class::createFromDate(2000, 1, 1)->startOfDay();
+        $this->assertSame(60, $dt->diffFiltered(CarbonInterval::minute(), function ($date) {
             return $date->hour === 12;
-        }, Carbon::createFromDate(2000, 1, 1)->endOfDay()));
+        }, $class::createFromDate(2000, 1, 1)->endOfDay()));
     }
 
-    public function testDiffFilteredPositiveWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredPositiveWithSecondObject($class)
     {
-        $dt1 = Carbon::create(2000, 1, 1);
+        $dt1 = $class::create(2000, 1, 1);
         $dt2 = $dt1->copy()->addSeconds(80);
 
-        $this->assertSame(40, $dt1->diffFiltered(CarbonInterval::second(), function (Carbon $date) {
+        $this->assertSame(40, $dt1->diffFiltered(CarbonInterval::second(), function ($date) {
             return $date->second % 2 === 0;
         }, $dt2));
     }
 
-    public function testDiffFilteredNegativeNoSignWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredNegativeNoSignWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
+        $dt = $class::createFromDate(2000, 1, 31);
 
-        $this->assertSame(2, $dt->diffFiltered(CarbonInterval::days(2), function (Carbon $date) {
-            return $date->dayOfWeek === Carbon::SUNDAY;
+        $this->assertSame(2, $dt->diffFiltered(CarbonInterval::days(2), function ($date) use ($class) {
+            return $date->dayOfWeek === $class::SUNDAY;
         }, $dt->copy()->startOfMonth()));
     }
 
-    public function testDiffFilteredNegativeNoSignWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredNegativeNoSignWithSecondObject($class)
     {
-        $dt1 = Carbon::createFromDate(2006, 1, 31);
-        $dt2 = Carbon::createFromDate(2000, 1, 1);
+        $dt1 = $class::createFromDate(2006, 1, 31);
+        $dt2 = $class::createFromDate(2000, 1, 1);
 
-        $this->assertSame(7, $dt1->diffFiltered(CarbonInterval::year(), function (Carbon $date) {
+        $this->assertSame(7, $dt1->diffFiltered(CarbonInterval::year(), function ($date) {
             return $date->month === 1;
         }, $dt2));
     }
 
-    public function testDiffFilteredNegativeWithSignWithMutated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredNegativeWithSignWithMutated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(-4, $dt->diffFiltered(CarbonInterval::week(), function (Carbon $date) {
+        $dt = $class::createFromDate(2000, 1, 31);
+        $this->assertSame(-4, $dt->diffFiltered(CarbonInterval::week(), function ($date) {
             return $date->month === 12;
         }, $dt->copy()->subMonths(3), false));
     }
 
-    public function testDiffFilteredNegativeWithSignWithSecondObject()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffFilteredNegativeWithSignWithSecondObject($class)
     {
-        $dt1 = Carbon::createFromDate(2001, 1, 31);
-        $dt2 = Carbon::createFromDate(1999, 1, 1);
+        $dt1 = $class::createFromDate(2001, 1, 31);
+        $dt2 = $class::createFromDate(1999, 1, 1);
 
-        $this->assertSame(-12, $dt1->diffFiltered(CarbonInterval::month(), function (Carbon $date) {
+        $this->assertSame(-12, $dt1->diffFiltered(CarbonInterval::month(), function ($date) {
             return $date->year === 2000;
         }, $dt2, false));
     }
 
-    public function testBug188DiffWithSameDates()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testBug188DiffWithSameDates($class)
     {
-        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $start = $class::create(2014, 10, 8, 15, 20, 0);
         $end   = $start->copy();
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    public function testBug188DiffWithDatesOnlyHoursApart()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testBug188DiffWithDatesOnlyHoursApart($class)
     {
-        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $start = $class::create(2014, 10, 8, 15, 20, 0);
         $end   = $start->copy();
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    public function testBug188DiffWithSameDates1DayApart()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testBug188DiffWithSameDates1DayApart($class)
     {
-        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $start = $class::create(2014, 10, 8, 15, 20, 0);
         $end   = $start->copy()->addDay();
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(1, $start->diffInWeekdays($end));
     }
 
-    public function testBug188DiffWithDatesOnTheWeekend()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testBug188DiffWithDatesOnTheWeekend($class)
     {
-        $start = Carbon::create(2014, 1, 1, 0, 0, 0);
-        $start->next(Carbon::SATURDAY);
+        $start = $class::create(2014, 1, 1, 0, 0, 0);
+        $start = $start->next($class::SATURDAY);
         $end = $start->copy()->addDay();
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    public function testDiffInWeekdaysPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekdaysPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->endOfMonth()));
     }
 
-    public function testDiffInWeekdaysNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekdaysNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
+        $dt = $class::createFromDate(2000, 1, 31);
         $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->startOfMonth()));
     }
 
-    public function testDiffInWeekdaysNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekdaysNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
+        $dt = $class::createFromDate(2000, 1, 31);
         $this->assertSame(-21, $dt->diffInWeekdays($dt->copy()->startOfMonth(), false));
     }
 
-    public function testDiffInWeekendDaysPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekendDaysPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(10, $dt->diffInWeekendDays($dt->copy()->endOfMonth()));
     }
 
-    public function testDiffInWeekendDaysNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekendDaysNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
+        $dt = $class::createFromDate(2000, 1, 31);
         $this->assertSame(10, $dt->diffInWeekendDays($dt->copy()->startOfMonth()));
     }
 
-    public function testDiffInWeekendDaysNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeekendDaysNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 31);
+        $dt = $class::createFromDate(2000, 1, 31);
         $this->assertSame(-10, $dt->diffInWeekendDays($dt->copy()->startOfMonth(), false));
     }
 
-    public function testDiffInWeeksPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeeksPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(52, $dt->diffInWeeks($dt->copy()->addYear()));
     }
 
-    public function testDiffInWeeksNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeeksNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-52, $dt->diffInWeeks($dt->copy()->subYear(), false));
     }
 
-    public function testDiffInWeeksNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeeksNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(52, $dt->diffInWeeks($dt->copy()->subYear()));
     }
 
-    public function testDiffInWeeksVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeeksVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(1, Carbon::now()->subWeek()->diffInWeeks());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(1, $class::now()->subWeek()->diffInWeeks());
         });
     }
 
-    public function testDiffInWeeksEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInWeeksEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(0, $dt->diffInWeeks($dt->copy()->addWeek()->subDay()));
     }
 
-    public function testDiffInHoursPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(26, $dt->diffInHours($dt->copy()->addDay()->addHours(2)));
     }
 
-    public function testDiffInHoursNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-22, $dt->diffInHours($dt->copy()->subDay()->addHours(2), false));
     }
 
-    public function testDiffInHoursNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(22, $dt->diffInHours($dt->copy()->subDay()->addHours(2)));
     }
 
-    public function testDiffInHoursVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(48, Carbon::now()->subDays(2)->diffInHours());
-        }, Carbon::create(2012, 1, 15));
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(48, $class::now()->subDays(2)->diffInHours());
+        }, $class::create(2012, 1, 15));
     }
 
-    public function testDiffInHoursEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInHoursEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInHours($dt->copy()->addHour()->addMinutes(31)));
     }
 
-    public function testDiffInMinutesPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(62, $dt->diffInMinutes($dt->copy()->addHour()->addMinutes(2)));
     }
 
-    public function testDiffInMinutesPositiveAlot()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesPositiveAlot($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1502, $dt->diffInMinutes($dt->copy()->addHours(25)->addMinutes(2)));
     }
 
-    public function testDiffInMinutesNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-58, $dt->diffInMinutes($dt->copy()->subHour()->addMinutes(2), false));
     }
 
-    public function testDiffInMinutesNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(58, $dt->diffInMinutes($dt->copy()->subHour()->addMinutes(2)));
     }
 
-    public function testDiffInMinutesVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(60, Carbon::now()->subHour()->diffInMinutes());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(60, $class::now()->subHour()->diffInMinutes());
         });
     }
 
-    public function testDiffInMinutesEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInMinutesEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInMinutes($dt->copy()->addMinute()->addSeconds(31)));
     }
 
-    public function testDiffInSecondsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsPositive($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(62, $dt->diffInSeconds($dt->copy()->addMinute()->addSeconds(2)));
     }
 
-    public function testDiffInSecondsPositiveAlot()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsPositiveAlot($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(7202, $dt->diffInSeconds($dt->copy()->addHours(2)->addSeconds(2)));
     }
 
-    public function testDiffInSecondsNegativeWithSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsNegativeWithSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(-58, $dt->diffInSeconds($dt->copy()->subMinute()->addSeconds(2), false));
     }
 
-    public function testDiffInSecondsNegativeNoSign()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsNegativeNoSign($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(58, $dt->diffInSeconds($dt->copy()->subMinute()->addSeconds(2)));
     }
 
-    public function testDiffInSecondsVsDefaultNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsVsDefaultNow($class)
     {
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
-            $scope->assertSame(3600, Carbon::now()->subHour()->diffInSeconds());
+        $this->wrapWithTestNow(function () use ($class) {
+            $this->assertSame(3600, $class::now()->subHour()->diffInSeconds());
         });
     }
 
-    public function testDiffInSecondsEnsureIsTruncated()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsEnsureIsTruncated($class)
     {
-        $dt = Carbon::createFromDate(2000, 1, 1);
+        $dt = $class::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInSeconds($dt->copy()->addSeconds(1.9)));
     }
 
-    public function testDiffInSecondsWithTimezones()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsWithTimezones($class)
     {
-        $dtOttawa    = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
-        $dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');
+        $dtOttawa    = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dtVancouver = $class::createFromDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(3 * 60 * 60, $dtOttawa->diffInSeconds($dtVancouver));
     }
 
-    public function testDiffInSecondsWithTimezonesAndVsDefault()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDiffInSecondsWithTimezonesAndVsDefault($class)
     {
-        $vanNow  = Carbon::now('America/Vancouver');
-        $hereNow = $vanNow->copy()->setTimezone(Carbon::now()->tz);
+        $vanNow  = $class::now('America/Vancouver');
+        $hereNow = $vanNow->copy()->setTimezone($class::now()->tz);
 
-        $scope = $this;
-        $this->wrapWithTestNow(function () use ($vanNow, $scope) {
-            $scope->assertSame(0, $vanNow->diffInSeconds());
+        $this->wrapWithTestNow(function () use ($vanNow) {
+            $this->assertSame(0, $vanNow->diffInSeconds());
         }, $hereNow);
     }
 }

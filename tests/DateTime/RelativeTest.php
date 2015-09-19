@@ -17,33 +17,41 @@ use TestFixture;
 class RelativeTest extends TestFixture
 {
 
-    public function testSecondsSinceMidnight()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSecondsSinceMidnight($class)
     {
-        $d = Carbon::today()->addSeconds(30);
+        $d = $class::today()->addSeconds(30);
         $this->assertSame(30, $d->secondsSinceMidnight());
 
-        $d = Carbon::today()->addDays(1);
+        $d = $class::today()->addDays(1);
         $this->assertSame(0, $d->secondsSinceMidnight());
 
-        $d = Carbon::today()->addDays(1)->addSeconds(120);
+        $d = $class::today()->addDays(1)->addSeconds(120);
         $this->assertSame(120, $d->secondsSinceMidnight());
 
-        $d = Carbon::today()->addMonths(3)->addSeconds(42);
+        $d = $class::today()->addMonths(3)->addSeconds(42);
         $this->assertSame(42, $d->secondsSinceMidnight());
     }
 
-    public function testSecondsUntilEndOfDay()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSecondsUntilEndOfDay($class)
     {
-        $d = Carbon::today()->endOfDay();
+        $d = $class::today()->endOfDay();
         $this->assertSame(0, $d->secondsUntilEndOfDay());
 
-        $d = Carbon::today()->endOfDay()->subSeconds(60);
+        $d = $class::today()->endOfDay()->subSeconds(60);
         $this->assertSame(60, $d->secondsUntilEndOfDay());
 
-        $d = Carbon::create(2014, 10, 24, 12, 34, 56);
+        $d = $class::create(2014, 10, 24, 12, 34, 56);
         $this->assertSame(41103, $d->secondsUntilEndOfDay());
 
-        $d = Carbon::create(2014, 10, 24, 0, 0, 0);
+        $d = $class::create(2014, 10, 24, 0, 0, 0);
         $this->assertSame(86399, $d->secondsUntilEndOfDay());
     }
 }

@@ -13,6 +13,7 @@ namespace Cake\Chronos;
 
 use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
 
 class Carbon extends DateTime implements CarbonInterface
 {
@@ -58,5 +59,54 @@ class Carbon extends DateTime implements CarbonInterface
     public function toImmutable()
     {
         return CarbonImmutable::instance($this);
+    }
+
+    /**
+     * Set a part of the CarbonInterface object
+     *
+     * @param string                      $name
+     * @param string|integer|DateTimeZone $value
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+            case 'year':
+                return $this->year($value);
+                break;
+
+            case 'month':
+                return $this->month($value);
+                break;
+
+            case 'day':
+                return $this->day($value);
+                break;
+
+            case 'hour':
+                return $this->hour($value);
+                break;
+
+            case 'minute':
+                return $this->minute($value);
+                break;
+
+            case 'second':
+                return $this->second($value);
+                break;
+
+            case 'timestamp':
+                return $this->timestamp($value);
+                break;
+
+            case 'timezone':
+            case 'tz':
+                return $this->timezone($value);
+                break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+        }
     }
 }

@@ -17,6 +17,8 @@ use Cake\Chronos\CarbonInterval;
 
 class TestFixture extends \PHPUnit_Framework_TestCase
 {
+    public static $class = Carbon::class;
+
     private $saveTz;
 
     protected function setUp()
@@ -32,7 +34,15 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         date_default_timezone_set($this->saveTz);
     }
 
-    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    public function classNameProvider()
+    {
+        return [
+            'mutable' => [Carbon::class],
+            'immutable' => [CarbonImmutable::class]
+        ];
+    }
+
+    protected function assertCarbon($d, $year, $month, $day, $hour = null, $minute = null, $second = null)
     {
         $this->assertSame($year, $d->year, 'Carbon->year');
         $this->assertSame($month, $d->month, 'Carbon->month');
@@ -110,17 +120,10 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(CarbonInterval::class, $d);
     }
 
-    protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    protected function wrapWithTestNow(Closure $func, $dt = null)
     {
         Carbon::setTestNow(($dt === null) ? Carbon::now() : $dt);
         $func();
         Carbon::setTestNow();
-    }
-
-    protected function wrapWithTestNowImmutable(Closure $func, CarbonImmutable $dt = null)
-    {
-        CarbonImmutable::setTestNow(($dt === null) ? CarbonImmutable::now() : $dt);
-        $func();
-        CarbonImmutable::setTestNow();
     }
 }

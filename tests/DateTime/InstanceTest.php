@@ -17,24 +17,36 @@ use TestFixture;
 class InstanceTest extends TestFixture
 {
 
-    public function testInstanceFromDateTime()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testInstanceFromDateTime($class)
     {
-        $dating = Carbon::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $dating = $class::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
     }
 
-    public function testInstanceFromDateTimeKeepsTimezoneName()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testInstanceFromDateTimeKeepsTimezoneName($class)
     {
-        $dating = Carbon::instance(\DateTime::createFromFormat('Y-m-d H:i:s',
+        $dating = $class::instance(\DateTime::createFromFormat('Y-m-d H:i:s',
             '1975-05-21 22:32:11')->setTimezone(new \DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
-    public function testInstanceFromDateTimeKeepsMicros()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testInstanceFromDateTimeKeepsMicros($class)
     {
         $micro    = 254687;
         $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
-        $carbon   = Carbon::instance($datetime);
+        $carbon   = $class::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cake\Chronos\Test\DateTime;
+namespace Cake\Chronos\Test;
 
 use Cake\Chronos\Carbon;
 use InvalidArgumentException;
@@ -20,70 +20,70 @@ class SettersTest extends TestFixture
 
     public function testYearSetter()
     {
-        $d       = Carbon::now();
+        $d = Carbon::now();
         $d->year = 1995;
         $this->assertSame(1995, $d->year);
     }
 
     public function testMonthSetter()
     {
-        $d        = Carbon::now();
+        $d = Carbon::now();
         $d->month = 3;
         $this->assertSame(3, $d->month);
     }
 
     public function testMonthSetterWithWrap()
     {
-        $d        = Carbon::now();
+        $d = Carbon::now();
         $d->month = 13;
         $this->assertSame(1, $d->month);
     }
 
     public function testDaySetter()
     {
-        $d      = Carbon::now();
+        $d = Carbon::now();
         $d->day = 2;
         $this->assertSame(2, $d->day);
     }
 
     public function testDaySetterWithWrap()
     {
-        $d      = Carbon::createFromDate(2012, 8, 5);
+        $d = Carbon::createFromDate(2012, 8, 5);
         $d->day = 32;
         $this->assertSame(1, $d->day);
     }
 
     public function testHourSetter()
     {
-        $d       = Carbon::now();
+        $d = Carbon::now();
         $d->hour = 2;
         $this->assertSame(2, $d->hour);
     }
 
     public function testHourSetterWithWrap()
     {
-        $d       = Carbon::now();
+        $d = Carbon::now();
         $d->hour = 25;
         $this->assertSame(1, $d->hour);
     }
 
     public function testMinuteSetter()
     {
-        $d         = Carbon::now();
+        $d = Carbon::now();
         $d->minute = 2;
         $this->assertSame(2, $d->minute);
     }
 
     public function testMinuteSetterWithWrap()
     {
-        $d         = Carbon::now();
+        $d = Carbon::now();
         $d->minute = 65;
         $this->assertSame(5, $d->minute);
     }
 
     public function testSecondSetter()
     {
-        $d         = Carbon::now();
+        $d = Carbon::now();
         $d->second = 2;
         $this->assertSame(2, $d->second);
     }
@@ -141,14 +141,14 @@ class SettersTest extends TestFixture
 
     public function testSecondSetterWithWrap()
     {
-        $d         = Carbon::now();
+        $d    = Carbon::now();
         $d->second = 65;
         $this->assertSame(5, $d->second);
     }
 
     public function testTimestampSetter()
     {
-        $d            = Carbon::now();
+        $d  = Carbon::now();
         $d->timestamp = 10;
         $this->assertSame(10, $d->timestamp);
 
@@ -206,7 +206,7 @@ class SettersTest extends TestFixture
 
     public function testTimezoneUsingString()
     {
-        $d           = Carbon::now();
+        $d = Carbon::now();
         $d->timezone = 'America/Toronto';
         $this->assertSame('America/Toronto', $d->tzName);
 
@@ -233,7 +233,7 @@ class SettersTest extends TestFixture
 
     public function testTimezoneUsingDateTimeZone()
     {
-        $d           = Carbon::now();
+        $d = Carbon::now();
         $d->timezone = new \DateTimeZone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
 
@@ -254,7 +254,7 @@ class SettersTest extends TestFixture
     public function testInvalidSetter()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $d              = Carbon::now();
+        $d = Carbon::now();
         $d->doesNotExit = 'bb';
     }
 }

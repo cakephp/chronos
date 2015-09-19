@@ -17,92 +17,132 @@ use TestFixture;
 class ConstructTest extends TestFixture
 {
 
-    public function testCreatesAnInstanceDefaultToNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreatesAnInstanceDefaultToNow($class)
     {
-        $c   = new Carbon();
-        $now = Carbon::now();
-        $this->assertInstanceOfCarbon($c);
+        $c   = new $class();
+        $now = $class::now();
+        $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    public function testParseCreatesAnInstanceDefaultToNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseCreatesAnInstanceDefaultToNow($class)
     {
-        $c   = Carbon::parse();
-        $now = Carbon::now();
-        $this->assertInstanceOfCarbon($c);
+        $c   = $class::parse();
+        $now = $class::now();
+        $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    public function testWithFancyString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testWithFancyString($class)
     {
-        $c = new Carbon('first day of January 2008');
+        $c = new $class('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    public function testParseWithFancyString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseWithFancyString($class)
     {
-        $c = Carbon::parse('first day of January 2008');
+        $c = $class::parse('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    public function testDefaultTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testDefaultTimezone($class)
     {
-        $c = new Carbon('now');
+        $c = new $class('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    public function testParseWithDefaultTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseWithDefaultTimezone($class)
     {
-        $c = Carbon::parse('now');
+        $c = $class::parse('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    public function testSettingTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSettingTimezone($class)
     {
         $timezone                 = 'Europe/London';
         $dtz                      = new \DateTimeZone($timezone);
         $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
-        $c = new Carbon('now', $dtz);
+        $c = new $class('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testParseSettingTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseSettingTimezone($class)
     {
         $timezone                 = 'Europe/London';
         $dtz                      = new \DateTimeZone($timezone);
         $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
-        $c = Carbon::parse('now', $dtz);
+        $c = $class::parse('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testSettingTimezoneWithString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSettingTimezoneWithString($class)
     {
         $timezone                 = 'Asia/Tokyo';
         $dtz                      = new \DateTimeZone($timezone);
         $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
-        $c = new Carbon('now', $timezone);
+        $c = new $class('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testParseSettingTimezoneWithString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseSettingTimezoneWithString($class)
     {
         $timezone                 = 'Asia/Tokyo';
         $dtz                      = new \DateTimeZone($timezone);
         $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
-        $c = Carbon::parse('now', $timezone);
+        $c = $class::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }

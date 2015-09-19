@@ -17,67 +17,107 @@ use TestFixture;
 class NowAndOtherStaticHelpersTest extends TestFixture
 {
 
-    public function testNow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNow($class)
     {
-        $dt = Carbon::now();
+        $dt = $class::now();
         $this->assertSame(time(), $dt->timestamp);
     }
 
-    public function testNowWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNowWithTimezone($class)
     {
-        $dt = Carbon::now('Europe/London');
+        $dt = $class::now('Europe/London');
         $this->assertSame(time(), $dt->timestamp);
         $this->assertSame('Europe/London', $dt->tzName);
     }
 
-    public function testToday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToday($class)
     {
-        $dt = Carbon::today();
+        $dt = $class::today();
         $this->assertSame(date('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTodayWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testTodayWithTimezone($class)
     {
-        $dt  = Carbon::today('Europe/London');
+        $dt  = $class::today('Europe/London');
         $dt2 = new \DateTime('now', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTomorrow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testTomorrow($class)
     {
-        $dt  = Carbon::tomorrow();
+        $dt  = $class::tomorrow();
         $dt2 = new \DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTomorrowWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testTomorrowWithTimezone($class)
     {
-        $dt  = Carbon::tomorrow('Europe/London');
+        $dt  = $class::tomorrow('Europe/London');
         $dt2 = new \DateTime('tomorrow', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testYesterday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testYesterday($class)
     {
-        $dt  = Carbon::yesterday();
+        $dt  = $class::yesterday();
         $dt2 = new \DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testYesterdayWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testYesterdayWithTimezone($class)
     {
-        $dt  = Carbon::yesterday('Europe/London');
+        $dt  = $class::yesterday('Europe/London');
         $dt2 = new \DateTime('yesterday', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testMinValue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMinValue($class)
     {
-        $this->assertLessThanOrEqual(-2147483647, Carbon::minValue()->getTimestamp());
+        $this->assertLessThanOrEqual(-2147483647, $class::minValue()->getTimestamp());
     }
 
-    public function testMaxValue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMaxValue($class)
     {
-        $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
+        $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
     }
 }

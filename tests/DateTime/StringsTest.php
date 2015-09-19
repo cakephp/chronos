@@ -20,41 +20,59 @@ class MyCarbon extends Carbon
 
 class StringsTest extends TestFixture
 {
-    public function testToString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToString($class)
     {
-        $d = Carbon::now();
-        $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
+        $d = $class::now();
+        $this->assertSame($class::now()->toDateTimeString(), ''.$d);
     }
-    public function testSetToStringFormat()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSetToStringFormat($class)
     {
-        Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $class::setToStringFormat('jS \o\f F, Y g:i:s a');
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
     }
-    public function testResetToStringFormat()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testResetToStringFormat($class)
     {
-        $d = Carbon::now();
-        Carbon::setToStringFormat('123');
-        Carbon::resetToStringFormat();
+        $d = $class::now();
+        $class::setToStringFormat('123');
+        $class::resetToStringFormat();
         $this->assertSame($d->toDateTimeString(), ''.$d);
     }
-    public function testExtendedClassToString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToDateString($class)
     {
-        $d = MyCarbon::now();
-        $this->assertSame($d->toDateTimeString(), ''.$d);
-    }
-
-    public function testToDateString()
-    {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25', $d->toDateString());
     }
-    public function testToFormattedDateString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToFormattedDateString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
     }
-    public function testToLocalizedFormattedDateString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToLocalizedFormattedDateString($class)
     {
         /****************
 
@@ -64,46 +82,74 @@ class StringsTest extends TestFixture
 
       $cache = setlocale(LC_TIME, 0);
       setlocale(LC_TIME, 'German');
-      $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+      $d = $class::create(1975, 12, 25, 14, 15, 16);
       $this->assertSame('Donnerstag 25 Dezember 1975', $d->formatLocalized('%A %d %B %Y'));
       setlocale(LC_TIME, $cache);
 
       *****************/
     }
-    public function testToLocalizedFormattedTimezonedDateString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToLocalizedFormattedTimezonedDateString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
+        $d = $class::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
         $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
     }
-    public function testToTimeString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToTimeString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('14:15:16', $d->toTimeString());
     }
-    public function testToDateTimeString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToDateTimeString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25 14:15:16', $d->toDateTimeString());
     }
-    public function testToDateTimeStringWithPaddedZeroes()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToDateTimeStringWithPaddedZeroes($class)
     {
-        $d = Carbon::create(2000, 5, 2, 4, 3, 4);
+        $d = $class::create(2000, 5, 2, 4, 3, 4);
         $this->assertSame('2000-05-02 04:03:04', $d->toDateTimeString());
     }
-    public function testToDayDateTimeString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToDayDateTimeString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, Dec 25, 1975 2:15 PM', $d->toDayDateTimeString());
     }
 
-    public function testToAtomString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToAtomString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toAtomString());
     }
-    public function testToCOOKIEString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToCOOKIEString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         if (\DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
         } else {
@@ -112,49 +158,85 @@ class StringsTest extends TestFixture
 
         $this->assertSame($cookieString, $d->toCOOKIEString());
     }
-    public function testToIso8601String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToIso8601String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-0500', $d->toIso8601String());
     }
-    public function testToRC822String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRC822String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc822String());
     }
-    public function testToRfc850String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRfc850String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toRfc850String());
     }
-    public function testToRfc1036String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRfc1036String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc1036String());
     }
-    public function testToRfc1123String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRfc1123String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
     }
-    public function testToRfc2822String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRfc2822String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc2822String());
     }
-    public function testToRfc3339String()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRfc3339String($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRfc3339String());
     }
-    public function testToRssString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToRssString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRssString());
     }
-    public function testToW3cString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToW3cString($class)
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
     }
 }

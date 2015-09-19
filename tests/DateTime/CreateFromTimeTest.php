@@ -17,49 +17,77 @@ use TestFixture;
 class CreateFromTimeTest extends TestFixture
 {
 
-    public function testCreateFromDateWithDefaults()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromDateWithDefaults($class)
     {
-        $d = Carbon::createFromTime();
-        $this->assertSame($d->timestamp, Carbon::create(null, null, null, null, null, null)->timestamp);
+        $d = $class::createFromTime();
+        $this->assertSame($d->timestamp, $class::create(null, null, null, null, null, null)->timestamp);
     }
 
-    public function testCreateFromDate()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromDate($class)
     {
-        $d = Carbon::createFromTime(23, 5, 21);
-        $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
+        $d = $class::createFromTime(23, 5, 21);
+        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
     }
 
-    public function testCreateFromTimeWithHour()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromTimeWithHour($class)
     {
-        $d = Carbon::createFromTime(22);
+        $d = $class::createFromTime(22);
         $this->assertSame(22, $d->hour);
         $this->assertSame(0, $d->minute);
         $this->assertSame(0, $d->second);
     }
 
-    public function testCreateFromTimeWithMinute()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromTimeWithMinute($class)
     {
-        $d = Carbon::createFromTime(null, 5);
+        $d = $class::createFromTime(null, 5);
         $this->assertSame(5, $d->minute);
     }
 
-    public function testCreateFromTimeWithSecond()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromTimeWithSecond($class)
     {
-        $d = Carbon::createFromTime(null, null, 21);
+        $d = $class::createFromTime(null, null, 21);
         $this->assertSame(21, $d->second);
     }
 
-    public function testCreateFromTimeWithDateTimeZone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromTimeWithDateTimeZone($class)
     {
-        $d = Carbon::createFromTime(12, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $d = $class::createFromTime(12, 0, 0, new \DateTimeZone('Europe/London'));
+        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTimeWithTimeZoneString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromTimeWithTimeZoneString($class)
     {
-        $d = Carbon::createFromTime(12, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $d = $class::createFromTime(12, 0, 0, 'Europe/London');
+        $this->assertCarbon($d, $class::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

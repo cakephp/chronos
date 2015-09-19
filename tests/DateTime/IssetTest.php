@@ -17,12 +17,20 @@ use TestFixture;
 class IssetTest extends TestFixture
 {
 
-    public function testIssetReturnFalseForUnknownProperty()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIssetReturnFalseForUnknownProperty($class)
     {
-        $this->assertFalse(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
+        $this->assertFalse(isset($class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
     }
 
-    public function testIssetReturnTrueForProperties()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIssetReturnTrueForProperties($class)
     {
         $properties = array(
             'year',
@@ -47,7 +55,7 @@ class IssetTest extends TestFixture
         );
 
         foreach ($properties as $property) {
-            $this->assertTrue(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->$property));
+            $this->assertTrue(isset($class::create(1234, 5, 6, 7, 8, 9)->$property));
         }
     }
 }

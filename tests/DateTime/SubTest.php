@@ -17,202 +17,358 @@ use TestFixture;
 class SubTest extends TestFixture
 {
 
-    public function testSubYearsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearsPositive($class)
     {
-        $this->assertSame(1974, Carbon::createFromDate(1975)->subYears(1)->year);
+        $this->assertSame(1974, $class::createFromDate(1975)->subYears(1)->year);
     }
 
-    public function testSubYearsZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearsZero($class)
     {
-        $this->assertSame(1975, Carbon::createFromDate(1975)->subYears(0)->year);
+        $this->assertSame(1975, $class::createFromDate(1975)->subYears(0)->year);
     }
 
-    public function testSubYearsNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearsNegative($class)
     {
-        $this->assertSame(1976, Carbon::createFromDate(1975)->subYears(-1)->year);
+        $this->assertSame(1976, $class::createFromDate(1975)->subYears(-1)->year);
     }
 
-    public function testSubYear()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYear($class)
     {
-        $this->assertSame(1974, Carbon::createFromDate(1975)->subYear()->year);
+        $this->assertSame(1974, $class::createFromDate(1975)->subYear()->year);
     }
 
-    public function testSubMonthsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonthsPositive($class)
     {
-        $this->assertSame(12, Carbon::createFromDate(1975, 1, 1)->subMonths(1)->month);
+        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonths(1)->month);
     }
 
-    public function testSubMonthsZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonthsZero($class)
     {
-        $this->assertSame(1, Carbon::createFromDate(1975, 1, 1)->subMonths(0)->month);
+        $this->assertSame(1, $class::createFromDate(1975, 1, 1)->subMonths(0)->month);
     }
 
-    public function testSubMonthsNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonthsNegative($class)
     {
-        $this->assertSame(2, Carbon::createFromDate(1975, 1, 1)->subMonths(-1)->month);
+        $this->assertSame(2, $class::createFromDate(1975, 1, 1)->subMonths(-1)->month);
     }
 
-    public function testSubMonth()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonth($class)
     {
-        $this->assertSame(12, Carbon::createFromDate(1975, 1, 1)->subMonth()->month);
+        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonth()->month);
     }
 
-    public function testSubDaysPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubDaysPositive($class)
     {
-        $this->assertSame(30, Carbon::createFromDate(1975, 5, 1)->subDays(1)->day);
+        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDays(1)->day);
     }
 
-    public function testSubDaysZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubDaysZero($class)
     {
-        $this->assertSame(1, Carbon::createFromDate(1975, 5, 1)->subDays(0)->day);
+        $this->assertSame(1, $class::createFromDate(1975, 5, 1)->subDays(0)->day);
     }
 
-    public function testSubDaysNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubDaysNegative($class)
     {
-        $this->assertSame(2, Carbon::createFromDate(1975, 5, 1)->subDays(-1)->day);
+        $this->assertSame(2, $class::createFromDate(1975, 5, 1)->subDays(-1)->day);
     }
 
-    public function testSubDay()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubDay($class)
     {
-        $this->assertSame(30, Carbon::createFromDate(1975, 5, 1)->subDay()->day);
+        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDay()->day);
     }
 
-    public function testSubWeekdaysPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeekdaysPositive($class)
     {
-        $this->assertSame(22, Carbon::createFromDate(2012, 1, 4)->subWeekdays(9)->day);
+        $this->assertSame(22, $class::createFromDate(2012, 1, 4)->subWeekdays(9)->day);
     }
 
-    public function testSubWeekdaysZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeekdaysZero($class)
     {
-        $this->assertSame(4, Carbon::createFromDate(2012, 1, 4)->subWeekdays(0)->day);
+        $this->assertSame(4, $class::createFromDate(2012, 1, 4)->subWeekdays(0)->day);
     }
 
-    public function testSubWeekdaysNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeekdaysNegative($class)
     {
-        $this->assertSame(13, Carbon::createFromDate(2012, 1, 31)->subWeekdays(-9)->day);
+        $this->assertSame(13, $class::createFromDate(2012, 1, 31)->subWeekdays(-9)->day);
     }
 
-    public function testSubWeekday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeekday($class)
     {
-        $this->assertSame(6, Carbon::createFromDate(2012, 1, 9)->subWeekday()->day);
+        $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekday()->day);
     }
 
-    public function testSubWeeksPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeeksPositive($class)
     {
-        $this->assertSame(14, Carbon::createFromDate(1975, 5, 21)->subWeeks(1)->day);
+        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeeks(1)->day);
     }
 
-    public function testSubWeeksZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeeksZero($class)
     {
-        $this->assertSame(21, Carbon::createFromDate(1975, 5, 21)->subWeeks(0)->day);
+        $this->assertSame(21, $class::createFromDate(1975, 5, 21)->subWeeks(0)->day);
     }
 
-    public function testSubWeeksNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeeksNegative($class)
     {
-        $this->assertSame(28, Carbon::createFromDate(1975, 5, 21)->subWeeks(-1)->day);
+        $this->assertSame(28, $class::createFromDate(1975, 5, 21)->subWeeks(-1)->day);
     }
 
-    public function testSubWeek()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubWeek($class)
     {
-        $this->assertSame(14, Carbon::createFromDate(1975, 5, 21)->subWeek()->day);
+        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeek()->day);
     }
 
-    public function testSubHoursPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubHoursPositive($class)
     {
-        $this->assertSame(23, Carbon::createFromTime(0)->subHours(1)->hour);
+        $this->assertSame(23, $class::createFromTime(0)->subHours(1)->hour);
     }
 
-    public function testSubHoursZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubHoursZero($class)
     {
-        $this->assertSame(0, Carbon::createFromTime(0)->subHours(0)->hour);
+        $this->assertSame(0, $class::createFromTime(0)->subHours(0)->hour);
     }
 
-    public function testSubHoursNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubHoursNegative($class)
     {
-        $this->assertSame(1, Carbon::createFromTime(0)->subHours(-1)->hour);
+        $this->assertSame(1, $class::createFromTime(0)->subHours(-1)->hour);
     }
 
-    public function testSubHour()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubHour($class)
     {
-        $this->assertSame(23, Carbon::createFromTime(0)->subHour()->hour);
+        $this->assertSame(23, $class::createFromTime(0)->subHour()->hour);
     }
 
-    public function testSubMinutesPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMinutesPositive($class)
     {
-        $this->assertSame(59, Carbon::createFromTime(0, 0)->subMinutes(1)->minute);
+        $this->assertSame(59, $class::createFromTime(0, 0)->subMinutes(1)->minute);
     }
 
-    public function testSubMinutesZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMinutesZero($class)
     {
-        $this->assertSame(0, Carbon::createFromTime(0, 0)->subMinutes(0)->minute);
+        $this->assertSame(0, $class::createFromTime(0, 0)->subMinutes(0)->minute);
     }
 
-    public function testSubMinutesNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMinutesNegative($class)
     {
-        $this->assertSame(1, Carbon::createFromTime(0, 0)->subMinutes(-1)->minute);
+        $this->assertSame(1, $class::createFromTime(0, 0)->subMinutes(-1)->minute);
     }
 
-    public function testSubMinute()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMinute($class)
     {
-        $this->assertSame(59, Carbon::createFromTime(0, 0)->subMinute()->minute);
+        $this->assertSame(59, $class::createFromTime(0, 0)->subMinute()->minute);
     }
 
-    public function testSubSecondsPositive()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubSecondsPositive($class)
     {
-        $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->subSeconds(1)->second);
+        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSeconds(1)->second);
     }
 
-    public function testSubSecondsZero()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubSecondsZero($class)
     {
-        $this->assertSame(0, Carbon::createFromTime(0, 0, 0)->subSeconds(0)->second);
+        $this->assertSame(0, $class::createFromTime(0, 0, 0)->subSeconds(0)->second);
     }
 
-    public function testSubSecondsNegative()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubSecondsNegative($class)
     {
-        $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->subSeconds(-1)->second);
+        $this->assertSame(1, $class::createFromTime(0, 0, 0)->subSeconds(-1)->second);
     }
 
-    public function testSubSecond()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubSecond($class)
     {
-        $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->subSecond()->second);
+        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSecond()->second);
     }
 
     /***** Test non plural methods with non default args *****/
 
-    public function testSubYearPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearPassingArg($class)
     {
-        $this->assertSame(1973, Carbon::createFromDate(1975)->subYear(2)->year);
+        $this->assertSame(1973, $class::createFromDate(1975)->subYear(2)->year);
     }
 
-    public function testSubMonthPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonthPassingArg($class)
     {
-        $this->assertSame(3, Carbon::createFromDate(1975, 5, 1)->subMonth(2)->month);
+        $this->assertSame(3, $class::createFromDate(1975, 5, 1)->subMonth(2)->month);
     }
 
-    public function testSubMonthNoOverflowPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMonthNoOverflowPassingArg($class)
     {
-        $dt = Carbon::createFromDate(2011, 4, 30)->subMonthNoOverflow(2);
+        $dt = $class::createFromDate(2011, 4, 30)->subMonthNoOverflow(2);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    public function testSubDayPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubDayPassingArg($class)
     {
-        $this->assertSame(8, Carbon::createFromDate(1975, 5, 10)->subDay(2)->day);
+        $this->assertSame(8, $class::createFromDate(1975, 5, 10)->subDay(2)->day);
     }
 
-    public function testSubHourPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubHourPassingArg($class)
     {
-        $this->assertSame(22, Carbon::createFromTime(0)->subHour(2)->hour);
+        $this->assertSame(22, $class::createFromTime(0)->subHour(2)->hour);
     }
 
-    public function testSubMinutePassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubMinutePassingArg($class)
     {
-        $this->assertSame(58, Carbon::createFromTime(0)->subMinute(2)->minute);
+        $this->assertSame(58, $class::createFromTime(0)->subMinute(2)->minute);
     }
 
-    public function testSubSecondPassingArg()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubSecondPassingArg($class)
     {
-        $this->assertSame(58, Carbon::createFromTime(0)->subSecond(2)->second);
+        $this->assertSame(58, $class::createFromTime(0)->subSecond(2)->second);
     }
 }

@@ -17,255 +17,375 @@ use TestFixture;
 class IsTest extends TestFixture
 {
 
-    public function testIsWeekdayTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWeekdayTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2012, 1, 2)->isWeekday());
+        $this->assertTrue($class::createFromDate(2012, 1, 2)->isWeekday());
     }
 
-    public function testIsWeekdayFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWeekdayFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2012, 1, 1)->isWeekday());
+        $this->assertFalse($class::createFromDate(2012, 1, 1)->isWeekday());
     }
 
-    public function testIsWeekendTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWeekendTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2012, 1, 1)->isWeekend());
+        $this->assertTrue($class::createFromDate(2012, 1, 1)->isWeekend());
     }
 
-    public function testIsWeekendFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWeekendFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2012, 1, 2)->isWeekend());
+        $this->assertFalse($class::createFromDate(2012, 1, 2)->isWeekend());
     }
 
-    public function testIsYesterdayTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsYesterdayTrue($class)
     {
-        $this->assertTrue(Carbon::now()->subDay()->isYesterday());
+        $this->assertTrue($class::now()->subDay()->isYesterday());
     }
 
-    public function testIsYesterdayFalseWithToday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsYesterdayFalseWithToday($class)
     {
-        $this->assertFalse(Carbon::now()->endOfDay()->isYesterday());
+        $this->assertFalse($class::now()->endOfDay()->isYesterday());
     }
 
-    public function testIsYesterdayFalseWith2Days()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsYesterdayFalseWith2Days($class)
     {
-        $this->assertFalse(Carbon::now()->subDays(2)->startOfDay()->isYesterday());
+        $this->assertFalse($class::now()->subDays(2)->startOfDay()->isYesterday());
     }
 
-    public function testIsTodayTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTodayTrue($class)
     {
-        $this->assertTrue(Carbon::now()->isToday());
+        $this->assertTrue($class::now()->isToday());
     }
 
-    public function testIsTodayFalseWithYesterday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTodayFalseWithYesterday($class)
     {
-        $this->assertFalse(Carbon::now()->subDay()->endOfDay()->isToday());
+        $this->assertFalse($class::now()->subDay()->endOfDay()->isToday());
     }
 
-    public function testIsTodayFalseWithTomorrow()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTodayFalseWithTomorrow($class)
     {
-        $this->assertFalse(Carbon::now()->addDay()->startOfDay()->isToday());
+        $this->assertFalse($class::now()->addDay()->startOfDay()->isToday());
     }
 
-    public function testIsTodayWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTodayWithTimezone($class)
     {
-        $this->assertTrue(Carbon::now('Asia/Tokyo')->isToday());
+        $this->assertTrue($class::now('Asia/Tokyo')->isToday());
     }
 
-    public function testIsTomorrowTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTomorrowTrue($class)
     {
-        $this->assertTrue(Carbon::now()->addDay()->isTomorrow());
+        $this->assertTrue($class::now()->addDay()->isTomorrow());
     }
 
-    public function testIsTomorrowFalseWithToday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTomorrowFalseWithToday($class)
     {
-        $this->assertFalse(Carbon::now()->endOfDay()->isTomorrow());
+        $this->assertFalse($class::now()->endOfDay()->isTomorrow());
     }
 
-    public function testIsTomorrowFalseWith2Days()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTomorrowFalseWith2Days($class)
     {
-        $this->assertFalse(Carbon::now()->addDays(2)->startOfDay()->isTomorrow());
+        $this->assertFalse($class::now()->addDays(2)->startOfDay()->isTomorrow());
     }
 
-    public function testIsFutureTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsFutureTrue($class)
     {
-        $this->assertTrue(Carbon::now()->addSecond()->isFuture());
+        $this->assertTrue($class::now()->addSecond()->isFuture());
     }
 
-    public function testIsFutureFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsFutureFalse($class)
     {
-        $this->assertFalse(Carbon::now()->isFuture());
+        $this->assertFalse($class::now()->isFuture());
     }
 
-    public function testIsFutureFalseInThePast()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsFutureFalseInThePast($class)
     {
-        $this->assertFalse(Carbon::now()->subSecond()->isFuture());
+        $this->assertFalse($class::now()->subSecond()->isFuture());
     }
 
-    public function testIsPastTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsPastTrue($class)
     {
-        $this->assertTrue(Carbon::now()->subSecond()->isPast());
+        $this->assertTrue($class::now()->subSecond()->isPast());
     }
 
-    public function testIsPastFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsPastFalse($class)
     {
-        $this->assertFalse(Carbon::now()->addSecond()->isPast());
-        $this->assertFalse(Carbon::now()->isPast());
+        $this->assertFalse($class::now()->addSecond()->isPast());
+        $this->assertFalse($class::now()->isPast());
     }
 
-    public function testIsLeapYearTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLeapYearTrue($class)
     {
-        $this->assertTrue(Carbon::createFromDate(2016, 1, 1)->isLeapYear());
+        $this->assertTrue($class::createFromDate(2016, 1, 1)->isLeapYear());
     }
 
-    public function testIsLeapYearFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLeapYearFalse($class)
     {
-        $this->assertFalse(Carbon::createFromDate(2014, 1, 1)->isLeapYear());
+        $this->assertFalse($class::createFromDate(2014, 1, 1)->isLeapYear());
     }
 
-    public function testIsSameDayTrue()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSameDayTrue($class)
     {
-        $current = Carbon::createFromDate(2012, 1, 2);
-        $this->assertTrue($current->isSameDay(Carbon::createFromDate(2012, 1, 2)));
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameDay($class::createFromDate(2012, 1, 2)));
     }
 
-    public function testIsSameDayFalse()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSameDayFalse($class)
     {
-        $current = Carbon::createFromDate(2012, 1, 2);
-        $this->assertFalse($current->isSameDay(Carbon::createFromDate(2012, 1, 3)));
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameDay($class::createFromDate(2012, 1, 3)));
     }
 
-    public function testIsSunday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSunday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 5, 31)->isSunday());
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 21)->isSunday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue($class::createFromDate(2015, 5, 31)->isSunday());
+        $this->assertTrue($class::createFromDate(2015, 6, 21)->isSunday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::SUNDAY)->isSunday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isSunday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::SUNDAY)->isSunday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::MONDAY)->isSunday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::MONDAY)->isSunday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::MONDAY)->isSunday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::MONDAY)->isSunday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::MONDAY)->isSunday());
     }
 
-    public function testIsMonday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsMonday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 1)->isMonday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::MONDAY)->isMonday());
+        $this->assertTrue($class::createFromDate(2015, 6, 1)->isMonday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::MONDAY)->isMonday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::MONDAY)->isMonday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isMonday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::MONDAY)->isMonday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::MONDAY)->isMonday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::TUESDAY)->isMonday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::TUESDAY)->isMonday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::TUESDAY)->isMonday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::TUESDAY)->isMonday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::TUESDAY)->isMonday());
     }
 
-    public function testIsTuesday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsTuesday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 2)->isTuesday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::TUESDAY)->isTuesday());
+        $this->assertTrue($class::createFromDate(2015, 6, 2)->isTuesday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::TUESDAY)->isTuesday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::TUESDAY)->isTuesday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::TUESDAY)->isTuesday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::TUESDAY)->isTuesday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::TUESDAY)->isTuesday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::WEDNESDAY)->isTuesday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::WEDNESDAY)->isTuesday());
     }
 
-    public function testIsWednesday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWednesday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 3)->isWednesday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::createFromDate(2015, 6, 3)->isWednesday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::WEDNESDAY)->isWednesday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::WEDNESDAY)->isWednesday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::THURSDAY)->isWednesday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::THURSDAY)->isWednesday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::THURSDAY)->isWednesday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::THURSDAY)->isWednesday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::THURSDAY)->isWednesday());
     }
 
-    public function testIsThursday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsThursday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 4)->isThursday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::THURSDAY)->isThursday());
+        $this->assertTrue($class::createFromDate(2015, 6, 4)->isThursday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::THURSDAY)->isThursday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::THURSDAY)->isThursday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::THURSDAY)->isThursday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::THURSDAY)->isThursday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::THURSDAY)->isThursday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::FRIDAY)->isThursday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::FRIDAY)->isThursday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::FRIDAY)->isThursday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::FRIDAY)->isThursday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::FRIDAY)->isThursday());
     }
 
-    public function testIsFriday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsFriday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 5)->isFriday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::FRIDAY)->isFriday());
+        $this->assertTrue($class::createFromDate(2015, 6, 5)->isFriday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::FRIDAY)->isFriday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::FRIDAY)->isFriday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::FRIDAY)->isFriday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::FRIDAY)->isFriday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::FRIDAY)->isFriday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::SATURDAY)->isFriday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::SATURDAY)->isFriday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::SATURDAY)->isFriday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::SATURDAY)->isFriday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::SATURDAY)->isFriday());
     }
 
-    public function testIsSaturday()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSaturday($class)
     {
         // True in the past past
-        $this->assertTrue(Carbon::createFromDate(2015, 6, 6)->isSaturday());
-        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SATURDAY)->isSaturday());
+        $this->assertTrue($class::createFromDate(2015, 6, 6)->isSaturday());
+        $this->assertTrue($class::now()->subWeek()->previous(Carbon::SATURDAY)->isSaturday());
 
         // True in the future
-        $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::SATURDAY)->isSaturday());
-        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::SATURDAY)->isSaturday());
+        $this->assertTrue($class::now()->addWeek()->previous(Carbon::SATURDAY)->isSaturday());
+        $this->assertTrue($class::now()->addMonth()->previous(Carbon::SATURDAY)->isSaturday());
 
         // False in the past
-        $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isSaturday());
-        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->subWeek()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->subMonth()->previous(Carbon::SUNDAY)->isSaturday());
 
         // False in the future
-        $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isSaturday());
-        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->addWeek()->previous(Carbon::SUNDAY)->isSaturday());
+        $this->assertFalse($class::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
     }
 }

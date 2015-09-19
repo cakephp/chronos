@@ -17,30 +17,46 @@ use TestFixture;
 class CreateFromFormatTest extends TestFixture
 {
 
-    public function testCreateFromFormatReturnsCarbon()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromFormatReturnsCarbon($class)
     {
-        $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
+        $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
-        $this->assertTrue($d instanceof Carbon);
+        $this->assertTrue($d instanceof $class);
     }
 
-    public function testCreateFromFormatWithTimezoneString()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromFormatWithTimezoneString($class)
     {
-        $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
+        $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithTimezone()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromFormatWithTimezone($class)
     {
-        $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new \DateTimeZone('Europe/London'));
+        $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new \DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithMillis()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromFormatWithMillis($class)
     {
-        $d = Carbon::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
+        $d = $class::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
         $this->assertSame(254687, $d->micro);
     }
 }

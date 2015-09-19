@@ -17,25 +17,37 @@ use TestFixture;
 class CopyTest extends TestFixture
 {
 
-    public function testCopy()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCopy($class)
     {
-        $dating  = Carbon::now();
+        $dating  = $class::now();
         $dating2 = $dating->copy();
         $this->assertNotSame($dating, $dating2);
     }
 
-    public function testCopyEnsureTzIsCopied()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCopyEnsureTzIsCopied($class)
     {
-        $dating  = Carbon::createFromDate(2000, 1, 1, 'Europe/London');
+        $dating  = $class::createFromDate(2000, 1, 1, 'Europe/London');
         $dating2 = $dating->copy();
         $this->assertSame($dating->tzName, $dating2->tzName);
         $this->assertSame($dating->offset, $dating2->offset);
     }
 
-    public function testCopyEnsureMicrosAreCopied()
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCopyEnsureMicrosAreCopied($class)
     {
         $micro   = 254687;
-        $dating  = Carbon::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
+        $dating  = $class::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
         $dating2 = $dating->copy();
         $this->assertSame($micro, $dating2->micro);
     }
