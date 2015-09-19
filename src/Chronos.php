@@ -44,12 +44,15 @@ class Chronos extends DateTimeImmutable implements CarbonInterface
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string $time
-     * @param DateTimeZone|string $tz
+     * @param string $time Fixed or relative time
+     * @param DateTimeZone|string $tz The timezone for the instance
      */
     public function __construct($time = null, $tz = null)
     {
-        $tz = static::safeCreateDateTimeZone($tz);
+        if ($tz !== null) {
+            $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
+        }
+
         if (static::$testNow === null) {
             return parent::__construct($time, $tz);
         }
