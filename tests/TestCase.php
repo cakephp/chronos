@@ -12,7 +12,7 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Cake\Chronos\Carbon;
-use Cake\Chronos\CarbonImmutable;
+use Cake\Chronos\Chronos;
 use Cake\Chronos\CarbonInterval;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
@@ -38,7 +38,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         return [
             'mutable' => [Carbon::class],
-            'immutable' => [CarbonImmutable::class]
+            'immutable' => [Chronos::class]
         ];
     }
 

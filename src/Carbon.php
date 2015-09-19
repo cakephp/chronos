@@ -58,7 +58,7 @@ class Carbon extends DateTime implements CarbonInterface
      */
     public function toImmutable()
     {
-        return CarbonImmutable::instance($this);
+        return Chronos::instance($this);
     }
 
     /**
