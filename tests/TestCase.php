@@ -1,12 +1,14 @@
 <?php
-
-/*
- * This file is part of the Carbon package.
+/**
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * (c) Brian Nesbitt <brian@nesbot.com>
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright (c) Brian Nesbitt <brian@nesbot.com>
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 require __DIR__.'/../vendor/autoload.php';
