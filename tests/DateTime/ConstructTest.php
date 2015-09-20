@@ -13,7 +13,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class ConstructTest extends TestCase

@@ -13,7 +13,6 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Carbon;
 use TestCase;
 
 class CreateFromFormatTest extends TestCase
@@ -23,7 +22,7 @@ class CreateFromFormatTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testCreateFromFormatReturnsCarbon($class)
+    public function testCreateFromFormatReturnsInstance($class)
     {
         $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
