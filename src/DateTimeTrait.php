@@ -1390,7 +1390,8 @@ trait DateTimeTrait
      */
     public function addDays($value)
     {
-        return $this->modify((int)$value . ' day');
+        $value = (int)$value;
+        return $this->modify("$value day");
     }
 
     /**
@@ -1402,7 +1403,8 @@ trait DateTimeTrait
      */
     public function addDay($value = 1)
     {
-        return $this->addDays($value);
+        $value = (int)$value;
+        return $this->modify("$value day");
     }
 
     /**
@@ -1414,7 +1416,8 @@ trait DateTimeTrait
      */
     public function subDay($value = 1)
     {
-        return $this->subDays($value);
+        $value = (int)$value;
+        return $this->modify("-$value day");
     }
 
     /**
@@ -1426,7 +1429,8 @@ trait DateTimeTrait
      */
     public function subDays($value)
     {
-        return $this->addDays(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value day");
     }
 
     /**
@@ -1439,7 +1443,8 @@ trait DateTimeTrait
      */
     public function addWeekdays($value)
     {
-        return $this->modify((int)$value . ' weekday');
+        $value = (int)$value;
+        return $this->modify("$value weekday");
     }
 
     /**
@@ -1451,7 +1456,8 @@ trait DateTimeTrait
      */
     public function addWeekday($value = 1)
     {
-        return $this->addWeekdays($value);
+        $value = (int)$value;
+        return $this->modify("$value weekday");
     }
 
     /**
@@ -1463,7 +1469,8 @@ trait DateTimeTrait
      */
     public function subWeekday($value = 1)
     {
-        return $this->subWeekdays($value);
+        $value = (int)$value;
+        return $this->modify("-$value weekday");
     }
 
     /**
@@ -1475,7 +1482,8 @@ trait DateTimeTrait
      */
     public function subWeekdays($value)
     {
-        return $this->addWeekdays(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value weekday");
     }
 
     /**
@@ -1488,7 +1496,8 @@ trait DateTimeTrait
      */
     public function addWeeks($value)
     {
-        return $this->modify((int)$value . ' week');
+        $value = (int)$value;
+        return $this->modify("$value week");
     }
 
     /**
@@ -1500,7 +1509,8 @@ trait DateTimeTrait
      */
     public function addWeek($value = 1)
     {
-        return $this->addWeeks($value);
+        $value = (int)$value;
+        return $this->modify("$value week");
     }
 
     /**
@@ -1512,7 +1522,8 @@ trait DateTimeTrait
      */
     public function subWeek($value = 1)
     {
-        return $this->subWeeks($value);
+        $value = (int)$value;
+        return $this->modify("-$value week");
     }
 
     /**
@@ -1524,7 +1535,8 @@ trait DateTimeTrait
      */
     public function subWeeks($value)
     {
-        return $this->addWeeks(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value week");
     }
 
     /**
@@ -1537,7 +1549,8 @@ trait DateTimeTrait
      */
     public function addHours($value)
     {
-        return $this->modify((int)$value . ' hour');
+        $value = (int)$value;
+        return $this->modify("$value hour");
     }
 
     /**
@@ -1549,7 +1562,8 @@ trait DateTimeTrait
      */
     public function addHour($value = 1)
     {
-        return $this->addHours($value);
+        $value = (int)$value;
+        return $this->modify("$value hour");
     }
 
     /**
@@ -1561,7 +1575,8 @@ trait DateTimeTrait
      */
     public function subHour($value = 1)
     {
-        return $this->subHours($value);
+        $value = (int)$value;
+        return $this->modify("-$value hour");
     }
 
     /**
@@ -1573,7 +1588,8 @@ trait DateTimeTrait
      */
     public function subHours($value)
     {
-        return $this->addHours(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value hour");
     }
 
     /**
@@ -1586,7 +1602,8 @@ trait DateTimeTrait
      */
     public function addMinutes($value)
     {
-        return $this->modify((int)$value . ' minute');
+        $value = (int)$value;
+        return $this->modify("$value minute");
     }
 
     /**
@@ -1598,7 +1615,8 @@ trait DateTimeTrait
      */
     public function addMinute($value = 1)
     {
-        return $this->addMinutes($value);
+        $value = (int)$value;
+        return $this->modify("$value minute");
     }
 
     /**
@@ -1610,7 +1628,8 @@ trait DateTimeTrait
      */
     public function subMinute($value = 1)
     {
-        return $this->subMinutes($value);
+        $value = (int)$value;
+        return $this->modify("-$value minute");
     }
 
     /**
@@ -1622,7 +1641,8 @@ trait DateTimeTrait
      */
     public function subMinutes($value)
     {
-        return $this->addMinutes(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value minute");
     }
 
     /**
@@ -1635,7 +1655,8 @@ trait DateTimeTrait
      */
     public function addSeconds($value)
     {
-        return $this->modify((int)$value . ' second');
+        $value = (int)$value;
+        return $this->modify("$value second");
     }
 
     /**
@@ -1647,7 +1668,8 @@ trait DateTimeTrait
      */
     public function addSecond($value = 1)
     {
-        return $this->addSeconds($value);
+        $value = (int)$value;
+        return $this->modify("$value second");
     }
 
     /**
@@ -1659,7 +1681,8 @@ trait DateTimeTrait
      */
     public function subSecond($value = 1)
     {
-        return $this->subSeconds($value);
+        $value = (int)$value;
+        return $this->modify("-$value second");
     }
 
     /**
@@ -1671,7 +1694,8 @@ trait DateTimeTrait
      */
     public function subSeconds($value)
     {
-        return $this->addSeconds(-1 * $value);
+        $value = (int)$value;
+        return $this->modify("-$value second");
     }
 
     ///////////////////////////////////////////////////////////////////
