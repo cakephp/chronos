@@ -14,7 +14,7 @@ namespace Interval;
 use Cake\Chronos\ChronosInterval;
 use TestCase;
 
-class CarbonIntervalGettersTest extends TestCase
+class IntervalGettersTest extends TestCase
 {
 
     public function testGettersThrowExceptionOnUnknownGetter()

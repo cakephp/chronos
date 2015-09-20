@@ -14,26 +14,26 @@ namespace Interval;
 use Cake\Chronos\ChronosInterval;
 use TestCase;
 
-class CarbonIntervalSettersTest extends TestCase
+class IntervalSettersTest extends TestCase
 {
 
     public function testYearsSetter()
     {
-        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->years = 2;
         $this->assertSame(2, $d->years);
     }
 
     public function testMonthsSetter()
     {
-        $d         = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->months = 11;
         $this->assertSame(11, $d->months);
     }
 
     public function testWeeksSetter()
     {
-        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->weeks = 11;
         $this->assertSame(11, $d->weeks);
         $this->assertSame(7 * 11, $d->dayz);
@@ -41,7 +41,7 @@ class CarbonIntervalSettersTest extends TestCase
 
     public function testDayzSetter()
     {
-        $d       = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->dayz = 11;
         $this->assertSame(11, $d->dayz);
         $this->assertSame(1, $d->weeks);
@@ -50,21 +50,21 @@ class CarbonIntervalSettersTest extends TestCase
 
     public function testHoursSetter()
     {
-        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->hours = 12;
         $this->assertSame(12, $d->hours);
     }
 
     public function testMinutesSetter()
     {
-        $d          = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->minutes = 11;
         $this->assertSame(11, $d->minutes);
     }
 
     public function testSecondsSetter()
     {
-        $d          = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->seconds = 34;
         $this->assertSame(34, $d->seconds);
     }

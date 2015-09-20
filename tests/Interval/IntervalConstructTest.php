@@ -18,7 +18,7 @@ use Exception;
 use InvalidArgumentException;
 use TestCase;
 
-class CarbonIntervalConstructTest extends TestCase
+class IntervalConstructTest extends TestCase
 {
 
     public function testDefaults()

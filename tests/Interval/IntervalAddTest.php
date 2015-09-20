@@ -16,7 +16,7 @@ use Cake\Chronos\Chronos;
 use DateInterval;
 use TestCase;
 
-class CarbonIntervalAddTest extends TestCase
+class IntervalAddTest extends TestCase
 {
 
     public function testAdd()
