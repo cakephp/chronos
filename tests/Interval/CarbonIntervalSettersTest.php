@@ -11,7 +11,7 @@
 
 namespace Interval;
 
-use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\ChronosInterval;
 use TestCase;
 
 class CarbonIntervalSettersTest extends TestCase
@@ -19,21 +19,21 @@ class CarbonIntervalSettersTest extends TestCase
 
     public function testYearsSetter()
     {
-        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->years = 2;
         $this->assertSame(2, $d->years);
     }
 
     public function testMonthsSetter()
     {
-        $d         = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d         = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->months = 11;
         $this->assertSame(11, $d->months);
     }
 
     public function testWeeksSetter()
     {
-        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->weeks = 11;
         $this->assertSame(11, $d->weeks);
         $this->assertSame(7 * 11, $d->dayz);
@@ -41,7 +41,7 @@ class CarbonIntervalSettersTest extends TestCase
 
     public function testDayzSetter()
     {
-        $d       = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d       = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->dayz = 11;
         $this->assertSame(11, $d->dayz);
         $this->assertSame(1, $d->weeks);
@@ -50,51 +50,51 @@ class CarbonIntervalSettersTest extends TestCase
 
     public function testHoursSetter()
     {
-        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->hours = 12;
         $this->assertSame(12, $d->hours);
     }
 
     public function testMinutesSetter()
     {
-        $d          = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d          = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->minutes = 11;
         $this->assertSame(11, $d->minutes);
     }
 
     public function testSecondsSetter()
     {
-        $d          = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d          = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->seconds = 34;
         $this->assertSame(34, $d->seconds);
     }
 
     public function testFluentSetters()
     {
-        $ci = CarbonInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 4, 2, 5, 3, 1, 59);
 
-        $ci = CarbonInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 4, 2, 14, 3, 1, 59);
     }
 
     public function testFluentSettersDaysOverwritesWeeks()
     {
-        $ci = CarbonInterval::weeks(3)->days(5);
+        $ci = ChronosInterval::weeks(3)->days(5);
         $this->assertDateTimeInterval($ci, 0, 0, 5, 0, 0, 0);
     }
 
     public function testFluentSettersWeeksOverwritesDays()
     {
-        $ci = CarbonInterval::days(5)->weeks(3);
+        $ci = ChronosInterval::days(5)->weeks(3);
         $this->assertDateTimeInterval($ci, 0, 0, 3 * 7, 0, 0, 0);
     }
 
     public function testFluentSettersWeeksAndDaysIsCumulative()
     {
-        $ci = CarbonInterval::year(5)->weeksAndDays(2, 6);
+        $ci = ChronosInterval::year(5)->weeksAndDays(2, 6);
         $this->assertDateTimeInterval($ci, 5, 0, 20, 0, 0, 0);
         $this->assertSame(20, $ci->dayz);
         $this->assertSame(2, $ci->weeks);

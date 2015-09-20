@@ -1737,7 +1737,7 @@ trait DateTimeTrait
      */
     public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
     {
-        return $this->diffFiltered(CarbonInterval::day(), $callback, $dt, $abs);
+        return $this->diffFiltered(ChronosInterval::day(), $callback, $dt, $abs);
     }
 
     /**
@@ -1751,20 +1751,20 @@ trait DateTimeTrait
      */
     public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
     {
-        return $this->diffFiltered(CarbonInterval::hour(), $callback, $dt, $abs);
+        return $this->diffFiltered(ChronosInterval::hour(), $callback, $dt, $abs);
     }
 
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param CarbonInterval $ci An interval to traverse by
+     * @param ChronosInterval $ci An interval to traverse by
      * @param callable $callback
      * @param ChronosInterface  $dt
      * @param boolean $abs      Get the absolute of the difference
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
+    public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
     {
         $start = $this;
         $end = ($dt === null) ? static::now($this->tz) : $dt;

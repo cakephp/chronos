@@ -12,7 +12,7 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\ChronosInterval;
 use TestCase;
 use Closure;
 
@@ -304,7 +304,7 @@ class DiffTest extends TestCase
     public function testDiffFilteredUsingMinutesPositiveWithMutated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1)->startOfDay();
-        $this->assertSame(60, $dt->diffFiltered(CarbonInterval::minute(), function ($date) {
+        $this->assertSame(60, $dt->diffFiltered(ChronosInterval::minute(), function ($date) {
             return $date->hour === 12;
         }, $class::createFromDate(2000, 1, 1)->endOfDay()));
     }
@@ -318,7 +318,7 @@ class DiffTest extends TestCase
         $dt1 = $class::create(2000, 1, 1);
         $dt2 = $dt1->copy()->addSeconds(80);
 
-        $this->assertSame(40, $dt1->diffFiltered(CarbonInterval::second(), function ($date) {
+        $this->assertSame(40, $dt1->diffFiltered(ChronosInterval::second(), function ($date) {
             return $date->second % 2 === 0;
         }, $dt2));
     }
@@ -331,7 +331,7 @@ class DiffTest extends TestCase
     {
         $dt = $class::createFromDate(2000, 1, 31);
 
-        $this->assertSame(2, $dt->diffFiltered(CarbonInterval::days(2), function ($date) use ($class) {
+        $this->assertSame(2, $dt->diffFiltered(ChronosInterval::days(2), function ($date) use ($class) {
             return $date->dayOfWeek === $class::SUNDAY;
         }, $dt->copy()->startOfMonth()));
     }
@@ -345,7 +345,7 @@ class DiffTest extends TestCase
         $dt1 = $class::createFromDate(2006, 1, 31);
         $dt2 = $class::createFromDate(2000, 1, 1);
 
-        $this->assertSame(7, $dt1->diffFiltered(CarbonInterval::year(), function ($date) {
+        $this->assertSame(7, $dt1->diffFiltered(ChronosInterval::year(), function ($date) {
             return $date->month === 1;
         }, $dt2));
     }
@@ -357,7 +357,7 @@ class DiffTest extends TestCase
     public function testDiffFilteredNegativeWithSignWithMutated($class)
     {
         $dt = $class::createFromDate(2000, 1, 31);
-        $this->assertSame(-4, $dt->diffFiltered(CarbonInterval::week(), function ($date) {
+        $this->assertSame(-4, $dt->diffFiltered(ChronosInterval::week(), function ($date) {
             return $date->month === 12;
         }, $dt->copy()->subMonths(3), false));
     }
@@ -371,7 +371,7 @@ class DiffTest extends TestCase
         $dt1 = $class::createFromDate(2001, 1, 31);
         $dt2 = $class::createFromDate(1999, 1, 1);
 
-        $this->assertSame(-12, $dt1->diffFiltered(CarbonInterval::month(), function ($date) {
+        $this->assertSame(-12, $dt1->diffFiltered(ChronosInterval::month(), function ($date) {
             return $date->year === 2000;
         }, $dt2, false));
     }

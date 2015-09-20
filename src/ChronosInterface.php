@@ -1117,14 +1117,14 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param CarbonInterval $ci An interval to traverse by
+     * @param ChronosInterval $ci An interval to traverse by
      * @param callable $callback
      * @param ChronosInterface $dt
      * @param boolean $abs Get the absolute of the difference
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true);
+    public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weekdays

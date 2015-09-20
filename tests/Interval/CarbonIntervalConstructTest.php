@@ -11,7 +11,7 @@
 
 namespace Interval;
 
-use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Chronos;
 use DateInterval;
 use Exception;
@@ -23,8 +23,8 @@ class CarbonIntervalConstructTest extends TestCase
 
     public function testDefaults()
     {
-        $ci = new CarbonInterval();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 1, 0, 0, 0, 0, 0);
     }
 
@@ -33,7 +33,7 @@ class CarbonIntervalConstructTest extends TestCase
      */
     public function testNulls()
     {
-        $ci = new CarbonInterval(null, null, null, null, null, null);
+        $ci = new ChronosInterval(null, null, null, null, null, null);
     }
 
     /**
@@ -41,183 +41,183 @@ class CarbonIntervalConstructTest extends TestCase
      */
     public function testZeroes()
     {
-        $ci = new CarbonInterval(0, 0, 0, 0, 0, 0);
+        $ci = new ChronosInterval(0, 0, 0, 0, 0, 0);
     }
 
     public function testYears()
     {
-        $ci = new CarbonInterval(1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 1, 0, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::years(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::years(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 0, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::year();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::year();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 1, 0, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::year(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::year(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 3, 0, 0, 0, 0, 0);
     }
 
     public function testMonths()
     {
-        $ci = new CarbonInterval(0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 1, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::months(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::months(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 2, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::month();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::month();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 1, 0, 0, 0, 0);
 
-        $ci = CarbonInterval::month(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::month(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 3, 0, 0, 0, 0);
     }
 
     public function testWeeks()
     {
-        $ci = new CarbonInterval(0, 0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 7, 0, 0, 0);
 
-        $ci = CarbonInterval::weeks(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::weeks(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 14, 0, 0, 0);
 
-        $ci = CarbonInterval::week();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::week();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 7, 0, 0, 0);
 
-        $ci = CarbonInterval::week(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::week(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 21, 0, 0, 0);
     }
 
     public function testDays()
     {
-        $ci = new CarbonInterval(0, 0, 0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 0, 0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 1, 0, 0, 0);
 
-        $ci = CarbonInterval::days(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::days(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 2, 0, 0, 0);
 
-        $ci = CarbonInterval::dayz(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::dayz(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 2, 0, 0, 0);
 
-        $ci = CarbonInterval::day();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::day();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 1, 0, 0, 0);
 
-        $ci = CarbonInterval::day(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::day(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 3, 0, 0, 0);
     }
 
     public function testHours()
     {
-        $ci = new CarbonInterval(0, 0, 0, 0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 0, 0, 0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 1, 0, 0);
 
-        $ci = CarbonInterval::hours(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::hours(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 2, 0, 0);
 
-        $ci = CarbonInterval::hour();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::hour();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 1, 0, 0);
 
-        $ci = CarbonInterval::hour(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::hour(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 3, 0, 0);
     }
 
     public function testMinutes()
     {
-        $ci = new CarbonInterval(0, 0, 0, 0, 0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 0, 0, 0, 0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 1, 0);
 
-        $ci = CarbonInterval::minutes(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::minutes(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 2, 0);
 
-        $ci = CarbonInterval::minute();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::minute();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 1, 0);
 
-        $ci = CarbonInterval::minute(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::minute(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 3, 0);
     }
 
     public function testSeconds()
     {
-        $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 1);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(0, 0, 0, 0, 0, 0, 1);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 1);
 
-        $ci = CarbonInterval::seconds(2);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::seconds(2);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 2);
 
-        $ci = CarbonInterval::second();
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::second();
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 1);
 
-        $ci = CarbonInterval::second(3);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::second(3);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 3);
     }
 
     public function testYearsAndHours()
     {
-        $ci = new CarbonInterval(5, 0, 0, 0, 3, 0, 0);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(5, 0, 0, 0, 3, 0, 0);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 5, 0, 0, 3, 0, 0);
     }
 
     public function testAll()
     {
-        $ci = new CarbonInterval(5, 6, 2, 5, 9, 10, 11);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = new ChronosInterval(5, 6, 2, 5, 9, 10, 11);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 5, 6, 19, 9, 10, 11);
     }
 
     public function testAllWithCreate()
     {
-        $ci = CarbonInterval::create(5, 6, 2, 5, 9, 10, 11);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::create(5, 6, 2, 5, 9, 10, 11);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 5, 6, 19, 9, 10, 11);
     }
 
     public function testInstance()
     {
-        $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci = ChronosInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
+        $this->assertTrue($ci->days === false || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
     }
 
     public function testInstanceWithNegativeDateInterval()
     {
         $di         = new DateInterval('P2Y1M5DT22H33M44S');
         $di->invert = 1;
-        $ci         = CarbonInterval::instance($di);
-        $this->assertInstanceOfCarbonInterval($ci);
+        $ci         = ChronosInterval::instance($di);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
+        $this->assertTrue($ci->days === false || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
         $this->assertSame(1, $ci->invert);
     }
 
@@ -226,6 +226,6 @@ class CarbonIntervalConstructTest extends TestCase
      */
     public function testInstanceWithDaysThrowsException()
     {
-        $ci = CarbonInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
+        $ci = ChronosInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
     }
 }

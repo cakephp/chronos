@@ -11,7 +11,7 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use Cake\Chronos\CarbonInterval;
+use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
 
@@ -59,34 +59,29 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function assertDateTimeInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    protected function assertDateTimeInterval(ChronosInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $this->assertSame($years, $ci->years, 'CarbonInterval->years');
+        $this->assertSame($years, $ci->years, 'ChronosInterval->years');
 
         if ($months !== null) {
-            $this->assertSame($months, $ci->months, 'CarbonInterval->months');
+            $this->assertSame($months, $ci->months, 'ChronosInterval->months');
         }
 
         if ($days !== null) {
-            $this->assertSame($days, $ci->dayz, 'CarbonInterval->dayz');
+            $this->assertSame($days, $ci->dayz, 'ChronosInterval->dayz');
         }
 
         if ($hours !== null) {
-            $this->assertSame($hours, $ci->hours, 'CarbonInterval->hours');
+            $this->assertSame($hours, $ci->hours, 'ChronosInterval->hours');
         }
 
         if ($minutes !== null) {
-            $this->assertSame($minutes, $ci->minutes, 'CarbonInterval->minutes');
+            $this->assertSame($minutes, $ci->minutes, 'ChronosInterval->minutes');
         }
 
         if ($seconds !== null) {
-            $this->assertSame($seconds, $ci->seconds, 'CarbonInterval->seconds');
+            $this->assertSame($seconds, $ci->seconds, 'ChronosInterval->seconds');
         }
-    }
-
-    protected function assertInstanceOfCarbonInterval($d)
-    {
-        $this->assertInstanceOf(CarbonInterval::class, $d);
     }
 
     protected function wrapWithTestNow(Closure $func, $dt = null)

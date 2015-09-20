@@ -30,39 +30,39 @@ use InvalidArgumentException;
  * @property-read integer $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read integer $daysExcludeWeeks alias of dayzExcludeWeeks
  *
- * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
- * @method static CarbonInterval year($years = 1) Alias for years()
- * @method static CarbonInterval months($months = 1) Create instance specifying a number of months.
- * @method static CarbonInterval month($months = 1) Alias for months()
- * @method static CarbonInterval weeks($weeks = 1) Create instance specifying a number of weeks.
- * @method static CarbonInterval week($weeks = 1) Alias for weeks()
- * @method static CarbonInterval days($days = 1) Create instance specifying a number of days.
- * @method static CarbonInterval dayz($days = 1) Alias for days()
- * @method static CarbonInterval day($days = 1) Alias for days()
- * @method static CarbonInterval hours($hours = 1) Create instance specifying a number of hours.
- * @method static CarbonInterval hour($hours = 1) Alias for hours()
- * @method static CarbonInterval minutes($minutes = 1) Create instance specifying a number of minutes.
- * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
- * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
- * @method static CarbonInterval second($seconds = 1) Alias for seconds()
+ * @method static ChronosInterval years($years = 1) Create instance specifying a number of years.
+ * @method static ChronosInterval year($years = 1) Alias for years()
+ * @method static ChronosInterval months($months = 1) Create instance specifying a number of months.
+ * @method static ChronosInterval month($months = 1) Alias for months()
+ * @method static ChronosInterval weeks($weeks = 1) Create instance specifying a number of weeks.
+ * @method static ChronosInterval week($weeks = 1) Alias for weeks()
+ * @method static ChronosInterval days($days = 1) Create instance specifying a number of days.
+ * @method static ChronosInterval dayz($days = 1) Alias for days()
+ * @method static ChronosInterval day($days = 1) Alias for days()
+ * @method static ChronosInterval hours($hours = 1) Create instance specifying a number of hours.
+ * @method static ChronosInterval hour($hours = 1) Alias for hours()
+ * @method static ChronosInterval minutes($minutes = 1) Create instance specifying a number of minutes.
+ * @method static ChronosInterval minute($minutes = 1) Alias for minutes()
+ * @method static ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
+ * @method static ChronosInterval second($seconds = 1) Alias for seconds()
  *
- * @method CarbonInterval years() years($years = 1) Set the years portion of the current interval.
- * @method CarbonInterval year() year($years = 1) Alias for years().
- * @method CarbonInterval months() months($months = 1) Set the months portion of the current interval.
- * @method CarbonInterval month() month($months = 1) Alias for months().
- * @method CarbonInterval weeks() weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
- * @method CarbonInterval week() week($weeks = 1) Alias for weeks().
- * @method CarbonInterval days() days($days = 1) Set the days portion of the current interval.
- * @method CarbonInterval dayz() dayz($days = 1) Alias for days().
- * @method CarbonInterval day() day($days = 1) Alias for days().
- * @method CarbonInterval hours() hours($hours = 1) Set the hours portion of the current interval.
- * @method CarbonInterval hour() hour($hours = 1) Alias for hours().
- * @method CarbonInterval minutes() minutes($minutes = 1) Set the minutes portion of the current interval.
- * @method CarbonInterval minute() minute($minutes = 1) Alias for minutes().
- * @method CarbonInterval seconds() seconds($seconds = 1) Set the seconds portion of the current interval.
- * @method CarbonInterval second() second($seconds = 1) Alias for seconds().
+ * @method ChronosInterval years() years($years = 1) Set the years portion of the current interval.
+ * @method ChronosInterval year() year($years = 1) Alias for years().
+ * @method ChronosInterval months() months($months = 1) Set the months portion of the current interval.
+ * @method ChronosInterval month() month($months = 1) Alias for months().
+ * @method ChronosInterval weeks() weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
+ * @method ChronosInterval week() week($weeks = 1) Alias for weeks().
+ * @method ChronosInterval days() days($days = 1) Set the days portion of the current interval.
+ * @method ChronosInterval dayz() dayz($days = 1) Alias for days().
+ * @method ChronosInterval day() day($days = 1) Alias for days().
+ * @method ChronosInterval hours() hours($hours = 1) Set the hours portion of the current interval.
+ * @method ChronosInterval hour() hour($hours = 1) Alias for hours().
+ * @method ChronosInterval minutes() minutes($minutes = 1) Set the minutes portion of the current interval.
+ * @method ChronosInterval minute() minute($minutes = 1) Alias for minutes().
+ * @method ChronosInterval seconds() seconds($seconds = 1) Set the seconds portion of the current interval.
+ * @method ChronosInterval second() second($seconds = 1) Alias for seconds().
  */
-class CarbonInterval extends DateInterval
+class ChronosInterval extends DateInterval
 {
     /**
      * Interval spec period designators
@@ -99,7 +99,7 @@ class CarbonInterval extends DateInterval
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Create a new CarbonInterval instance.
+     * Create a new ChronosInterval instance.
      *
      * @param integer $years
      * @param integer $months
@@ -133,10 +133,10 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Create a new CarbonInterval instance from specific values.
+     * Create a new ChronosInterval instance from specific values.
      * This is an alias for the constructor that allows better fluent
-     * syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
-     * (new CarbonInterval(1))->fn().
+     * syntax as it allows you to do ChronosInterval::create(1)->fn() rather than
+     * (new ChronosInterval(1))->fn().
      *
      * @param integer $years
      * @param integer $months
@@ -154,7 +154,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Provide static helpers to create instances.  Allows CarbonInterval::years(3).
+     * Provide static helpers to create instances.  Allows ChronosInterval::years(3).
      *
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
@@ -201,7 +201,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Create a CarbonInterval instance from a DateInterval one.  Can not instance
+     * Create a ChronosInterval instance from a DateInterval one.  Can not instance
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
@@ -228,7 +228,7 @@ class CarbonInterval extends DateInterval
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Get a part of the CarbonInterval object
+     * Get a part of the ChronosInterval object
      *
      * @param string $name
      *
@@ -270,7 +270,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set a part of the CarbonInterval object
+     * Set a part of the ChronosInterval object
      *
      * @param string $name
      * @param integer $val
@@ -325,7 +325,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Allow fluent calls on the setters... CarbonInterval::years(3)->months(5)->day().
+     * Allow fluent calls on the setters... ChronosInterval::years(3)->months(5)->day().
      *
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
