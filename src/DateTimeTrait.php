@@ -31,13 +31,13 @@ trait DateTimeTrait
      * @var array
      */
     protected static $days = [
-        ChronosInterface::SUNDAY    => 'Sunday',
-        ChronosInterface::MONDAY    => 'Monday',
-        ChronosInterface::TUESDAY   => 'Tuesday',
+        ChronosInterface::SUNDAY => 'Sunday',
+        ChronosInterface::MONDAY => 'Monday',
+        ChronosInterface::TUESDAY => 'Tuesday',
         ChronosInterface::WEDNESDAY => 'Wednesday',
-        ChronosInterface::THURSDAY  => 'Thursday',
-        ChronosInterface::FRIDAY    => 'Friday',
-        ChronosInterface::SATURDAY  => 'Saturday',
+        ChronosInterface::THURSDAY => 'Thursday',
+        ChronosInterface::FRIDAY => 'Friday',
+        ChronosInterface::SATURDAY => 'Saturday',
     ];
 
     /**
@@ -90,7 +90,7 @@ trait DateTimeTrait
     /**
      * A test ChronosInterface instance to be returned when now instances are created
      *
-     * @var Carbon
+     * @var ChronosInterface
      */
     protected static $testNow;
 
@@ -141,7 +141,7 @@ trait DateTimeTrait
      * Create a ChronosInterface instance from a string.  This is an alias for the
      * constructor that allows better fluent syntax as it allows you to do
      * ChronosInterface::parse('Monday next week')->fn() rather than
-     * (new Carbon('Monday next week'))->fn()
+     * (new Chronos('Monday next week'))->fn()
      *
      * @param string              $time
      * @param DateTimeZone|string $tz
@@ -204,7 +204,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance for the greatest supported date.
      *
-     * @return Carbon
+     * @return ChronosInterface
      */
     public static function maxValue()
     {
@@ -214,7 +214,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance for the lowest supported date.
      *
-     * @return Carbon
+     * @return ChronosInterface
      */
     public static function minValue()
     {
@@ -649,8 +649,8 @@ trait DateTimeTrait
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
      *   - A call to the static now() method, ex. ChronosInterface::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Chrono('now')
      *
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
@@ -712,25 +712,6 @@ trait DateTimeTrait
     ///////////////////////////////////////////////////////////////////
     /////////////////////// STRING FORMATTING /////////////////////////
     ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Format the instance with the current locale.  You can set the current
-     * locale using setlocale() http://php.net/setlocale.
-     *
-     * @param string $format
-     *
-     * @return string
-     */
-    public function formatLocalized($format)
-    {
-        // Check for Windows to find and replace the %e
-        // modifier correctly
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
-        }
-
-        return strftime($format, strtotime($this));
-    }
 
     /**
      * Reset the format used to the default when type juggling a ChronosInterface instance to a string

@@ -68,35 +68,6 @@ class StringsTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testToLocalizedFormattedDateString($class)
-    {
-        /****************
-
-      Working out a Travis issue on how to set a different locale
-      other than EN to test this.
-
-
-      $cache = setlocale(LC_TIME, 0);
-      setlocale(LC_TIME, 'German');
-      $d = $class::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Donnerstag 25 Dezember 1975', $d->formatLocalized('%A %d %B %Y'));
-      setlocale(LC_TIME, $cache);
-
-      *****************/
-    }
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToLocalizedFormattedTimezonedDateString($class)
-    {
-        $d = $class::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
-        $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
-    }
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
     public function testToTimeString($class)
     {
         $d = $class::create(1975, 12, 25, 14, 15, 16);

@@ -26,13 +26,13 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Number of X in Y
      */
-    const YEARS_PER_CENTURY  = 100;
-    const YEARS_PER_DECADE   = 10;
-    const MONTHS_PER_YEAR    = 12;
-    const WEEKS_PER_YEAR     = 52;
-    const DAYS_PER_WEEK      = 7;
-    const HOURS_PER_DAY      = 24;
-    const MINUTES_PER_HOUR   = 60;
+    const YEARS_PER_CENTURY = 100;
+    const YEARS_PER_DECADE = 10;
+    const MONTHS_PER_YEAR = 12;
+    const WEEKS_PER_YEAR = 52;
+    const DAYS_PER_WEEK = 7;
+    const HOURS_PER_DAY = 24;
+    const MINUTES_PER_HOUR = 60;
     const SECONDS_PER_MINUTE = 60;
 
     /**
@@ -55,7 +55,7 @@ interface ChronosInterface extends DateTimeInterface
      * Create a ChronosInterface instance from a string.  This is an alias for the
      * constructor that allows better fluent syntax as it allows you to do
      * ChronosInterface::parse('Monday next week')->fn() rather than
-     * (new Carbon('Monday next week'))->fn()
+     * (new Chronos('Monday next week'))->fn()
      *
      * @param string $time
      * @param DateTimeZone|string $tz
@@ -103,14 +103,14 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Create a ChronosInterface instance for the greatest supported date.
      *
-     * @return Carbon
+     * @return ChronosInterface
      */
     public static function maxValue();
 
     /**
      * Create a ChronosInterface instance for the lowest supported date.
      *
-     * @return Carbon
+     * @return ChronosInterface
      */
     public static function minValue();
 
@@ -359,8 +359,8 @@ interface ChronosInterface extends DateTimeInterface
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
      *   - A call to the static now() method, ex. ChronosInterface::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Chronos('now')
      *
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
