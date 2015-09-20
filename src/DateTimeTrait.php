@@ -1190,6 +1190,36 @@ trait DateTimeTrait
         return $this->dayOfWeek === ChronosInterface::SATURDAY;
     }
 
+    /**
+     * Returns true if this object represents a date within the current week
+     *
+     * @return bool
+     */
+    public function isThisWeek()
+    {
+        return static::now($this->getTimezone())->format('W o') == $this->format('W o');
+    }
+
+    /**
+     * Returns true if this object represents a date within the current month
+     *
+     * @return bool
+     */
+    public function isThisMonth()
+    {
+        return static::now($this->getTimezone())->format('m Y') == $this->format('m Y');
+    }
+
+    /**
+     * Returns true if this object represents a date within the current year
+     *
+     * @return bool
+     */
+    public function isThisYear()
+    {
+        return static::now($this->getTimezone())->format('Y') == $this->format('Y');
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
     ///////////////////////////////////////////////////////////////////

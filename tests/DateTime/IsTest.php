@@ -389,4 +389,59 @@ class IsTest extends TestCase
         $this->assertFalse($class::now()->addWeek()->previous($class::SUNDAY)->isSaturday());
         $this->assertFalse($class::now()->addMonth()->previous($class::SUNDAY)->isSaturday());
     }
+
+    /**
+     * testIsThisWeek method
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsThisWeek($class)
+    {
+        $time = new $class('this sunday');
+        $this->assertTrue($time->isThisWeek());
+
+        $time = $time->modify('-1 day');
+        $this->assertTrue($time->isThisWeek());
+
+        $time = $time->modify('-6 days');
+        $this->assertFalse($time->isThisWeek());
+
+        $time = new $class();
+        $time = $time->year($time->year - 1);
+        $this->assertFalse($time->isThisWeek());
+    }
+
+    /**
+     * testIsThisMonth method
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsThisMonth($class)
+    {
+        $time = new $class();
+        $this->assertTrue($time->isThisMonth());
+
+        $time = $time->year($time->year + 1);
+        $this->assertFalse($time->isThisMonth());
+
+        $time = new $class();
+        $this->assertFalse($time->modify('next month')->isThisMonth());
+    }
+
+    /**
+     * testIsThisYear method
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsThisYear($class)
+    {
+        $time = new $class();
+        $this->assertTrue($time->isThisYear());
+
+        $time = $time->year($time->year + 1);
+        $this->assertFalse($time->isThisYear());
+    }
 }

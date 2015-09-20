@@ -730,6 +730,27 @@ interface ChronosInterface extends DateTimeInterface
     public function isSaturday();
 
     /**
+     * Returns true if this object represents a date within the current week
+     *
+     * @return boolean
+     */
+    public function isThisWeek();
+
+    /**
+     * Returns true if this object represents a date within the current month
+     *
+     * @return boolean
+     */
+    public function isThisMonth();
+
+    /**
+     * Returns true if this object represents a date within the current year
+     *
+     * @return boolean
+     */
+    public function isThisYear();
+
+    /**
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
