@@ -1970,7 +1970,7 @@ trait DateTimeTrait
      */
     public function endOfYear()
     {
-        return $this->modify('last day of december, 23:59:59');;
+        return $this->modify('last day of december, 23:59:59');
     }
 
     /**
@@ -2063,7 +2063,8 @@ trait DateTimeTrait
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->modify('next ' . static::$days[$dayOfWeek] . ' midnight');
+        $day = static::$days[$dayOfWeek];
+        return $this->modify("next $day, midnight");
     }
 
     /**
@@ -2082,7 +2083,8 @@ trait DateTimeTrait
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->modify('last ' . static::$days[$dayOfWeek] . ' midnight');
+        $day = static::$days[$dayOfWeek];
+        return $this->modify("last $day, midnight");
     }
 
     /**
