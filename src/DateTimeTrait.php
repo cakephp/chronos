@@ -12,12 +12,11 @@
  */
 namespace Cake\Chronos;
 
+use DatePeriod;
+use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
-use DateTime;
-use DatePeriod;
 use InvalidArgumentException;
-use LogicException;
 
 /**
  * A simple API extension for DateTimeInterface
@@ -108,7 +107,6 @@ trait DateTimeTrait
     protected static function safeCreateDateTimeZone($object)
     {
         if ($object === null) {
-            // Don't return null... avoid Bug #52063 in PHP <5.3.6
             return new DateTimeZone(date_default_timezone_get());
         }
 
@@ -175,7 +173,7 @@ trait DateTimeTrait
      */
     public static function today($tz = null)
     {
-        return static::now($tz)->startOfDay();
+        return new static('midnight', $tz);
     }
 
     /**
@@ -187,7 +185,7 @@ trait DateTimeTrait
      */
     public static function tomorrow($tz = null)
     {
-        return static::today($tz)->addDay();
+        return new static('tomorrow, midnight', $tz);
     }
 
     /**
@@ -199,7 +197,7 @@ trait DateTimeTrait
      */
     public static function yesterday($tz = null)
     {
-        return static::today($tz)->subDay();
+        return new static('yesterday, midnight', $tz);
     }
 
     /**
@@ -341,7 +339,7 @@ trait DateTimeTrait
      */
     public static function createFromTimestampUTC($timestamp)
     {
-        return new static('@'.$timestamp);
+        return new static('@' . $timestamp);
     }
 
     /**
@@ -1255,7 +1253,7 @@ trait DateTimeTrait
      */
     public function addMonths($value)
     {
-        return $this->modify((int) $value.' month');
+        return $this->modify((int)$value . ' month');
     }
 
     /**
@@ -1311,9 +1309,9 @@ trait DateTimeTrait
                 ->day(1)
                 ->subMonth()
                 ->endOfMonth();
-        } else {
-            return $date;
         }
+
+        return $date;
     }
 
     /**
@@ -1362,7 +1360,7 @@ trait DateTimeTrait
      */
     public function addDays($value)
     {
-        return $this->modify((int) $value.' day');
+        return $this->modify((int)$value . ' day');
     }
 
     /**
@@ -1411,7 +1409,7 @@ trait DateTimeTrait
      */
     public function addWeekdays($value)
     {
-        return $this->modify((int) $value.' weekday');
+        return $this->modify((int)$value . ' weekday');
     }
 
     /**
@@ -1460,7 +1458,7 @@ trait DateTimeTrait
      */
     public function addWeeks($value)
     {
-        return $this->modify((int) $value.' week');
+        return $this->modify((int)$value . ' week');
     }
 
     /**
@@ -1509,7 +1507,7 @@ trait DateTimeTrait
      */
     public function addHours($value)
     {
-        return $this->modify((int) $value.' hour');
+        return $this->modify((int)$value . ' hour');
     }
 
     /**
@@ -1558,7 +1556,7 @@ trait DateTimeTrait
      */
     public function addMinutes($value)
     {
-        return $this->modify((int) $value.' minute');
+        return $this->modify((int)$value . ' minute');
     }
 
     /**
@@ -1607,7 +1605,7 @@ trait DateTimeTrait
      */
     public function addSeconds($value)
     {
-        return $this->modify((int) $value.' second');
+        return $this->modify((int)$value . ' second');
     }
 
     /**
@@ -1660,9 +1658,8 @@ trait DateTimeTrait
      */
     public function diffInYears(ChronosInterface $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-        return (int) $this->diff($dt, $abs)->format('%r%y');
+        $dt = $dt === null ? static::now($this->tz) : $dt;
+        return (int)$this->diff($dt, $abs)->format('%r%y');
     }
 
     /**
@@ -1675,9 +1672,8 @@ trait DateTimeTrait
      */
     public function diffInMonths(ChronosInterface $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-        return $this->diffInYears($dt, $abs) * ChronosInterface::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
+        $dt = $dt === null ? static::now($this->tz) : $dt;
+        return $this->diffInYears($dt, $abs) * ChronosInterface::MONTHS_PER_YEAR + (int)$this->diff($dt, $abs)->format('%r%m');
     }
 
     /**
@@ -1690,7 +1686,7 @@ trait DateTimeTrait
      */
     public function diffInWeeks(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInDays($dt, $abs) / ChronosInterface::DAYS_PER_WEEK);
+        return (int)($this->diffInDays($dt, $abs) / ChronosInterface::DAYS_PER_WEEK);
     }
 
     /**
@@ -1703,9 +1699,8 @@ trait DateTimeTrait
      */
     public function diffInDays(ChronosInterface $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-        return (int) $this->diff($dt, $abs)->format('%r%a');
+        $dt = $dt === null ? static::now($this->tz) : $dt;
+        return (int)$this->diff($dt, $abs)->format('%r%a');
     }
 
     /**
@@ -1749,7 +1744,7 @@ trait DateTimeTrait
     public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
     {
         $start = $this;
-        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $end = $dt === null ? static::now($this->tz) : $dt;
         $inverse = false;
 
         if ($end < $start) {
@@ -1760,7 +1755,7 @@ trait DateTimeTrait
 
         $period = new DatePeriod($start, $ci, $end);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
-            return call_user_func($callback, static::instance($date));
+            return $callback(static::instance($date));
         });
 
         $diff = count($vals);
@@ -1808,7 +1803,7 @@ trait DateTimeTrait
      */
     public function diffInHours(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR);
+        return (int)($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR);
     }
 
     /**
@@ -1821,7 +1816,7 @@ trait DateTimeTrait
      */
     public function diffInMinutes(ChronosInterface $dt = null, $abs = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE);
+        return (int)($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE);
     }
 
     /**
@@ -1871,7 +1866,7 @@ trait DateTimeTrait
      */
     public function startOfDay()
     {
-        return $this->hour(0)->minute(0)->second(0);
+        return $this->modify('midnight');
     }
 
     /**
@@ -1881,7 +1876,7 @@ trait DateTimeTrait
      */
     public function endOfDay()
     {
-        return $this->hour(23)->minute(59)->second(59);
+        return $this->modify('23:59:59');
     }
 
     /**
@@ -1891,7 +1886,7 @@ trait DateTimeTrait
      */
     public function startOfMonth()
     {
-        return $this->startOfDay()->day(1);
+        return $this->modify('first day of this month midnight');
     }
 
     /**
@@ -1901,7 +1896,7 @@ trait DateTimeTrait
      */
     public function endOfMonth()
     {
-        return $this->day($this->daysInMonth)->endOfDay();
+        return $this->modify('last day of this month, 23:59:59');
     }
 
     /**
@@ -1911,7 +1906,7 @@ trait DateTimeTrait
      */
     public function startOfYear()
     {
-        return $this->month(1)->startOfMonth();
+        return $this->modify('first day of january midnight');
     }
 
     /**
@@ -1921,7 +1916,7 @@ trait DateTimeTrait
      */
     public function endOfYear()
     {
-        return $this->month(ChronosInterface::MONTHS_PER_YEAR)->endOfMonth();
+        return $this->modify('last day of december, 23:59:59');;
     }
 
     /**
@@ -1931,7 +1926,8 @@ trait DateTimeTrait
      */
     public function startOfDecade()
     {
-        return $this->startOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_DECADE);
+        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE;
+        return $this->modify("first day of january $year, midnight");
     }
 
     /**
@@ -1941,7 +1937,8 @@ trait DateTimeTrait
      */
     public function endOfDecade()
     {
-        return $this->endOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_DECADE + ChronosInterface::YEARS_PER_DECADE - 1);
+        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE + ChronosInterface::YEARS_PER_DECADE - 1;
+        return $this->modify("last day of december $year, 23:59:59");
     }
 
     /**
@@ -1951,7 +1948,8 @@ trait DateTimeTrait
      */
     public function startOfCentury()
     {
-        return $this->startOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY);
+        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY;
+        return $this->modify("first day of january $year, midnight");
     }
 
     /**
@@ -1961,7 +1959,8 @@ trait DateTimeTrait
      */
     public function endOfCentury()
     {
-        return $this->endOfYear()->year($this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY - 1);
+        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY - 1;
+        return $this->modify("last day of december $year, 23:59:59");
     }
 
     /**
@@ -2010,7 +2009,7 @@ trait DateTimeTrait
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('next '.static::$days[$dayOfWeek]);
+        return $this->modify('next ' . static::$days[$dayOfWeek] . ' midnight');
     }
 
     /**
@@ -2029,7 +2028,7 @@ trait DateTimeTrait
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
+        return $this->modify('last ' . static::$days[$dayOfWeek] . ' midnight');
     }
 
     /**
@@ -2044,12 +2043,8 @@ trait DateTimeTrait
      */
     public function firstOfMonth($dayOfWeek = null)
     {
-        $dt = $this->startOfDay();
-        if ($dayOfWeek === null) {
-            return $dt->day(1);
-        }
-
-        return $dt->modify('first '.static::$days[$dayOfWeek].' of '.$dt->format('F').' '.$dt->year);
+        $day = $dayOfWeek === null ? 'day' :  static::$days[$dayOfWeek];
+        return $this->modify("first $day of this month, midnight");
     }
 
     /**
@@ -2064,12 +2059,8 @@ trait DateTimeTrait
      */
     public function lastOfMonth($dayOfWeek = null)
     {
-        $dt = $this->startOfDay();
-        if ($dayOfWeek === null) {
-            return $dt->day($dt->daysInMonth);
-        }
-
-        return $dt->modify('last '.static::$days[$dayOfWeek].' of '.$dt->format('F').' '.$dt->year);
+        $day = $dayOfWeek === null ? 'day' :  static::$days[$dayOfWeek];
+        return $this->modify("last $day of this month, midnight");
     }
 
     /**
@@ -2087,7 +2078,7 @@ trait DateTimeTrait
     {
         $dt = $this->copy()->firstOfMonth();
         $check = $dt->format('Y-m');
-        $dt = $dt->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $dt = $dt->modify("+$nth " . static::$days[$dayOfWeek]);
 
         return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
     }
@@ -2138,7 +2129,7 @@ trait DateTimeTrait
         $dt = $this->copy()->day(1)->month($this->quarter * 3);
         $last_month = $dt->month;
         $year = $dt->year;
-        $dt = $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
 
         return ($last_month < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
     }
@@ -2155,7 +2146,8 @@ trait DateTimeTrait
      */
     public function firstOfYear($dayOfWeek = null)
     {
-        return $this->month(1)->firstOfMonth($dayOfWeek);
+        $day = $dayOfWeek === null ?  'day' : static::$days[$dayOfWeek];
+        return $this->modify("first $day of january, midnight");
     }
 
     /**
@@ -2170,7 +2162,8 @@ trait DateTimeTrait
      */
     public function lastOfYear($dayOfWeek = null)
     {
-        return $this->month(ChronosInterface::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
+        $day = $dayOfWeek === null ?  'day' : static::$days[$dayOfWeek];
+        return $this->modify("last $day of december, midnight");
     }
 
     /**
@@ -2186,8 +2179,7 @@ trait DateTimeTrait
      */
     public function nthOfYear($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
-
+        $dt = $this->copy()->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
         return $this->year == $dt->year ? $this->modify($dt) : false;
     }
 

@@ -94,4 +94,14 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     {
         return MutableDateTime::instance($this);
     }
+
+    /**
+     * Get a copy of the instance
+     *
+     * @return static
+     */
+    public function copy()
+    {
+        return $this;
+    }
 }
