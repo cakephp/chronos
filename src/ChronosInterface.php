@@ -309,7 +309,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Set the first day of week
      *
-     * @param int The day the week starts with.
+     * @param int $day The day the week starts with.
      * @return void
      */
     public static function setWeekStartsAt($day);
@@ -324,7 +324,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Set the last day of week
      *
-     * @param int The day the week ends with.
+     * @param int $day The day the week ends with.
      * @return void
      */
     public static function setWeekEndsAt($day);
@@ -339,7 +339,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Set weekend days
      *
-     * @param array Which days are 'weekends'.
+     * @param array $days Which days are 'weekends'.
      * @return void
      */
     public static function setWeekendDays($days);
