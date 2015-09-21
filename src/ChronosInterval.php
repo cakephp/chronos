@@ -78,7 +78,7 @@ class ChronosInterval extends DateInterval
     const PERIOD_SECONDS = 'S';
 
     /**
-     * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
+     * Before PHP 5.4.20/5.5.4 instead of `false` days will be set to -99999 when the interval instance
      * was created by DateTime:diff().
      */
     const PHP_DAYS_FALSE = -99999;
@@ -86,8 +86,7 @@ class ChronosInterval extends DateInterval
     /**
      * Determine if the interval was created via DateTime:diff() or not.
      *
-     * @param DateInterval $interval
-     *
+     * @param DateInterval $interval The interval to check.
      * @return boolean
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
@@ -95,20 +94,16 @@ class ChronosInterval extends DateInterval
         return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
     }
 
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////////// CONSTRUCTORS /////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Create a new ChronosInterval instance.
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param integer $years The year to use.
+     * @param integer $months The month to use.
+     * @param integer $weeks The week to use.
+     * @param integer $days The day to use.
+     * @param integer $hours The hours to use.
+     * @param integer $minutes The minutes to use.
+     * @param integer $seconds The seconds to use.
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
@@ -139,14 +134,13 @@ class ChronosInterval extends DateInterval
      * syntax as it allows you to do ChronosInterval::create(1)->fn() rather than
      * (new ChronosInterval(1))->fn().
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
-     *
+     * @param integer $years The year to use.
+     * @param integer $months The month to use.
+     * @param integer $weeks The week to use.
+     * @param integer $days The day to use.
+     * @param integer $hours The hours to use.
+     * @param integer $minutes The minutes to use.
+     * @param integer $seconds The seconds to use.
      * @return static
      */
     public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
@@ -155,14 +149,19 @@ class ChronosInterval extends DateInterval
     }
 
     /**
-     * Provide static helpers to create instances.  Allows ChronosInterval::years(3).
+     * Provide static helpers to create instances. Allows:
+     *
+     * ```
+     * ChronosInterval::years(3)
+     * // or
+     * ChronosInterval::month(1);
+     * ```
      *
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
      *
-     * @param string $name
-     * @param array $args
-     *
+     * @param string $name The property to configure. Accepts singular and plural forms.
+     * @param array $args Contains the value to use.
      * @return static
      */
     public static function __callStatic($name, $args)
@@ -206,16 +205,16 @@ class ChronosInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param DateInterval $di
-     *
+     * @param DateInterval $di The DateInterval instance to copy.
      * @throws InvalidArgumentException
-     *
      * @return static
      */
     public static function instance(DateInterval $di)
     {
         if (static::wasCreatedFromDiff($di)) {
-            throw new InvalidArgumentException("Can not instance a DateInterval object created from DateTime::diff().");
+            throw new InvalidArgumentException(
+                "Can not instance a DateInterval object created from DateTime::diff()."
+            );
         }
 
         $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
@@ -224,17 +223,11 @@ class ChronosInterval extends DateInterval
         return $instance;
     }
 
-    ///////////////////////////////////////////////////////////////////
-    ///////////////////////// GETTERS AND SETTERS /////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Get a part of the ChronosInterval object
      *
-     * @param string $name
-     *
+     * @param string $name The property to read.
      * @throws InvalidArgumentException
-     *
      * @return integer
      */
     public function __get($name)
@@ -273,9 +266,8 @@ class ChronosInterval extends DateInterval
     /**
      * Set a part of the ChronosInterval object
      *
-     * @param string $name
-     * @param integer $val
-     *
+     * @param string $name The property to augment.
+     * @param integer $val The value to change.
      * @throws InvalidArgumentException
      */
     public function __set($name, $val)
@@ -316,7 +308,6 @@ class ChronosInterval extends DateInterval
      *
      * @param int $weeks Number of weeks to set
      * @param int $days Number of days to set
-     *
      * @return static
      */
     public function weeksAndDays($weeks, $days)
@@ -331,9 +322,9 @@ class ChronosInterval extends DateInterval
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
      *
-     * @param string $name
-     * @param array $args
-     *
+     * @param string $name The property name to augment. Accepts plural forms in addition
+     *   to singular ones.
+     * @param array $args The value to set.
      * @return static
      */
     public function __call($name, $args)
@@ -384,8 +375,7 @@ class ChronosInterval extends DateInterval
     /**
     * Add the passed interval to the current instance
     *
-    * @param DateInterval $interval
-    *
+    * @param DateInterval $interval The interval to add.
     * @return static
     */
     public function add(DateInterval $interval)
