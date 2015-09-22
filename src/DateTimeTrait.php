@@ -2115,7 +2115,7 @@ trait DateTimeTrait
      */
     public function lastOfMonth($dayOfWeek = null)
     {
-        $day = $dayOfWeek === null ? 'day' :  static::$days[$dayOfWeek];
+        $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
         return $this->modify("last $day of this month, midnight");
     }
 
@@ -2202,7 +2202,7 @@ trait DateTimeTrait
      */
     public function firstOfYear($dayOfWeek = null)
     {
-        $day = $dayOfWeek === null ?  'day' : static::$days[$dayOfWeek];
+        $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
         return $this->modify("first $day of january, midnight");
     }
 
@@ -2218,7 +2218,7 @@ trait DateTimeTrait
      */
     public function lastOfYear($dayOfWeek = null)
     {
-        $day = $dayOfWeek === null ?  'day' : static::$days[$dayOfWeek];
+        $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
         return $this->modify("last $day of december, midnight");
     }
 
