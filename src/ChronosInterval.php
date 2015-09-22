@@ -20,16 +20,16 @@ use InvalidArgumentException;
  * The implemenation provides helpers to handle weeks but only days are saved.
  * Weeks are calculated based on the total days of the current instance.
  *
- * @property integer $years Total years of the current interval.
- * @property integer $months Total months of the current interval.
- * @property integer $weeks Total weeks of the current interval calculated from the days.
- * @property integer $dayz Total days of the current interval (weeks * 7 + days).
- * @property integer $hours Total hours of the current interval.
- * @property integer $minutes Total minutes of the current interval.
- * @property integer $seconds Total seconds of the current interval.
+ * @property int $years Total years of the current interval.
+ * @property int $months Total months of the current interval.
+ * @property int $weeks Total weeks of the current interval calculated from the days.
+ * @property int $dayz Total days of the current interval (weeks * 7 + days).
+ * @property int $hours Total hours of the current interval.
+ * @property int $minutes Total minutes of the current interval.
+ * @property int $seconds Total seconds of the current interval.
  *
- * @property-read integer $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
- * @property-read integer $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
+ * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  *
  * @method static ChronosInterval years($years = 1) Create instance specifying a number of years.
  * @method static ChronosInterval year($years = 1) Alias for years()
@@ -87,7 +87,7 @@ class ChronosInterval extends DateInterval
      * Determine if the interval was created via DateTime:diff() or not.
      *
      * @param DateInterval $interval The interval to check.
-     * @return boolean
+     * @return bool
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
     {
@@ -97,13 +97,13 @@ class ChronosInterval extends DateInterval
     /**
      * Create a new ChronosInterval instance.
      *
-     * @param integer $years The year to use.
-     * @param integer $months The month to use.
-     * @param integer $weeks The week to use.
-     * @param integer $days The day to use.
-     * @param integer $hours The hours to use.
-     * @param integer $minutes The minutes to use.
-     * @param integer $seconds The seconds to use.
+     * @param int $years The year to use.
+     * @param int $months The month to use.
+     * @param int $weeks The week to use.
+     * @param int $days The day to use.
+     * @param int $hours The hours to use.
+     * @param int $minutes The minutes to use.
+     * @param int $seconds The seconds to use.
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
@@ -134,13 +134,13 @@ class ChronosInterval extends DateInterval
      * syntax as it allows you to do ChronosInterval::create(1)->fn() rather than
      * (new ChronosInterval(1))->fn().
      *
-     * @param integer $years The year to use.
-     * @param integer $months The month to use.
-     * @param integer $weeks The week to use.
-     * @param integer $days The day to use.
-     * @param integer $hours The hours to use.
-     * @param integer $minutes The minutes to use.
-     * @param integer $seconds The seconds to use.
+     * @param int $years The year to use.
+     * @param int $months The month to use.
+     * @param int $weeks The week to use.
+     * @param int $days The day to use.
+     * @param int $hours The hours to use.
+     * @param int $minutes The minutes to use.
+     * @param int $seconds The seconds to use.
      * @return static
      */
     public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
@@ -228,7 +228,7 @@ class ChronosInterval extends DateInterval
      *
      * @param string $name The property to read.
      * @throws InvalidArgumentException
-     * @return integer
+     * @return int
      */
     public function __get($name)
     {
@@ -267,7 +267,7 @@ class ChronosInterval extends DateInterval
      * Set a part of the ChronosInterval object
      *
      * @param string $name The property to augment.
-     * @param integer $val The value to change.
+     * @param int $val The value to change.
      * @throws InvalidArgumentException
      */
     public function __set($name, $val)
