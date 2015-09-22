@@ -373,11 +373,11 @@ class ChronosInterval extends DateInterval
     }
 
     /**
-    * Add the passed interval to the current instance
-    *
-    * @param DateInterval $interval The interval to add.
-    * @return static
-    */
+     * Add the passed interval to the current instance
+     *
+     * @param DateInterval $interval The interval to add.
+     * @return static
+     */
     public function add(DateInterval $interval)
     {
         $sign = ($interval->invert === 1) ? -1 : 1;
