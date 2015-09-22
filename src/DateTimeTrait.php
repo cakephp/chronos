@@ -383,16 +383,16 @@ trait DateTimeTrait
                 'daysInMonth' => 't',
                 'timestamp' => 'U',
             ]):
-                return (int) $this->format($formats[$name]);
+                return (int)$this->format($formats[$name]);
 
             case $name === 'weekOfMonth':
-                return (int) ceil($this->day / ChronosInterface::DAYS_PER_WEEK);
+                return (int)ceil($this->day / ChronosInterface::DAYS_PER_WEEK);
 
             case $name === 'age':
-                return (int) $this->diffInYears();
+                return (int)$this->diffInYears();
 
             case $name === 'quarter':
-                return (int) ceil($this->month / 3);
+                return (int)ceil($this->month / 3);
 
             case $name === 'offset':
                 return $this->getOffset();
@@ -1234,7 +1234,7 @@ trait DateTimeTrait
      */
     public function addYears($value)
     {
-        return $this->modify((int) $value.' year');
+        return $this->modify((int)$value . ' year');
     }
 
     /**
@@ -2099,7 +2099,7 @@ trait DateTimeTrait
      */
     public function firstOfMonth($dayOfWeek = null)
     {
-        $day = $dayOfWeek === null ? 'day' :  static::$days[$dayOfWeek];
+        $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
         return $this->modify("first $day of this month, midnight");
     }
 
@@ -2183,11 +2183,11 @@ trait DateTimeTrait
     public function nthOfQuarter($nth, $dayOfWeek)
     {
         $dt = $this->copy()->day(1)->month($this->quarter * 3);
-        $last_month = $dt->month;
+        $lastMonth = $dt->month;
         $year = $dt->year;
         $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
 
-        return ($last_month < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
+        return ($lastMonth < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
     }
 
     /**
@@ -2250,7 +2250,7 @@ trait DateTimeTrait
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
+        return $this->addSeconds((int)($this->diffInSeconds($dt, false) / 2));
     }
 
     /**

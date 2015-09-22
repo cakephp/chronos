@@ -34,8 +34,10 @@ class InstanceTest extends TestCase
      */
     public function testInstanceFromDateTimeKeepsTimezoneName($class)
     {
-        $dating = $class::instance(\DateTime::createFromFormat('Y-m-d H:i:s',
-            '1975-05-21 22:32:11')->setTimezone(new \DateTimeZone('America/Vancouver')));
+        $dating = $class::instance(\DateTime::createFromFormat(
+            'Y-m-d H:i:s',
+            '1975-05-21 22:32:11'
+        )->setTimezone(new \DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 

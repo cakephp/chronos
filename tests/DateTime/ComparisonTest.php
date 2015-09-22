@@ -42,8 +42,15 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneTrue($class)
     {
-        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq($class::create(2000, 1, 1, 9, 0,
-            0, 'America/Vancouver')));
+        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq($class::create(
+            2000,
+            1,
+            1,
+            9,
+            0,
+            0,
+            'America/Vancouver'
+        )));
     }
 
     /**
@@ -52,8 +59,12 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->eq($class::createFromDate(2000, 1, 1,
-            'America/Vancouver')));
+        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->eq($class::createFromDate(
+            2000,
+            1,
+            1,
+            'America/Vancouver'
+        )));
     }
 
     /**
@@ -80,8 +91,12 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualWithTimezone($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->ne($class::createFromDate(2000, 1, 1,
-            'America/Vancouver')));
+        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->ne($class::createFromDate(
+            2000,
+            1,
+            1,
+            'America/Vancouver'
+        )));
     }
 
     /**
@@ -202,8 +217,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31), true));
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
+            $class::createFromDate(2000, 1, 1),
+            $class::createFromDate(2000, 1, 31),
+            true
+        ));
     }
 
     /**
@@ -212,8 +230,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31), false));
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
+            $class::createFromDate(2000, 1, 1),
+            $class::createFromDate(2000, 1, 31),
+            false
+        ));
     }
 
     /**
@@ -222,8 +243,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between($class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31), true));
+        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(
+            $class::createFromDate(2000, 1, 1),
+            $class::createFromDate(2000, 1, 31),
+            true
+        ));
     }
 
     /**
@@ -232,8 +256,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between($class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31), false));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(
+            $class::createFromDate(2000, 1, 1),
+            $class::createFromDate(2000, 1, 31),
+            false
+        ));
     }
 
     /**
@@ -242,8 +269,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualSwitchTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1), true));
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
+            $class::createFromDate(2000, 1, 31),
+            $class::createFromDate(2000, 1, 1),
+            true
+        ));
     }
 
     /**
@@ -252,8 +282,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualSwitchTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between($class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1), false));
+        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
+            $class::createFromDate(2000, 1, 31),
+            $class::createFromDate(2000, 1, 1),
+            false
+        ));
     }
 
     /**
@@ -262,8 +295,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenEqualSwitchFalse($class)
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between($class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1), true));
+        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(
+            $class::createFromDate(2000, 1, 31),
+            $class::createFromDate(2000, 1, 1),
+            true
+        ));
     }
 
     /**
@@ -272,8 +308,11 @@ class ComparisonTest extends TestCase
      */
     public function testBetweenNotEqualSwitchFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between($class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1), false));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(
+            $class::createFromDate(2000, 1, 31),
+            $class::createFromDate(2000, 1, 1),
+            false
+        ));
     }
 
     /**
