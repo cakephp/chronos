@@ -15,8 +15,8 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
-use TestCase;
 use Closure;
+use TestCase;
 
 class DiffTest extends TestCase
 {
@@ -385,7 +385,7 @@ class DiffTest extends TestCase
     public function testBug188DiffWithSameDates($class)
     {
         $start = $class::create(2014, 10, 8, 15, 20, 0);
-        $end   = $start->copy();
+        $end = $start->copy();
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
@@ -398,7 +398,7 @@ class DiffTest extends TestCase
     public function testBug188DiffWithDatesOnlyHoursApart($class)
     {
         $start = $class::create(2014, 10, 8, 15, 20, 0);
-        $end   = $start->copy();
+        $end = $start->copy();
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
@@ -411,7 +411,7 @@ class DiffTest extends TestCase
     public function testBug188DiffWithSameDates1DayApart($class)
     {
         $start = $class::create(2014, 10, 8, 15, 20, 0);
-        $end   = $start->copy()->addDay();
+        $end = $start->copy()->addDay();
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(1, $start->diffInWeekdays($end));
@@ -721,7 +721,7 @@ class DiffTest extends TestCase
      */
     public function testDiffInSecondsWithTimezones($class)
     {
-        $dtOttawa    = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dtOttawa = $class::createFromDate(2000, 1, 1, 'America/Toronto');
         $dtVancouver = $class::createFromDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(3 * 60 * 60, $dtOttawa->diffInSeconds($dtVancouver));
     }
@@ -732,7 +732,7 @@ class DiffTest extends TestCase
      */
     public function testDiffInSecondsWithTimezonesAndVsDefault($class)
     {
-        $vanNow  = $class::now('America/Vancouver');
+        $vanNow = $class::now('America/Vancouver');
         $hereNow = $vanNow->copy()->setTimezone($class::now()->tz);
 
         $this->wrapWithTestNow(function () use ($vanNow) {

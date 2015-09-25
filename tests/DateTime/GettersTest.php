@@ -105,7 +105,7 @@ class GettersTest extends TestCase
     public function testMicroGetter($class)
     {
         $micro = 345678;
-        $d     = $class::parse('2014-01-05 12:34:11.' . $micro);
+        $d = $class::parse('2014-01-05 12:34:11.' . $micro);
         $this->assertSame($micro, $d->micro);
     }
 
@@ -176,7 +176,7 @@ class GettersTest extends TestCase
      */
     public function testGetAgeWithRealAge($class)
     {
-        $d   = $class::createFromDate(1975, 5, 21);
+        $d = $class::createFromDate(1975, 5, 21);
         $age = intval(substr(date('Ymd') - date('Ymd', $d->timestamp), 0, -4));
 
         $this->assertSame($age, $d->age);
@@ -460,7 +460,7 @@ class GettersTest extends TestCase
     public function testInvalidGetter($class)
     {
         $this->setExpectedException('InvalidArgumentException');
-        $d  = $class::now();
+        $d = $class::now();
         $bb = $d->doesNotExit;
     }
 }

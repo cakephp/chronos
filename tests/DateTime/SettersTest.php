@@ -143,14 +143,14 @@ class SettersTest extends TestCase
 
     public function testSecondSetterWithWrap()
     {
-        $d    = MutableDateTime::now();
+        $d = MutableDateTime::now();
         $d->second = 65;
         $this->assertSame(5, $d->second);
     }
 
     public function testTimestampSetter()
     {
-        $d  = MutableDateTime::now();
+        $d = MutableDateTime::now();
         $d->timestamp = 10;
         $this->assertSame(10, $d->timestamp);
 
@@ -158,7 +158,7 @@ class SettersTest extends TestCase
         $this->assertSame(11, $d->timestamp);
     }
 
-     /**
+    /**
      * @expectedException Exception
      * @expectedExceptionMessage Unknown or bad timezone
      * @return void
@@ -180,7 +180,7 @@ class SettersTest extends TestCase
         $d->timezone = 'sdf';
     }
 
-     /**
+    /**
      * @expectedException Exception
      * @expectedExceptionMessage Unknown or bad timezone
      * @return void

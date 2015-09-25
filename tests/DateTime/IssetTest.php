@@ -33,7 +33,7 @@ class IssetTest extends TestCase
      */
     public function testIssetReturnTrueForProperties($class)
     {
-        $properties = array(
+        $properties = [
             'year',
             'month',
             'day',
@@ -53,7 +53,7 @@ class IssetTest extends TestCase
             'timezoneName',
             'tz',
             'tzName',
-        );
+        ];
 
         foreach ($properties as $property) {
             $this->assertTrue(isset($class::create(1234, 5, 6, 7, 8, 9)->$property));

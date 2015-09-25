@@ -13,8 +13,8 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use TestCase;
 use Cake\Chronos\MutableDateTime;
+use TestCase;
 
 class MutabilityTest extends TestCase
 {
