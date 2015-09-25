@@ -268,6 +268,7 @@ class ChronosInterval extends DateInterval
      *
      * @param string $name The property to augment.
      * @param int $val The value to change.
+     * @return void
      * @throws InvalidArgumentException
      */
     public function __set($name, $val)

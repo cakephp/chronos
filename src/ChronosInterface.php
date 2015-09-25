@@ -55,8 +55,8 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Create a ChronosInterface instance from a DateTimeInterface one
      *
-     * @param DateTimeInterface $dt
-     * @return static
+     * @param DateTimeInterface $dt The datetime instance to convert.
+     * @return $this
      */
     public static function instance(DateTimeInterface $dt);
 
@@ -68,7 +68,7 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @param string $time The strtotime compatible string to parse
      * @param DateTimeZone|string $tz The DateTimeZone object or timezone name.
-     * @return static
+     * @return $this
      */
     public static function parse($time = null, $tz = null);
 
@@ -359,7 +359,7 @@ interface ChronosInterface extends DateTimeInterface
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param ChronosInterface $testNow
+     * @param ChronosInterface $testNow The instance to use for all future instances.
      * @return void
      */
     public static function setTestNow(ChronosInterface $testNow = null);
@@ -368,7 +368,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return static the current instance used for testing
+     * @return $this the current instance used for testing
      */
     public static function getTestNow();
 
@@ -400,6 +400,7 @@ interface ChronosInterface extends DateTimeInterface
      * Set the default format used when type juggling a ChronosInterface instance to a string
      *
      * @param string $format The format to use in future __toString() calls.
+     * @return void
      */
     public static function setToStringFormat($format);
 
@@ -1015,7 +1016,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove seconds from the instance
      *
-     * @param int $value
+     * @param int $value The number of seconds to remove.
      * @return static
      */
     public function subSeconds($value);
@@ -1059,7 +1060,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in days using a filter callable
      *
-     * @param callable $callback
+     * @param callable $callback The callback to use for filtering.
      * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
@@ -1069,7 +1070,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in hours using a filter callable
      *
-     * @param callable $callback
+     * @param callable $callback The callback to use for filtering.
      * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
@@ -1080,7 +1081,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the difference by the given interval using a filter callable
      *
      * @param ChronosInterval $ci An interval to traverse by
-     * @param callable $callback
+     * @param callable $callback The callback to use for filtering.
      * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
@@ -1365,8 +1366,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function isBirthday(ChronosInterface $dt);

@@ -71,10 +71,10 @@ class MutableDateTime extends DateTime implements ChronosInterface
     /**
      * Set a part of the ChronosInterface object
      *
-     * @param string $name
+     * @param string $name The property to set.
      * @param string|int|DateTimeZone $value
-     *
      * @throws InvalidArgumentException
+     * @return void
      */
     public function __set($name, $value)
     {

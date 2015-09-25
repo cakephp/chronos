@@ -88,7 +88,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Create a new mutable instance from current immutable instance.
      *
-     * @return MutableDateTime
+     * @return Cake\Chronos\MutableDateTime
      */
     public function toMutable()
     {
@@ -98,7 +98,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Get a copy of the instance
      *
-     * @return static
+     * @return $this
      */
     public function copy()
     {

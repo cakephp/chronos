@@ -47,9 +47,9 @@ class InstanceTest extends TestCase
      */
     public function testInstanceFromDateTimeKeepsMicros($class)
     {
-        $micro    = 254687;
+        $micro = 254687;
         $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
-        $carbon   = $class::instance($datetime);
+        $carbon = $class::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
 }

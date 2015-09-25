@@ -24,7 +24,7 @@ class ConstructTest extends TestCase
      */
     public function testCreatesAnInstanceDefaultToNow($class)
     {
-        $c   = new $class();
+        $c = new $class();
         $now = $class::now();
         $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
@@ -37,7 +37,7 @@ class ConstructTest extends TestCase
      */
     public function testParseCreatesAnInstanceDefaultToNow($class)
     {
-        $c   = $class::parse();
+        $c = $class::parse();
         $now = $class::now();
         $this->assertInstanceOf($class, $c);
         $this->assertSame($now->tzName, $c->tzName);
@@ -90,9 +90,9 @@ class ConstructTest extends TestCase
      */
     public function testSettingTimezone($class)
     {
-        $timezone                 = 'Europe/London';
-        $dtz                      = new \DateTimeZone($timezone);
-        $dt                       = new \DateTime('now', $dtz);
+        $timezone = 'Europe/London';
+        $dtz = new \DateTimeZone($timezone);
+        $dt = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new $class('now', $dtz);
@@ -106,9 +106,9 @@ class ConstructTest extends TestCase
      */
     public function testParseSettingTimezone($class)
     {
-        $timezone                 = 'Europe/London';
-        $dtz                      = new \DateTimeZone($timezone);
-        $dt                       = new \DateTime('now', $dtz);
+        $timezone = 'Europe/London';
+        $dtz = new \DateTimeZone($timezone);
+        $dt = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = $class::parse('now', $dtz);
@@ -122,9 +122,9 @@ class ConstructTest extends TestCase
      */
     public function testSettingTimezoneWithString($class)
     {
-        $timezone                 = 'Asia/Tokyo';
-        $dtz                      = new \DateTimeZone($timezone);
-        $dt                       = new \DateTime('now', $dtz);
+        $timezone = 'Asia/Tokyo';
+        $dtz = new \DateTimeZone($timezone);
+        $dt = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new $class('now', $timezone);
@@ -138,9 +138,9 @@ class ConstructTest extends TestCase
      */
     public function testParseSettingTimezoneWithString($class)
     {
-        $timezone                 = 'Asia/Tokyo';
-        $dtz                      = new \DateTimeZone($timezone);
-        $dt                       = new \DateTime('now', $dtz);
+        $timezone = 'Asia/Tokyo';
+        $dtz = new \DateTimeZone($timezone);
+        $dt = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = $class::parse('now', $timezone);

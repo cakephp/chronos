@@ -22,7 +22,7 @@ class CopyTest extends TestCase
 
     public function testCopy()
     {
-        $dating  = MutableDateTime::now();
+        $dating = MutableDateTime::now();
         $dating2 = $dating->copy();
         $this->assertNotSame($dating, $dating2);
     }
@@ -33,7 +33,7 @@ class CopyTest extends TestCase
      */
     public function testCopyEnsureTzIsCopied($class)
     {
-        $dating  = $class::createFromDate(2000, 1, 1, 'Europe/London');
+        $dating = $class::createFromDate(2000, 1, 1, 'Europe/London');
         $dating2 = $dating->copy();
         $this->assertSame($dating->tzName, $dating2->tzName);
         $this->assertSame($dating->offset, $dating2->offset);
@@ -45,8 +45,8 @@ class CopyTest extends TestCase
      */
     public function testCopyEnsureMicrosAreCopied($class)
     {
-        $micro   = 254687;
-        $dating  = $class::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
+        $micro = 254687;
+        $dating = $class::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
         $dating2 = $dating->copy();
         $this->assertSame($micro, $dating2->micro);
     }

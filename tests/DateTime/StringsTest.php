@@ -26,6 +26,7 @@ class StringsTest extends TestCase
         $d = $class::now();
         $this->assertSame($class::now()->toDateTimeString(), ''.$d);
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -36,6 +37,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -47,6 +49,7 @@ class StringsTest extends TestCase
         $class::resetToStringFormat();
         $this->assertSame($d->toDateTimeString(), ''.$d);
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -56,6 +59,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25', $d->toDateString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -65,6 +69,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -74,6 +79,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('14:15:16', $d->toTimeString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -83,6 +89,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25 14:15:16', $d->toDateTimeString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -92,6 +99,7 @@ class StringsTest extends TestCase
         $d = $class::create(2000, 5, 2, 4, 3, 4);
         $this->assertSame('2000-05-02 04:03:04', $d->toDateTimeString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -111,6 +119,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toAtomString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -126,6 +135,7 @@ class StringsTest extends TestCase
 
         $this->assertSame($cookieString, $d->toCOOKIEString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -135,6 +145,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-0500', $d->toIso8601String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -144,6 +155,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc822String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -153,6 +165,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toRfc850String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -162,6 +175,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc1036String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -171,6 +185,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -180,6 +195,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc2822String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -189,6 +205,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRfc3339String());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void
@@ -198,6 +215,7 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRssString());
     }
+
     /**
      * @dataProvider classNameProvider
      * @return void

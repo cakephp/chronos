@@ -13,8 +13,8 @@
 
 namespace Interval;
 
-use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosInterval;
 use DateInterval;
 use Exception;
 use InvalidArgumentException;
@@ -214,9 +214,9 @@ class IntervalConstructTest extends TestCase
 
     public function testInstanceWithNegativeDateInterval()
     {
-        $di         = new DateInterval('P2Y1M5DT22H33M44S');
+        $di = new DateInterval('P2Y1M5DT22H33M44S');
         $di->invert = 1;
-        $ci         = ChronosInterval::instance($di);
+        $ci = ChronosInterval::instance($di);
         $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 1, 5, 22, 33, 44);
         $this->assertTrue($ci->days === false || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
