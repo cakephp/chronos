@@ -20,7 +20,6 @@ use InvalidArgumentException;
 
 /**
  * A simple API extension for DateTimeInterface
- *
  */
 trait DateTimeTrait
 {
@@ -94,14 +93,11 @@ trait DateTimeTrait
      */
     protected static $testNow;
 
-
     /**
      * Creates a DateTimeZone from a string or a DateTimeZone
      *
-     * @param DateTimeZone|string|null $object
-     *
+     * @param DateTimeZone|string|null $object The value to convert.
      * @return DateTimeZone
-     *
      * @throws InvalidArgumentException
      */
     protected static function safeCreateDateTimeZone($object)
@@ -117,15 +113,10 @@ trait DateTimeTrait
         return new DateTimeZone($object);
     }
 
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////////// CONSTRUCTORS /////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Create a ChronosInterface instance from a DateTimeInterface one
      *
-     * @param DateTimeInterface $dt
-     *
+     * @param DateTimeInterface $dt The datetime instance to convert.
      * @return static
      */
     public static function instance(DateTimeInterface $dt)
@@ -142,10 +133,9 @@ trait DateTimeTrait
      * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param string              $time
-     * @param DateTimeZone|string $tz
-     *
-     * @return static
+     * @param string $time The strtotime compatible string to parse
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name.
+     * @return $this
      */
     public static function parse($time = null, $tz = null)
     {
@@ -155,8 +145,7 @@ trait DateTimeTrait
     /**
      * Get a ChronosInterface instance for the current date and time
      *
-     * @param DateTimeZone|string $tz
-     *
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name.
      * @return static
      */
     public static function now($tz = null)
@@ -167,8 +156,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance for today
      *
-     * @param DateTimeZone|string $tz
-     *
+     * @param DateTimeZone|string $tz The timezonze to use.
      * @return static
      */
     public static function today($tz = null)
@@ -179,8 +167,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance for tomorrow
      *
-     * @param DateTimeZone|string $tz
-     *
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function tomorrow($tz = null)
@@ -191,8 +178,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance for yesterday
      *
-     * @param DateTimeZone|string $tz
-     *
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function yesterday($tz = null)
@@ -232,14 +218,13 @@ trait DateTimeTrait
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int             $year
-     * @param int             $month
-     * @param int             $day
-     * @param int             $hour
-     * @param int             $minute
-     * @param int             $second
-     * @param DateTimeZone|string $tz
-     *
+     * @param int $year The year to create an instance with.
+     * @param int $month The month to create an instance with.
+     * @param int $day The day to create an instance with.
+     * @param int $hour The hour to create an instance with.
+     * @param int $minute The minute to create an instance with.
+     * @param int $second The second to create an instance with.
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
@@ -263,11 +248,10 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance from just a date. The time portion is set to now.
      *
-     * @param int             $year
-     * @param int             $month
-     * @param int             $day
-     * @param DateTimeZone|string $tz
-     *
+     * @param int $year The year to create an instance with.
+     * @param int $month The month to create an instance with.
+     * @param int $day The day to create an instance with.
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
@@ -278,11 +262,10 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance from just a time. The date portion is set to today.
      *
-     * @param int             $hour
-     * @param int             $minute
-     * @param int             $second
-     * @param DateTimeZone|string $tz
-     *
+     * @param int $hour The hour to create an instance with.
+     * @param int $minute The minute to create an instance with.
+     * @param int $second The second to create an instance with.
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
@@ -293,12 +276,10 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance from a specific format
      *
-     * @param string              $format
-     * @param string              $time
-     * @param DateTimeZone|string $tz
-     *
+     * @param string $format The date() compatible format string.
+     * @param string $time The formatted date string to interpret.
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
-     *
      * @throws InvalidArgumentException
      */
     public static function createFromFormat($format, $time, $tz = null)
@@ -320,9 +301,8 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance from a timestamp
      *
-     * @param int             $timestamp
-     * @param DateTimeZone|string $tz
-     *
+     * @param int $timestamp The timestamp to create an instance from.
+     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromTimestamp($timestamp, $tz = null)
@@ -333,8 +313,7 @@ trait DateTimeTrait
     /**
      * Create a ChronosInterface instance from an UTC timestamp
      *
-     * @param int $timestamp
-     *
+     * @param int $timestamp The UTC timestamp to create an instance from.
      * @return static
      */
     public static function createFromTimestampUTC($timestamp)
@@ -352,18 +331,12 @@ trait DateTimeTrait
         return static::instance($this);
     }
 
-    ///////////////////////////////////////////////////////////////////
-    ///////////////////////// GETTERS AND SETTERS /////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Get a part of the ChronosInterface object
      *
-     * @param string $name
-     *
+     * @param string $name The property name to read.
+     * @return string|int|DateTimeZone The property value.
      * @throws InvalidArgumentException
-     *
-     * @return string|int|DateTimeZone
      */
     public function __get($name)
     {
@@ -423,9 +396,8 @@ trait DateTimeTrait
     /**
      * Check if an attribute exists on the object
      *
-     * @param string $name
-     *
-     * @return bool
+     * @param string $name The property name to check.
+     * @return bool Whether or not the property exists.
      */
     public function __isset($name)
     {
@@ -441,8 +413,7 @@ trait DateTimeTrait
     /**
      * Set the instance's year
      *
-     * @param int $value
-     *
+     * @param int $value The year value.
      * @return static
      */
     public function year($value)
@@ -453,8 +424,7 @@ trait DateTimeTrait
     /**
      * Set the instance's month
      *
-     * @param int $value
-     *
+     * @param int $value The month value.
      * @return static
      */
     public function month($value)
@@ -465,8 +435,7 @@ trait DateTimeTrait
     /**
      * Set the instance's day
      *
-     * @param int $value
-     *
+     * @param int $value The day value.
      * @return static
      */
     public function day($value)
@@ -477,8 +446,7 @@ trait DateTimeTrait
     /**
      * Set the instance's hour
      *
-     * @param int $value
-     *
+     * @param int $value The hour value.
      * @return static
      */
     public function hour($value)
@@ -489,8 +457,7 @@ trait DateTimeTrait
     /**
      * Set the instance's minute
      *
-     * @param int $value
-     *
+     * @param int $value The minute value.
      * @return static
      */
     public function minute($value)
@@ -501,8 +468,7 @@ trait DateTimeTrait
     /**
      * Set the instance's second
      *
-     * @param int $value
-     *
+     * @param int $value The seconds value.
      * @return static
      */
     public function second($value)
@@ -513,13 +479,12 @@ trait DateTimeTrait
     /**
      * Set the date and time all together
      *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hour
-     * @param int $minute
-     * @param int $second
-     *
+     * @param int $year The year to set.
+     * @param int $month The month to set.
+     * @param int $day The day to set.
+     * @param int $hour The hour to set.
+     * @param int $minute The minute to set.
+     * @param int $second The second to set.
      * @return static
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
@@ -530,8 +495,7 @@ trait DateTimeTrait
     /**
      * Set the instance's timestamp
      *
-     * @param int $value
-     *
+     * @param int $value The timestamp value to set.
      * @return static
      */
     public function timestamp($value)
@@ -542,8 +506,7 @@ trait DateTimeTrait
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value
-     *
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function timezone($value)
@@ -554,8 +517,7 @@ trait DateTimeTrait
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value
-     *
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function tz($value)
@@ -566,18 +528,13 @@ trait DateTimeTrait
     /**
      * Set the instance's timezone from a string or object
      *
-     * @param DateTimeZone|string $value
-     *
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function setTimezone($value)
     {
         return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
-
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////// WEEK SPECIAL DAYS /////////////////////////
-    ///////////////////////////////////////////////////////////////////
 
     /**
      * Get the first day of week
@@ -592,7 +549,8 @@ trait DateTimeTrait
     /**
      * Set the first day of week
      *
-     * @param int
+     * @param int $day The day the week starts with.
+     * @return void
      */
     public static function setWeekStartsAt($day)
     {
@@ -612,7 +570,8 @@ trait DateTimeTrait
     /**
      * Set the first day of week
      *
-     * @param int
+     * @param int $day The day the week ends with.
+     * @return void
      */
     public static function setWeekEndsAt($day)
     {
@@ -632,16 +591,13 @@ trait DateTimeTrait
     /**
      * Set weekend days
      *
-     * @param array
+     * @param array $days Which days are 'weekends'.
+     * @return void
      */
     public static function setWeekendDays($days)
     {
         static::$weekendDays = $days;
     }
-
-    ///////////////////////////////////////////////////////////////////
-    ///////////////////////// TESTING AIDS ////////////////////////////
-    ///////////////////////////////////////////////////////////////////
 
     /**
      * Set a ChronosInterface instance (real or mock) to be returned when a "now"
@@ -657,7 +613,8 @@ trait DateTimeTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param ChronosInterface $testNow
+     * @param ChronosInterface $testNow The instance to use for all future instances.
+     * @return void
      */
     public static function setTestNow(ChronosInterface $testNow = null)
     {
@@ -690,8 +647,7 @@ trait DateTimeTrait
      * Determine if there is a relative keyword in the time string, this is to
      * create dates relative to now for test instances. e.g.: next tuesday
      *
-     * @param string $time
-     *
+     * @param string $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
     public static function hasRelativeKeywords($time)
@@ -708,13 +664,10 @@ trait DateTimeTrait
         return false;
     }
 
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////// STRING FORMATTING /////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Reset the format used to the default when type juggling a ChronosInterface instance to a string
      *
+     * @return void
      */
     public static function resetToStringFormat()
     {
@@ -724,7 +677,8 @@ trait DateTimeTrait
     /**
      * Set the default format used when type juggling a ChronosInterface instance to a string
      *
-     * @param string $format
+     * @param string $format The format to use in future __toString() calls.
+     * @return void
      */
     public static function setToStringFormat($format)
     {
@@ -901,15 +855,10 @@ trait DateTimeTrait
         return $this->format(DateTime::W3C);
     }
 
-    ///////////////////////////////////////////////////////////////////
-    ////////////////////////// COMPARISONS ////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Determines if the instance is equal to another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function eq(ChronosInterface $dt)
@@ -920,8 +869,7 @@ trait DateTimeTrait
     /**
      * Determines if the instance is not equal to another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function ne(ChronosInterface $dt)
@@ -932,8 +880,7 @@ trait DateTimeTrait
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gt(ChronosInterface $dt)
@@ -944,8 +891,7 @@ trait DateTimeTrait
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gte(ChronosInterface $dt)
@@ -956,8 +902,7 @@ trait DateTimeTrait
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lt(ChronosInterface $dt)
@@ -968,8 +913,7 @@ trait DateTimeTrait
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lte(ChronosInterface $dt)
@@ -980,10 +924,9 @@ trait DateTimeTrait
     /**
      * Determines if the instance is between two others
      *
-     * @param  ChronosInterface  $dt1
-     * @param  ChronosInterface  $dt2
-     * @param  bool $equal  Indicates if a > and < comparison should be used or <= or >=
-     *
+     * @param ChronosInterface $dt1 The instance to compare with.
+     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
      * @return bool
      */
     public function between(ChronosInterface $dt1, ChronosInterface $dt2, $equal = true)
@@ -1004,8 +947,7 @@ trait DateTimeTrait
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return static
      */
     public function min(ChronosInterface $dt = null)
@@ -1018,8 +960,7 @@ trait DateTimeTrait
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return static
      */
     public function max(ChronosInterface $dt = null)
@@ -1112,7 +1053,7 @@ trait DateTimeTrait
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param  ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to check against.
      * @return bool
      */
     public function isSameDay(ChronosInterface $dt)
@@ -1220,16 +1161,11 @@ trait DateTimeTrait
         return static::now($this->getTimezone())->format('Y') == $this->format('Y');
     }
 
-    ///////////////////////////////////////////////////////////////////
-    /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of years to add.
      * @return static
      */
     public function addYears($value)
@@ -1240,8 +1176,7 @@ trait DateTimeTrait
     /**
      * Add a year to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of years to add.
      * @return static
      */
     public function addYear($value = 1)
@@ -1252,8 +1187,7 @@ trait DateTimeTrait
     /**
      * Remove a year from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of years to remove.
      * @return static
      */
     public function subYear($value = 1)
@@ -1264,8 +1198,7 @@ trait DateTimeTrait
     /**
      * Remove years from the instance.
      *
-     * @param int $value
-     *
+     * @param int $value The number of years to remove.
      * @return static
      */
     public function subYears($value)
@@ -1277,8 +1210,7 @@ trait DateTimeTrait
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to add.
      * @return static
      */
     public function addMonths($value)
@@ -1289,8 +1221,7 @@ trait DateTimeTrait
     /**
      * Add a month to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to add.
      * @return static
      */
     public function addMonth($value = 1)
@@ -1301,8 +1232,7 @@ trait DateTimeTrait
     /**
      * Remove a month from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to remove.
      * @return static
      */
     public function subMonth($value = 1)
@@ -1313,8 +1243,7 @@ trait DateTimeTrait
     /**
      * Remove months from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to remove.
      * @return static
      */
     public function subMonths($value)
@@ -1326,8 +1255,7 @@ trait DateTimeTrait
      * Add months without overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to add.
      * @return static
      */
     public function addMonthsNoOverflow($value)
@@ -1347,8 +1275,7 @@ trait DateTimeTrait
     /**
      * Add a month with no overflow to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to add.
      * @return static
      */
     public function addMonthNoOverflow($value = 1)
@@ -1359,8 +1286,7 @@ trait DateTimeTrait
     /**
      * Remove a month with no overflow from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to remove.
      * @return static
      */
     public function subMonthNoOverflow($value = 1)
@@ -1371,8 +1297,7 @@ trait DateTimeTrait
     /**
      * Remove months with no overflow from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of months to remove.
      * @return static
      */
     public function subMonthsNoOverflow($value)
@@ -1384,8 +1309,7 @@ trait DateTimeTrait
      * Add days to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of days to add.
      * @return static
      */
     public function addDays($value)
@@ -1397,8 +1321,7 @@ trait DateTimeTrait
     /**
      * Add a day to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of days to add.
      * @return static
      */
     public function addDay($value = 1)
@@ -1410,8 +1333,7 @@ trait DateTimeTrait
     /**
      * Remove a day from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of days to remove.
      * @return static
      */
     public function subDay($value = 1)
@@ -1423,8 +1345,7 @@ trait DateTimeTrait
     /**
      * Remove days from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of days to remove.
      * @return static
      */
     public function subDays($value)
@@ -1437,8 +1358,7 @@ trait DateTimeTrait
      * Add weekdays to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of weekdays to add.
      * @return static
      */
     public function addWeekdays($value)
@@ -1450,8 +1370,7 @@ trait DateTimeTrait
     /**
      * Add a weekday to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weekdays to add.
      * @return static
      */
     public function addWeekday($value = 1)
@@ -1463,8 +1382,7 @@ trait DateTimeTrait
     /**
      * Remove a weekday from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weekdays to remove.
      * @return static
      */
     public function subWeekday($value = 1)
@@ -1476,8 +1394,7 @@ trait DateTimeTrait
     /**
      * Remove weekdays from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weekdays to remove.
      * @return static
      */
     public function subWeekdays($value)
@@ -1490,8 +1407,7 @@ trait DateTimeTrait
      * Add weeks to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of weeks to add.
      * @return static
      */
     public function addWeeks($value)
@@ -1503,8 +1419,7 @@ trait DateTimeTrait
     /**
      * Add a week to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weeks to add.
      * @return static
      */
     public function addWeek($value = 1)
@@ -1516,8 +1431,7 @@ trait DateTimeTrait
     /**
      * Remove a week from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weeks to remove.
      * @return static
      */
     public function subWeek($value = 1)
@@ -1529,8 +1443,7 @@ trait DateTimeTrait
     /**
      * Remove weeks to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of weeks to remove.
      * @return static
      */
     public function subWeeks($value)
@@ -1543,8 +1456,7 @@ trait DateTimeTrait
      * Add hours to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of hours to add.
      * @return static
      */
     public function addHours($value)
@@ -1556,8 +1468,7 @@ trait DateTimeTrait
     /**
      * Add an hour to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of hours to add.
      * @return static
      */
     public function addHour($value = 1)
@@ -1569,8 +1480,7 @@ trait DateTimeTrait
     /**
      * Remove an hour from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of hours to remove.
      * @return static
      */
     public function subHour($value = 1)
@@ -1582,8 +1492,7 @@ trait DateTimeTrait
     /**
      * Remove hours from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of hours to remove.
      * @return static
      */
     public function subHours($value)
@@ -1596,8 +1505,7 @@ trait DateTimeTrait
      * Add minutes to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of minutes to add.
      * @return static
      */
     public function addMinutes($value)
@@ -1609,8 +1517,7 @@ trait DateTimeTrait
     /**
      * Add a minute to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of minutes to add.
      * @return static
      */
     public function addMinute($value = 1)
@@ -1622,8 +1529,7 @@ trait DateTimeTrait
     /**
      * Remove a minute from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of minutes to remove.
      * @return static
      */
     public function subMinute($value = 1)
@@ -1635,8 +1541,7 @@ trait DateTimeTrait
     /**
      * Remove minutes from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of minutes to remove.
      * @return static
      */
     public function subMinutes($value)
@@ -1649,8 +1554,7 @@ trait DateTimeTrait
      * Add seconds to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * @param int $value
-     *
+     * @param int $value The number of seconds to add.
      * @return static
      */
     public function addSeconds($value)
@@ -1662,8 +1566,7 @@ trait DateTimeTrait
     /**
      * Add a second to the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of seconds to add.
      * @return static
      */
     public function addSecond($value = 1)
@@ -1675,8 +1578,7 @@ trait DateTimeTrait
     /**
      * Remove a second from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of seconds to remove.
      * @return static
      */
     public function subSecond($value = 1)
@@ -1688,8 +1590,7 @@ trait DateTimeTrait
     /**
      * Remove seconds from the instance
      *
-     * @param int $value
-     *
+     * @param int $value The number of seconds to remove.
      * @return static
      */
     public function subSeconds($value)
@@ -1698,16 +1599,11 @@ trait DateTimeTrait
         return $this->modify("-$value second");
     }
 
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////////// DIFFERENCES ///////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
     /**
      * Get the difference in years
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInYears(ChronosInterface $dt = null, $abs = true)
@@ -1719,9 +1615,8 @@ trait DateTimeTrait
     /**
      * Get the difference in months
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInMonths(ChronosInterface $dt = null, $abs = true)
@@ -1733,9 +1628,8 @@ trait DateTimeTrait
     /**
      * Get the difference in weeks
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInWeeks(ChronosInterface $dt = null, $abs = true)
@@ -1746,9 +1640,8 @@ trait DateTimeTrait
     /**
      * Get the difference in days
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInDays(ChronosInterface $dt = null, $abs = true)
@@ -1760,10 +1653,9 @@ trait DateTimeTrait
     /**
      * Get the difference in days using a filter callable
      *
-     * @param callable $callback
-     * @param ChronosInterface  $dt
-     * @param bool $abs      Get the absolute of the difference
-     *
+     * @param callable $callback The callback to use for filtering.
+     * @param ChronosInterface $dt The instance to difference from.
+     * @param bool $abs Get the absolute of the difference
      * @return int
      */
     public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
@@ -1774,10 +1666,9 @@ trait DateTimeTrait
     /**
      * Get the difference in hours using a filter callable
      *
-     * @param callable $callback
-     * @param ChronosInterface  $dt
-     * @param bool $abs      Get the absolute of the difference
-     *
+     * @param callable $callback The callback to use for filtering.
+     * @param ChronosInterface $dt The instance to difference from.
+     * @param bool $abs Get the absolute of the difference
      * @return int
      */
     public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
@@ -1789,10 +1680,9 @@ trait DateTimeTrait
      * Get the difference by the given interval using a filter callable
      *
      * @param ChronosInterval $ci An interval to traverse by
-     * @param callable $callback
-     * @param ChronosInterface  $dt
-     * @param bool $abs      Get the absolute of the difference
-     *
+     * @param callable $callback The callback to use for filtering.
+     * @param ChronosInterface $dt The instance to difference from.
+     * @param bool $abs Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
@@ -1820,9 +1710,8 @@ trait DateTimeTrait
     /**
      * Get the difference in weekdays
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInWeekdays(ChronosInterface $dt = null, $abs = true)
@@ -1835,9 +1724,8 @@ trait DateTimeTrait
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInWeekendDays(ChronosInterface $dt = null, $abs = true)
@@ -1850,9 +1738,8 @@ trait DateTimeTrait
     /**
      * Get the difference in hours
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInHours(ChronosInterface $dt = null, $abs = true)
@@ -1863,9 +1750,8 @@ trait DateTimeTrait
     /**
      * Get the difference in minutes
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInMinutes(ChronosInterface $dt = null, $abs = true)
@@ -1876,9 +1762,8 @@ trait DateTimeTrait
     /**
      * Get the difference in seconds
      *
-     * @param ChronosInterface  $dt
+     * @param ChronosInterface $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
-     *
      * @return int
      */
     public function diffInSeconds(ChronosInterface $dt = null, $abs = true)
@@ -1908,10 +1793,6 @@ trait DateTimeTrait
     {
         return $this->diffInSeconds($this->copy()->endOfDay());
     }
-
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////////// MODIFIERS ////////////////////////////
-    ///////////////////////////////////////////////////////////////////
 
     /**
      * Resets the time to 00:00:00
@@ -2053,8 +1934,7 @@ trait DateTimeTrait
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function next($dayOfWeek = null)
@@ -2073,8 +1953,7 @@ trait DateTimeTrait
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function previous($dayOfWeek = null)
@@ -2093,8 +1972,7 @@ trait DateTimeTrait
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfMonth($dayOfWeek = null)
@@ -2109,8 +1987,7 @@ trait DateTimeTrait
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfMonth($dayOfWeek = null)
@@ -2125,9 +2002,8 @@ trait DateTimeTrait
      * of the current month, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $nth
-     * @param int $dayOfWeek
-     *
+     * @param int $nth The offset to use.
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function nthOfMonth($nth, $dayOfWeek)
@@ -2145,8 +2021,7 @@ trait DateTimeTrait
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfQuarter($dayOfWeek = null)
@@ -2160,8 +2035,7 @@ trait DateTimeTrait
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfQuarter($dayOfWeek = null)
@@ -2175,9 +2049,8 @@ trait DateTimeTrait
      * of the current quarter, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $nth
-     * @param int $dayOfWeek
-     *
+     * @param int $nth The offset to use.
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function nthOfQuarter($nth, $dayOfWeek)
@@ -2196,8 +2069,7 @@ trait DateTimeTrait
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfYear($dayOfWeek = null)
@@ -2212,8 +2084,7 @@ trait DateTimeTrait
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek
-     *
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfYear($dayOfWeek = null)
@@ -2228,9 +2099,8 @@ trait DateTimeTrait
      * of the current year, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $nth
-     * @param int $dayOfWeek
-     *
+     * @param int $nth The offset to use.
+     * @param int $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function nthOfYear($nth, $dayOfWeek)
@@ -2242,8 +2112,7 @@ trait DateTimeTrait
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt
-     *
+     * @param ChronosInterface $dt The instance to compare with.
      * @return static
      */
     public function average(ChronosInterface $dt = null)
@@ -2256,9 +2125,8 @@ trait DateTimeTrait
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param ChronosInterface $dt
-     *
-     * @return bool
+     * @param ChronosInterface $dt The instance to compare with.
+     * @return static
      */
     public function isBirthday(ChronosInterface $dt)
     {

@@ -10,10 +10,10 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\MutableDateTime;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase

@@ -262,7 +262,6 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $hour The hour to set.
      * @param int $minute The minute to set.
      * @param int $second The second to set.
-     *
      * @return static
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0);
@@ -278,7 +277,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to should use.
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function timezone($value);
@@ -286,7 +285,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to should use.
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function tz($value);
