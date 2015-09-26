@@ -63,7 +63,7 @@ class MutabilityConversionTest extends TestCase
     protected function checkBothInstances(MutableDateTime $dt1, Chronos $dt2)
     {
         $this->assertDateTime($dt1, 2001, 2, 3, 10, 20, 30);
-        $this->assertInstanceOf(Chronos::class, $dt2);
+        $this->assertInstanceOf(Chronos::CLASS, $dt2);
         $this->assertDateTime($dt2, 2001, 2, 3, 10, 20, 30);
     }
 }

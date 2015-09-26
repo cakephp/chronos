@@ -36,8 +36,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     public function classNameProvider()
     {
         return [
-            'mutable' => [MutableDateTime::class],
-            'immutable' => [Chronos::class]
+            'mutable' => [MutableDateTime::CLASS],
+            'immutable' => [Chronos::CLASS]
         ];
     }
 

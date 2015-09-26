@@ -20,7 +20,6 @@ matrix:
 
   allow_failures:
     - php: hhvm
-    - env: PHPCS=1 DEFAULT=0
 
   fast_finish: true
 
@@ -36,7 +35,7 @@ install:
 script:
   - sh -c "if [ '$DEFAULT' = '1' ]; then phpunit; fi"
 
-  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -pn --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests; fi"
 
   - sh -c "if [ '$COVERALLS' = '1' ]; then phpunit --coverage-clover build/logs/clover.xml; fi"
   - sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/coveralls -c .coveralls.yml -v; fi"
