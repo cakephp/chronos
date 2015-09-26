@@ -74,11 +74,11 @@ class IntervalSettersTest extends TestCase
     public function testFluentSetters()
     {
         $ci = ChronosInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
-        $this->assertInstanceOf(ChronosInterval::class, $ci);
+        $this->assertInstanceOf(ChronosInterval::CLASS, $ci);
         $this->assertDateTimeInterval($ci, 4, 2, 5, 3, 1, 59);
 
         $ci = ChronosInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
-        $this->assertInstanceOf(ChronosInterval::class, $ci);
+        $this->assertInstanceOf(ChronosInterval::CLASS, $ci);
         $this->assertDateTimeInterval($ci, 4, 2, 14, 3, 1, 59);
     }
 

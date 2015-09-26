@@ -103,10 +103,10 @@ class SettersTest extends TestCase
     {
         $d = MutableDateTime::now();
         $d->setTime(2, 2, 2)->setTime(1, 1, 1);
-        $this->assertInstanceOf(MutableDateTime::class, $d);
+        $this->assertInstanceOf(MutableDateTime::CLASS, $d);
         $this->assertSame(1, $d->second);
         $d->setTime(2, 2, 2)->setTime(1, 1);
-        $this->assertInstanceOf(MutableDateTime::class, $d);
+        $this->assertInstanceOf(MutableDateTime::CLASS, $d);
         $this->assertSame(0, $d->second);
     }
 
@@ -135,9 +135,9 @@ class SettersTest extends TestCase
     {
         $d = MutableDateTime::now();
         $d->setDateTime(2013, 9, 24, 17, 4, 29);
-        $this->assertInstanceOf(MutableDateTime::class, $d);
+        $this->assertInstanceOf(MutableDateTime::CLASS, $d);
         $d->setDateTime(2014, 10, 25, 18, 5, 30);
-        $this->assertInstanceOf(MutableDateTime::class, $d);
+        $this->assertInstanceOf(MutableDateTime::CLASS, $d);
         $this->assertDateTime($d, 2014, 10, 25, 18, 5, 30);
     }
 
