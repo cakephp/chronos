@@ -262,7 +262,6 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $hour The hour to set.
      * @param int $minute The minute to set.
      * @param int $second The second to set.
-     *
      * @return static
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0);
