@@ -24,7 +24,7 @@ class StringsTest extends TestCase
     public function testToString($class)
     {
         $d = $class::now();
-        $this->assertSame($class::now()->toDateTimeString(), ''.$d);
+        $this->assertSame($class::now()->toDateTimeString(), '' . $d);
     }
 
     /**
@@ -35,7 +35,7 @@ class StringsTest extends TestCase
     {
         $class::setToStringFormat('jS \o\f F, Y g:i:s a');
         $d = $class::create(1975, 12, 25, 14, 15, 16);
-        $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
+        $this->assertSame('25th of December, 1975 2:15:16 pm', '' . $d);
     }
 
     /**
@@ -47,7 +47,7 @@ class StringsTest extends TestCase
         $d = $class::now();
         $class::setToStringFormat('123');
         $class::resetToStringFormat();
-        $this->assertSame($d->toDateTimeString(), ''.$d);
+        $this->assertSame($d->toDateTimeString(), '' . $d);
     }
 
     /**

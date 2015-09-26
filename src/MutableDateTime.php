@@ -72,7 +72,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      * Set a part of the ChronosInterface object
      *
      * @param string $name The property to set.
-     * @param string|int|DateTimeZone $value
+     * @param string|int|DateTimeZone $value The value to set.
      * @throws InvalidArgumentException
      * @return void
      */
