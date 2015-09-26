@@ -277,7 +277,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to should use.
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function timezone($value);
@@ -285,7 +285,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to should use.
+     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function tz($value);
