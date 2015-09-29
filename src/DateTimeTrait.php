@@ -1833,6 +1833,46 @@ trait DateTimeTrait
     }
 
     /**
+     * Returns true this instance happened within the specified interval
+     *
+     * @param string|int $timeInterval the numeric value with space then time type.
+     *    Example of valid types: 6 hours, 2 days, 1 minute.
+     * @return bool
+     */
+    public function wasWithinLast($timeInterval)
+    {
+        $tmp = str_replace(' ', '', $timeInterval);
+        if (is_numeric($tmp)) {
+            $timeInterval = $tmp . ' days';
+        }
+
+        $interval = new static('-' . $timeInterval);
+        $now = new static();
+
+        return $this >= $interval && $this <= $now;
+    }
+
+    /**
+     * Returns true this instance will happen within the specified interval
+     *
+     * @param string|int $timeInterval the numeric value with space then time type.
+     *    Example of valid types: 6 hours, 2 days, 1 minute.
+     * @return bool
+     */
+    public function isWithinNext($timeInterval)
+    {
+        $tmp = str_replace(' ', '', $timeInterval);
+        if (is_numeric($tmp)) {
+            $timeInterval = $tmp . ' days';
+        }
+
+        $interval = new static('+' . $timeInterval);
+        $now = new static();
+
+        return $this <= $interval && $this >= $now;
+    }
+
+    /**
      * Check if instance of ChronosInterface is mutable.
      *
      * @return bool
