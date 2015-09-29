@@ -16,7 +16,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 
 /**
- * A simple API extension for DateTimeInterface
+ * An Immutable extension on the native DateTime object.
+ *
+ * Adds a number of convenience APIs methods and the ability
+ * to easily convert into a mutable object.
  *
  * @property-read int $year
  * @property-read int $yearIso
