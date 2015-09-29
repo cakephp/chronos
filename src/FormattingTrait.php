@@ -210,5 +210,4 @@ trait FormattingTrait
     {
         return $this->format(DateTime::W3C);
     }
-
 }

@@ -3,7 +3,7 @@
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice. Provides various operator methods for datetime 
+ * Redistributions of files must retain the above copyright notice. Provides various operator methods for datetime
  * objects.
  *
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
