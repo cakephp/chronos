@@ -1846,8 +1846,8 @@ trait DateTimeTrait
             $timeInterval = $tmp . ' days';
         }
 
-        $interval = new static('-' . $timeInterval);
         $now = new static();
+        $interval = $now->copy()->modify('-' . $timeInterval);
 
         return $this >= $interval && $this <= $now;
     }
@@ -1866,8 +1866,8 @@ trait DateTimeTrait
             $timeInterval = $tmp . ' days';
         }
 
-        $interval = new static('+' . $timeInterval);
         $now = new static();
+        $interval = $now->copy()->modify('+' . $timeInterval);
 
         return $this <= $interval && $this >= $now;
     }
