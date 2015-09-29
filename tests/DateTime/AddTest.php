@@ -96,7 +96,7 @@ class AddTest extends TestCase
      */
     public function testAddMonthWithOverflow($class)
     {
-        $this->assertSame(3, $class::createFromDate(2012, 1, 31)->addMonth()->month);
+        $this->assertSame(3, $class::createFromDate(2012, 1, 31)->addMonthWithOverflow()->month);
     }
 
     /**
@@ -105,10 +105,10 @@ class AddTest extends TestCase
      */
     public function testAddMonthsNoOverflowPositive($class)
     {
-        $this->assertSame('2012-02-29', $class::createFromDate(2012, 1, 31)->addMonthNoOverflow()->toDateString());
-        $this->assertSame('2012-03-31', $class::createFromDate(2012, 1, 31)->addMonthsNoOverflow(2)->toDateString());
-        $this->assertSame('2012-03-29', $class::createFromDate(2012, 2, 29)->addMonthNoOverflow()->toDateString());
-        $this->assertSame('2012-02-29', $class::createFromDate(2011, 12, 31)->addMonthsNoOverflow(2)->toDateString());
+        $this->assertSame('2012-02-29', $class::createFromDate(2012, 1, 31)->addMonth()->toDateString());
+        $this->assertSame('2012-03-31', $class::createFromDate(2012, 1, 31)->addMonths(2)->toDateString());
+        $this->assertSame('2012-03-29', $class::createFromDate(2012, 2, 29)->addMonth()->toDateString());
+        $this->assertSame('2012-02-29', $class::createFromDate(2011, 12, 31)->addMonths(2)->toDateString());
     }
 
     /**
@@ -126,10 +126,10 @@ class AddTest extends TestCase
      */
     public function testAddMonthsNoOverflowNegative($class)
     {
-        $this->assertSame('2012-01-29', $class::createFromDate(2012, 2, 29)->addMonthsNoOverflow(-1)->toDateString());
-        $this->assertSame('2012-01-31', $class::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-2)->toDateString());
-        $this->assertSame('2012-02-29', $class::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-1)->toDateString());
-        $this->assertSame('2011-12-31', $class::createFromDate(2012, 1, 31)->addMonthsNoOverflow(-1)->toDateString());
+        $this->assertSame('2012-01-29', $class::createFromDate(2012, 2, 29)->addMonths(-1)->toDateString());
+        $this->assertSame('2012-01-31', $class::createFromDate(2012, 3, 31)->addMonths(-2)->toDateString());
+        $this->assertSame('2012-02-29', $class::createFromDate(2012, 3, 31)->addMonths(-1)->toDateString());
+        $this->assertSame('2011-12-31', $class::createFromDate(2012, 1, 31)->addMonths(-1)->toDateString());
     }
 
     /**
@@ -374,7 +374,7 @@ class AddTest extends TestCase
      */
     public function testAddMonthNoOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2010, 12, 31)->addMonthNoOverflow(2);
+        $dt = $class::createFromDate(2010, 12, 31)->addMonth(2);
         $this->assertSame(2011, $dt->year);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);

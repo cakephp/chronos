@@ -914,7 +914,16 @@ trait DateTimeTrait
      */
     public function addMonths($value)
     {
-        return $this->modify((int)$value . ' month');
+        $date = $this->copy()->modify((int)$value . ' month');
+
+        if ($date->day != $this->day) {
+            return $date
+                ->day(1)
+                ->subMonth()
+                ->endOfMonth();
+        }
+
+        return $date;
     }
 
     /**
@@ -957,18 +966,9 @@ trait DateTimeTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsNoOverflow($value)
+    public function addMonthsWithOverflow($value)
     {
-        $date = $this->copy()->addMonths($value);
-
-        if ($date->day != $this->day) {
-            return $date
-                ->day(1)
-                ->subMonth()
-                ->endOfMonth();
-        }
-
-        return $date;
+        return $this->modify((int)$value . ' month');
     }
 
     /**
@@ -977,9 +977,9 @@ trait DateTimeTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthNoOverflow($value = 1)
+    public function addMonthWithOverflow($value = 1)
     {
-        return $this->addMonthsNoOverflow($value);
+        return $this->modify((int)$value . ' month');
     }
 
     /**
@@ -988,9 +988,9 @@ trait DateTimeTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthNoOverflow($value = 1)
+    public function subMonthWithOverflow($value = 1)
     {
-        return $this->subMonthsNoOverflow($value);
+        return $this->subMonthsWithOverflow($value);
     }
 
     /**
@@ -999,9 +999,9 @@ trait DateTimeTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsNoOverflow($value)
+    public function subMonthsWithOverflow($value)
     {
-        return $this->addMonthsNoOverflow(-1 * $value);
+        return $this->addMonthsWithOverflow(-1 * $value);
     }
 
     /**

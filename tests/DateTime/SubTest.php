@@ -332,7 +332,7 @@ class SubTest extends TestCase
      */
     public function testSubMonthNoOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2011, 4, 30)->subMonthNoOverflow(2);
+        $dt = $class::createFromDate(2011, 4, 30)->subMonths(2);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }

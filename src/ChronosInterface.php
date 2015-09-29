@@ -796,7 +796,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsNoOverflow($value);
+    public function addMonthsWithOverflow($value);
 
     /**
      * Add a month with no overflow to the instance
@@ -804,7 +804,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthNoOverflow($value = 1);
+    public function addMonthWithOverflow($value = 1);
 
     /**
      * Remove a month with no overflow from the instance
@@ -812,7 +812,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthNoOverflow($value = 1);
+    public function subMonthWithOverflow($value = 1);
 
     /**
      * Remove months with no overflow from the instance
@@ -820,7 +820,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsNoOverflow($value);
+    public function subMonthsWithOverflow($value);
 
     /**
      * Add days to the instance. Positive $value travels forward while
