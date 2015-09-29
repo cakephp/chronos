@@ -1841,11 +1841,6 @@ trait DateTimeTrait
      */
     public function wasWithinLast($timeInterval)
     {
-        $tmp = str_replace(' ', '', $timeInterval);
-        if (is_numeric($tmp)) {
-            $timeInterval = $tmp . ' days';
-        }
-
         $now = new static();
         $interval = $now->copy()->modify('-' . $timeInterval);
 
@@ -1861,11 +1856,6 @@ trait DateTimeTrait
      */
     public function isWithinNext($timeInterval)
     {
-        $tmp = str_replace(' ', '', $timeInterval);
-        if (is_numeric($tmp)) {
-            $timeInterval = $tmp . ' days';
-        }
-
         $now = new static();
         $interval = $now->copy()->modify('+' . $timeInterval);
 

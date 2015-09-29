@@ -465,7 +465,6 @@ class IsTest extends TestCase
         $this->assertFalse((new $class('-1 year'))->wasWithinLast('1 second'));
         $this->assertFalse((new $class('-1 year'))->wasWithinLast('0 year'));
         $this->assertFalse((new $class('-1 weeks'))->wasWithinLast('1 day'));
-        $this->assertTrue((new $class('-3 days'))->wasWithinLast('5'));
     }
 
     /**
