@@ -444,4 +444,49 @@ class IsTest extends TestCase
         $time = $time->year($time->year + 1);
         $this->assertFalse($time->isThisYear());
     }
+
+    /**
+     * testWasWithinLast method
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testWasWithinLast($class)
+    {
+        $this->assertTrue((new $class('-1 day'))->wasWithinLast('1 day'));
+        $this->assertTrue((new $class('-1 week'))->wasWithinLast('1 week'));
+        $this->assertTrue((new $class('-1 year'))->wasWithinLast('1 year'));
+        $this->assertTrue((new $class('-1 second'))->wasWithinLast('1 second'));
+        $this->assertTrue((new $class('-1 day'))->wasWithinLast('1 week'));
+        $this->assertTrue((new $class('-1 week'))->wasWithinLast('2 week'));
+        $this->assertTrue((new $class('-1 second'))->wasWithinLast('10 minutes'));
+        $this->assertTrue((new $class('-1 month'))->wasWithinLast('13 month'));
+        $this->assertTrue((new $class('-1 seconds'))->wasWithinLast('1 hour'));
+        $this->assertFalse((new $class('-1 year'))->wasWithinLast('1 second'));
+        $this->assertFalse((new $class('-1 year'))->wasWithinLast('0 year'));
+        $this->assertFalse((new $class('-1 weeks'))->wasWithinLast('1 day'));
+    }
+
+    /**
+     * testWasWithinLast method
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsWithinNext($class)
+    {
+        $this->assertFalse((new $class('-1 day'))->isWithinNext('1 day'));
+        $this->assertFalse((new $class('-1 week'))->isWithinNext('1 week'));
+        $this->assertFalse((new $class('-1 year'))->isWithinNext('1 year'));
+        $this->assertFalse((new $class('-1 second'))->isWithinNext('1 second'));
+        $this->assertFalse((new $class('-1 day'))->isWithinNext('1 week'));
+        $this->assertFalse((new $class('-1 week'))->isWithinNext('2 week'));
+        $this->assertFalse((new $class('-1 second'))->isWithinNext('10 minutes'));
+        $this->assertFalse((new $class('-1 month'))->isWithinNext('13 month'));
+        $this->assertFalse((new $class('-1 seconds'))->isWithinNext('1 hour'));
+        $this->assertTrue((new $class('+1 day'))->isWithinNext('1 day'));
+        $this->assertTrue((new $class('+1 week'))->isWithinNext('7 day'));
+        $this->assertTrue((new $class('+1 second'))->isWithinNext('1 minute'));
+        $this->assertTrue((new $class('+1 month'))->isWithinNext('1 month'));
+    }
 }

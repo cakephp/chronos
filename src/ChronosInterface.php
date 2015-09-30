@@ -1371,6 +1371,24 @@ interface ChronosInterface extends DateTimeInterface
     public function isBirthday(ChronosInterface $dt);
 
     /**
+     * Returns true this instance happened within the specified interval
+     *
+     * @param string|int $timeInterval the numeric value with space then time type.
+     *    Example of valid types: 6 hours, 2 days, 1 minute.
+     * @return bool
+     */
+    public function wasWithinLast($timeInterval);
+
+    /**
+     * Returns true this instance will happen within the specified interval
+     *
+     * @param string|int $timeInterval the numeric value with space then time type.
+     *    Example of valid types: 6 hours, 2 days, 1 minute.
+     * @return bool
+     */
+    public function isWithinNext($timeInterval);
+
+    /**
      * Check if instance of ChronosInterface is mutable.
      *
      * @return bool
