@@ -760,7 +760,7 @@ interface ChronosInterface extends DateTimeInterface
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * When adding or substracting months, if the resulting time is a date
+     * When adding or subtracting months, if the resulting time is a date
      * that does not exist, the result of this operation will always be the
      * last day of the intended month.
      *
@@ -780,7 +780,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Add a month to the instance
      *
-     * When adding or substracting months, if the resulting time is a date
+     * When adding or subtracting months, if the resulting time is a date
      * that does not exist, the result of this operation will always be the
      * last day of the intended month.
      *
@@ -800,7 +800,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove a month from the instance
      *
-     * When adding or substracting months, if the resulting time is a date
+     * When adding or subtracting months, if the resulting time is a date
      * that does not exist, the result of this operation will always be the
      * last day of the intended month.
      *
@@ -820,7 +820,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove months from the instance
      *
-     * When adding or substracting months, if the resulting time is a date
+     * When adding or subtracting months, if the resulting time is a date
      * that does not exist, the result of this operation will always be the
      * last day of the intended month.
      *
