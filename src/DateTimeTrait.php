@@ -909,16 +909,47 @@ trait DateTimeTrait
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addMonths(1); // Results in 2015-02-03
+     *
+     *  (new Chronos('2015-01-31'))->addMonths(1); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to add.
      * @return static
      */
     public function addMonths($value)
     {
-        return $this->modify((int)$value . ' month');
+        $day = $this->day;
+        $date = $this->modify((int)$value . ' month');
+
+        if ($date->day !== $day) {
+            return $date->modify('last day of previous month');
+        }
+
+        return $date;
     }
 
     /**
      * Add a month to the instance
+     *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addMonth(); // Results in 2015-02-03
+     *
+     *  (new Chronos('2015-01-31'))->addMonth(); // Results in 2015-02-28
+     * ```
      *
      * @param int $value The number of months to add.
      * @return static
@@ -931,6 +962,18 @@ trait DateTimeTrait
     /**
      * Remove a month from the instance
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-03-01'))->subMonth(); // Results in 2015-02-01
+     *
+     *  (new Chronos('2015-03-31'))->subMonth(); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to remove.
      * @return static
      */
@@ -942,6 +985,18 @@ trait DateTimeTrait
     /**
      * Remove months from the instance
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-03-01'))->subMonths(1); // Results in 2015-02-01
+     *
+     *  (new Chronos('2015-03-31'))->subMonths(1); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to remove.
      * @return static
      */
@@ -951,57 +1006,48 @@ trait DateTimeTrait
     }
 
     /**
-     * Add months without overflowing to the instance. Positive $value
+     * Add months with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsNoOverflow($value)
+    public function addMonthsWithOverflow($value)
     {
-        $date = $this->copy()->addMonths($value);
-
-        if ($date->day != $this->day) {
-            return $date
-                ->day(1)
-                ->subMonth()
-                ->endOfMonth();
-        }
-
-        return $date;
+        return $this->modify((int)$value . ' month');
     }
 
     /**
-     * Add a month with no overflow to the instance
+     * Add a month with overflow to the instance
      *
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthNoOverflow($value = 1)
+    public function addMonthWithOverflow($value = 1)
     {
-        return $this->addMonthsNoOverflow($value);
+        return $this->modify((int)$value . ' month');
     }
 
     /**
-     * Remove a month with no overflow from the instance
+     * Remove a month with overflow from the instance
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthNoOverflow($value = 1)
+    public function subMonthWithOverflow($value = 1)
     {
-        return $this->subMonthsNoOverflow($value);
+        return $this->subMonthsWithOverflow($value);
     }
 
     /**
-     * Remove months with no overflow from the instance
+     * Remove months with overflow from the instance
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsNoOverflow($value)
+    public function subMonthsWithOverflow($value)
     {
-        return $this->addMonthsNoOverflow(-1 * $value);
+        return $this->addMonthsWithOverflow(-1 * $value);
     }
 
     /**

@@ -760,6 +760,18 @@ interface ChronosInterface extends DateTimeInterface
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addMonths(1); // Results in 2015-02-03
+     *
+     *  (new Chronos('2015-01-31'))->addMonths(1); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to add.
      * @return static
      */
@@ -767,6 +779,18 @@ interface ChronosInterface extends DateTimeInterface
 
     /**
      * Add a month to the instance
+     *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addMonth(); // Results in 2015-02-03
+     *
+     *  (new Chronos('2015-01-31'))->addMonth(); // Results in 2015-02-28
+     * ```
      *
      * @param int $value The number of months to add.
      * @return static
@@ -776,6 +800,18 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove a month from the instance
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-03-01'))->subMonth(); // Results in 2015-02-01
+     *
+     *  (new Chronos('2015-03-31'))->subMonth(); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to remove.
      * @return static
      */
@@ -784,43 +820,55 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove months from the instance
      *
+     * When adding or subtracting months, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-03-01'))->subMonths(1); // Results in 2015-02-01
+     *
+     *  (new Chronos('2015-03-31'))->subMonths(1); // Results in 2015-02-28
+     * ```
+     *
      * @param int $value The number of months to remove.
      * @return static
      */
     public function subMonths($value);
 
     /**
-     * Add months without overflowing to the instance. Positive $value
+     * Add months with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsNoOverflow($value);
+    public function addMonthsWithOverflow($value);
 
     /**
-     * Add a month with no overflow to the instance
+     * Add a month with overflow to the instance
      *
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthNoOverflow($value = 1);
+    public function addMonthWithOverflow($value = 1);
 
     /**
-     * Remove a month with no overflow from the instance
+     * Remove a month with overflow from the instance
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthNoOverflow($value = 1);
+    public function subMonthWithOverflow($value = 1);
 
     /**
-     * Remove months with no overflow from the instance
+     * Remove months with overflow from the instance
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsNoOverflow($value);
+    public function subMonthsWithOverflow($value);
 
     /**
      * Add days to the instance. Positive $value travels forward while
