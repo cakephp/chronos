@@ -51,13 +51,6 @@ trait DateTimeTrait
     ];
 
     /**
-     * Format to use for __toString method when type juggling occurs.
-     *
-     * @var string
-     */
-    protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
-
-    /**
      * A test ChronosInterface instance to be returned when now instances are created
      *
      * @var ChronosInterface
