@@ -123,6 +123,33 @@ trait ModifiersTrait
     }
 
     /**
+     * Set the date and time all together
+     *
+     * @param int $year The year to set.
+     * @param int $month The month to set.
+     * @param int $day The day to set.
+     * @param int $hour The hour to set.
+     * @param int $minute The minute to set.
+     * @param int $second The second to set.
+     * @return static
+     */
+    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
+    {
+        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
+    }
+
+    /**
+     * Set the instance's timestamp
+     *
+     * @param int $value The timestamp value to set.
+     * @return static
+     */
+    public function timestamp($value)
+    {
+        return parent::setTimestamp($value);
+    }
+
+    /**
      * Set the instance's year
      *
      * @param int $value The year value.

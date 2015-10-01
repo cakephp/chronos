@@ -17,6 +17,7 @@ use Cake\Chronos\ComparisonTrait;
 use Cake\Chronos\FactoryTrait;
 use Cake\Chronos\FormattingTrait;
 use Cake\Chronos\ModifiersTrait;
+use Cake\Chronos\TimezoneTrait;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
@@ -31,6 +32,7 @@ trait DateTimeTrait
     use FactoryTrait;
     use FormattingTrait;
     use ModifiersTrait;
+    use TimezoneTrait;
 
     /**
      * Terms used to detect if a time passed is a relative date for testing purposes
@@ -146,65 +148,6 @@ trait DateTimeTrait
         return true;
     }
 
-    /**
-     * Set the date and time all together
-     *
-     * @param int $year The year to set.
-     * @param int $month The month to set.
-     * @param int $day The day to set.
-     * @param int $hour The hour to set.
-     * @param int $minute The minute to set.
-     * @param int $second The second to set.
-     * @return static
-     */
-    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
-    {
-        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
-    }
-
-    /**
-     * Set the instance's timestamp
-     *
-     * @param int $value The timestamp value to set.
-     * @return static
-     */
-    public function timestamp($value)
-    {
-        return parent::setTimestamp($value);
-    }
-
-    /**
-     * Alias for setTimezone()
-     *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function timezone($value)
-    {
-        return $this->setTimezone($value);
-    }
-
-    /**
-     * Alias for setTimezone()
-     *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function tz($value)
-    {
-        return $this->setTimezone($value);
-    }
-
-    /**
-     * Set the instance's timezone from a string or object
-     *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function setTimezone($value)
-    {
-        return parent::setTimezone(static::safeCreateDateTimeZone($value));
-    }
     /**
      * Set a ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
