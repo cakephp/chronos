@@ -13,11 +13,6 @@
  */
 namespace Cake\Chronos;
 
-use Cake\Chronos\ComparisonTrait;
-use Cake\Chronos\FactoryTrait;
-use Cake\Chronos\FormattingTrait;
-use Cake\Chronos\ModifiersTrait;
-use Cake\Chronos\TimezoneTrait;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
