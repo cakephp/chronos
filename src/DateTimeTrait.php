@@ -26,7 +26,7 @@ trait DateTimeTrait
     use ComparisonTrait;
     use FactoryTrait;
     use FormattingTrait;
-    use ModifiersTrait;
+    use ModifierTrait;
     use TimezoneTrait;
 
     /**
