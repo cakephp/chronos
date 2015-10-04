@@ -29,6 +29,7 @@ trait DateTimeTrait
     use FormattingTrait;
     use ModifierTrait;
     use TimezoneTrait;
+    use TestingAidTrait;
 
     /**
      * Terms used to detect if a time passed is a relative date for testing purposes
@@ -47,13 +48,6 @@ trait DateTimeTrait
         'last',
         'ago',
     ];
-
-    /**
-     * A test ChronosInterface instance to be returned when now instances are created
-     *
-     * @var ChronosInterface
-     */
-    protected static $testNow;
 
     /**
      * Get a part of the ChronosInterface object
@@ -132,50 +126,6 @@ trait DateTimeTrait
         }
 
         return true;
-    }
-
-    /**
-     * Set a ChronosInterface instance (real or mock) to be returned when a "now"
-     * instance is created.  The provided instance will be returned
-     * specifically under the following conditions:
-     *   - A call to the static now() method, ex. ChronosInterface::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Chrono('now')
-     *
-     * Note the timezone parameter was left out of the examples above and
-     * has no affect as the mock value will be returned regardless of its value.
-     *
-     * To clear the test instance call this method using the default
-     * parameter of null.
-     *
-     * @param ChronosInterface $testNow The instance to use for all future instances.
-     * @return void
-     */
-    public static function setTestNow(ChronosInterface $testNow = null)
-    {
-        static::$testNow = $testNow;
-    }
-
-    /**
-     * Get the ChronosInterface instance (real or mock) to be returned when a "now"
-     * instance is created.
-     *
-     * @return static the current instance used for testing
-     */
-    public static function getTestNow()
-    {
-        return static::$testNow;
-    }
-
-    /**
-     * Determine if there is a valid test instance set. A valid test instance
-     * is anything that is not null.
-     *
-     * @return bool true if there is a test instance, otherwise false
-     */
-    public static function hasTestNow()
-    {
-        return static::getTestNow() !== null;
     }
 
     /**
