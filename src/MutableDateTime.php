@@ -16,9 +16,23 @@ use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
 
+/**
+ * A mutable datetime instance that implements the ChronosInterface.
+ *
+ * This object can be mutated in place using any setter method,
+ * or __set().
+ */
 class MutableDateTime extends DateTime implements ChronosInterface
 {
-    use DateTimeTrait;
+    use ComparisonTrait;
+    use DifferenceTrait;
+    use FactoryTrait;
+    use FormattingTrait;
+    use MagicPropertyTrait;
+    use ModifierTrait;
+    use RelativeKeywordTrait;
+    use TimezoneTrait;
+    use TestingAidTrait;
 
     /**
      * Create a new MutableDateTime instance.

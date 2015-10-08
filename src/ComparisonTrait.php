@@ -12,6 +12,7 @@
  */
 namespace Cake\Chronos;
 
+use DateTime;
 use Cake\Chronos\ChronosInterface;
 
 /**
@@ -394,5 +395,15 @@ trait ComparisonTrait
         $interval = $now->copy()->modify('+' . $timeInterval);
 
         return $this <= $interval && $this >= $now;
+    }
+
+    /**
+     * Check if instance of ChronosInterface is mutable.
+     *
+     * @return bool
+     */
+    public function isMutable()
+    {
+        return $this instanceof DateTime;
     }
 }
