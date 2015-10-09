@@ -49,7 +49,15 @@ use DateTimeZone;
  */
 class Chronos extends DateTimeImmutable implements ChronosInterface
 {
-    use DateTimeTrait;
+    use ComparisonTrait;
+    use DifferenceTrait;
+    use FactoryTrait;
+    use FormattingTrait;
+    use MagicPropertyTrait;
+    use ModifierTrait;
+    use RelativeKeywordTrait;
+    use TimezoneTrait;
+    use TestingAidTrait;
 
     /**
      * Create a new Chronos instance.

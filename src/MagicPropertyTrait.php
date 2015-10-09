@@ -13,42 +13,15 @@
  */
 namespace Cake\Chronos;
 
-use DatePeriod;
-use DateTime;
-use DateTimeInterface;
+use Cake\Chronos\ChronosInterface;
 use InvalidArgumentException;
 
 /**
- * A simple API extension for DateTimeInterface
+ * Provides the magic methods that allow read access
+ * to magic properties.
  */
-trait DateTimeTrait
+trait MagicPropertyTrait
 {
-    use ComparisonTrait;
-    use DifferenceTrait;
-    use FactoryTrait;
-    use FormattingTrait;
-    use ModifierTrait;
-    use TimezoneTrait;
-    use TestingAidTrait;
-
-    /**
-     * Terms used to detect if a time passed is a relative date for testing purposes
-     *
-     * @var array
-     */
-    protected static $relativeKeywords = [
-        'this',
-        'next',
-        'last',
-        'tomorrow',
-        'yesterday',
-        '+',
-        '-',
-        'first',
-        'last',
-        'ago',
-    ];
-
     /**
      * Get a part of the ChronosInterface object
      *
@@ -126,36 +99,5 @@ trait DateTimeTrait
         }
 
         return true;
-    }
-
-    /**
-     * Determine if there is a relative keyword in the time string, this is to
-     * create dates relative to now for test instances. e.g.: next tuesday
-     *
-     * @param string $time The time string to check.
-     * @return bool true if there is a keyword, otherwise false
-     */
-    public static function hasRelativeKeywords($time)
-    {
-        // skip common format with a '-' in it
-        if (preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1) {
-            foreach (static::$relativeKeywords as $keyword) {
-                if (stripos($time, $keyword) !== false) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Check if instance of ChronosInterface is mutable.
-     *
-     * @return bool
-     */
-    public function isMutable()
-    {
-        return $this instanceof DateTime;
     }
 }
