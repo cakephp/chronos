@@ -13,7 +13,6 @@
  */
 namespace Cake\Chronos;
 
-use Cake\Chronos\ChronosInterface;
 use InvalidArgumentException;
 
 /**

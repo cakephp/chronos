@@ -12,8 +12,6 @@
  */
 namespace Cake\Chronos;
 
-use Cake\Chronos\ChronosInterface;
-
 /**
  * Provides methods for copying datetime objects.
  *

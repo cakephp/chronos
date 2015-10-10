@@ -13,7 +13,6 @@
 namespace Cake\Chronos;
 
 use DateTime;
-use Cake\Chronos\ChronosInterface;
 
 /**
  * Provides various comparison operator methods for datetime objects.
