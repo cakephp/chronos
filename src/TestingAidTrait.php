@@ -13,8 +13,6 @@
  */
 namespace Cake\Chronos;
 
-use Cake\Chronos\ChronosInterface;
-
 /**
  * Provides methods for setting a 'test' now. This lets you
  * retreive pre-determined times with now().

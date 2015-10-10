@@ -17,7 +17,7 @@ use InvalidArgumentException;
 
 /**
  * A simple API extension for DateInterval.
- * The implemenation provides helpers to handle weeks but only days are saved.
+ * The implementation provides helpers to handle weeks but only days are saved.
  * Weeks are calculated based on the total days of the current instance.
  *
  * @property int $years Total years of the current interval.
