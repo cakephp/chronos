@@ -40,7 +40,7 @@ trait TestingAidTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param ChronosInterface $testNow The instance to use for all future instances.
+     * @param ChronosInterface|null $testNow The instance to use for all future instances.
      * @return void
      */
     public static function setTestNow(ChronosInterface $testNow = null)
@@ -63,7 +63,7 @@ trait TestingAidTrait
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
      *
-     * @return bool true if there is a test instance, otherwise false
+     * @return bool True if there is a test instance, otherwise false
      */
     public static function hasTestNow()
     {

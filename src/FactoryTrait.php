@@ -41,8 +41,8 @@ trait FactoryTrait
      * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param string $time The strtotime compatible string to parse
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name.
+     * @param string|null $time The strtotime compatible string to parse
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return $this
      */
     public static function parse($time = null, $tz = null)
@@ -53,7 +53,7 @@ trait FactoryTrait
     /**
      * Get a ChronosInterface instance for the current date and time
      *
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
     public static function now($tz = null)
@@ -64,7 +64,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for today
      *
-     * @param DateTimeZone|string $tz The timezonze to use.
+     * @param DateTimeZone|string|null $tz The timezonze to use.
      * @return static
      */
     public static function today($tz = null)
@@ -75,7 +75,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for tomorrow
      *
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function tomorrow($tz = null)
@@ -86,7 +86,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for yesterday
      *
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function yesterday($tz = null)
@@ -126,13 +126,13 @@ trait FactoryTrait
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int $year The year to create an instance with.
-     * @param int $month The month to create an instance with.
-     * @param int $day The day to create an instance with.
-     * @param int $hour The hour to create an instance with.
-     * @param int $minute The minute to create an instance with.
-     * @param int $second The second to create an instance with.
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param int|null $year The year to create an instance with.
+     * @param int|null $month The month to create an instance with.
+     * @param int|null $day The day to create an instance with.
+     * @param int|null $hour The hour to create an instance with.
+     * @param int|null $minute The minute to create an instance with.
+     * @param int|null $second The second to create an instance with.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
@@ -159,7 +159,7 @@ trait FactoryTrait
      * @param int $year The year to create an instance with.
      * @param int $month The month to create an instance with.
      * @param int $day The day to create an instance with.
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
@@ -170,10 +170,10 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance from just a time. The date portion is set to today.
      *
-     * @param int $hour The hour to create an instance with.
-     * @param int $minute The minute to create an instance with.
-     * @param int $second The second to create an instance with.
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param int|null $hour The hour to create an instance with.
+     * @param int|null $minute The minute to create an instance with.
+     * @param int|null $second The second to create an instance with.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
@@ -186,7 +186,7 @@ trait FactoryTrait
      *
      * @param string $format The date() compatible format string.
      * @param string $time The formatted date string to interpret.
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      * @throws InvalidArgumentException
      */
@@ -210,7 +210,7 @@ trait FactoryTrait
      * Create a ChronosInterface instance from a timestamp
      *
      * @param int $timestamp The timestamp to create an instance from.
-     * @param DateTimeZone|string $tz The DateTimeZone object or timezone name the new instance should use.
+     * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
     public static function createFromTimestamp($timestamp, $tz = null)

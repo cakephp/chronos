@@ -816,7 +816,7 @@ trait ModifierTrait
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function next($dayOfWeek = null)
@@ -835,7 +835,7 @@ trait ModifierTrait
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function previous($dayOfWeek = null)
@@ -854,7 +854,7 @@ trait ModifierTrait
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfMonth($dayOfWeek = null)
@@ -869,7 +869,7 @@ trait ModifierTrait
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfMonth($dayOfWeek = null)
@@ -903,7 +903,7 @@ trait ModifierTrait
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfQuarter($dayOfWeek = null)
@@ -917,7 +917,7 @@ trait ModifierTrait
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfQuarter($dayOfWeek = null)
@@ -951,7 +951,7 @@ trait ModifierTrait
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function firstOfYear($dayOfWeek = null)
@@ -966,7 +966,7 @@ trait ModifierTrait
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. ChronosInterface::MONDAY.
      *
-     * @param int $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week to move to.
      * @return mixed
      */
     public function lastOfYear($dayOfWeek = null)
@@ -994,7 +994,7 @@ trait ModifierTrait
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function average(ChronosInterface $dt = null)

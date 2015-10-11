@@ -141,7 +141,7 @@ trait ComparisonTrait
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function min(ChronosInterface $dt = null)
@@ -154,7 +154,7 @@ trait ComparisonTrait
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function max(ChronosInterface $dt = null)
