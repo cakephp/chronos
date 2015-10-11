@@ -788,7 +788,7 @@ trait ModifierTrait
     public function startOfWeek()
     {
         $dt = $this;
-        if ($dt->dayOfWeek != static::$weekStartsAt) {
+        if ($dt->dayOfWeek !== static::$weekStartsAt) {
             $dt = $dt->previous(static::$weekStartsAt);
         }
 
@@ -803,7 +803,7 @@ trait ModifierTrait
     public function endOfWeek()
     {
         $dt = $this;
-        if ($dt->dayOfWeek != static::$weekEndsAt) {
+        if ($dt->dayOfWeek !== static::$weekEndsAt) {
             $dt = $dt->next(static::$weekEndsAt);
         }
 
@@ -988,7 +988,7 @@ trait ModifierTrait
     public function nthOfYear($nth, $dayOfWeek)
     {
         $dt = $this->copy()->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
-        return $this->year == $dt->year ? $this->modify($dt) : false;
+        return $this->year === $dt->year ? $this->modify($dt) : false;
     }
 
     /**

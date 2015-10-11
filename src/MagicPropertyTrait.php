@@ -64,13 +64,13 @@ trait MagicPropertyTrait
                 return $this->getOffset() / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR;
 
             case $name === 'dst':
-                return $this->format('I') == '1';
+                return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
+                return $this->offset === $this->copy()->setTimezone(date_default_timezone_get())->offset;
 
             case $name === 'utc':
-                return $this->offset == 0;
+                return $this->offset === 0;
 
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
