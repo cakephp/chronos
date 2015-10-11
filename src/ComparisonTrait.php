@@ -241,7 +241,7 @@ trait ComparisonTrait
      */
     public function isLeapYear()
     {
-        return $this->format('L') == '1';
+        return $this->format('L') === '1';
     }
 
     /**
@@ -332,7 +332,7 @@ trait ComparisonTrait
      */
     public function isThisWeek()
     {
-        return static::now($this->getTimezone())->format('W o') == $this->format('W o');
+        return static::now($this->getTimezone())->format('W o') === $this->format('W o');
     }
 
     /**
@@ -342,7 +342,7 @@ trait ComparisonTrait
      */
     public function isThisMonth()
     {
-        return static::now($this->getTimezone())->format('m Y') == $this->format('m Y');
+        return static::now($this->getTimezone())->format('m Y') === $this->format('m Y');
     }
 
     /**
@@ -352,7 +352,7 @@ trait ComparisonTrait
      */
     public function isThisYear()
     {
-        return static::now($this->getTimezone())->format('Y') == $this->format('Y');
+        return static::now($this->getTimezone())->format('Y') === $this->format('Y');
     }
 
     /**

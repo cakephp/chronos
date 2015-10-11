@@ -166,7 +166,7 @@ class ChronosInterval extends DateInterval
      */
     public static function __callStatic($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':
@@ -330,7 +330,7 @@ class ChronosInterval extends DateInterval
      */
     public function __call($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':
