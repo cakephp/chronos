@@ -97,7 +97,7 @@ class ChronosInterval extends DateInterval
     /**
      * Create a new ChronosInterval instance.
      *
-     * @param int|null $years The year to use.
+     * @param int $years The year to use.
      * @param int|null $months The month to use.
      * @param int|null $weeks The week to use.
      * @param int|null $days The day to use.
@@ -134,7 +134,7 @@ class ChronosInterval extends DateInterval
      * syntax as it allows you to do ChronosInterval::create(1)->fn() rather than
      * (new ChronosInterval(1))->fn().
      *
-     * @param int|null $years The year to use.
+     * @param int $years The year to use.
      * @param int|null $months The month to use.
      * @param int|null $weeks The week to use.
      * @param int|null $days The day to use.
