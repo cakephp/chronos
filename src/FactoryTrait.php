@@ -111,7 +111,7 @@ trait FactoryTrait
      */
     public static function minValue()
     {
-        $max = PHP_INT_SIZE === 32 ? PHP_INT_MAX : PHP_INT_MAX / 10;
+        $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
         return static::createFromTimestamp(~$max);
     }
 
