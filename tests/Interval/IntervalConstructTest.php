@@ -30,20 +30,31 @@ class IntervalConstructTest extends TestCase
         $this->assertDateTimeInterval($ci, 1, 0, 0, 0, 0, 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testNulls()
     {
         $ci = new ChronosInterval(null, null, null, null, null, null);
+        $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 0);
+
+        $ci = ChronosInterval::days(null);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
+        $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testZeroes()
     {
         $ci = new ChronosInterval(0, 0, 0, 0, 0, 0);
+        $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 0);
+
+        $ci = ChronosInterval::days(0);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
+        $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 0);
+    }
+
+    public function testZeroesChained()
+    {
+        $ci = ChronosInterval::days(0)->week(0)->minutes(0);
+        $this->assertInstanceOf(ChronosInterval::class, $ci);
+        $this->assertDateTimeInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
     public function testYears()

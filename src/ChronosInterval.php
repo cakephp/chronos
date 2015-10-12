@@ -118,6 +118,10 @@ class ChronosInterval extends DateInterval
 
         $spec .= ($specDays > 0) ? $specDays . static::PERIOD_DAYS : '';
 
+        if ($spec === static::PERIOD_PREFIX) {
+            $spec .= '0' . static::PERIOD_YEARS;
+        }
+
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
             $spec .= static::PERIOD_TIME_PREFIX;
             $spec .= $hours > 0 ? $hours . static::PERIOD_HOURS : '';
