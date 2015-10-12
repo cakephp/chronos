@@ -325,7 +325,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function min(ChronosInterface $dt = null);
@@ -333,7 +333,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function max(ChronosInterface $dt = null);
@@ -820,7 +820,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in years
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -829,7 +829,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in months
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -838,7 +838,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weeks
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -847,7 +847,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in days
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -857,7 +857,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the difference in days using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -867,7 +867,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the difference in hours using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -878,7 +878,7 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @param ChronosInterval $ci An interval to traverse by
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -887,7 +887,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weekdays
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -896,7 +896,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -905,7 +905,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in hours
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -914,7 +914,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in minutes
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -923,7 +923,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in seconds
      *
-     * @param ChronosInterface $dt The instance to difference from.
+     * @param ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */

@@ -98,12 +98,12 @@ class ChronosInterval extends DateInterval
      * Create a new ChronosInterval instance.
      *
      * @param int $years The year to use.
-     * @param int $months The month to use.
-     * @param int $weeks The week to use.
-     * @param int $days The day to use.
-     * @param int $hours The hours to use.
-     * @param int $minutes The minutes to use.
-     * @param int $seconds The seconds to use.
+     * @param int|null $months The month to use.
+     * @param int|null $weeks The week to use.
+     * @param int|null $days The day to use.
+     * @param int|null $hours The hours to use.
+     * @param int|null $minutes The minutes to use.
+     * @param int|null $seconds The seconds to use.
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
@@ -135,12 +135,12 @@ class ChronosInterval extends DateInterval
      * (new ChronosInterval(1))->fn().
      *
      * @param int $years The year to use.
-     * @param int $months The month to use.
-     * @param int $weeks The week to use.
-     * @param int $days The day to use.
-     * @param int $hours The hours to use.
-     * @param int $minutes The minutes to use.
-     * @param int $seconds The seconds to use.
+     * @param int|null $months The month to use.
+     * @param int|null $weeks The week to use.
+     * @param int|null $days The day to use.
+     * @param int|null $hours The hours to use.
+     * @param int|null $minutes The minutes to use.
+     * @param int|null $seconds The seconds to use.
      * @return static
      */
     public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
