@@ -18,23 +18,7 @@ namespace Cake\Chronos;
  */
 trait RelativeKeywordTrait
 {
-    /**
-     * Terms used to detect if a time passed is a relative date for testing purposes
-     *
-     * @var array
-     */
-    protected static $relativeKeywords = [
-        'this',
-        'next',
-        'last',
-        'tomorrow',
-        'yesterday',
-        '+',
-        '-',
-        'first',
-        'last',
-        'ago',
-    ];
+    protected static $relativePattern = '/this|next|last|tomorrow|yesterday|\+|\-|first|last|ago/i';
 
     /**
      * Determine if there is a relative keyword in the time string, this is to
@@ -47,11 +31,7 @@ trait RelativeKeywordTrait
     {
         // skip common format with a '-' in it
         if (preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1) {
-            foreach (static::$relativeKeywords as $keyword) {
-                if (stripos($time, $keyword) !== false) {
-                    return true;
-                }
-            }
+            return preg_match(static::$relativePattern, $time) > 0;
         }
 
         return false;
