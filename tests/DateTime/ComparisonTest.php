@@ -383,6 +383,14 @@ class ComparisonTest extends TestCase
      */
     public function testIsBirthday($class)
     {
+        $dt = $class::now();
+        $aBirthday = $dt->subYear();
+        $this->assertTrue($aBirthday->isBirthday());
+        $notABirthday = $dt->subDay();
+        $this->assertFalse($notABirthday->isBirthday());
+        $alsoNotABirthday = $dt->addDays(2);
+        $this->assertFalse($alsoNotABirthday->isBirthday());
+
         $dt1 = $class::createFromDate(1987, 4, 23);
         $dt2 = $class::createFromDate(2014, 9, 26);
         $dt3 = $class::createFromDate(2014, 4, 23);

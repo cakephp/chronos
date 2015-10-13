@@ -358,11 +358,14 @@ trait ComparisonTrait
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param ChronosInterface|null $dt The instance to compare with or null to use current day.
      * @return static
      */
-    public function isBirthday(ChronosInterface $dt)
+    public function isBirthday(ChronosInterface $dt = null)
     {
+        if ($dt === null) {
+            $dt = static::now($this->tz);
+        }
         return $this->format('md') === $dt->format('md');
     }
 
