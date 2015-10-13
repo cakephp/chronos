@@ -55,7 +55,7 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function eq(ChronosInterface $dt)
+    public function equalTo(ChronosInterface $dt)
     {
         return $this == $dt;
     }
@@ -66,9 +66,9 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function ne(ChronosInterface $dt)
+    public function notEqualTo(ChronosInterface $dt)
     {
-        return !$this->eq($dt);
+        return !$this->equalTo($dt);
     }
 
     /**
@@ -77,7 +77,7 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function gt(ChronosInterface $dt)
+    public function greaterThan(ChronosInterface $dt)
     {
         return $this > $dt;
     }
@@ -88,7 +88,7 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function gte(ChronosInterface $dt)
+    public function greaterThanOrEqualTo(ChronosInterface $dt)
     {
         return $this >= $dt;
     }
@@ -99,7 +99,7 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lt(ChronosInterface $dt)
+    public function lessThan(ChronosInterface $dt)
     {
         return $this < $dt;
     }
@@ -110,7 +110,7 @@ trait ComparisonTrait
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lte(ChronosInterface $dt)
+    public function lessThanOrEqualTo(ChronosInterface $dt)
     {
         return $this <= $dt;
     }
@@ -125,16 +125,16 @@ trait ComparisonTrait
      */
     public function between(ChronosInterface $dt1, ChronosInterface $dt2, $equal = true)
     {
-        if ($dt1->gt($dt2)) {
+        if ($dt1->greaterThan($dt2)) {
             $temp = $dt1;
             $dt1 = $dt2;
             $dt2 = $temp;
         }
 
         if ($equal) {
-            return $this->gte($dt1) && $this->lte($dt2);
+            return $this->greaterThanOrEqualTo($dt1) && $this->lessThanOrEqualTo($dt2);
         } else {
-            return $this->gt($dt1) && $this->lt($dt2);
+            return $this->greaterThan($dt1) && $this->lessThan($dt2);
         }
     }
 
@@ -144,11 +144,11 @@ trait ComparisonTrait
      * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function min(ChronosInterface $dt = null)
+    public function minimum(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->lt($dt) ? $this : $dt;
+        return $this->lessThan($dt) ? $this : $dt;
     }
 
     /**
@@ -157,11 +157,11 @@ trait ComparisonTrait
      * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function max(ChronosInterface $dt = null)
+    public function maximum(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->gt($dt) ? $this : $dt;
+        return $this->greaterThan($dt) ? $this : $dt;
     }
 
     /**
@@ -221,7 +221,7 @@ trait ComparisonTrait
      */
     public function isFuture()
     {
-        return $this->gt(static::now($this->tz));
+        return $this->greaterThan(static::now($this->tz));
     }
 
     /**
@@ -231,7 +231,7 @@ trait ComparisonTrait
      */
     public function isPast()
     {
-        return $this->lt(static::now($this->tz));
+        return $this->lessThan(static::now($this->tz));
     }
 
     /**

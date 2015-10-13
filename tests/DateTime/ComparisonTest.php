@@ -24,7 +24,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->equalTo($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -33,7 +33,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->equalTo($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -42,7 +42,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneTrue($class)
     {
-        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq($class::create(
+        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->equalTo($class::create(
             2000,
             1,
             1,
@@ -59,7 +59,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->eq($class::createFromDate(
+        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->equalTo($class::createFromDate(
             2000,
             1,
             1,
@@ -73,7 +73,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->notEqualTo($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -82,7 +82,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 1)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->notEqualTo($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -91,7 +91,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualWithTimezone($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->ne($class::createFromDate(
+        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->notEqualTo($class::createFromDate(
             2000,
             1,
             1,
@@ -105,7 +105,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gt($class::createFromDate(1999, 12, 31)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->greaterThan($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -114,7 +114,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->gt($class::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->greaterThan($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -125,7 +125,7 @@ class ComparisonTest extends TestCase
     {
         $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
         $dt2 = $class::create(2000, 1, 1, 8, 59, 59, 'America/Vancouver');
-        $this->assertTrue($dt1->gt($dt2));
+        $this->assertTrue($dt1->greaterThan($dt2));
     }
 
     /**
@@ -136,34 +136,34 @@ class ComparisonTest extends TestCase
     {
         $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
         $dt2 = $class::create(2000, 1, 1, 9, 0, 1, 'America/Vancouver');
-        $this->assertFalse($dt1->gt($dt2));
+        $this->assertFalse($dt1->greaterThan($dt2));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testGreaterThanOrEqualTrue($class)
+    public function testGreaterThanOrEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(1999, 12, 31)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->greaterThanOrEqualTo($class::createFromDate(1999, 12, 31)));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testGreaterThanOrEqualTrueEqual($class)
+    public function testGreaterThanOrEqualToTrueEqual($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->greaterThanOrEqualTo($class::createFromDate(2000, 1, 1)));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testGreaterThanOrEqualFalse($class)
+    public function testGreaterThanOrEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(2000, 1, 2)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->greaterThanOrEqualTo($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -172,7 +172,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lt($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThan($class::createFromDate(2000, 1, 2)));
     }
 
     /**
@@ -181,34 +181,34 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lt($class::createFromDate(1999, 12, 31)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->lessThan($class::createFromDate(1999, 12, 31)));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testLessThanOrEqualTrue($class)
+    public function testLessThanOrEqualToTrue($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThanOrEqualTo($class::createFromDate(2000, 1, 2)));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testLessThanOrEqualTrueEqual($class)
+    public function testLessThanOrEqualToTrueEqual($class)
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(2000, 1, 1)));
+        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThanOrEqualTo($class::createFromDate(2000, 1, 1)));
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testLessThanOrEqualFalse($class)
+    public function testLessThanOrEqualToFalse($class)
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lte($class::createFromDate(1999, 12, 31)));
+        $this->assertFalse($class::createFromDate(2000, 1, 1)->lessThanOrEqualTo($class::createFromDate(1999, 12, 31)));
     }
 
     /**
@@ -319,19 +319,19 @@ class ComparisonTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMinIsFluid($class)
+    public function testMinimumIsFluid($class)
     {
         $dt = $class::now();
-        $this->assertTrue($dt->min() instanceof $class);
+        $this->assertTrue($dt->minimum() instanceof $class);
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMinWithNow($class)
+    public function testMinimumWithNow($class)
     {
-        $dt = $class::create(2012, 1, 1, 0, 0, 0)->min();
+        $dt = $class::create(2012, 1, 1, 0, 0, 0)->minimum();
         $this->assertDateTime($dt, 2012, 1, 1, 0, 0, 0);
     }
 
@@ -339,10 +339,10 @@ class ComparisonTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMinWithInstance($class)
+    public function testMinimumWithInstance($class)
     {
         $dt1 = $class::create(2013, 12, 31, 23, 59, 59);
-        $dt2 = $class::create(2012, 1, 1, 0, 0, 0)->min($dt1);
+        $dt2 = $class::create(2012, 1, 1, 0, 0, 0)->minimum($dt1);
         $this->assertDateTime($dt2, 2012, 1, 1, 0, 0, 0);
     }
 
@@ -350,19 +350,19 @@ class ComparisonTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMaxIsFluid($class)
+    public function testMaximumIsFluid($class)
     {
         $dt = $class::now();
-        $this->assertTrue($dt->max() instanceof $class);
+        $this->assertTrue($dt->maximum() instanceof $class);
     }
 
     /**
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMaxWithNow($class)
+    public function testMaximumWithNow($class)
     {
-        $dt = $class::create(2099, 12, 31, 23, 59, 59)->max();
+        $dt = $class::create(2099, 12, 31, 23, 59, 59)->maximum();
         $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
     }
 
@@ -370,10 +370,10 @@ class ComparisonTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMaxWithInstance($class)
+    public function testMaximumWithInstance($class)
     {
         $dt1 = $class::create(2012, 1, 1, 0, 0, 0);
-        $dt2 = $class::create(2099, 12, 31, 23, 59, 59)->max($dt1);
+        $dt2 = $class::create(2099, 12, 31, 23, 59, 59)->maximum($dt1);
         $this->assertDateTime($dt2, 2099, 12, 31, 23, 59, 59);
     }
 

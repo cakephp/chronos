@@ -137,14 +137,6 @@ interface ChronosInterface extends DateTimeInterface
     public function timezone($value);
 
     /**
-     * Alias for setTimezone()
-     *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function tz($value);
-
-    /**
      * Set the instance's timezone from a string or object
      *
      * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
@@ -270,7 +262,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function eq(ChronosInterface $dt);
+    public function equalTo(ChronosInterface $dt);
 
     /**
      * Determines if the instance is not equal to another
@@ -278,7 +270,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function ne(ChronosInterface $dt);
+    public function notEqualTo(ChronosInterface $dt);
 
     /**
      * Determines if the instance is greater (after) than another
@@ -286,7 +278,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function gt(ChronosInterface $dt);
+    public function greaterThan(ChronosInterface $dt);
 
     /**
      * Determines if the instance is greater (after) than or equal to another
@@ -294,7 +286,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function gte(ChronosInterface $dt);
+    public function greaterThanOrEqualTo(ChronosInterface $dt);
 
     /**
      * Determines if the instance is less (before) than another
@@ -302,7 +294,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lt(ChronosInterface $dt);
+    public function lessThan(ChronosInterface $dt);
 
     /**
      * Determines if the instance is less (before) or equal to another
@@ -310,7 +302,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lte(ChronosInterface $dt);
+    public function lessThanOrEqualTo(ChronosInterface $dt);
 
     /**
      * Determines if the instance is between two others
@@ -328,7 +320,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function min(ChronosInterface $dt = null);
+    public function minimum(ChronosInterface $dt = null);
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
@@ -336,7 +328,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function max(ChronosInterface $dt = null);
+    public function maximum(ChronosInterface $dt = null);
 
     /**
      * Determines if the instance is a weekday
