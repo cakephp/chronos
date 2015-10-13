@@ -40,7 +40,7 @@ trait MagicPropertyTrait
                 'minute' => 'i',
                 'second' => 's',
                 'micro' => 'u',
-                'dayOfWeek' => 'w',
+                'dayOfWeek' => 'N',
                 'dayOfYear' => 'z',
                 'weekOfYear' => 'W',
                 'daysInMonth' => 't',
