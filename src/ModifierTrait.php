@@ -33,13 +33,13 @@ trait ModifierTrait
      * @var array
      */
     protected static $days = [
-        ChronosInterface::SUNDAY => 'Sunday',
         ChronosInterface::MONDAY => 'Monday',
         ChronosInterface::TUESDAY => 'Tuesday',
         ChronosInterface::WEDNESDAY => 'Wednesday',
         ChronosInterface::THURSDAY => 'Thursday',
         ChronosInterface::FRIDAY => 'Friday',
         ChronosInterface::SATURDAY => 'Saturday',
+        ChronosInterface::SUNDAY => 'Sunday',
     ];
 
     /**
@@ -55,7 +55,6 @@ trait ModifierTrait
      * @var int
      */
     protected static $weekEndsAt = ChronosInterface::SUNDAY;
-
 
     /**
      * Get the first day of week
