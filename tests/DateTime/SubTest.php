@@ -130,6 +130,15 @@ class SubTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testSubWeekdayDuringWeekend($class)
+    {
+        $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekday()->day);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testSubWeekdaysPositive($class)
     {
         $this->assertSame(22, $class::createFromDate(2012, 1, 4)->subWeekdays(9)->day);

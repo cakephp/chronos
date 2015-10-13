@@ -172,6 +172,15 @@ class AddTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testAddWeekdayDuringWeekend($class)
+    {
+        $this->assertSame(9, $class::createFromDate(2012, 1, 7)->addWeekday()->day);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testAddWeekdaysPositive($class)
     {
         $this->assertSame(17, $class::createFromDate(2012, 1, 4)->addWeekdays(9)->day);
