@@ -14,7 +14,6 @@ namespace Cake\Chronos;
 
 use DateTimeInterface;
 use DateTimeZone;
-use InvalidArgumentException;
 
 /**
  * An extension to the DateTimeInterface for a friendlier API
