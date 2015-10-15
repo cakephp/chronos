@@ -24,8 +24,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfDay($class)
     {
-        $dt = $class::now();
-        $dt = $dt->startOfDay();
+        $now = $class::now();
+        $dt = $now->startOfDay();
         $this->assertTrue($dt instanceof $class);
         $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
     }
@@ -36,8 +36,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfDay($class)
     {
-        $dt = $class::now();
-        $dt = $dt->endOfDay();
+        $now = $class::now();
+        $dt = $now->endOfDay();
         $this->assertTrue($dt instanceof $class);
         $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
     }
@@ -48,8 +48,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfMonthIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->startOfMonth();
+        $now = $class::now();
+        $dt = $now->startOfMonth();
         $this->assertTrue($dt instanceof $class);
     }
 
@@ -79,8 +79,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfYearIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->startOfYear();
+        $now = $class::now();
+        $dt = $now->startOfYear();
         $this->assertTrue($dt instanceof $class);
     }
 
@@ -120,8 +120,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfMonthIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->endOfMonth();
+        $now = $class::now();
+        $dt = $now->endOfMonth();
         $this->assertTrue($dt instanceof $class);
     }
 
@@ -151,8 +151,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfYearIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->endOfYear();
+        $now = $class::now();
+        $dt = $now->endOfYear();
         $this->assertTrue($dt instanceof $class);
     }
 
@@ -192,8 +192,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfDecadeIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->startOfDecade();
+        $now = $class::now();
+        $dt = $now->startOfDecade();
         $this->assertTrue($dt instanceof $class);
     }
 
@@ -233,8 +233,9 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfDecadeIsFluid($class)
     {
-        $dt = $class::now();
-        $this->assertTrue($dt->endOfDecade() instanceof $class);
+        $now = $class::now();
+        $dt = $now->endOfDecade();
+        $this->assertTrue($dt instanceof $class);
     }
 
     /**
@@ -273,8 +274,9 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfCenturyIsFluid($class)
     {
-        $dt = $class::now();
-        $this->assertTrue($dt->startOfCentury() instanceof $class);
+        $now = $class::now();
+        $dt = $now->startOfCentury();
+        $this->assertTrue($dt instanceof $class);
     }
 
     /**
@@ -314,8 +316,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfCenturyIsFluid($class)
     {
-        $dt = $class::now();
-        $dt = $dt->endOfCentury();
+        $now = $class::now();
+        $dt = $now->endOfCentury();
         $this->assertTrue($dt instanceof $class);
     }
 
