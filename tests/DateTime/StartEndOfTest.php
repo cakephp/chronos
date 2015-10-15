@@ -283,8 +283,9 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfCenturyFromNow($class)
     {
+        $now = $class::now();
         $dt = $class::now()->startOfCentury();
-        $this->assertDateTime($dt, $dt->year - $dt->year % 100, 1, 1, 0, 0, 0);
+        $this->assertDateTime($dt, $now->year - $now->year % 100 + 1, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -293,8 +294,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfCenturyFromFirstDay($class)
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfCentury();
-        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
+        $dt = $class::create(2001, 1, 1, 1, 1, 1)->startOfCentury();
+        $this->assertDateTime($dt, 2001, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -303,8 +304,8 @@ class StartEndOfTest extends TestCase
      */
     public function testStartOfCenturyFromLastDay($class)
     {
-        $dt = $class::create(2009, 12, 31, 23, 59, 59)->startOfCentury();
-        $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
+        $dt = $class::create(2100, 12, 31, 23, 59, 59)->startOfCentury();
+        $this->assertDateTime($dt, 2001, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -324,8 +325,9 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfCenturyFromNow($class)
     {
+        $now = $class::now();
         $dt = $class::now()->endOfCentury();
-        $this->assertDateTime($dt, $dt->year - $dt->year % 100 + 99, 12, 31, 23, 59, 59);
+        $this->assertDateTime($dt, $now->year - $now->year % 100 + 100, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -334,8 +336,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfCenturyFromFirstDay($class)
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfCentury();
-        $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
+        $dt = $class::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
+        $this->assertDateTime($dt, 2100, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -344,8 +346,8 @@ class StartEndOfTest extends TestCase
      */
     public function testEndOfCenturyFromLastDay($class)
     {
-        $dt = $class::create(2099, 12, 31, 23, 59, 59)->endOfCentury();
-        $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
+        $dt = $class::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
+        $this->assertDateTime($dt, 2100, 12, 31, 23, 59, 59);
     }
 
     /**
