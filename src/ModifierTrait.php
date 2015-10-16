@@ -764,7 +764,7 @@ trait ModifierTrait
      */
     public function startOfCentury()
     {
-        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY;
+        $year = $this->startOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)->year;
         return $this->modify("first day of january $year, midnight");
     }
 
@@ -775,7 +775,7 @@ trait ModifierTrait
      */
     public function endOfCentury()
     {
-        $year = $this->year - $this->year % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY - 1;
+        $year = $this->endOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY)->year;
         return $this->modify("last day of december $year, 23:59:59");
     }
 
