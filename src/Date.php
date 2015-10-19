@@ -34,6 +34,67 @@ class Date extends DateTimeImmutable implements ChronosInterface
     use TestingAidTrait;
 
     /**
+     * Create a new Immutable Date instance.
+     *
+     * Please see the testing aids section (specifically static::setTestNow())
+     * for more on the possibility of this constructor returning a test instance.
+     *
+     * Date instances lack time components, however due to limitations in PHP's
+     * internal Datetime object the time will always be set to 00:00:00, and the
+     * timezone will always be UTC. Normalizing the timezone allows for 
+     * subtraction/addition to have deterministic results.
+     *
+     * @param string|null $time Fixed or relative time
+     * @param DateTimeZone|string|null $tz The timezone for the instance
+     */
+    public function __construct($time = null, $tz = null)
+    {
+        $tz = new DateTimeZone('UTC');
+        if (static::$testNow === null) {
+            $time = $this->stripTime($time);
+            return parent::__construct($time, $tz);
+        }
+
+        $relative = static::hasRelativeKeywords($time);
+        if (!empty($time) && $time !== 'now' && !$relative) {
+            $time = $this->stripTime($time);
+            return parent::__construct($time, $tz);
+        }
+
+        $testInstance = static::getTestNow();
+        if ($relative) {
+            $testInstance = $testInstance->modify($time);
+        }
+
+        if ($tz !== $testInstance->getTimezone()) {
+            $testInstance = $testInstance->setTimezone($tz);
+        }
+
+        $time = $testInstance->format('Y-m-d 00:00:00');
+        parent::__construct($time, $tz);
+    }
+
+    /**
+     * Removes the time components from an input string.
+     *
+     * Used to ensure constructed objects always lack time.
+     *
+     * @param string|int $time The input time. Integer values will be assumed
+     *   to be in UTC. The 'now' and '' values will use the current local time.
+     * @return string The date component of $time.
+     */
+    protected function stripTime($time)
+    {
+        if (is_int($time) || ctype_digit($time)) {
+            return gmdate('Y-m-d 00:00:00', $time);
+        }
+        if ($time === null || $time === 'now' || $time === '') {
+            return date('Y-m-d 00:00:00');
+        }
+        return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}/', '00:00:00', $time);
+    }
+
+    /**
      * No-op method.
      *
      * Timezones have no effect on calendar dates.
