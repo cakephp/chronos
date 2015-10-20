@@ -13,6 +13,7 @@ namespace Cake\Chronos;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use LogicException;
 
 /**
  * An immutable date object that does converts all time components
@@ -131,5 +132,58 @@ class Date extends DateTimeImmutable implements ChronosInterface
     public function setTimezone($value)
     {
         return $this;
+    }
+
+    /**
+     * Overloaded to throw exceptions for time components.
+     *
+     * You cannot set the time on calendar dates.
+     *
+     * @param string $relative The relative change to make.
+     * @return static A modified Date
+     * @throws \LogicException When time components are changed.
+     */
+    public function modify($relative)
+    {
+        if (preg_match('/hour|minute|second/', $relative)) {
+            throw new LogicException('You cannot modify the time component of a calendar date.');
+        }
+        return parent::modify($relative);
+    }
+
+    /**
+     * Set the instance's hour
+     *
+     * @param int $value The hour value.
+     * @return void
+     * @throws \LogicException You cannot modify the time on a calendar date.
+     */
+    public function hour($value)
+    {
+        throw new LogicException('You cannot modify the time component of a calendar date.');
+    }
+
+    /**
+     * Set the instance's minute
+     *
+     * @param int $value The minute value.
+     * @return void
+     * @throws \LogicException You cannot modify the time on a calendar date.
+     */
+    public function minute($value)
+    {
+        throw new LogicException('You cannot modify the time component of a calendar date.');
+    }
+
+    /**
+     * Set the instance's second
+     *
+     * @param int $value The seconds value.
+     * @return void
+     * @throws \LogicException You cannot modify the time on a calendar date.
+     */
+    public function second($value)
+    {
+        throw new LogicException('You cannot modify the time component of a calendar date.');
     }
 }
