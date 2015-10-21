@@ -35,6 +35,13 @@ class Date extends DateTimeImmutable implements ChronosInterface
     use TestingAidTrait;
 
     /**
+     * Format to use for __toString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toStringFormat = 'Y-m-d';
+
+    /**
      * Create a new Immutable Date instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())

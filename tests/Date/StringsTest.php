@@ -28,7 +28,7 @@ class StringsTest extends TestCase
     public function testToString($class)
     {
         $d = Date::now();
-        $this->assertSame(Date::now()->toDateTimeString(), '' . $d);
+        $this->assertSame(Date::now()->toDateString(), '' . $d);
     }
 
     /**
