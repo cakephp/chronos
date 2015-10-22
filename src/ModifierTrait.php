@@ -122,7 +122,7 @@ trait ModifierTrait
      */
     public function timestamp($value)
     {
-        return parent::setTimestamp($value);
+        return $this->setTimestamp($value);
     }
 
     /**

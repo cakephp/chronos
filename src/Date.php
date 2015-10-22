@@ -13,7 +13,6 @@ namespace Cake\Chronos;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use LogicException;
 
 /**
  * An immutable date object that does converts all time components
@@ -145,55 +144,71 @@ class Date extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
-     * Overloaded to throw exceptions for time components.
+     * Set the timestamp value and get a new object back.
      *
-     * You cannot set the time on calendar dates.
+     * This method will discard the time aspects of the timestamp
+     * and only apply the date portions
+     *
+     * @param int $value The timestamp value to set.
+     * @return static
+     */
+    public function setTimestamp($value)
+    {
+        $date = date('Y-m-d 00:00:00', $value);
+        return parent::setTimestamp(strtotime($value));
+    }
+
+    /**
+     * Overloaded to ignore time changes.
+     *
+     * Changing any aspect of the time will be ignored, and the resulting object
+     * will have its time frozen to 00:00:00.
      *
      * @param string $relative The relative change to make.
-     * @return static A modified Date
-     * @throws \LogicException When time components are changed.
+     * @return static A new date with the applied date changes.
      */
     public function modify($relative)
     {
         if (preg_match('/hour|minute|second/', $relative)) {
-            throw new LogicException('You cannot modify the time component of a calendar date.');
+            return $this;
         }
-        return parent::modify($relative);
+        $new = parent::modify($relative);
+        if ($new->format('H:i:s') !== '00:00:00') {
+            return $new->modify('00:00:00');
+        }
+        return $new;
     }
 
     /**
      * Set the instance's hour
      *
      * @param int $value The hour value.
-     * @return void
-     * @throws \LogicException You cannot modify the time on a calendar date.
+     * @return $this
      */
     public function hour($value)
     {
-        throw new LogicException('You cannot modify the time component of a calendar date.');
+        return $this;
     }
 
     /**
      * Set the instance's minute
      *
      * @param int $value The minute value.
-     * @return void
-     * @throws \LogicException You cannot modify the time on a calendar date.
+     * @return $this
      */
     public function minute($value)
     {
-        throw new LogicException('You cannot modify the time component of a calendar date.');
+        return $this;
     }
 
     /**
      * Set the instance's second
      *
      * @param int $value The seconds value.
-     * @return void
-     * @throws \LogicException You cannot modify the time on a calendar date.
+     * @return $this
      */
     public function second($value)
     {
-        throw new LogicException('You cannot modify the time component of a calendar date.');
+        return $this;
     }
 }
