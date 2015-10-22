@@ -13,10 +13,39 @@
 namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
+use DateInterval;
 use TestCase;
 
 class AddTest extends TestCase
 {
+    public function testAddIgnoreTime()
+    {
+        $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
+        $date = Date::create(2001, 1, 1);
+        $new = $date->add($interval);
+
+        $this->assertEquals(0, $new->hour);
+        $this->assertEquals(0, $new->minute);
+        $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->second);
+    }
+
+    public function testSubIgnoreTime()
+    {
+        $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
+        $date = Date::create(2001, 1, 1);
+        $new = $date->sub($interval);
+
+        $this->assertEquals(0, $new->hour);
+        $this->assertEquals(0, $new->minute);
+        $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->second);
+    }
+
     public function testAddDay()
     {
         $this->assertEquals(1, Date::create(1975, 5, 31)->addDays(1)->day);

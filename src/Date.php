@@ -105,6 +105,55 @@ class Date extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
+     * Modify the time on the Date.
+     *
+     * This method ignores all inputs and forces all inputs to 0.
+     *
+     * @param int $hours The hours to set (ignored)
+     * @param int $minutes The hours to set (ignored)
+     * @param int $seconds The hours to set (ignored)
+     * @return static A modified Date instance.
+     */
+    public function setTime($hours, $minutes, $seconds = 0)
+    {
+        return parent::setTime(0, 0, 0);
+    }
+
+    /**
+     * Add an Interval to a Date
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function add($interval)
+    {
+        $date = parent::add($interval);
+        if ($date->format('H:i:s') !== '00:00:00') {
+            return $date->setTime(0, 0, 0);
+        }
+        return $date;
+    }
+
+    /**
+     * Subtract an Interval from a Date.
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function sub($interval)
+    {
+        $date = parent::sub($interval);
+        if ($date->format('H:i:s') !== '00:00:00') {
+            return $date->setTime(0, 0, 0);
+        }
+        return $date;
+    }
+
+    /**
      * No-op method.
      *
      * Timezones have no effect on calendar dates.
@@ -174,41 +223,8 @@ class Date extends DateTimeImmutable implements ChronosInterface
         }
         $new = parent::modify($relative);
         if ($new->format('H:i:s') !== '00:00:00') {
-            return $new->modify('00:00:00');
+            return $new->setTime(0, 0, 0);
         }
         return $new;
-    }
-
-    /**
-     * Set the instance's hour
-     *
-     * @param int $value The hour value.
-     * @return $this
-     */
-    public function hour($value)
-    {
-        return $this;
-    }
-
-    /**
-     * Set the instance's minute
-     *
-     * @param int $value The minute value.
-     * @return $this
-     */
-    public function minute($value)
-    {
-        return $this;
-    }
-
-    /**
-     * Set the instance's second
-     *
-     * @param int $value The seconds value.
-     * @return $this
-     */
-    public function second($value)
-    {
-        return $this;
     }
 }
