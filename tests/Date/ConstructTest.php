@@ -149,9 +149,10 @@ class ConstructTest extends TestCase
     public function inputTimeProvider()
     {
         return [
-            [strtotime('2015-10-19 22:24:32')],
-            ['2015-10-19 10:00:00'],
-            ['2015-10-19T10:00:00+05:00'],
+            ['@' . strtotime('2015-08-19 22:24:32')],
+            [strtotime('2015-08-19 22:24:32')],
+            ['2015-08-19 10:00:00'],
+            ['2015-08-19T10:00:00+05:00'],
             ['Monday, 15-Aug-2005 15:52:01 UTC'],
             ['Mon, 15 Aug 05 15:52:01 +0000'],
             ['Monday, 15-Aug-05 15:52:01 UTC'],
@@ -170,6 +171,7 @@ class ConstructTest extends TestCase
     public function testConstructWithTimeParts($time)
     {
         $dt = new Date($time);
+        $this->assertEquals(8, $dt->month);
         $this->assertEquals(0, $dt->hour);
         $this->assertEquals(0, $dt->minute);
         $this->assertEquals(0, $dt->second);

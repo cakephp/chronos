@@ -93,6 +93,9 @@ class Date extends DateTimeImmutable implements ChronosInterface
      */
     protected function stripTime($time)
     {
+        if (substr($time, 0, 1) === '@') {
+            return gmdate('Y-m-d 00:00:00', substr($time, 1));
+        }
         if (is_int($time) || ctype_digit($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
         }
