@@ -108,7 +108,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * Timezones have no effect on calendar dates.
      *
      * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
+     * @return $this
      */
     public function timezone($value)
     {
@@ -121,7 +121,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * Timezones have no effect on calendar dates.
      *
      * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
+     * @return $this
      */
     public function tz($value)
     {
@@ -134,7 +134,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * Timezones have no effect on calendar dates.
      *
      * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
+     * @return $this
      */
     public function setTimezone($value)
     {
