@@ -32,7 +32,7 @@ trait TestingAidTrait
      * specifically under the following conditions:
      *   - A call to the static now() method, ex. ChronosInterface::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Chrono('now')
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Chronos('now')
      *
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
