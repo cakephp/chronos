@@ -60,6 +60,13 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     use TestingAidTrait;
 
     /**
+     * Format to use for __toString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
+
+    /**
      * Create a new Chronos instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())

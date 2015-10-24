@@ -16,16 +16,11 @@ use DateTime;
 
 /**
  * Provides string formatting methods for datetime instances.
+ *
+ * Expects implementing classes to define static::$toStringFormat
  */
 trait FormattingTrait
 {
-    /**
-     * Format to use for __toString method when type juggling occurs.
-     *
-     * @var string
-     */
-    protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
-
     /**
      * Reset the format used to the default when type juggling a ChronosInterface instance to a string
      *
