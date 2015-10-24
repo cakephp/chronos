@@ -176,4 +176,14 @@ class ConstructTest extends TestCase
         $this->assertEquals(0, $dt->minute);
         $this->assertEquals(0, $dt->second);
     }
+
+    public function testConstructWithTestNow()
+    {
+        Date::setTestNow(Date::create(2001, 1, 1));
+        $date = new Date('+2 days');
+        $this->assertDateTime($date, 2001, 1, 3);
+
+        $date = new Date('2015-12-12');
+        $this->assertDateTime($date, 2015, 12, 12);
+    }
 }
