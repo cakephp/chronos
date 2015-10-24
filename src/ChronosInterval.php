@@ -32,36 +32,36 @@ use InvalidArgumentException;
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  *
  * @method static ChronosInterval years($years = 1) Create instance specifying a number of years.
- * @method static ChronosInterval year($years = 1) Alias for years()
+ * @method static ChronosInterval year($years = 1) Alias for years
  * @method static ChronosInterval months($months = 1) Create instance specifying a number of months.
- * @method static ChronosInterval month($months = 1) Alias for months()
+ * @method static ChronosInterval month($months = 1) Alias for months
  * @method static ChronosInterval weeks($weeks = 1) Create instance specifying a number of weeks.
- * @method static ChronosInterval week($weeks = 1) Alias for weeks()
+ * @method static ChronosInterval week($weeks = 1) Alias for weeks
  * @method static ChronosInterval days($days = 1) Create instance specifying a number of days.
- * @method static ChronosInterval dayz($days = 1) Alias for days()
- * @method static ChronosInterval day($days = 1) Alias for days()
+ * @method static ChronosInterval dayz($days = 1) Alias for days
+ * @method static ChronosInterval day($days = 1) Alias for days
  * @method static ChronosInterval hours($hours = 1) Create instance specifying a number of hours.
- * @method static ChronosInterval hour($hours = 1) Alias for hours()
+ * @method static ChronosInterval hour($hours = 1) Alias for hours
  * @method static ChronosInterval minutes($minutes = 1) Create instance specifying a number of minutes.
- * @method static ChronosInterval minute($minutes = 1) Alias for minutes()
+ * @method static ChronosInterval minute($minutes = 1) Alias for minutes
  * @method static ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
- * @method static ChronosInterval second($seconds = 1) Alias for seconds()
+ * @method static ChronosInterval second($seconds = 1) Alias for seconds
  *
  * @method ChronosInterval years() years($years = 1) Set the years portion of the current interval.
- * @method ChronosInterval year() year($years = 1) Alias for years().
+ * @method ChronosInterval year() year($years = 1) Alias for years.
  * @method ChronosInterval months() months($months = 1) Set the months portion of the current interval.
- * @method ChronosInterval month() month($months = 1) Alias for months().
+ * @method ChronosInterval month() month($months = 1) Alias for months.
  * @method ChronosInterval weeks() weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
- * @method ChronosInterval week() week($weeks = 1) Alias for weeks().
+ * @method ChronosInterval week() week($weeks = 1) Alias for weeks.
  * @method ChronosInterval days() days($days = 1) Set the days portion of the current interval.
- * @method ChronosInterval dayz() dayz($days = 1) Alias for days().
- * @method ChronosInterval day() day($days = 1) Alias for days().
+ * @method ChronosInterval dayz() dayz($days = 1) Alias for days.
+ * @method ChronosInterval day() day($days = 1) Alias for days.
  * @method ChronosInterval hours() hours($hours = 1) Set the hours portion of the current interval.
- * @method ChronosInterval hour() hour($hours = 1) Alias for hours().
+ * @method ChronosInterval hour() hour($hours = 1) Alias for hours.
  * @method ChronosInterval minutes() minutes($minutes = 1) Set the minutes portion of the current interval.
- * @method ChronosInterval minute() minute($minutes = 1) Alias for minutes().
+ * @method ChronosInterval minute() minute($minutes = 1) Alias for minutes.
  * @method ChronosInterval seconds() seconds($seconds = 1) Set the seconds portion of the current interval.
- * @method ChronosInterval second() second($seconds = 1) Alias for seconds().
+ * @method ChronosInterval second() second($seconds = 1) Alias for seconds.
  */
 class ChronosInterval extends DateInterval
 {
