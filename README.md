@@ -9,7 +9,26 @@ Chronos aims to be a drop-in replacement for `nesbot/carbon`. It focuses on prov
 immutable date/datetime objects. Immutable objects help ensure that datetime objects
 aren't accidentally modified keeping data more predictable.
 
-## Migrating from Carbon
+# Installation
+
+Installing with composer:
+
+```
+$ composer require cakephp/chronos
+```
+
+You can then use Chronos:
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Cake\Chronos\Chronos;
+
+printf("Now: %s", Chronos::now());
+```
+
+# Migrating from Carbon
 
 First add `cakephp/chronos` to your `composer.json`:
 
@@ -54,7 +73,7 @@ $date = new Chronos('2015-10-21 16:29:00');
 $date = $date->modify('+2 hours');
 ```
 
-### Getting mutable objects
+## Getting mutable objects
 
 In the case that you need a mutable instance you can get one:
 
