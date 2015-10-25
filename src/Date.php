@@ -15,8 +15,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 
 /**
- * An immutable date object that does converts all time components
- * into 00:00:00.
+ * An immutable date object that converts all time components into 00:00:00.
  *
  * This class is useful when you want to represent a calendar date and ignore times.
  * This means that timezone changes take no effect as a calendar date exists in all timezones
