@@ -102,3 +102,7 @@ echo $today->modify('+3 hours');
 ```
 
 Like instances of `Chronos`, `Date` objects are also *immutable*.
+
+# API Documentation
+
+API documentation can be found on [api.cakephp.org](http://api.cakephp.org/chronos).
