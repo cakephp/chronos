@@ -41,11 +41,11 @@ To update your code you will need to update imports and typehints. Assuming
 update files:
 
 ```
-# Replace imports
+## Replace imports
 find ./src -type f -exec sed -i '' 's/use Carbon\\CarbonInterface/use Cake\\Chronos\\ChronosInterface/g' {} \;
 find ./src -type f -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
 
-# Replace typehints and extensions
+## Replace typehints and extensions
 find ./src -type f -exec sed -i '' 's/CarbonInterface/ChronosInterface/g' {} \;
 find ./src -type f -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
