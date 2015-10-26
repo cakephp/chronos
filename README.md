@@ -32,7 +32,7 @@ printf("Now: %s", Chronos::now());
 
 First add `cakephp/chronos` to your `composer.json`:
 
-``shell
+```shell
 php composer.phar require cakephp/chronos
 ```
 
