@@ -47,7 +47,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      *
      * Date instances lack time components, however due to limitations in PHP's
      * internal Datetime object the time will always be set to 00:00:00, and the
-     * timezone will always be UTC. Normalizing the timezone allows for 
+     * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
      * @param string|null $time Fixed or relative time

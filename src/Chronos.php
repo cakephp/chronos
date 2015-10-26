@@ -56,8 +56,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     use MagicPropertyTrait;
     use ModifierTrait;
     use RelativeKeywordTrait;
-    use TimezoneTrait;
     use TestingAidTrait;
+    use TimezoneTrait;
 
     /**
      * Format to use for __toString method when type juggling occurs.

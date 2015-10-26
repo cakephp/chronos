@@ -89,7 +89,7 @@ class ChronosInterval extends DateInterval
      * @param DateInterval $interval The interval to check.
      * @return bool
      */
-    private static function wasCreatedFromDiff(DateInterval $interval)
+    protected static function wasCreatedFromDiff(DateInterval $interval)
     {
         return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
     }
