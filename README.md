@@ -98,7 +98,7 @@ echo $today;
 // Outputs '2015-10-21'
 
 echo $today->modify('+3 hours');
-// Outputs '2015-12-21'
+// Outputs '2015-10-21'
 ```
 
 Like instances of `Chronos`, `Date` objects are also *immutable*.
