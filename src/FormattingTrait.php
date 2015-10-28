@@ -221,4 +221,30 @@ trait FormattingTrait
     {
         return $this->format('U');
     }
+
+    /**
+     * Returns the quarter
+     *
+     * @param bool $range Range.
+     * @return mixed 1, 2, 3, or 4 quarter of year or array if $range true
+     */
+    public function toQuarter($range = false)
+    {
+        $quarter = ceil($this->format('m') / 3);
+        if ($range === false) {
+            return $quarter;
+        }
+
+        $year = $this->format('Y');
+        switch ($quarter) {
+            case 1:
+                return [$year . '-01-01', $year . '-03-31'];
+            case 2:
+                return [$year . '-04-01', $year . '-06-30'];
+            case 3:
+                return [$year . '-07-01', $year . '-09-30'];
+            case 4:
+                return [$year . '-10-01', $year . '-12-31'];
+        }
+    }
 }
