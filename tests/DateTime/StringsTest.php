@@ -225,4 +225,17 @@ class StringsTest extends TestCase
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToUnixString($class)
+    {
+        $time = $class::parse('2014-04-20 08:00:00');
+        $this->assertEquals('1397995200', $time->toUnixString());
+
+        $time = $class::parse('2021-12-11 07:00:01');
+        $this->assertEquals('1639224001', $time->toUnixString());
+    }
 }

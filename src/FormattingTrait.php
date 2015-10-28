@@ -211,4 +211,14 @@ trait FormattingTrait
     {
         return $this->format(DateTime::W3C);
     }
+
+    /**
+     * Returns a UNIX timestamp.
+     *
+     * @return string UNIX timestamp
+     */
+    public function toUnixString()
+    {
+        return $this->format('U');
+    }
 }
