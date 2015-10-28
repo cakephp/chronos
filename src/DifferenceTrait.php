@@ -220,4 +220,16 @@ trait DifferenceTrait
     {
         return $this->diffInSeconds($this->copy()->endOfDay());
     }
+
+    /**
+     * Convenience method for getting the remaining time from a given time.
+     *
+     * @param \DateTime|\DateTimeImmutable $datetime The date to get the remaining time from.
+     * @return \DateInterval|bool The DateInterval object representing the difference between the two dates or FALSE on failure.
+     */
+    public static function fromNow($datetime)
+    {
+        $timeNow = new static();
+        return $timeNow->diff($datetime);
+    }
 }

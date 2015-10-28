@@ -739,4 +739,21 @@ class DiffTest extends TestCase
             $this->assertSame(0, $vanNow->diffInSeconds());
         }, $hereNow);
     }
+
+    /**
+     * Tests the "from now" time calculation.
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFromNow($class)
+    {
+        $date = $class::now();
+        $date = $date->modify('-1 year')
+            ->modify('-6 days')
+            ->modify('-51 seconds');
+        $interval = $class::fromNow($date);
+        $result = $interval->format("%y %m %d %H %i %s");
+        $this->assertEquals($result, '1 0 6 00 0 51');
+    }
 }

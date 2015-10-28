@@ -13,6 +13,7 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
+use Cake\Chronos\Chronos;
 use TestCase;
 
 class StringsTest extends TestCase
@@ -224,5 +225,47 @@ class StringsTest extends TestCase
     {
         $d = $class::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testToUnixString($class)
+    {
+        $time = $class::parse('2014-04-20 08:00:00');
+        $this->assertEquals('1397995200', $time->toUnixString());
+
+        $time = $class::parse('2021-12-11 07:00:01');
+        $this->assertEquals('1639224001', $time->toUnixString());
+    }
+
+    /**
+     * Provides values and expectations for the toQuarter method
+     *
+     * @return array
+     */
+    public function toQuarterProvider()
+    {
+        return [
+            ['2007-12-25', 4],
+            ['2007-9-25', 3],
+            ['2007-3-25', 1],
+            ['2007-3-25', ['2007-01-01', '2007-03-31'], true],
+            ['2007-5-25', ['2007-04-01', '2007-06-30'], true],
+            ['2007-8-25', ['2007-07-01', '2007-09-30'], true],
+            ['2007-12-25', ['2007-10-01', '2007-12-31'], true],
+        ];
+    }
+
+    /**
+     * testToQuarter method
+     *
+     * @dataProvider toQuarterProvider
+     * @return void
+     */
+    public function testToQuarter($date, $expected, $range = false)
+    {
+        $this->assertEquals($expected, (new Chronos($date))->toQuarter($range));
     }
 }
