@@ -465,6 +465,8 @@ class IsTest extends TestCase
         $this->assertFalse((new $class('-1 year'))->wasWithinLast('1 second'));
         $this->assertFalse((new $class('-1 year'))->wasWithinLast('0 year'));
         $this->assertFalse((new $class('-1 weeks'))->wasWithinLast('1 day'));
+        $this->assertTrue((new $class('-1 day'))->wasWithinLast('1 '));
+        $this->assertTrue((new $class('-5 days'))->wasWithinLast('5  '));
     }
 
     /**
@@ -488,5 +490,7 @@ class IsTest extends TestCase
         $this->assertTrue((new $class('+1 week'))->isWithinNext('7 day'));
         $this->assertTrue((new $class('+1 second'))->isWithinNext('1 minute'));
         $this->assertTrue((new $class('+1 month'))->isWithinNext('1 month'));
+        $this->assertTrue((new $class('+1 day'))->isWithinNext('1 '));
+        $this->assertTrue((new $class('+5 days'))->isWithinNext('5  '));
     }
 }

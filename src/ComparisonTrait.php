@@ -378,6 +378,10 @@ trait ComparisonTrait
      */
     public function wasWithinLast($timeInterval)
     {
+        $tmp = trim($timeInterval);
+        if (is_numeric($tmp)) {
+            $timeInterval = $tmp . ' days';
+        }
         $now = new static();
         $interval = $now->copy()->modify('-' . $timeInterval);
 
@@ -393,6 +397,10 @@ trait ComparisonTrait
      */
     public function isWithinNext($timeInterval)
     {
+        $tmp = trim($timeInterval);
+        if (is_numeric($tmp)) {
+            $timeInterval = $tmp . ' days';
+        }
         $now = new static();
         $interval = $now->copy()->modify('+' . $timeInterval);
 
