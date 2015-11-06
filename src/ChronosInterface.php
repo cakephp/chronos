@@ -322,6 +322,24 @@ interface ChronosInterface extends DateTimeInterface
     public function between(ChronosInterface $dt1, ChronosInterface $dt2, $equal = true);
 
     /**
+     * Get the closest date from the instance.
+     *
+     * @param ChronosInterface $dt1
+     * @param ChronosInterface $dt2
+     * @return static
+     */
+    public function closest(ChronosInterface $dt1, ChronosInterface $dt2);
+    
+    /**
+     * Get the farthest date from the instance.
+     *
+     * @param ChronosInterface $dt1
+     * @param ChronosInterface $dt2
+     * @return static
+     */
+    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2);
+    
+    /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
      * @param ChronosInterface|null $dt The instance to compare with.
