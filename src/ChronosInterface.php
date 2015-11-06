@@ -119,7 +119,7 @@ interface ChronosInterface extends DateTimeInterface
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0);
 
-    /**	
+    /**
      * Set the time by time string
      *
      * @param string $time Time as string.
