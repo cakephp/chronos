@@ -397,4 +397,56 @@ class ComparisonTest extends TestCase
         $this->assertFalse($dt2->isBirthday($dt1));
         $this->assertTrue($dt3->isBirthday($dt1));
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */    
+    public function testClosest($class)
+    {
+        $instance = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $closest = $instance->closest($dt1, $dt2);
+        $this->assertEquals($dt1, $closest);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testClosestWithEquals($class)
+    {
+        $instance = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $closest = $instance->closest($dt1, $dt2);
+        $this->assertEquals($dt1, $closest);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFarthest($class)
+    {
+        $instance = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $Farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $Farthest);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testFarthestWithEquals($class)
+    {
+        $instance = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
+        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $Farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $Farthest);
+    }   
 }
