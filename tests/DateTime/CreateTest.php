@@ -167,7 +167,7 @@ class CreateTest extends TestCase
      */
     public function testCreateWithInvalidMinute($class)
     {
-        $d = $class::create(2011, 1, 1, 0, -2, 0);
+        $class::create(2011, 1, 1, 0, -2, 0);
     }
 
     /**
