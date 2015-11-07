@@ -245,9 +245,11 @@ class SettersTest extends TestCase
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testInvalidSetter()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $d = MutableDateTime::now();
         $d->doesNotExit = 'bb';
     }
