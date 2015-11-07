@@ -401,7 +401,7 @@ class ComparisonTest extends TestCase
     /**
      * @dataProvider classNameProvider
      * @return void
-     */    
+     */
     public function testClosest($class)
     {
         $instance = $class::create(2015, 5, 28, 12, 0, 0);
@@ -448,5 +448,5 @@ class ComparisonTest extends TestCase
         $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertEquals($dt2, $Farthest);
-    }   
+    }
 }
