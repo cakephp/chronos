@@ -50,12 +50,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidYear($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(-3);
+        $class::create(-3);
     }
 
     /**
@@ -70,12 +70,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidMonth($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(null, -5);
+        $class::create(null, -5);
     }
 
     /**
@@ -100,12 +100,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidDay($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(null, null, -4);
+        $class::create(null, null, -4);
     }
 
     /**
@@ -132,12 +132,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidHour($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(null, null, null, -1);
+        $class::create(null, null, null, -1);
     }
 
     /**
@@ -162,12 +162,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidMinute($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(2011, 1, 1, 0, -2, 0);
+        $class::create(2011, 1, 1, 0, -2, 0);
     }
 
     /**
@@ -192,12 +192,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
+     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidSecond($class)
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = $class::create(null, null, null, null, null, -2);
+        $class::create(null, null, null, null, null, -2);
     }
 
     /**
