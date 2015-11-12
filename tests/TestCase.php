@@ -13,8 +13,10 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\Date;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\MutableDateTime;
+use Cake\Chronos\MutableDate;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -38,6 +40,14 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return [
             'mutable' => [MutableDateTime::class],
             'immutable' => [Chronos::class]
+        ];
+    }
+
+    public function dateClassProvider()
+    {
+        return [
+            'mutable' => [MutableDate::class],
+            'immutable' => [Date::class]
         ];
     }
 

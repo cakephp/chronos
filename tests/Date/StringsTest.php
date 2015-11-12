@@ -16,13 +16,8 @@ use TestCase;
 
 class StringsTest extends TestCase
 {
-    public function classNameProvider()
-    {
-        return [[Date::class]];
-    }
-
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToString($class)
@@ -32,7 +27,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testSetToStringFormat($class)
@@ -43,7 +38,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testResetToStringFormat($class)
@@ -55,7 +50,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToDateString($class)
@@ -65,7 +60,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToFormattedDateString($class)
@@ -75,7 +70,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToTimeString($class)
@@ -85,7 +80,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToDateTimeString($class)
@@ -95,7 +90,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToDayDateTimeString($class)
@@ -105,7 +100,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToAtomString($class)
@@ -115,7 +110,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToCOOKIEString($class)
@@ -131,7 +126,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToIso8601String($class)
@@ -141,7 +136,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRC822String($class)
@@ -151,7 +146,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRfc850String($class)
@@ -161,7 +156,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRfc1036String($class)
@@ -171,7 +166,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRfc1123String($class)
@@ -181,7 +176,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRfc2822String($class)
@@ -191,7 +186,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRfc3339String($class)
@@ -201,7 +196,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToRssString($class)
@@ -211,7 +206,7 @@ class StringsTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testToW3cString($class)
