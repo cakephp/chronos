@@ -49,15 +49,15 @@ use DateTimeZone;
  */
 class Chronos extends DateTimeImmutable implements ChronosInterface
 {
-    use ComparisonTrait;
-    use DifferenceTrait;
-    use FactoryTrait;
-    use FormattingTrait;
-    use MagicPropertyTrait;
-    use ModifierTrait;
-    use RelativeKeywordTrait;
-    use TestingAidTrait;
-    use TimezoneTrait;
+    use Traits\ComparisonTrait;
+    use Traits\DifferenceTrait;
+    use Traits\FactoryTrait;
+    use Traits\FormattingTrait;
+    use Traits\MagicPropertyTrait;
+    use Traits\ModifierTrait;
+    use Traits\RelativeKeywordTrait;
+    use Traits\TestingAidTrait;
+    use Traits\TimezoneTrait;
 
     /**
      * Format to use for __toString method when type juggling occurs.
