@@ -12,8 +12,8 @@
  */
 namespace Cake\Chronos\Traits;
 
-use DateTime;
 use Cake\Chronos\ChronosInterface;
+use DateTime;
 
 /**
  * Provides various comparison operator methods for datetime objects.
