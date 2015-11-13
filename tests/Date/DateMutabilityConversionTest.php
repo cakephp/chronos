@@ -59,7 +59,7 @@ class DateMutabilityConversionTest extends TestCase
         $this->assertFalse($dt2->isMutable());
     }
 
-    protected function checkBothInstances(MutableDate$dt1, Date $dt2)
+    protected function checkBothInstances(MutableDate $dt1, Date $dt2)
     {
         $this->assertDateTime($dt1, 2001, 2, 3, 0, 0, 0);
         $this->assertInstanceOf(Date::class, $dt2);

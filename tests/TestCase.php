@@ -13,10 +13,10 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
 use Cake\Chronos\ChronosInterval;
-use Cake\Chronos\MutableDateTime;
+use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
+use Cake\Chronos\MutableDateTime;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
