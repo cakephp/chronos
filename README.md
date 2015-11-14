@@ -73,13 +73,28 @@ $date = new Chronos('2015-10-21 16:29:00');
 $date = $date->modify('+2 hours');
 ```
 
-## Getting mutable objects
+## Getting Mutable Objects
 
 In the case that you need a mutable instance you can get one:
 
 ```php
-$date = new Chronos('2015-10-21 16:29:00');
+$time = new Chronos('2015-10-21 16:29:00');
+$mutable = $time->toMutable();
+
+$date = new Date('2015-10-21');
 $mutable = $date->toMutable();
+```
+
+## Converting Mutable Objects into Immutable ones.
+
+If you have a mutable object and want an immutable variant you can do the following:
+
+```php
+$time = new MutableDateTime('2015-10-21 16:29:00');
+$fixed = $time->toImmutable();
+
+$date = new MutableDate('2015-10-21');
+$fixed = $date->toImmutable();
 ```
 
 # Calendar Dates
@@ -101,7 +116,8 @@ echo $today->modify('+3 hours');
 // Outputs '2015-10-21'
 ```
 
-Like instances of `Chronos`, `Date` objects are also *immutable*.
+Like instances of `Chronos`, `Date` objects are also *immutable*. The `MutableDate` class provides
+a mutable variant of `Date`.
 
 # API Documentation
 
