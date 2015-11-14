@@ -12,6 +12,7 @@
 namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
+use Cake\Chronos\MutableDate;
 use DateTimeZone;
 use TestCase;
 
@@ -173,15 +174,28 @@ class ConstructTest extends TestCase
     }
 
     /**
+     * @dataProvider inputTimeProvider
+     * @return void
+     */
+    public function testConstructMutableWithTimeParts($time)
+    {
+        $dt = new MutableDate($time);
+        $this->assertEquals(8, $dt->month);
+        $this->assertEquals(0, $dt->hour);
+        $this->assertEquals(0, $dt->minute);
+        $this->assertEquals(0, $dt->second);
+    }
+
+    /**
      * @dataProvider dateClassProvider
      */
-    public function testConstructWithTestNow()
+    public function testConstructWithTestNow($class)
     {
-        Date::setTestNow(Date::create(2001, 1, 1));
-        $date = new Date('+2 days');
+        $class::setTestNow($class::create(2001, 1, 1));
+        $date = new $class('+2 days');
         $this->assertDateTime($date, 2001, 1, 3);
 
-        $date = new Date('2015-12-12');
+        $date = new $class('2015-12-12');
         $this->assertDateTime($date, 2015, 12, 12);
     }
 }

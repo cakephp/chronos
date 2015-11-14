@@ -18,6 +18,22 @@ use TestCase;
 
 class AddTest extends TestCase
 {
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testAddFullDay($class)
+    {
+        $interval = DateInterval::createFromDateString('1 day');
+        $date = $class::create(2001, 1, 1);
+        $new = $date->add($interval);
+
+        $this->assertEquals(0, $new->hour);
+        $this->assertEquals(0, $new->minute);
+        $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->second);
+    }
 
     /**
      * @dataProvider dateClassProvider
@@ -27,6 +43,23 @@ class AddTest extends TestCase
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
         $date = $class::create(2001, 1, 1);
         $new = $date->add($interval);
+
+        $this->assertEquals(0, $new->hour);
+        $this->assertEquals(0, $new->minute);
+        $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->second);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testSubFullDay($class)
+    {
+        $interval = DateInterval::createFromDateString('1 day');
+        $date = $class::create(2001, 1, 1);
+        $new = $date->sub($interval);
 
         $this->assertEquals(0, $new->hour);
         $this->assertEquals(0, $new->minute);
