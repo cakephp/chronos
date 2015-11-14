@@ -13,10 +13,27 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
+use Cake\Chronos\ChronosInterface;
 use TestCase;
 
 class ComparisonTest extends TestCase
 {
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetSetWeekendDays($class)
+    {
+        $expected = [ChronosInterface::SATURDAY, ChronosInterface::SUNDAY];
+        $this->assertEquals($expected, $class::getWeekendDays());
+
+        $replace = [ChronosInterface::SUNDAY];
+        $class::setWeekendDays($replace);
+        $this->assertEquals($replace, $class::getWeekendDays());
+
+        $class::setWeekendDays($expected);
+    }
 
     /**
      * @dataProvider classNameProvider

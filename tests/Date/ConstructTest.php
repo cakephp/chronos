@@ -12,6 +12,7 @@
 namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
+use Cake\Chronos\MutableDate;
 use DateTimeZone;
 use TestCase;
 
@@ -20,13 +21,8 @@ use TestCase;
  */
 class ConstructTest extends TestCase
 {
-    public function classNameProvider()
-    {
-        return [[Date::class]];
-    }
-
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testCreatesAnInstanceDefaultToNow($class)
@@ -39,7 +35,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testParseCreatesAnInstanceDefaultToNow($class)
@@ -52,7 +48,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testWithFancyString($class)
@@ -62,7 +58,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testParseWithFancyString($class)
@@ -72,7 +68,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testUsesUTC($class)
@@ -82,7 +78,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testParseUsesUTC($class)
@@ -92,7 +88,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testSettingTimezoneIgnored($class)
@@ -104,7 +100,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testParseSettingTimezoneIgnored($class)
@@ -117,7 +113,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testSettingTimezoneWithStringIgnored($class)
@@ -130,7 +126,7 @@ class ConstructTest extends TestCase
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateClassProvider
      * @return void
      */
     public function testParseSettingTimezoneWithStringIgnored($class)
@@ -177,13 +173,29 @@ class ConstructTest extends TestCase
         $this->assertEquals(0, $dt->second);
     }
 
-    public function testConstructWithTestNow()
+    /**
+     * @dataProvider inputTimeProvider
+     * @return void
+     */
+    public function testConstructMutableWithTimeParts($time)
     {
-        Date::setTestNow(Date::create(2001, 1, 1));
-        $date = new Date('+2 days');
+        $dt = new MutableDate($time);
+        $this->assertEquals(8, $dt->month);
+        $this->assertEquals(0, $dt->hour);
+        $this->assertEquals(0, $dt->minute);
+        $this->assertEquals(0, $dt->second);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testConstructWithTestNow($class)
+    {
+        $class::setTestNow($class::create(2001, 1, 1));
+        $date = new $class('+2 days');
         $this->assertDateTime($date, 2001, 1, 3);
 
-        $date = new Date('2015-12-12');
+        $date = new $class('2015-12-12');
         $this->assertDateTime($date, 2015, 12, 12);
     }
 }
