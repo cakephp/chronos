@@ -38,7 +38,7 @@ php composer.phar require cakephp/chronos
 
 By default Chronos includes a compatiblity script that creates aliases for the
 relevant Carbon classes.  This will let most applications upgrade with very
-little effort. However, if you'd like to permanently update your code,you will
+little effort. If you'd like to permanently update your code, you will
 need to update imports and typehints. Assuming `src` contains the files you
 want to migrate, we could use the following to update files:
 
