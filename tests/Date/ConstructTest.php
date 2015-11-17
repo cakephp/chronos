@@ -198,4 +198,17 @@ class ConstructTest extends TestCase
         $date = new $class('2015-12-12');
         $this->assertDateTime($date, 2015, 12, 12);
     }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testConstructWithTestNowNoMutation($class)
+    {
+        $class::setTestNow($class::create(2001, 1, 1));
+        $date = new $class('+2 days');
+        $this->assertDateTime($date, 2001, 1, 3);
+
+        $date = new $class();
+        $this->assertNotEquals('2001-01-03', $date->format('Y-m-d'));
+    }
 }

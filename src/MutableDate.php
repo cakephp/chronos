@@ -70,6 +70,7 @@ class MutableDate extends DateTime implements ChronosInterface
 
         $testInstance = static::getTestNow();
         if ($relative) {
+            $testInstance = clone $testInstance;
             $testInstance = $testInstance->modify($time);
         }
 
