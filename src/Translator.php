@@ -42,11 +42,25 @@ class Translator
         'before' => '{time} before',
     ];
 
+    /**
+     * Check if a translation key exists.
+     *
+     * @param string $key The key to check.
+     * @return bool Whether or not the key exists.
+     */
     public function exists($key)
     {
         return isset(static::$strings[$key]);
     }
 
+    /**
+     * Get a plural message.
+     *
+     * @param string $key The key to use.
+     * @param string $count The number of items in the translation.
+     * @param array $vars Additional context variables.
+     * @return string The translated message or ''.
+     */
     public function plural($key, $count, array $vars = [])
     {
         if ($count == 1) {
@@ -55,6 +69,13 @@ class Translator
         return $this->singular($key . '_plural', ['count' => $count] + $vars);
     }
 
+    /**
+     * Get a singular message.
+     *
+     * @param string $key The key to use.
+     * @param array $vars Additional context variables.
+     * @return string The translated message or ''.
+     */
     public function singular($key, array $vars = [])
     {
         if (isset(static::$strings[$key])) {
