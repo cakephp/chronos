@@ -319,6 +319,7 @@ trait DifferenceTrait
     /**
      * Get the translator instance or overwrite the current one.
      *
+     * @param Cake\Chronos\Translator|null $translator The translator instance when setting.
      * @return Cake\Chronos\Translator The translator instance.
      */
     public function translator($translator = null)
