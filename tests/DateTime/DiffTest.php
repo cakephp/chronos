@@ -10,7 +10,6 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
@@ -755,5 +754,64 @@ class DiffTest extends TestCase
         $interval = $class::fromNow($date);
         $result = $interval->format("%y %m %d %H %i %s");
         $this->assertEquals($result, '1 0 6 00 0 51');
+    }
+
+    public function diffForHumansProvider()
+    {
+        $now = Chronos::now();
+        return [
+            [$now, $now->addYears(11), '11 years before'],
+            [$now, $now->addYears(1), '1 year before'],
+            [$now, $now->addMonths(11), '11 months before'],
+            [$now, $now->addMonths(1), '1 month before'],
+            [$now, $now->addDays(8), '1 week before'],
+            [$now, $now->addDays(23), '3 weeks before'],
+            [$now, $now->addDays(1), '1 day before'],
+            [$now, $now->addDays(6), '6 days before'],
+            [$now, $now->addHours(1), '1 hour before'],
+            [$now, $now->addHours(5), '5 hours before'],
+            [$now, $now->addHours(23), '23 hours before'],
+            [$now, $now->addMinutes(1), '1 minute before'],
+            [$now, $now->addMinutes(5), '5 minutes before'],
+            [$now, $now->addMinutes(59), '59 minutes before'],
+            [$now, $now->addSeconds(1), '1 second before'],
+            [$now, $now->addSeconds(5), '5 seconds before'],
+            [$now, $now->addSeconds(59), '59 seconds before'],
+
+            [$now, $now->subYears(11), '11 years after'],
+            [$now, $now->subYears(1), '1 year after'],
+            [$now, $now->subMonths(11), '11 months after'],
+            [$now, $now->subMonths(1), '1 month after'],
+            [$now, $now->subDays(8), '1 week after'],
+            [$now, $now->subDays(23), '3 weeks after'],
+            [$now, $now->subDays(1), '1 day after'],
+            [$now, $now->subDays(6), '6 days after'],
+            [$now, $now->subHours(1), '1 hour after'],
+            [$now, $now->subHours(5), '5 hours after'],
+            [$now, $now->subHours(23), '23 hours after'],
+            [$now, $now->subMinutes(1), '1 minute after'],
+            [$now, $now->subMinutes(5), '5 minutes after'],
+            [$now, $now->subMinutes(59), '59 minutes after'],
+            [$now, $now->subSeconds(1), '1 second after'],
+            [$now, $now->subSeconds(5), '5 seconds after'],
+            [$now, $now->subSeconds(59), '59 seconds after'],
+        ];
+    }
+
+    /**
+     * @dataProvider diffForHumansProvider
+     * @return void
+     */
+    public function testDiffForHumansRelative($now, $date, $expected)
+    {
+        $this->assertSame($expected, $now->diffForHumans($date));
+    }
+
+    public function testDiffForHumansWithNow()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('1 second ago', Chronos::now()->subSeconds(1)->diffForHumans());
+            $this->assertSame('1 second from now', Chronos::now()->addSeconds(1)->diffForHumans());
+        });
     }
 }
