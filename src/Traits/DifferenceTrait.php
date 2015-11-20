@@ -14,7 +14,7 @@ namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\ChronosInterval;
-use Cake\Chronos\Translator;
+use Cake\Chronos\DifferenceFormatter;
 use DatePeriod;
 use DateTimeInterface;
 
@@ -29,7 +29,7 @@ use DateTimeInterface;
  */
 trait DifferenceTrait
 {
-    protected static $translator;
+    protected static $diffFormatter;
 
     /**
      * Get the difference in years
@@ -239,7 +239,7 @@ trait DifferenceTrait
     }
 
     /**
-     * Get the difference in a human readable format in the current locale.
+     * Get the difference in a human readable format.
      *
      * When comparing a value in the past to default now:
      * 1 hour ago
@@ -263,73 +263,23 @@ trait DifferenceTrait
      */
     public function diffForhumans(ChronosInterface $other = null, $absolute = false)
     {
-        $isNow = $other === null;
-        if ($isNow) {
-            $other = static::now($this->tz);
-        }
-        $diffInterval = $this->diff($other);
-        switch (true) {
-            case ($diffInterval->y > 0):
-                $unit = 'year';
-                $count = $diffInterval->y;
-                break;
-            case ($diffInterval->m > 0):
-                $unit = 'month';
-                $count = $diffInterval->m;
-                break;
-            case ($diffInterval->d > 0):
-                $unit = 'day';
-                $count = $diffInterval->d;
-                if ($count >= self::DAYS_PER_WEEK) {
-                    $unit = 'week';
-                    $count = (int)($count / self::DAYS_PER_WEEK);
-                }
-                break;
-            case ($diffInterval->h > 0):
-                $unit = 'hour';
-                $count = $diffInterval->h;
-                break;
-            case ($diffInterval->i > 0):
-                $unit = 'minute';
-                $count = $diffInterval->i;
-                break;
-            default:
-                $count = $diffInterval->s;
-                $unit = 'second';
-                break;
-        }
-        if ($count === 0) {
-            $count = 1;
-        }
-        $time = static::translator()->plural($unit, $count, ['count' => $count]);
-        if ($absolute) {
-            return $time;
-        }
-        $isFuture = $diffInterval->invert === 1;
-        $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
-
-        // Some langs have special pluralization for past and future tense.
-        $tryKeyExists = $unit . '_' . $transId;
-        if (static::translator()->exists($tryKeyExists)) {
-            $time = static::translator()->plural($tryKeyExists, $count, ['count' => $count]);
-        }
-        return static::translator()->singular($transId, ['time' => $time]);
+        return $this->diffFormatter()->diffForHumans($this, $other, $absolute);
     }
 
     /**
-     * Get the translator instance or overwrite the current one.
+     * Get the difference formatter instance or overwrite the current one.
      *
-     * @param Cake\Chronos\Translator|null $translator The translator instance when setting.
-     * @return Cake\Chronos\Translator The translator instance.
+     * @param Cake\Chronos\DifferenceFormatter|null $formatter The formatter instance when setting.
+     * @return Cake\Chronos\DifferenceFormatter The formatter instance.
      */
-    public function translator($translator = null)
+    public function diffFormatter($formatter = null)
     {
-        if ($translator === null) {
-            if (static::$translator === null) {
-                static::$translator = new Translator();
+        if ($formatter === null) {
+            if (static::$diffFormatter === null) {
+                static::$diffFormatter = new DifferenceFormatter();
             }
-            return static::$translator;
+            return static::$diffFormatter;
         }
-        return static::$translator = $translator;
+        return static::$diffFormatter = $translator;
     }
 }
