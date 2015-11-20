@@ -282,7 +282,7 @@ trait DifferenceTrait
                 $count = $diffInterval->d;
                 if ($count >= self::DAYS_PER_WEEK) {
                     $unit = 'week';
-                    $count = (int) ($count / self::DAYS_PER_WEEK);
+                    $count = (int)($count / self::DAYS_PER_WEEK);
                 }
                 break;
             case ($diffInterval->h > 0):
@@ -301,7 +301,7 @@ trait DifferenceTrait
         if ($count === 0) {
             $count = 1;
         }
-        $time = static::translator()->plural($unit, $count, array('count' => $count));
+        $time = static::translator()->plural($unit, $count, ['count' => $count]);
         if ($absolute) {
             return $time;
         }
@@ -311,9 +311,9 @@ trait DifferenceTrait
         // Some langs have special pluralization for past and future tense.
         $tryKeyExists = $unit . '_' . $transId;
         if (static::translator()->exists($tryKeyExists)) {
-            $time = static::translator()->plural($tryKeyExists, $count, array('count' => $count));
+            $time = static::translator()->plural($tryKeyExists, $count, ['count' => $count]);
         }
-        return static::translator()->singular($transId, array('time' => $time));
+        return static::translator()->singular($transId, ['time' => $time]);
     }
 
     /**
