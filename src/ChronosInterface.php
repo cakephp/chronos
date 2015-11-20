@@ -862,10 +862,10 @@ interface ChronosInterface extends DateTimeInterface
      * 5 months after
      *
      * @param \Cake\Chronos\ChronosInterface|null $other The datetime to compare with.
-     * @param bool $absolute removes time difference modifiers ago, after, etc
+     * @param bool $absolute Removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForhumans(ChronosInterface $other = null, $absolute = false);
+    public function diffForHumans(ChronosInterface $other = null, $absolute = false);
 
     /**
      * Get the difference in years
