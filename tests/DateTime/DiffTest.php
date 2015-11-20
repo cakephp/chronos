@@ -814,4 +814,12 @@ class DiffTest extends TestCase
             $this->assertSame('1 second from now', Chronos::now()->addSeconds(1)->diffForHumans());
         });
     }
+
+    public function testDiffForHumansWithNowAbsolute()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('1 second', Chronos::now()->subSeconds(1)->diffForHumans(null, true));
+            $this->assertSame('1 second', Chronos::now()->addSeconds(1)->diffForHumans(null, true));
+        });
+    }
 }
