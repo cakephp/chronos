@@ -470,7 +470,7 @@ trait ModifierTrait
      */
     public function addWeekday($value = 1)
     {
-    	// Fix for https://bugs.php.net/bug.php?id=54909
+        // Fix for https://bugs.php.net/bug.php?id=54909
         $string = $this->toTimeString();
         $date = $this->modify((int)$value . " weekday");
 
