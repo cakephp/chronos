@@ -470,9 +470,20 @@ trait ModifierTrait
      */
     public function addWeekday($value = 1)
     {
+        return $this->addWeekdays($value);
+    }
+
+    /**
+     * Remove weekdays from the instance
+     *
+     * @param int $value The number of weekdays to remove.
+     * @return static
+     */
+    public function subWeekdays($value)
+    {
         // Fix for https://bugs.php.net/bug.php?id=54909
         $string = $this->toTimeString();
-        $date = $this->modify((int)$value . " weekday");
+        $date = $this->modify('-' . (int)$value . ' weekday');
 
         return $date->setTimeFromTimeString($string);
     }
@@ -485,20 +496,7 @@ trait ModifierTrait
      */
     public function subWeekday($value = 1)
     {
-        $value = (int)$value;
-        return $this->modify("-$value weekday");
-    }
-
-    /**
-     * Remove weekdays from the instance
-     *
-     * @param int $value The number of weekdays to remove.
-     * @return static
-     */
-    public function subWeekdays($value)
-    {
-        $value = (int)$value;
-        return $this->modify("-$value weekday");
+        return $this->subWeekdays($value);
     }
 
     /**
