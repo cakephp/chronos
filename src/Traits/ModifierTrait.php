@@ -114,7 +114,7 @@ trait ModifierTrait
     {
         return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
     }
-    
+
     /**
      * Set the time by time string
      *
@@ -457,8 +457,9 @@ trait ModifierTrait
     {
         // Fix for https://bugs.php.net/bug.php?id=54909
         $string = $this->toTimeString();
-        $this->modify((int)$value . " weekday");
-        return $this->setTimeFromTimeString($string);
+        $date = $this->modify((int)$value . " weekday");
+
+        return $date->setTimeFromTimeString($string);
     }
 
     /**
@@ -471,8 +472,9 @@ trait ModifierTrait
     {
     	// Fix for https://bugs.php.net/bug.php?id=54909
         $string = $this->toTimeString();
-        $this->modify((int)$value . " weekday");
-        return $this->setTimeFromTimeString($string);
+        $date = $this->modify((int)$value . " weekday");
+
+        return $date->setTimeFromTimeString($string);
     }
 
     /**
