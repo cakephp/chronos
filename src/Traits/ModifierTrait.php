@@ -455,8 +455,10 @@ trait ModifierTrait
      */
     public function addWeekdays($value)
     {
-        $value = (int)$value;
-        return $this->modify("$value weekday");
+        // Fix for https://bugs.php.net/bug.php?id=54909
+        $string = $this->toTimeString();
+        $this->modify((int)$value . " weekday");
+        return $this->setTimeFromTimeString($string);
     }
 
     /**
@@ -467,8 +469,10 @@ trait ModifierTrait
      */
     public function addWeekday($value = 1)
     {
-        $value = (int)$value;
-        return $this->modify("$value weekday");
+    	// Fix for https://bugs.php.net/bug.php?id=54909
+        $string = $this->toTimeString();
+        $this->modify((int)$value . " weekday");
+        return $this->setTimeFromTimeString($string);
     }
 
     /**

@@ -183,7 +183,13 @@ class AddTest extends TestCase
      */
     public function testAddWeekdaysPositive($class)
     {
-        $this->assertSame(17, $class::createFromDate(2012, 1, 4)->addWeekdays(9)->day);
+        $dt = $class::create(2012, 1, 4, 13, 2, 1)->addWeekdays(9);
+        $this->assertSame(17, $dt->day);
+
+        // Test for https://bugs.php.net/bug.php?id=54909
+        $this->assertSame(13, $dt->hour);
+        $this->assertSame(2, $dt->minute);
+        $this->assertSame(1, $dt->second);
     }
 
     /**
