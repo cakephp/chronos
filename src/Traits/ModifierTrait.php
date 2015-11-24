@@ -455,11 +455,7 @@ trait ModifierTrait
      */
     public function addWeekdays($value)
     {
-        // Fix for https://bugs.php.net/bug.php?id=54909
-        $string = $this->toTimeString();
-        $date = $this->modify((int)$value . " weekday");
-
-        return $date->setTimeFromTimeString($string);
+        return $this->modify((int)$value . " weekday " . $date->format('H:i:s'));
     }
 
     /**
