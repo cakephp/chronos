@@ -114,7 +114,7 @@ trait ModifierTrait
     {
         return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
     }
-    
+
     /**
      * Set the time by time string
      *
@@ -455,8 +455,7 @@ trait ModifierTrait
      */
     public function addWeekdays($value)
     {
-        $value = (int)$value;
-        return $this->modify("$value weekday");
+        return $this->modify((int)$value . ' weekdays ' . $this->format('H:i:s'));
     }
 
     /**
@@ -467,20 +466,7 @@ trait ModifierTrait
      */
     public function addWeekday($value = 1)
     {
-        $value = (int)$value;
-        return $this->modify("$value weekday");
-    }
-
-    /**
-     * Remove a weekday from the instance
-     *
-     * @param int $value The number of weekdays to remove.
-     * @return static
-     */
-    public function subWeekday($value = 1)
-    {
-        $value = (int)$value;
-        return $this->modify("-$value weekday");
+        return $this->addWeekdays($value);
     }
 
     /**
@@ -492,7 +478,18 @@ trait ModifierTrait
     public function subWeekdays($value)
     {
         $value = (int)$value;
-        return $this->modify("-$value weekday");
+        return $this->modify("$value weekdays ago, " . $this->format('H:i:s'));
+    }
+
+    /**
+     * Remove a weekday from the instance
+     *
+     * @param int $value The number of weekdays to remove.
+     * @return static
+     */
+    public function subWeekday($value = 1)
+    {
+        return $this->subWeekdays($value);
     }
 
     /**
