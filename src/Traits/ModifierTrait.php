@@ -478,7 +478,7 @@ trait ModifierTrait
     public function subWeekdays($value)
     {
         $value = (int)$value;
-        return $this->modify("-$value weekdays " . $this->format('H:i:s'));
+        return $this->modify("$value weekdays ago, " . $this->format('H:i:s'));
     }
 
     /**
