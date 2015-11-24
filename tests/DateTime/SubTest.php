@@ -141,7 +141,7 @@ class SubTest extends TestCase
      */
     public function testSubWeekdaysPositive($class)
     {
-        $dt = $class::createFromDate(2012, 1, 4, 13, 2, 1)->subWeekdays(9);
+        $dt = $class::create(2012, 1, 4, 13, 2, 1)->subWeekdays(9);
         $this->assertSame(22, $dt->day);
 
         // Test for https://bugs.php.net/bug.php?id=54909
