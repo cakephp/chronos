@@ -106,7 +106,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Create a new mutable instance from current immutable instance.
      *
-     * @return Cake\Chronos\MutableDateTime
+     * @return \Cake\Chronos\MutableDateTime
      */
     public function toMutable()
     {

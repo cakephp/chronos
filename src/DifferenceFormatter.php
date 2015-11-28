@@ -12,9 +12,6 @@
  */
 namespace Cake\Chronos;
 
-use Cake\Chronos\ChronosInterface;
-use Cake\Chronos\Translator;
-
 /**
  * Handles formatting differences in text.
  *

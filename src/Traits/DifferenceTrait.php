@@ -269,8 +269,8 @@ trait DifferenceTrait
     /**
      * Get the difference formatter instance or overwrite the current one.
      *
-     * @param Cake\Chronos\DifferenceFormatter|null $formatter The formatter instance when setting.
-     * @return Cake\Chronos\DifferenceFormatter The formatter instance.
+     * @param \Cake\Chronos\DifferenceFormatter|null $formatter The formatter instance when setting.
+     * @return \Cake\Chronos\DifferenceFormatter The formatter instance.
      */
     public function diffFormatter($formatter = null)
     {
