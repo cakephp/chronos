@@ -420,7 +420,11 @@ class GettersTest extends TestCase
      */
     public function testGetWeekStartsAt($class)
     {
-        $this->assertSame(ChronosInterface::MONDAY, $class::createFromDate(2012, 12, 31)->getWeekStartsAt());
+        $d = $class::createFromDate(2012, 12, 31);
+        $this->assertSame(ChronosInterface::MONDAY, $d->getWeekStartsAt());
+
+        $d::setWeekStartsAt(ChronosInterface::SUNDAY);
+        $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekStartsAt());
     }
 
     /**
@@ -429,7 +433,11 @@ class GettersTest extends TestCase
      */
     public function testGetWeekEndsAt($class)
     {
-        $this->assertSame(ChronosInterface::SUNDAY, $class::createFromDate(2012, 12, 31)->getWeekEndsAt());
+        $d = $class::createFromDate(2012, 12, 31);
+        $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekEndsAt());
+
+        $d::setWeekEndsAt(ChronosInterface::SATURDAY);
+        $this->assertSame(ChronosInterface::SATURDAY, $d->getWeekEndsAt());
     }
 
     /**
