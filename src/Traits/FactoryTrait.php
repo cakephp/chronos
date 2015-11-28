@@ -98,7 +98,6 @@ trait FactoryTrait
      * Create a ChronosInterface instance for the greatest supported date.
      *
      * @return \Cake\Chronos\ChronosInterface
-     * @return \Cake\Chronos\ChronosInterface
      */
     public static function maxValue()
     {
