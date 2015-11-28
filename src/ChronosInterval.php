@@ -400,4 +400,39 @@ class ChronosInterval extends DateInterval
 
         return $this;
     }
+
+    /**
+     * Returns the ISO 8601 interval string.
+     *
+     * @return string Interval as string representation
+     */
+    public function __toString()
+    {
+        $date = array_filter([
+            static::PERIOD_YEARS => $this->y,
+            static::PERIOD_MONTHS => $this->m,
+            static::PERIOD_DAYS => $this->d,
+        ]);
+
+        $time = array_filter([
+            static::PERIOD_HOURS => $this->h,
+            static::PERIOD_MINUTES => $this->i,
+            static::PERIOD_SECONDS => $this->s,
+        ]);
+
+        $specString = static::PERIOD_PREFIX;
+
+        foreach ($date as $key => $value) {
+            $specString .= $value . $key;
+        }
+
+        if (count($time) > 0) {
+            $specString .= static::PERIOD_TIME_PREFIX;
+            foreach ($time as $key => $value) {
+                $specString .= $value . $key;
+            }
+        }
+
+        return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
+    }
 }
