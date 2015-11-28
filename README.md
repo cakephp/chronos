@@ -36,7 +36,7 @@ First add `cakephp/chronos` to your `composer.json`:
 php composer.phar require cakephp/chronos
 ```
 
-By default Chronos includes a compatiblity script that creates aliases for the
+By default Chronos includes a compatibility script that creates aliases for the
 relevant Carbon classes.  This will let most applications upgrade with very
 little effort. If you'd like to permanently update your code, you will
 need to update imports and typehints. Assuming `src` contains the files you

@@ -64,7 +64,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for today
      *
-     * @param DateTimeZone|string|null $tz The timezonze to use.
+     * @param DateTimeZone|string|null $tz The timezone to use.
      * @return static
      */
     public static function today($tz = null)
@@ -97,7 +97,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for the greatest supported date.
      *
-     * @return ChronosInterface
+     * @return \Cake\Chronos\ChronosInterface
      */
     public static function maxValue()
     {
@@ -107,7 +107,7 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for the lowest supported date.
      *
-     * @return ChronosInterface
+     * @return \Cake\Chronos\ChronosInterface
      */
     public static function minValue()
     {
