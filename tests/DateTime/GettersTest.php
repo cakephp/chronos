@@ -13,6 +13,7 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
+use Cake\Chronos\ChronosInterface;
 use TestCase;
 
 class GettersTest extends TestCase
@@ -411,6 +412,24 @@ class GettersTest extends TestCase
     {
         $this->assertSame(52, $class::createFromDate(2012, 12, 30)->weekOfYear);
         $this->assertSame(1, $class::createFromDate(2012, 12, 31)->weekOfYear);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetWeekStartsAt($class)
+    {
+        $this->assertSame(ChronosInterface::MONDAY, $class::createFromDate(2012, 12, 31)->getWeekStartsAt());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testGetWeekEndsAt($class)
+    {
+        $this->assertSame(ChronosInterface::SUNDAY, $class::createFromDate(2012, 12, 31)->getWeekEndsAt());
     }
 
     /**
