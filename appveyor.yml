@@ -28,6 +28,8 @@ install:
   - cd C:\projects\chronos
   - php -r "readfile('https://getcomposer.org/installer');" | php
   - php composer.phar install --prefer-dist --no-interaction
+  - php -v
+  - php -i | grep "ICU version"
 test_script:
   - cd C:\projects\chronos
   - vendor\bin\phpunit.bat
