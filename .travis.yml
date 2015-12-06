@@ -6,6 +6,8 @@ php:
   - 7.0
   - hhvm
 
+sudo: false
+
 env:
   global:
     - DEFAULT=1
