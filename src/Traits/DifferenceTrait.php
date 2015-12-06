@@ -29,6 +29,11 @@ use DateTimeInterface;
  */
 trait DifferenceTrait
 {
+    /**
+     * Instance of the diff formatting object.
+     *
+     * @var \Cake\Chronos\DifferenceFormatter
+     */
     protected static $diffFormatter;
 
     /**
@@ -263,7 +268,7 @@ trait DifferenceTrait
      */
     public function diffForhumans(ChronosInterface $other = null, $absolute = false)
     {
-        return $this->diffFormatter()->diffForHumans($this, $other, $absolute);
+        return static::diffFormatter()->diffForHumans($this, $other, $absolute);
     }
 
     /**
@@ -272,7 +277,7 @@ trait DifferenceTrait
      * @param \Cake\Chronos\DifferenceFormatter|null $formatter The formatter instance when setting.
      * @return \Cake\Chronos\DifferenceFormatter The formatter instance.
      */
-    public function diffFormatter($formatter = null)
+    public static function diffFormatter($formatter = null)
     {
         if ($formatter === null) {
             if (static::$diffFormatter === null) {
