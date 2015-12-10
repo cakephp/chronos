@@ -123,4 +123,4 @@ a mutable variant of `Date`.
 
 # API Documentation
 
-API documentation can be found on [api.cakephp.org](http://api.cakephp.org/chronos).
+API documentation can be found on [api.cakephp.org/chronos](http://api.cakephp.org/chronos).
