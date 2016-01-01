@@ -245,7 +245,7 @@ class ChronosInterval extends DateInterval
     public function __get($name)
     {
         switch ($name) {
-        case 'years':
+            case 'years':
                 return $this->isHHVM ? parent::__get('y') : $this->y;
 
             case 'months':
