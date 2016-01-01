@@ -75,7 +75,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * @param string|null $time Fixed or relative time
      * @param DateTimeZone|string|null $tz The timezone for the instance
      */
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = 'now', $tz = null)
     {
         if ($tz !== null) {
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
