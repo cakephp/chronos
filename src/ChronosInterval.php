@@ -271,8 +271,14 @@ class ChronosInterval extends DateInterval
                 return $this->dayz % ChronosInterface::DAYS_PER_WEEK;
             case 'days':
                 return $this->isHHVM ? parent::__get('days') : $this->days;
+            case 'y':
+            case 'm':
+            case 'd':
+            case 'h':
+            case 'i':
+            case 's':
             case 'invert':
-                return $this->isHHVM ? parent::__get('invert') : $this->invert;
+                return parent::__get($name);
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
@@ -321,6 +327,8 @@ class ChronosInterval extends DateInterval
             case 'invert':
                 $this->isHHVM ? parent::__set('invert', $val) : $this->invert = $val;
                 break;
+            default:
+                parent::__set($name, $val);
         }
     }
 
