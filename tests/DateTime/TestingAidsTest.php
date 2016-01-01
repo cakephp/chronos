@@ -166,12 +166,12 @@ class TestingAidsTest extends TestCase
      */
     public function testNullTimezone($class)
     {
-       $c = new $class('2016-01-01 00:00:00', 'Europe/Copenhagen');
-       $class::setTestNow($c);
+        $c = new $class('2016-01-01 00:00:00', 'Europe/Copenhagen');
+        $class::setTestNow($c);
 
-       $result = new $class('now', null);
-       $this->assertEquals(new DateTimeZone('America/Toronto'), $result->tz);
-       $this->assertEquals('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
-       $this->assertEquals(new DateTimeZone('Europe/Copenhagen'), $class::getTestNow()->tz);
+        $result = new $class('now', null);
+        $this->assertEquals(new DateTimeZone('America/Toronto'), $result->tz);
+        $this->assertEquals('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
+        $this->assertEquals(new DateTimeZone('Europe/Copenhagen'), $class::getTestNow()->tz);
     }
 }
