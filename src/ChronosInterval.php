@@ -84,6 +84,13 @@ class ChronosInterval extends DateInterval
     const PHP_DAYS_FALSE = -99999;
 
     /**
+     * Whether or not this object was created in HHVM
+     *
+     * @var bool
+     */
+    protected $isHHVM = false;
+
+    /**
      * Determine if the interval was created via DateTime:diff() or not.
      *
      * @param DateInterval $interval The interval to check.
@@ -107,6 +114,7 @@ class ChronosInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
+        $this->isHHVM = defined('HHVM_VERSION');
         $spec = static::PERIOD_PREFIX;
 
         $spec .= $years > 0 ? $years . static::PERIOD_YEARS : '';
@@ -237,31 +245,34 @@ class ChronosInterval extends DateInterval
     public function __get($name)
     {
         switch ($name) {
-            case 'years':
-                return $this->y;
+        case 'years':
+                return $this->isHHVM ? parent::__get('y') : $this->y;
 
             case 'months':
-                return $this->m;
+                return $this->isHHVM ? parent::__get('m') : $this->m;
 
             case 'dayz':
-                return $this->d;
+                return $this->isHHVM ? parent::__get('d') : $this->d;
 
             case 'hours':
-                return $this->h;
+                return $this->isHHVM ? parent::__get('h') : $this->h;
 
             case 'minutes':
-                return $this->i;
+                return $this->isHHVM ? parent::__get('i') : $this->i;
 
             case 'seconds':
-                return $this->s;
+                return $this->isHHVM ? parent::__get('s') : $this->s;
 
             case 'weeks':
-                return (int)floor($this->d / ChronosInterface::DAYS_PER_WEEK);
+                return (int)floor(($this->isHHVM ? parent::__get('d') : $this->d) / ChronosInterface::DAYS_PER_WEEK);
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
-                return $this->d % ChronosInterface::DAYS_PER_WEEK;
-
+                return $this->dayz % ChronosInterface::DAYS_PER_WEEK;
+            case 'days':
+                return $this->isHHVM ? parent::__get('days') : $this->days;
+            case 'invert':
+                return $this->isHHVM ? parent::__get('invert') : $this->invert;
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
@@ -279,31 +290,36 @@ class ChronosInterval extends DateInterval
     {
         switch ($name) {
             case 'years':
-                $this->y = $val;
+                $this->isHHVM ? parent::__set('y', $val) : $this->y = $val;
                 break;
 
             case 'months':
-                $this->m = $val;
+                $this->isHHVM ? parent::__set('m', $val) : $this->m = $val;
                 break;
 
             case 'weeks':
-                $this->d = $val * ChronosInterface::DAYS_PER_WEEK;
+                $val = $val * ChronosInterface::DAYS_PER_WEEK;
+                $this->isHHVM ? parent::__set('d', $val) : $this->d = $val;
                 break;
 
             case 'dayz':
-                $this->d = $val;
+                $this->isHHVM ? parent::__set('d', $val) : $this->d = $val;
                 break;
 
             case 'hours':
-                $this->h = $val;
+                $this->isHHVM ? parent::__set('h', $val) : $this->h = $val;
                 break;
 
             case 'minutes':
-                $this->i = $val;
+                $this->isHHVM ? parent::__set('i', $val) : $this->i = $val;
                 break;
 
             case 'seconds':
-                $this->s = $val;
+                $this->isHHVM ? parent::__set('s', $val) : $this->s = $val;
+                break;
+
+            case 'invert':
+                $this->isHHVM ? parent::__set('invert', $val) : $this->invert = $val;
                 break;
         }
     }

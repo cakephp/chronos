@@ -220,7 +220,7 @@ class IntervalConstructTest extends TestCase
         $ci = ChronosInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
+        $this->assertTrue($ci->days === false || $ci->days === 0 || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
     }
 
     public function testInstanceWithNegativeDateInterval()
@@ -230,7 +230,7 @@ class IntervalConstructTest extends TestCase
         $ci = ChronosInterval::instance($di);
         $this->assertInstanceOf(ChronosInterval::class, $ci);
         $this->assertDateTimeInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
+        $this->assertTrue($ci->days === false || $ci->days === 0 || $ci->days === ChronosInterval::PHP_DAYS_FALSE);
         $this->assertSame(1, $ci->invert);
     }
 

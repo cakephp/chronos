@@ -82,7 +82,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         if (static::$testNow === null) {
-            return parent::__construct($time, $tz);
+            return parent::__construct($time === null ? 'now' : $time, $tz);
         }
 
         $relative = static::hasRelativeKeywords($time);
