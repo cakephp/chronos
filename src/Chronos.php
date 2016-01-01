@@ -96,7 +96,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         if ($tz !== $testInstance->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz);
+            $testInstance = $testInstance->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
         $time = $testInstance->format('Y-m-d H:i:s.u');

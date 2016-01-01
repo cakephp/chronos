@@ -33,6 +33,10 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         date_default_timezone_set($this->saveTz);
+        MutableDateTime::setTestNow(null);
+        Chronos::setTestNow(null);
+        MutableDate::setTestNow(null);
+        Date::setTestNow(null);
     }
 
     public function classNameProvider()

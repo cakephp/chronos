@@ -73,7 +73,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
         }
 
         if ($tz !== $testInstance->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz);
+            $testInstance = $testInstance->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
         $time = $testInstance->format('Y-m-d 00:00:00');

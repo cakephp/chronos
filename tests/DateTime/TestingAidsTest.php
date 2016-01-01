@@ -14,6 +14,7 @@
 namespace Cake\Chronos\Test\DateTime;
 
 use TestCase;
+use DateTimeZone;
 
 class TestingAidsTest extends TestCase
 {
@@ -157,5 +158,20 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-07-01T12:00:00-04:00', $class::parse('now')->toIso8601String());
         $this->assertSame('2013-07-01T11:00:00-05:00', $class::parse('now', 'America/Mexico_City')->toIso8601String());
         $this->assertSame('2013-07-01T09:00:00-07:00', $class::parse('now', 'America/Vancouver')->toIso8601String());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNullTimezone($class)
+    {
+       $c = new $class('2016-01-01 00:00:00', 'Europe/Copenhagen');
+       $class::setTestNow($c);
+
+       $result = new $class('now', null);
+       $this->assertEquals(new DateTimeZone('America/Toronto'), $result->tz);
+       $this->assertEquals('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
+       $this->assertEquals(new DateTimeZone('Europe/Copenhagen'), $class::getTestNow()->tz);
     }
 }

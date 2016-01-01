@@ -68,14 +68,14 @@ class MutableDate extends DateTime implements ChronosInterface
             return parent::__construct($time, $tz);
         }
 
-        $testInstance = static::getTestNow();
+        $testInstance = clone static::getTestNow();
         if ($relative) {
-            $testInstance = clone $testInstance;
+            $testInstance = $testInstance;
             $testInstance = $testInstance->modify($time);
         }
 
         if ($tz !== $testInstance->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz);
+            $testInstance = $testInstance->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
         $time = $testInstance->format('Y-m-d 00:00:00');
