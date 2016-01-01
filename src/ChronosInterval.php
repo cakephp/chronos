@@ -328,7 +328,9 @@ class ChronosInterval extends DateInterval
                 $this->isHHVM ? parent::__set('invert', $val) : $this->invert = $val;
                 break;
             default:
-                parent::__set($name, $val);
+                if ($this->isHHVM) {
+                    parent::__set($name, $val);
+                }
         }
     }
 
