@@ -53,7 +53,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * @param string|null $time Fixed or relative time
      * @param DateTimeZone|string|null $tz The timezone for the instance
      */
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = 'now', $tz = null)
     {
         $tz = new DateTimeZone('UTC');
         if (static::$testNow === null) {
@@ -203,7 +203,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
     public function setTimestamp($value)
     {
         $date = date('Y-m-d 00:00:00', $value);
-        return parent::setTimestamp(strtotime($value));
+        return parent::setTimestamp(strtotime($date));
     }
 
     /**

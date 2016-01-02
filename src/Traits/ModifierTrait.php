@@ -906,7 +906,7 @@ trait ModifierTrait
         $check = $dt->format('Y-m');
         $dt = $dt->modify("+$nth " . static::$days[$dayOfWeek]);
 
-        return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
+        return ($dt->format('Y-m') === $check) ? $dt : false;
     }
 
     /**
@@ -954,7 +954,7 @@ trait ModifierTrait
         $year = $dt->year;
         $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
+        return ($lastMonth < $dt->month || $year !== $dt->year) ? false : $dt;
     }
 
     /**
@@ -1000,7 +1000,7 @@ trait ModifierTrait
     public function nthOfYear($nth, $dayOfWeek)
     {
         $dt = $this->copy()->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
-        return $this->year === $dt->year ? $this->modify($dt) : false;
+        return $this->year === $dt->year ? $dt : false;
     }
 
     /**

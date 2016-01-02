@@ -37,7 +37,7 @@ class TimezoneTest extends TestCase
         $date = new Date('2015-01-01');
         $new = $date->{$method}($tz);
         $this->assertSame($new, $date);
-        $this->assertNotEquals($tz, $date->timezone);
+        $this->assertNotSame($tz, $new->timezone);
     }
 
     /**
@@ -51,6 +51,6 @@ class TimezoneTest extends TestCase
         $date = new MutableDate('2015-01-01');
         $new = $date->{$method}($tz);
         $this->assertSame($new, $date);
-        $this->assertNotEquals($tz, $date->timezone);
+        $this->assertNotSame($tz, $date->timezone);
     }
 }
