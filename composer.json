@@ -26,7 +26,7 @@
     "source": "https://github.com/cakephp/chronos"
   },
   "require": {
-    "php": ">=5.5.10"
+    "php": ">=5.5.9"
   },
   "require-dev": {
     "phpunit/phpunit": "*",
