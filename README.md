@@ -28,18 +28,18 @@ use Cake\Chronos\Chronos;
 printf("Now: %s", Chronos::now());
 ```
 
-# Differences with nesbot/barbon
+# Differences with nesbot/carbon
 
 The biggest and main difference is that `Chronos` extends `DateTimeImmutable` instead of `DateTime`.
 Immutability for date values has proven to be a great way of avoiding bugs and reduce the amount of code,
 since developers don't have to manually copy the instance every time they need a change.
 
 Another important feature it offers is the `Date` class, which is used for representing dates without time (calendar dates).
-Any time method called in this type of object is basically a no-op.
+Any time method called on this type of object is basically a no-op.
 
 A minor but still noticeable difference is that `Chronos` has no external dependencies, it is completely standalone.
 
-Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of intances with minimal
+Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
 overhead.
 
 Chronos also strives for HHVM compatibility, this library can be used safely with HHVM 3.11.
