@@ -44,11 +44,11 @@ want to migrate, we could use the following to update files:
 
 ```
 # Replace imports
-find ./src -type f -exec sed -i '' 's/use Carbon\\CarbonInterface/use Cake\\Chronos\\ChronosInterface/g' {} \;
+find ./src -type f -exec sed -i '' 's/use Carbon\\CarbonInterval/use Cake\\Chronos\\ChronosInterval/g' {} \;
 find ./src -type f -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
 
 # Replace typehints and extensions
-find ./src -type f -exec sed -i '' 's/CarbonInterface/ChronosInterface/g' {} \;
+find ./src -type f -exec sed -i '' 's/CarbonInterval/ChronosInterval/g' {} \;
 find ./src -type f -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
 
