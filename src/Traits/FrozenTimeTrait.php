@@ -140,7 +140,6 @@ trait FrozenTimeTrait
      */
     public function setTimestamp($value)
     {
-        $date = date('Y-m-d 00:00:00', $value);
         return parent::setTimestamp(strtotime($value));
     }
 
