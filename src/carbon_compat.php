@@ -13,5 +13,5 @@
 
 // Create class aliases for Carbon so applications
 // can upgrade more easily.
-class_alias('Cake\Chronos\Chronos', 'Carbon\MutableDateTime');
+class_alias('Cake\Chronos\DateTime', 'Carbon\MutableDateTime');
 class_alias('Cake\Chronos\ChronosInterface', 'Carbon\CarbonInterface');

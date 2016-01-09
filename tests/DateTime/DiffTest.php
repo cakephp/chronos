@@ -12,7 +12,7 @@
  */
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
 use Closure;
 use TestCase;
@@ -22,7 +22,7 @@ class DiffTest extends TestCase
 
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        parent::wrapWithTestNow($func, ($dt === null) ? Chronos::createFromDate(2012, 1, 1) : $dt);
+        parent::wrapWithTestNow($func, ($dt === null) ? DateTime::createFromDate(2012, 1, 1) : $dt);
     }
 
     /**
@@ -758,7 +758,7 @@ class DiffTest extends TestCase
 
     public function diffForHumansProvider()
     {
-        $now = Chronos::now();
+        $now = DateTime::now();
         return [
             [$now, $now->addYears(11), '11 years before'],
             [$now, $now->addYears(1), '1 year before'],
@@ -810,16 +810,16 @@ class DiffTest extends TestCase
     public function testDiffForHumansWithNow()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 second ago', Chronos::now()->subSeconds(1)->diffForHumans());
-            $this->assertSame('1 second from now', Chronos::now()->addSeconds(1)->diffForHumans());
+            $this->assertSame('1 second ago', DateTime::now()->subSeconds(1)->diffForHumans());
+            $this->assertSame('1 second from now', DateTime::now()->addSeconds(1)->diffForHumans());
         });
     }
 
     public function testDiffForHumansWithNowAbsolute()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 second', Chronos::now()->subSeconds(1)->diffForHumans(null, true));
-            $this->assertSame('1 second', Chronos::now()->addSeconds(1)->diffForHumans(null, true));
+            $this->assertSame('1 second', DateTime::now()->subSeconds(1)->diffForHumans(null, true));
+            $this->assertSame('1 second', DateTime::now()->addSeconds(1)->diffForHumans(null, true));
         });
     }
 }

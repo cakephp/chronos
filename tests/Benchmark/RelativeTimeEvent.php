@@ -2,7 +2,7 @@
 namespace Cake\Chronos\Test\Benchmark;
 
 use Athletic\AthleticEvent;
-use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
 
 /**
  * Benchmark relative time parsing.
@@ -14,7 +14,7 @@ class RelativeTimeEvent extends AthleticEvent
      */
     public function hasRelativeKeywordPlus()
     {
-        Chronos::hasRelativeKeywords('+3 days');
+        DateTime::hasRelativeKeywords('+3 days');
     }
 
     /**
@@ -22,6 +22,6 @@ class RelativeTimeEvent extends AthleticEvent
      */
     public function hasRelativeKeywordWords()
     {
-        Chronos::hasRelativeKeywords('first day of month');
+        DateTime::hasRelativeKeywords('first day of month');
     }
 }

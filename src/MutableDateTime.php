@@ -12,7 +12,6 @@
  */
 namespace Cake\Chronos;
 
-use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
 
@@ -22,7 +21,7 @@ use InvalidArgumentException;
  * This object can be mutated in place using any setter method,
  * or __set().
  */
-class MutableDateTime extends DateTime implements ChronosInterface
+class MutableDateTime extends \DateTime implements ChronosInterface
 {
     use Traits\ComparisonTrait;
     use Traits\DifferenceTrait;
@@ -82,11 +81,11 @@ class MutableDateTime extends DateTime implements ChronosInterface
     /**
      * Create a new immutable instance from current mutable instance.
      *
-     * @return Chronos
+     * @return DateTime
      */
     public function toImmutable()
     {
-        return Chronos::instance($this);
+        return DateTime::instance($this);
     }
 
     /**

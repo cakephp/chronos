@@ -13,7 +13,7 @@
 
 namespace Interval;
 
-use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
 use DateInterval;
 use Exception;
@@ -239,6 +239,6 @@ class IntervalConstructTest extends TestCase
      */
     public function testInstanceWithDaysThrowsException()
     {
-        $ci = ChronosInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
+        $ci = ChronosInterval::instance(DateTime::now()->diff(DateTime::now()->addWeeks(3)));
     }
 }

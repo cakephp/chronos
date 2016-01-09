@@ -47,7 +47,7 @@ use DateTimeZone;
  * @property-read string  $timezoneName
  * @property-read string  $tzName
  */
-class Chronos extends DateTimeImmutable implements ChronosInterface
+class DateTime extends DateTimeImmutable implements ChronosInterface
 {
     use Traits\ComparisonTrait;
     use Traits\DifferenceTrait;
