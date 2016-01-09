@@ -12,16 +12,42 @@
  */
 namespace Cake\Chronos;
 
+use DateTimeImmutable;
 use DateTimeZone;
-use InvalidArgumentException;
 
 /**
- * A mutable datetime instance that implements the ChronosInterface.
+ * An Immutable extension on the native DateTime object.
  *
- * This object can be mutated in place using any setter method,
- * or __set().
+ * Adds a number of convenience APIs methods and the ability
+ * to easily convert into a mutable object.
+ *
+ * @property-read int $year
+ * @property-read int $yearIso
+ * @property-read int $month
+ * @property-read int $day
+ * @property-read int $hour
+ * @property-read int $minute
+ * @property-read int $second
+ * @property-read int $timestamp seconds since the Unix Epoch
+ * @property-read DateTimeZone $timezone the current timezone
+ * @property-read DateTimeZone $tz alias of timezone
+ * @property-read int $micro
+ * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
+ * @property-read int $dayOfYear 0 through 365
+ * @property-read int $weekOfMonth 1 through 5
+ * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
+ * @property-read int $daysInMonth number of days in the given month
+ * @property-read int $age does a diffInYears() with default parameters
+ * @property-read int $quarter the quarter of this instance, 1 - 4
+ * @property-read int $offset the timezone offset in seconds from UTC
+ * @property-read int $offsetHours the timezone offset in hours from UTC
+ * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
+ * @property-read bool $local checks if the timezone is local, true if local, false otherwise
+ * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
+ * @property-read string  $timezoneName
+ * @property-read string  $tzName
  */
-class MutableDateTime extends \DateTime implements ChronosInterface
+class DateTime extends DateTimeImmutable implements ChronosInterface
 {
     use Traits\ComparisonTrait;
     use Traits\DifferenceTrait;
@@ -41,7 +67,7 @@ class MutableDateTime extends \DateTime implements ChronosInterface
     protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
 
     /**
-     * Create a new MutableDateTime instance.
+     * Create a new Chronos instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
@@ -64,9 +90,8 @@ class MutableDateTime extends \DateTime implements ChronosInterface
             return parent::__construct($time, $tz);
         }
 
-        $testInstance = clone static::getTestNow();
+        $testInstance = static::getTestNow();
         if ($relative) {
-            $testInstance = $testInstance;
             $testInstance = $testInstance->modify($time);
         }
 
@@ -79,61 +104,22 @@ class MutableDateTime extends \DateTime implements ChronosInterface
     }
 
     /**
-     * Create a new immutable instance from current mutable instance.
+     * Create a new mutable instance from current immutable instance.
      *
-     * @return DateTime
+     * @return \Cake\Chronos\MutableDateTime
      */
-    public function toImmutable()
+    public function toMutable()
     {
-        return DateTime::instance($this);
+        return MutableDateTime::instance($this);
     }
 
     /**
-     * Set a part of the ChronosInterface object
+     * Get a copy of the instance
      *
-     * @param string $name The property to set.
-     * @param string|int|DateTimeZone $value The value to set.
-     * @throws InvalidArgumentException
-     * @return void
+     * @return $this
      */
-    public function __set($name, $value)
+    public function copy()
     {
-        switch ($name) {
-            case 'year':
-                $this->year($value);
-                break;
-
-            case 'month':
-                $this->month($value);
-                break;
-
-            case 'day':
-                $this->day($value);
-                break;
-
-            case 'hour':
-                $this->hour($value);
-                break;
-
-            case 'minute':
-                $this->minute($value);
-                break;
-
-            case 'second':
-                $this->second($value);
-                break;
-
-            case 'timestamp':
-                $this->timestamp($value);
-                break;
-
-            case 'timezone':
-            case 'tz':
-                $this->timezone($value);
-                break;
-
-            default:
-                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
-        }
+        return $this;
     }
 }

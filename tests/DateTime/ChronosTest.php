@@ -11,7 +11,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-// Create class aliases for Carbon so applications
-// can upgrade more easily.
-class_alias('Cake\Chronos\DateTime', 'Carbon\MutableDateTime');
-class_alias('Cake\Chronos\ChronosInterface', 'Carbon\CarbonInterface');
+namespace Cake\Chronos\Test\DateTime;
+
+use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
+use TestCase;
+
+class ChronosTest extends TestCase
+{
+    /**
+     * @return void
+     */
+    public function testChronosAliasInstance()
+    {
+        $d = new Chronos();
+        $this->assertTrue($d instanceof DateTime);
+    }
+}

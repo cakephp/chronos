@@ -13,7 +13,7 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
 use TestCase;
 
 class StringsTest extends TestCase
@@ -266,6 +266,6 @@ class StringsTest extends TestCase
      */
     public function testToQuarter($date, $expected, $range = false)
     {
-        $this->assertEquals($expected, (new Chronos($date))->toQuarter($range));
+        $this->assertEquals($expected, (new DateTime($date))->toQuarter($range));
     }
 }

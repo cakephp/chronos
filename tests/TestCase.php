@@ -12,9 +12,9 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
+use Cake\Chronos\DateTime;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 
@@ -34,7 +34,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set($this->saveTz);
         MutableDateTime::setTestNow(null);
-        Chronos::setTestNow(null);
+        DateTime::setTestNow(null);
         MutableDate::setTestNow(null);
         Date::setTestNow(null);
     }
@@ -43,7 +43,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         return [
             'mutable' => [MutableDateTime::class],
-            'immutable' => [Chronos::class]
+            'immutable' => [DateTime::class]
         ];
     }
 
@@ -101,8 +101,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        Chronos::setTestNow(($dt === null) ? Chronos::now() : $dt);
+        DateTime::setTestNow(($dt === null) ? DateTime::now() : $dt);
         $func();
-        Chronos::setTestNow();
+        DateTime::setTestNow();
     }
 }
