@@ -11,7 +11,6 @@
  */
 namespace Cake\Chronos;
 
-use DateTime;
 use DateTimeZone;
 
 /**
@@ -21,7 +20,7 @@ use DateTimeZone;
  * This means that timezone changes take no effect as a calendar date exists in all timezones
  * in each respective date.
  */
-class MutableDate extends DateTime implements ChronosInterface
+class MutableDate extends \DateTime implements ChronosInterface
 {
     use Traits\ComparisonTrait;
     use Traits\DifferenceTrait;
