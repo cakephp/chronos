@@ -23,21 +23,21 @@ You can then use Chronos:
 <?php
 require 'vendor/autoload.php';
 
-use Cake\Chronos\Chronos;
+use Cake\Chronos\DateTime;
 
-printf("Now: %s", Chronos::now());
+printf("Now: %s", DateTime::now());
 ```
 
 # Differences with nesbot/carbon
 
-The biggest and main difference is that `Chronos` extends `DateTimeImmutable` instead of `DateTime`.
+The biggest and main difference is that `Cake\\Chronos\\DateTime` extends `DateTimeImmutable` instead of `DateTime`.
 Immutability for date values has proven to be a great way of avoiding bugs and reduce the amount of code,
 since developers don't have to manually copy the instance every time they need a change.
 
-Another important feature it offers is the `Date` class, which is used for representing dates without time (calendar dates).
+Another important feature it offers is the `Cake\\Chronos\\Date` class, which is used for representing dates without time (calendar dates).
 Any time method called on this type of object is basically a no-op.
 
-A minor but still noticeable difference is that `Chronos` has no external dependencies, it is completely standalone.
+A minor but still noticeable difference is that `Cake\\Chronos\\DateTime` has no external dependencies, it is completely standalone.
 
 Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
 overhead.
@@ -45,8 +45,6 @@ overhead.
 Chronos also strives for HHVM compatibility, this library can be used safely with HHVM 3.11.
 
 # Migrating from Carbon
-
-
 First add `cakephp/chronos` to your `composer.json`:
 
 ```shell
@@ -57,7 +55,7 @@ By default Chronos includes a compatibility script that creates aliases for the
 relevant Carbon classes.  This will let most applications upgrade with very
 little effort. If you'd like to permanently update your code, you will
 need to update imports and typehints. Assuming `src` contains the files you
-want to migrate, we could use the following to update files:
+want to migrate, we could use the following to update files, using the `Cake\\Chronos\\Chronos` alias:
 
 ```
 # Replace imports
@@ -70,7 +68,10 @@ find ./src -type f -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
 
 At this point your code should mostly work as it did before. The biggest
-different is that Chronos instances are immutable.
+different is that `Chronos` instances are immutable.
+
+Note that `Cake\\Chronos\\Chronos` extends `Cake\\Chronos\\DateTime` to allow easier Carbon migration,
+as that name will less likely conflict with any existing core `DateTime` class names.
 
 ## Immutable Object Changes
 
@@ -83,12 +84,14 @@ With those benefits in mind, there are a few things you need to keep in mind
 when modifying immutable objects:
 
 ```php
+use Cake\Chronos\DateTime;
+
 // This will lose modifications
-$date = new Chronos('2015-10-21 16:29:00');
+$date = new DateTime('2015-10-21 16:29:00');
 $date->modify('+2 hours');
 
 // This will keep modifications
-$date = new Chronos('2015-10-21 16:29:00');
+$date = new DateTime('2015-10-21 16:29:00');
 $date = $date->modify('+2 hours');
 ```
 
@@ -97,7 +100,10 @@ $date = $date->modify('+2 hours');
 In the case that you need a mutable instance you can get one:
 
 ```php
-$time = new Chronos('2015-10-21 16:29:00');
+use Cake\Chronos\Date;
+use Cake\Chronos\DateTime;
+
+$time = new DateTime('2015-10-21 16:29:00');
 $mutable = $time->toMutable();
 
 $date = new Date('2015-10-21');
@@ -109,6 +115,9 @@ $mutable = $date->toMutable();
 If you have a mutable object and want an immutable variant you can do the following:
 
 ```php
+use Cake\Chronos\MutableDate;
+use Cake\Chronos\MutableDateTime;
+
 $time = new MutableDateTime('2015-10-21 16:29:00');
 $fixed = $time->toImmutable();
 
@@ -135,7 +144,7 @@ echo $today->modify('+3 hours');
 // Outputs '2015-10-21'
 ```
 
-Like instances of `Chronos`, `Date` objects are also *immutable*. The `MutableDate` class provides
+Like instances of `DateTime`, `Date` objects are also *immutable*. The `MutableDate` class provides
 a mutable variant of `Date`.
 
 # Documentation
