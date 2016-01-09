@@ -12,8 +12,8 @@
  */
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\DateTime;
 use Closure;
 use TestCase;
 

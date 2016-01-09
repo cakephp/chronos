@@ -12,9 +12,9 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
+use Cake\Chronos\DateTime;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 

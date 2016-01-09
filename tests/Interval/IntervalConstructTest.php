@@ -13,10 +13,9 @@
 
 namespace Interval;
 
-use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\DateTime;
 use DateInterval;
-use Exception;
 use InvalidArgumentException;
 use TestCase;
 

@@ -13,8 +13,8 @@
 
 namespace Cake\Chronos\Test\Interval;
 
-use Cake\Chronos\DateTime;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\DateTime;
 use DateInterval;
 use TestCase;
 
