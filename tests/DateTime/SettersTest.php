@@ -13,6 +13,7 @@
 
 namespace Cake\Chronos\Test;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
 use InvalidArgumentException;
 use TestCase;
@@ -115,6 +116,18 @@ class SettersTest extends TestCase
         $d = MutableDateTime::now();
         $d->setTime(1, 1);
         $this->assertSame(0, $d->second);
+    }
+
+    public function testSetDateAfterStringCreation()
+    {
+        $d = new MutableDateTime('first day of this month');
+        $this->assertEquals(1, $d->day);
+        $d->setDate($d->year, $d->month, 12);
+        $this->assertEquals(12, $d->day);
+
+        $d = new Chronos('first day of this month');
+        $this->assertEquals(1, $d->day);
+        $this->assertEquals(12, $d->setDate($d->year, $d->month, 12)->day);
     }
 
     public function testDateTimeSetter()
@@ -253,7 +266,7 @@ class SettersTest extends TestCase
         $d = MutableDateTime::now();
         $d->doesNotExit = 'bb';
     }
-    
+
     public function testSetTimeFromTimeString()
     {
         $d = MutableDateTime::now();

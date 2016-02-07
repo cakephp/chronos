@@ -14,6 +14,7 @@ namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
 use DateTime;
+use DateTimeImmutable;
 
 /**
  * Provides a suite of modifier methods.
@@ -97,6 +98,31 @@ trait ModifierTrait
     public static function setWeekEndsAt($day)
     {
         static::$weekEndsAt = $day;
+    }
+
+    /**
+     * Set the date to a different date.
+     *
+     * Workaround for a PHP bug related to the first day of a month
+     *
+     * @param int $year The year to set.
+     * @param int $month The month to set.
+     * @param int $day The day to set.
+     * @return static
+     * @see https://bugs.php.net/bug.php?id=63863
+     */
+    public function setDate($year, $month, $day)
+    {
+        // Workaround for PHP issue.
+        $date = $this->modify('+0 day');
+
+        if ($this instanceof DateTimeImmutable) {
+            // Reflection is necessary to access the parent method
+            // of the immutable object
+            $method = new \ReflectionMethod('DateTimeImmutable', 'setDate');
+            return $method->invoke($date, $year, $month, $day);
+        }
+        return parent::setDate($year, $month, $day);
     }
 
     /**
