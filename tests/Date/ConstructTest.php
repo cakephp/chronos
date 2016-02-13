@@ -21,6 +21,31 @@ use TestCase;
  */
 class ConstructTest extends TestCase
 {
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testCreateFromTimestamp($class)
+    {
+        $ts = 1454284800;
+        $date = $class::createFromTimestamp($ts);
+        $this->assertEquals('UTC', $date->tzName);
+        $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testCreateFromTimestampUtc($class)
+    {
+        $ts = 1454284800;
+        $date = $class::createFromTimestamp($ts);
+        $this->assertEquals('UTC', $date->tzName);
+        $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+    }
+
     /**
      * @dataProvider dateClassProvider
      * @return void
