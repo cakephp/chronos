@@ -26,8 +26,8 @@ class Date extends DateTimeImmutable implements ChronosInterface
     use Traits\ComparisonTrait;
     use Traits\DifferenceTrait;
     use Traits\FactoryTrait;
-    use Traits\FrozenTimeTrait;
     use Traits\FormattingTrait;
+    use Traits\FrozenTimeTrait;
     use Traits\MagicPropertyTrait;
     use Traits\ModifierTrait;
     use Traits\RelativeKeywordTrait;
