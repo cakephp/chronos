@@ -18,6 +18,7 @@ namespace Cake\Chronos\Traits;
  */
 trait FrozenTimeTrait
 {
+
     /**
      * Removes the time components from an input string.
      *
@@ -66,11 +67,7 @@ trait FrozenTimeTrait
      */
     public function add($interval)
     {
-        $date = parent::add($interval);
-        if ($date->format('H:i:s') !== '00:00:00') {
-            return $date->setTime(0, 0, 0);
-        }
-        return $date;
+        return parent::add($interval)->setTime(0, 0, 0);
     }
 
     /**
@@ -83,11 +80,7 @@ trait FrozenTimeTrait
      */
     public function sub($interval)
     {
-        $date = parent::sub($interval);
-        if ($date->format('H:i:s') !== '00:00:00') {
-            return $date->setTime(0, 0, 0);
-        }
-        return $date;
+        return parent::sub($interval)->setTime(0, 0, 0);
     }
 
     /**
@@ -140,7 +133,7 @@ trait FrozenTimeTrait
      */
     public function setTimestamp($value)
     {
-        return parent::setTimestamp(strtotime($value));
+        return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
 
     /**
