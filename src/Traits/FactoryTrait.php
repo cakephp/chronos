@@ -205,6 +205,10 @@ trait FactoryTrait
         }
 
         $errors = parent::getLastErrors();
+        if ($dt == false) {
+            throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
+        }
+
         $dt = static::instance($dt);
         static::$_lastErrors = $errors;
 
