@@ -195,6 +195,7 @@ trait FactoryTrait
      * @param string $time The formatted date string to interpret.
      * @param DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
+     * @throws InvalidArgumentException
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
