@@ -52,4 +52,23 @@ class InstanceTest extends TestCase
         $carbon = $class::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromFormatErrors($class)
+    {
+        $class::createFromFormat('d/m/Y', "41/02/1900");
+        $errors = $class::getLastErrors();
+        $expected = [
+            "warning_count" => 1,
+            "warnings" => [
+                10 => "The parsed date was invalid",
+            ],
+            "error_count" => 0,
+            "errors" => [],
+        ];
+        $this->assertSame($expected, $errors);
+    }
 }

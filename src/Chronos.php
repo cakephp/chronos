@@ -81,6 +81,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
         }
 
+        static::$_lastErrors = [];
         if (static::$testNow === null) {
             return parent::__construct($time === null ? 'now' : $time, $tz);
         }
