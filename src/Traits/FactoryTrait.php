@@ -144,19 +144,31 @@ trait FactoryTrait
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
-        $year = ($year === null) ? date('Y') : $year;
-        $month = ($month === null) ? date('n') : $month;
-        $day = ($day === null) ? date('j') : $day;
+        $now = isset(static::$testNow) ? static::$testNow->getTimestamp() : time();
+        $defaults = array_combine(
+            [
+                'year',
+                'month',
+                'day',
+                'hour',
+                'minute',
+                'second',
+            ],
+            explode('-', date('Y-n-j-G-i-s', $now))
+        );
 
         if ($hour === null) {
-            $hour = date('G');
-            $minute = ($minute === null) ? date('i') : $minute;
-            $second = ($second === null) ? date('s') : $second;
+            $hour = $defaults['hour'];
         } else {
-            $minute = ($minute === null) ? 0 : $minute;
-            $second = ($second === null) ? 0 : $second;
+            $defaults['minute'] = 0;
+            $defaults['second'] = 0;
         }
 
+        $year = $year === null ? $defaults['year'] : $year;
+        $month = $month === null ? $defaults['month'] : $month;
+        $day = $day === null ? $defaults['day'] : $day;
+        $minute = $minute === null ? $defaults['minute'] : $minute;
+        $second = $second === null ? $defaults['second'] : $second;
         return static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
     }
 
