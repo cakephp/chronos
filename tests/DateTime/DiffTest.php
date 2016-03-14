@@ -577,6 +577,7 @@ class DiffTest extends TestCase
      */
     public function testDiffInHoursVsDefaultNow($class)
     {
+        date_default_timezone_set('UTC');
         $this->wrapWithTestNow(function () use ($class) {
             $this->assertSame(48, $class::now()->subDays(2)->diffInHours());
         }, $class::create(2012, 1, 15));
