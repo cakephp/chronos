@@ -100,6 +100,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-08-25 05:15:05', $class::parse('1 week ago')->toDateTimeString());
 
         $this->assertSame('2013-09-02 00:00:00', $class::parse('tomorrow')->toDateTimeString());
+        $this->assertSame('2013-09-01 00:00:00', $class::parse('today')->toDateTimeString());
         $this->assertSame('2013-08-31 00:00:00', $class::parse('yesterday')->toDateTimeString());
 
         $this->assertSame('2013-09-02 05:15:05', $class::parse('+1 day')->toDateTimeString());
