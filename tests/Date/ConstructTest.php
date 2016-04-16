@@ -241,7 +241,8 @@ class ConstructTest extends TestCase
     /**
      * @dataProvider dateClassProvider
      */
-    public function testConstructWithRelative($class) {
+    public function testConstructWithRelative($class)
+    {
         $c = new $class('+7 days');
         $this->assertEquals('00:00:00', $c->format('H:i:s'));
     }

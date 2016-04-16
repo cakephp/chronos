@@ -11,7 +11,6 @@
  */
 namespace Cake\Chronos\Traits;
 
-
 /**
  * A trait for freezing the time aspect of a DateTime.
  *
@@ -19,6 +18,7 @@ namespace Cake\Chronos\Traits;
  */
 trait FrozenTimeTrait
 {
+
     use RelativeKeywordTrait;
 
     /**
