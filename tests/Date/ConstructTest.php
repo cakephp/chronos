@@ -231,9 +231,18 @@ class ConstructTest extends TestCase
     {
         $class::setTestNow($class::create(2001, 1, 1));
         $date = new $class('+2 days');
-        $this->assertDateTime($date, 2001, 1, 3);
+        $this->assertDateTime($date, 2001, 1, 3, 0, 0, 0);
 
         $date = new $class();
         $this->assertNotEquals('2001-01-03', $date->format('Y-m-d'));
+        $class::setTestNow(null);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testConstructWithRelative($class) {
+        $c = new $class('+7 days');
+        $this->assertEquals('00:00:00', $c->format('H:i:s'));
     }
 }
