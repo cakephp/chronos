@@ -19,6 +19,8 @@ namespace Cake\Chronos\Traits;
 trait FrozenTimeTrait
 {
 
+    use RelativeKeywordTrait;
+
     /**
      * Removes the time components from an input string.
      *
@@ -38,6 +40,9 @@ trait FrozenTimeTrait
         }
         if ($time === null || $time === 'now' || $time === '') {
             return date('Y-m-d 00:00:00');
+        }
+        if ($this->hasRelativeKeywords($time)) {
+            return date('Y-m-d 00:00:00', strtotime($time));
         }
         return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}/', '00:00:00', $time);
     }

@@ -30,7 +30,6 @@ class MutableDate extends DateTime implements ChronosInterface
     use Traits\FrozenTimeTrait;
     use Traits\MagicPropertyTrait;
     use Traits\ModifierTrait;
-    use Traits\RelativeKeywordTrait;
     use Traits\TestingAidTrait;
 
     /**
