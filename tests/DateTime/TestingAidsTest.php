@@ -156,9 +156,9 @@ class TestingAidsTest extends TestCase
         $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
         $class::setTestNow($notNow);
 
-        $this->assertSame('2013-07-01T12:00:00-04:00', $class::parse('now')->toIso8601String());
-        $this->assertSame('2013-07-01T11:00:00-05:00', $class::parse('now', 'America/Mexico_City')->toIso8601String());
-        $this->assertSame('2013-07-01T09:00:00-07:00', $class::parse('now', 'America/Vancouver')->toIso8601String());
+        $this->assertSame('2013-07-01T12:00:00-0400', $class::parse('now')->toIso8601String());
+        $this->assertSame('2013-07-01T11:00:00-0500', $class::parse('now', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T09:00:00-0700', $class::parse('now', 'America/Vancouver')->toIso8601String());
     }
 
     /**
