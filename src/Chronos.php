@@ -32,7 +32,7 @@ use DateTimeZone;
  * @property-read DateTimeZone $timezone the current timezone
  * @property-read DateTimeZone $tz alias of timezone
  * @property-read int $micro
- * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
+ * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5
  * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
