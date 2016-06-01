@@ -231,4 +231,18 @@ class CreateTest extends TestCase
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateWithTestNow($class)
+    {
+        $class::setTestNow();
+        $testNow = $class::create(2011, 1, 1, 12, 13, 14);
+        $class::setTestNow($testNow);
+        $dt = $class::create(null, null, null, null, null, null);
+        $this->assertDateTime($dt, 2011, 1, 1, 12, 13, 14);
+        $this->assertTrue($dt->eq($dt));
+    }
 }
