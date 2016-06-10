@@ -50,12 +50,32 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
-    public function testCreateWithInvalidYear($class)
+    public function testCreateHandlesNegativeYear($class)
     {
-        $class::create(-3);
+        $d = $class::create(-1, 10, 12, 1, 2, 3);
+        $this->assertDateTime($d, -1, 10, 12, 1, 2, 3);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateHandlesFiveDigitsPositiveYears($class)
+    {
+        $c = $class::create(999999999, 10, 12, 1, 2, 3);
+        $this->assertDateTime($c, 999999999, 10, 12, 1, 2, 3);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateHandlesFiveDigitsNegativeYears($class)
+    {
+        $c = $class::create(-999999999, 10, 12, 1, 2, 3);
+        $this->assertDateTime($c, -999999999, 10, 12, 1, 2, 3);
     }
 
     /**
