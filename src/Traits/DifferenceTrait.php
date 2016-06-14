@@ -272,7 +272,7 @@ trait DifferenceTrait
      * @param bool $absolute removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForhumans(ChronosInterface $other = null, $absolute = false)
+    public function diffForHumans(ChronosInterface $other = null, $absolute = false)
     {
         return static::diffFormatter()->diffForHumans($this, $other, $absolute);
     }
