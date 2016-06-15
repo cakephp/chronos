@@ -823,4 +823,23 @@ class DiffTest extends TestCase
             $this->assertSame('1 second', Chronos::now()->addSeconds(1)->diffForHumans(null, true));
         });
     }
+
+    public function testDiffFormatterSameObject()
+    {
+        $formatter = Chronos::diffFormatter();
+        $this->assertInstanceOf('Cake\Chronos\DifferenceFormatter', $formatter);
+
+        $second = Chronos::diffFormatter();
+        $this->assertSame($second, $formatter, 'Same object returned on multiple calls');
+    }
+
+    public function testDiffFormatterSetter()
+    {
+        $formatter = new \Cake\Chronos\DifferenceFormatter();
+        $result = Chronos::diffFormatter($formatter);
+        $this->assertSame($result, $formatter, 'Should return parameter');
+
+        $second = Chronos::diffFormatter();
+        $this->assertSame($second, $formatter, 'Same object returned later');
+    }
 }

@@ -291,6 +291,6 @@ trait DifferenceTrait
             }
             return static::$diffFormatter;
         }
-        return static::$diffFormatter = $translator;
+        return static::$diffFormatter = $formatter;
     }
 }
