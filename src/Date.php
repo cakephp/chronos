@@ -58,12 +58,14 @@ class Date extends DateTimeImmutable implements ChronosInterface
         $tz = new DateTimeZone('UTC');
         if (static::$testNow === null) {
             $time = $this->stripTime($time);
+
             return parent::__construct($time, $tz);
         }
 
         $relative = static::hasRelativeKeywords($time);
         if (!empty($time) && $time !== 'now' && !$relative) {
             $time = $this->stripTime($time);
+
             return parent::__construct($time, $tz);
         }
 

@@ -232,6 +232,7 @@ class ChronosInterval extends DateInterval
         $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
         $instance->invert = $di->invert;
         $instance->days = $di->days;
+
         return $instance;
     }
 
@@ -344,6 +345,7 @@ class ChronosInterval extends DateInterval
     public function weeksAndDays($weeks, $days)
     {
         $this->dayz = ($weeks * ChronosInterface::DAYS_PER_WEEK) + $days;
+
         return $this;
     }
 

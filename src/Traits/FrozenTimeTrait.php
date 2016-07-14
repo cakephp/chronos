@@ -44,6 +44,7 @@ trait FrozenTimeTrait
         if ($this->hasRelativeKeywords($time)) {
             return date('Y-m-d 00:00:00', strtotime($time));
         }
+
         return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}/', '00:00:00', $time);
     }
 
@@ -159,6 +160,7 @@ trait FrozenTimeTrait
         if ($new->format('H:i:s') !== '00:00:00') {
             return $new->setTime(0, 0, 0);
         }
+
         return $new;
     }
 }

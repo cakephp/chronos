@@ -120,8 +120,10 @@ trait ModifierTrait
             // Reflection is necessary to access the parent method
             // of the immutable object
             $method = new \ReflectionMethod('DateTimeImmutable', 'setDate');
+
             return $method->invoke($date, $year, $month, $day);
         }
+
         return parent::setDate($year, $month, $day);
     }
 
@@ -153,6 +155,7 @@ trait ModifierTrait
         $hour = $time[0];
         $minute = isset($time[1]) ? $time[1] : 0;
         $second = isset($time[2]) ? $time[2] : 0;
+
         return $this->setTime($hour, $minute, $second);
     }
 
@@ -433,6 +436,7 @@ trait ModifierTrait
     public function addDays($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value day");
     }
 
@@ -445,6 +449,7 @@ trait ModifierTrait
     public function addDay($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("$value day");
     }
 
@@ -457,6 +462,7 @@ trait ModifierTrait
     public function subDay($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("-$value day");
     }
 
@@ -469,6 +475,7 @@ trait ModifierTrait
     public function subDays($value)
     {
         $value = (int)$value;
+
         return $this->modify("-$value day");
     }
 
@@ -504,6 +511,7 @@ trait ModifierTrait
     public function subWeekdays($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value weekdays ago, " . $this->format('H:i:s'));
     }
 
@@ -528,6 +536,7 @@ trait ModifierTrait
     public function addWeeks($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value week");
     }
 
@@ -540,6 +549,7 @@ trait ModifierTrait
     public function addWeek($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("$value week");
     }
 
@@ -552,6 +562,7 @@ trait ModifierTrait
     public function subWeek($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("-$value week");
     }
 
@@ -564,6 +575,7 @@ trait ModifierTrait
     public function subWeeks($value)
     {
         $value = (int)$value;
+
         return $this->modify("-$value week");
     }
 
@@ -577,6 +589,7 @@ trait ModifierTrait
     public function addHours($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value hour");
     }
 
@@ -589,6 +602,7 @@ trait ModifierTrait
     public function addHour($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("$value hour");
     }
 
@@ -601,6 +615,7 @@ trait ModifierTrait
     public function subHour($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("-$value hour");
     }
 
@@ -613,6 +628,7 @@ trait ModifierTrait
     public function subHours($value)
     {
         $value = (int)$value;
+
         return $this->modify("-$value hour");
     }
 
@@ -626,6 +642,7 @@ trait ModifierTrait
     public function addMinutes($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value minute");
     }
 
@@ -638,6 +655,7 @@ trait ModifierTrait
     public function addMinute($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("$value minute");
     }
 
@@ -650,6 +668,7 @@ trait ModifierTrait
     public function subMinute($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("-$value minute");
     }
 
@@ -662,6 +681,7 @@ trait ModifierTrait
     public function subMinutes($value)
     {
         $value = (int)$value;
+
         return $this->modify("-$value minute");
     }
 
@@ -675,6 +695,7 @@ trait ModifierTrait
     public function addSeconds($value)
     {
         $value = (int)$value;
+
         return $this->modify("$value second");
     }
 
@@ -687,6 +708,7 @@ trait ModifierTrait
     public function addSecond($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("$value second");
     }
 
@@ -699,6 +721,7 @@ trait ModifierTrait
     public function subSecond($value = 1)
     {
         $value = (int)$value;
+
         return $this->modify("-$value second");
     }
 
@@ -711,6 +734,7 @@ trait ModifierTrait
     public function subSeconds($value)
     {
         $value = (int)$value;
+
         return $this->modify("-$value second");
     }
 
@@ -782,6 +806,7 @@ trait ModifierTrait
     public function startOfDecade()
     {
         $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE;
+
         return $this->modify("first day of january $year, midnight");
     }
 
@@ -793,6 +818,7 @@ trait ModifierTrait
     public function endOfDecade()
     {
         $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE + ChronosInterface::YEARS_PER_DECADE - 1;
+
         return $this->modify("last day of december $year, 23:59:59");
     }
 
@@ -804,6 +830,7 @@ trait ModifierTrait
     public function startOfCentury()
     {
         $year = $this->startOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)->year;
+
         return $this->modify("first day of january $year, midnight");
     }
 
@@ -815,6 +842,7 @@ trait ModifierTrait
     public function endOfCentury()
     {
         $year = $this->endOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY)->year;
+
         return $this->modify("last day of december $year, 23:59:59");
     }
 
@@ -864,6 +892,7 @@ trait ModifierTrait
         }
 
         $day = static::$days[$dayOfWeek];
+
         return $this->modify("next $day, midnight");
     }
 
@@ -883,6 +912,7 @@ trait ModifierTrait
         }
 
         $day = static::$days[$dayOfWeek];
+
         return $this->modify("last $day, midnight");
     }
 
@@ -898,6 +928,7 @@ trait ModifierTrait
     public function firstOfMonth($dayOfWeek = null)
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
+
         return $this->modify("first $day of this month, midnight");
     }
 
@@ -913,6 +944,7 @@ trait ModifierTrait
     public function lastOfMonth($dayOfWeek = null)
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
+
         return $this->modify("last $day of this month, midnight");
     }
 
@@ -995,6 +1027,7 @@ trait ModifierTrait
     public function firstOfYear($dayOfWeek = null)
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
+
         return $this->modify("first $day of january, midnight");
     }
 
@@ -1010,6 +1043,7 @@ trait ModifierTrait
     public function lastOfYear($dayOfWeek = null)
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
+
         return $this->modify("last $day of december, midnight");
     }
 
@@ -1026,6 +1060,7 @@ trait ModifierTrait
     public function nthOfYear($nth, $dayOfWeek)
     {
         $dt = $this->copy()->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
+
         return $this->year === $dt->year ? $dt : false;
     }
 
@@ -1038,6 +1073,7 @@ trait ModifierTrait
     public function average(ChronosInterface $dt = null)
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
         return $this->addSeconds((int)($this->diffInSeconds($dt, false) / 2));
     }
 }

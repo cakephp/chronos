@@ -66,6 +66,7 @@ class Translator
         if ($count == 1) {
             return $this->singular($key, $vars);
         }
+
         return $this->singular($key . '_plural', ['count' => $count] + $vars);
     }
 
@@ -83,8 +84,10 @@ class Translator
             foreach ($varKeys as $i => $k) {
                 $varKeys[$i] = '{' . $k . '}';
             }
+
             return str_replace($varKeys, $vars, static::$strings[$key]);
         }
+
         return '';
     }
 }
