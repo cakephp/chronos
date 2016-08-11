@@ -252,7 +252,8 @@ trait FormattingTrait
     /**
      * @return int
      */
-    public function toWeek() {
+    public function toWeek() 
+    {
         return (int)$this->format('W');
     }
 }
