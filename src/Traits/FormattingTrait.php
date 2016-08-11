@@ -248,4 +248,12 @@ trait FormattingTrait
                 return [$year . '-10-01', $year . '-12-31'];
         }
     }
+
+    /**
+     * @return int
+     */
+    public function toWeek()
+    {
+        return (int)$this->format('W');
+    }
 }

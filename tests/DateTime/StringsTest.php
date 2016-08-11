@@ -268,4 +268,30 @@ class StringsTest extends TestCase
     {
         $this->assertEquals($expected, (new Chronos($date))->toQuarter($range));
     }
+
+    /**
+     * Provides values and expectations for the toWeek method
+     *
+     * @return array
+     */
+    public function toWeekProvider()
+    {
+        return [
+            ['2007-1-1', 1],
+            ['2007-3-25', 12],
+            ['2007-12-29', 52],
+            ['2007-12-31', 1],
+        ];
+    }
+
+    /**
+     * testToWeek method
+     *
+     * @dataProvider toWeekProvider
+     * @return void
+     */
+    public function testToWeek($date, $expected)
+    {
+        $this->assertEquals($expected, (new Chronos($date))->toWeek());
+    }
 }
