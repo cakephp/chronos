@@ -126,7 +126,7 @@ interface ChronosInterface extends DateTimeInterface
      * @return static
      */
     public function setTimeFromTimeString($time);
-    
+
     /**
      * Set the instance's timestamp
      *
@@ -337,7 +337,7 @@ interface ChronosInterface extends DateTimeInterface
      * @return static
      */
     public function closest(ChronosInterface $dt1, ChronosInterface $dt2);
-    
+
     /**
      * Get the farthest date from the instance.
      *
@@ -346,7 +346,7 @@ interface ChronosInterface extends DateTimeInterface
      * @return static
      */
     public function farthest(ChronosInterface $dt1, ChronosInterface $dt2);
-    
+
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *

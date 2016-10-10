@@ -138,7 +138,7 @@ trait ComparisonTrait
 
         return $this->gt($dt1) && $this->lt($dt2);
     }
-    
+
     /**
      * Get the closest date from the instance.
      *
