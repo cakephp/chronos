@@ -54,11 +54,12 @@ trait FrozenTimeTrait
      * This method ignores all inputs and forces all inputs to 0.
      *
      * @param int $hours The hours to set (ignored)
-     * @param int $minutes The hours to set (ignored)
-     * @param int $seconds The hours to set (ignored)
+     * @param int $minutes The minutes to set (ignored)
+     * @param int $seconds The seconds to set (ignored)
+     * @param int $microseconds The microseconds to set (ignored)
      * @return static A modified Date instance.
      */
-    public function setTime($hours, $minutes, $seconds = 0)
+    public function setTime($hours, $minutes, $seconds = null, $microseconds = null)
     {
         return parent::setTime(0, 0, 0);
     }
