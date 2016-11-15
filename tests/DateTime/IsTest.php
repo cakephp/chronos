@@ -187,7 +187,6 @@ class IsTest extends TestCase
     public function testIsPastFalse($class)
     {
         $this->assertFalse($class::now()->addSecond()->isPast());
-        $this->assertFalse($class::now()->isPast());
     }
 
     /**
