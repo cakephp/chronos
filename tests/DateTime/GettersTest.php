@@ -114,17 +114,7 @@ class GettersTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testMicroGetterWithDefaultNow($class)
-    {
-        $d = $class::now();
-        $this->assertSame(0, $d->micro);
-    }
-
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDayOfWeeGetter($class)
+    public function testDayOfWeekGetter($class)
     {
         $d = $class::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame($class::MONDAY, $d->dayOfWeek);
