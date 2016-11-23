@@ -53,7 +53,7 @@ trait MagicPropertyTrait
                 return (int)ceil($this->day / ChronosInterface::DAYS_PER_WEEK);
 
             case $name === 'age':
-                return (int)$this->diffInYears();
+                return $this->diffInYears();
 
             case $name === 'quarter':
                 return (int)ceil($this->month / 3);
