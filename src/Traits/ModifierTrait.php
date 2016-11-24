@@ -978,7 +978,7 @@ trait ModifierTrait
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * 3 - 2)->firstOfMonth($dayOfWeek);
+        return $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER - 2)->firstOfMonth($dayOfWeek);
     }
 
     /**
@@ -992,7 +992,7 @@ trait ModifierTrait
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * 3)->lastOfMonth($dayOfWeek);
+        return $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER)->lastOfMonth($dayOfWeek);
     }
 
     /**
@@ -1007,7 +1007,7 @@ trait ModifierTrait
      */
     public function nthOfQuarter($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->day(1)->month($this->quarter * 3);
+        $dt = $this->copy()->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER);
         $lastMonth = $dt->month;
         $year = $dt->year;
         $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);

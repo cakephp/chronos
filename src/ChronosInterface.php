@@ -38,6 +38,7 @@ interface ChronosInterface extends DateTimeInterface
     const YEARS_PER_CENTURY = 100;
     const YEARS_PER_DECADE = 10;
     const MONTHS_PER_YEAR = 12;
+    const MONTHS_PER_QUARTER = 3;
     const WEEKS_PER_YEAR = 52;
     const DAYS_PER_WEEK = 7;
     const HOURS_PER_DAY = 24;
