@@ -45,7 +45,7 @@ trait FrozenTimeTrait
             return date('Y-m-d 00:00:00', strtotime($time));
         }
 
-        return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}/', '00:00:00', $time);
+        return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}(?:\.\d+)?/', '00:00:00', $time);
     }
 
     /**

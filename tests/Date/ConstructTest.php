@@ -96,6 +96,19 @@ class ConstructTest extends TestCase
      * @dataProvider dateClassProvider
      * @return void
      */
+    public function testParseWithMicroSeconds($class)
+    {
+        $date = $class::parse('2016-12-08 18:06:46.510954');
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->second);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->micro);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
     public function testUsesUTC($class)
     {
         $c = new $class('now');
