@@ -90,7 +90,7 @@ trait ModifierTrait
     }
 
     /**
-     * Set the first day of week
+     * Set the last day of week
      *
      * @param int $day The day the week ends with.
      * @return void
