@@ -93,4 +93,11 @@ class IntervalToStringTest extends TestCase
             ChronosInterval::instance(new DateInterval((string)$ci))
         );
     }
+
+    public function testNegativeInterval()
+    {
+        $ci = new ChronosInterval(1, 2, 0, 3, 4, 5, 6);
+        $ci->invert = 1;
+        $this->assertEquals('-P1Y2M3DT4H5M6S', (string)$ci);
+    }
 }
