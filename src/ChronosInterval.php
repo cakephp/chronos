@@ -461,6 +461,10 @@ class ChronosInterval extends DateInterval
             }
         }
 
-        return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
+        if ($specString === static::PERIOD_PREFIX) {
+            return 'PT0S';
+        } else {
+            return $this->invert === 1 ? '-' . $specString : $specString;
+        }
     }
 }
