@@ -463,8 +463,8 @@ class ChronosInterval extends DateInterval
 
         if ($specString === static::PERIOD_PREFIX) {
             return 'PT0S';
-        } else {
-            return $this->invert === 1 ? '-' . $specString : $specString;
         }
+
+        return $this->invert === 1 ? '-' . $specString : $specString;
     }
 }
