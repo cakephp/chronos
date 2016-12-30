@@ -78,6 +78,18 @@ class ConstructTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testConstructWithMicrosecondsAndOffset($class)
+    {
+        $c = new $class('2014-09-29 18:24:54.591767+02:00');
+        $this->assertDateTime($c, 2014, 9, 29, 18, 24, 54);
+        $this->assertSame(591767, $c->micro);
+        $this->assertSame('+02:00', $c->getTimezone()->getName());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testParseWithDefaultTimezone($class)
     {
         $c = $class::parse('now');
