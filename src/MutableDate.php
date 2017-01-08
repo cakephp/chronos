@@ -59,14 +59,18 @@ class MutableDate extends DateTime implements ChronosInterface
         if (static::$testNow === null) {
             $time = $this->stripTime($time);
 
-            return parent::__construct($time, $tz);
+            parent::__construct($time, $tz);
+
+            return;
         }
 
         $relative = static::hasRelativeKeywords($time);
         if (!empty($time) && $time !== 'now' && !$relative) {
             $time = $this->stripTime($time);
 
-            return parent::__construct($time, $tz);
+            parent::__construct($time, $tz);
+
+            return;
         }
 
         $testInstance = clone static::getTestNow();

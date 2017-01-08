@@ -60,6 +60,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
             $time = $this->stripTime($time);
 
             parent::__construct($time, $tz);
+
             return;
         }
 
@@ -68,6 +69,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
             $time = $this->stripTime($time);
 
             parent::__construct($time, $tz);
+
             return;
         }
 
