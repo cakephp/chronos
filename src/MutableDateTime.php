@@ -48,7 +48,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      * for more on the possibility of this constructor returning a test instance.
      *
      * @param string|null $time Fixed or relative time
-     * @param DateTimeZone|string|null $tz The timezone for the instance
+     * @param \DateTimeZone|string|null $tz The timezone for the instance
      */
     public function __construct($time = 'now', $tz = null)
     {
@@ -67,7 +67,6 @@ class MutableDateTime extends DateTime implements ChronosInterface
 
         $testInstance = clone static::getTestNow();
         if ($relative) {
-            $testInstance = $testInstance;
             $testInstance = $testInstance->modify($time);
         }
 
@@ -93,8 +92,8 @@ class MutableDateTime extends DateTime implements ChronosInterface
      * Set a part of the ChronosInterface object
      *
      * @param string $name The property to set.
-     * @param string|int|DateTimeZone $value The value to set.
-     * @throws InvalidArgumentException
+     * @param string|int|\DateTimeZone $value The value to set.
+     * @throws \InvalidArgumentException
      * @return void
      */
     public function __set($name, $value)

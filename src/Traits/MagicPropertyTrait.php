@@ -26,8 +26,8 @@ trait MagicPropertyTrait
      * Get a part of the ChronosInterface object
      *
      * @param string $name The property name to read.
-     * @return string|int|DateTimeZone The property value.
-     * @throws InvalidArgumentException
+     * @return string|int|\DateTimeZone The property value.
+     * @throws \InvalidArgumentException
      */
     public function __get($name)
     {

@@ -51,7 +51,7 @@ class MutableDate extends DateTime implements ChronosInterface
      * subtraction/addition to have deterministic results.
      *
      * @param string|null $time Fixed or relative time
-     * @param DateTimeZone|string|null $tz The timezone for the instance
+     * @param \DateTimeZone|string|null $tz The timezone for the instance
      */
     public function __construct($time = 'now', $tz = null)
     {
@@ -71,7 +71,6 @@ class MutableDate extends DateTime implements ChronosInterface
 
         $testInstance = clone static::getTestNow();
         if ($relative) {
-            $testInstance = $testInstance;
             $testInstance = $testInstance->modify($time);
         }
 

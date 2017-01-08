@@ -95,7 +95,7 @@ trait FrozenTimeTrait
      *
      * Timezones have no effect on calendar dates.
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
     public function timezone($value)
@@ -108,7 +108,7 @@ trait FrozenTimeTrait
      *
      * Timezones have no effect on calendar dates.
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
     public function tz($value)
@@ -121,7 +121,7 @@ trait FrozenTimeTrait
      *
      * Timezones have no effect on calendar dates.
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
     public function setTimezone($value)

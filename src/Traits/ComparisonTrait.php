@@ -53,7 +53,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function eq(ChronosInterface $dt)
@@ -64,7 +64,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is not equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function ne(ChronosInterface $dt)
@@ -75,7 +75,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gt(ChronosInterface $dt)
@@ -86,7 +86,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gte(ChronosInterface $dt)
@@ -97,7 +97,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lt(ChronosInterface $dt)
@@ -108,7 +108,7 @@ trait ComparisonTrait
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lte(ChronosInterface $dt)
@@ -119,8 +119,8 @@ trait ComparisonTrait
     /**
      * Determines if the instance is between two others
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
      * @return bool
      */
@@ -142,8 +142,8 @@ trait ComparisonTrait
     /**
      * Get the closest date from the instance.
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
     public function closest(ChronosInterface $dt1, ChronosInterface $dt2)
@@ -154,8 +154,8 @@ trait ComparisonTrait
     /**
      * Get the farthest date from the instance.
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
     public function farthest(ChronosInterface $dt1, ChronosInterface $dt2)
@@ -166,7 +166,7 @@ trait ComparisonTrait
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function min(ChronosInterface $dt = null)
@@ -179,7 +179,7 @@ trait ComparisonTrait
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function max(ChronosInterface $dt = null)
@@ -272,7 +272,7 @@ trait ComparisonTrait
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param ChronosInterface $dt The instance to check against.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
      * @return bool
      */
     public function isSameDay(ChronosInterface $dt)
@@ -383,7 +383,7 @@ trait ComparisonTrait
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param ChronosInterface|null $dt The instance to compare with or null to use current day.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with or null to use current day.
      * @return static
      */
     public function isBirthday(ChronosInterface $dt = null)

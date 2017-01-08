@@ -21,7 +21,7 @@ trait TimezoneTrait
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function timezone($value)
@@ -32,7 +32,7 @@ trait TimezoneTrait
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function tz($value)
@@ -43,7 +43,7 @@ trait TimezoneTrait
     /**
      * Set the instance's timezone from a string or object
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function setTimezone($value)

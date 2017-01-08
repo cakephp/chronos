@@ -37,7 +37,7 @@ class DifferenceFormatter
      * @param \Cake\Chronos\ChronosInterface|null $other The datetime to compare against.
      * @param bool $absolute removes time difference modifiers ago, after, etc
      * @return string The difference between the two days in a human readable format
-     * @see Cake\Chronos\ChronosInterface::diffForHumans
+     * @see \Cake\Chronos\ChronosInterface::diffForHumans
      */
     public function diffForHumans(ChronosInterface $date, ChronosInterface $other = null, $absolute = false)
     {
