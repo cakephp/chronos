@@ -24,7 +24,7 @@ trait TestingAidTrait
     /**
      * A test ChronosInterface instance to be returned when now instances are created
      *
-     * @var ChronosInterface
+     * @var \Cake\Chronos\ChronosInterface
      */
     protected static $testNow;
 
@@ -42,7 +42,7 @@ trait TestingAidTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param ChronosInterface|null $testNow The instance to use for all future instances.
+     * @param \Cake\Chronos\ChronosInterface|null $testNow The instance to use for all future instances.
      * @return void
      */
     public static function setTestNow(ChronosInterface $testNow = null)

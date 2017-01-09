@@ -227,7 +227,7 @@ trait FormattingTrait
      * Returns the quarter
      *
      * @param bool $range Range.
-     * @return mixed 1, 2, 3, or 4 quarter of year or array if $range true
+     * @return int|array 1, 2, 3, or 4 quarter of year or array if $range true
      */
     public function toQuarter($range = false)
     {

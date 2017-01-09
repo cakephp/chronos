@@ -139,7 +139,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function timezone($value);
@@ -147,7 +147,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function tz($value);
@@ -155,7 +155,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Set the instance's timezone from a string or object
      *
-     * @param DateTimeZone|string $value The DateTimeZone object or timezone name to use.
+     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
     public function setTimezone($value);
@@ -275,7 +275,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function eq(ChronosInterface $dt);
@@ -283,7 +283,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is not equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function ne(ChronosInterface $dt);
@@ -291,7 +291,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gt(ChronosInterface $dt);
@@ -299,7 +299,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function gte(ChronosInterface $dt);
@@ -307,7 +307,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lt(ChronosInterface $dt);
@@ -315,7 +315,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function lte(ChronosInterface $dt);
@@ -323,8 +323,8 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is between two others
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
      * @return bool
      */
@@ -333,8 +333,8 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the closest date from the instance.
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
     public function closest(ChronosInterface $dt1, ChronosInterface $dt2);
@@ -342,8 +342,8 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the farthest date from the instance.
      *
-     * @param ChronosInterface $dt1 The instance to compare with.
-     * @param ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
     public function farthest(ChronosInterface $dt1, ChronosInterface $dt2);
@@ -351,7 +351,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function min(ChronosInterface $dt = null);
@@ -359,7 +359,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
     public function max(ChronosInterface $dt = null);
@@ -423,7 +423,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param ChronosInterface $dt The instance to check against.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
      * @return bool
      */
     public function isSameDay(ChronosInterface $dt);
@@ -871,7 +871,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in years
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -880,7 +880,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in months
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -889,7 +889,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weeks
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -898,7 +898,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in days
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -908,7 +908,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the difference in days using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -918,7 +918,7 @@ interface ChronosInterface extends DateTimeInterface
      * Get the difference in hours using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -927,9 +927,9 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param ChronosInterval $ci An interval to traverse by
+     * @param \Cake\Chronos\ChronosInterval $ci An interval to traverse by
      * @param callable $callback The callback to use for filtering.
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -938,7 +938,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weekdays
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -947,7 +947,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -956,7 +956,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in hours
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -965,7 +965,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in minutes
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -974,7 +974,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in seconds
      *
-     * @param ChronosInterface|null $dt The instance to difference from.
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
@@ -1205,7 +1205,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return static
      */
     public function average(ChronosInterface $dt = null);
@@ -1213,7 +1213,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
     public function isBirthday(ChronosInterface $dt);
