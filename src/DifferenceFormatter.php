@@ -78,10 +78,10 @@ class DifferenceFormatter
                 break;
         }
         if ($count === 0) {
-            $count = 1;
+            $unit = 'just_now';
         }
         $time = $this->translate->plural($unit, $count, ['count' => $count]);
-        if ($absolute) {
+        if ($absolute || $count === 0) {
             return $time;
         }
         $isFuture = $diffInterval->invert === 1;
