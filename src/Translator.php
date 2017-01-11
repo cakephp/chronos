@@ -64,7 +64,7 @@ class Translator
      */
     public function plural($key, $count, array $vars = [])
     {
-        if ($count == 0 || $count == 1) {
+        if ($count === 0 || $count === 1) {
             return $this->singular($key, $vars);
         }
 
