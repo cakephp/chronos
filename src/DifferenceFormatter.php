@@ -77,9 +77,6 @@ class DifferenceFormatter
                 $unit = 'second';
                 break;
         }
-        if ($count === 0) {
-            $count = 1;
-        }
         $time = $this->translate->plural($unit, $count, ['count' => $count]);
         if ($absolute) {
             return $time;

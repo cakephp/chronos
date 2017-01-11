@@ -57,13 +57,13 @@ class Translator
      * Get a plural message.
      *
      * @param string $key The key to use.
-     * @param string $count The number of items in the translation.
+     * @param int $count The number of items in the translation.
      * @param array $vars Additional context variables.
      * @return string The translated message or ''.
      */
     public function plural($key, $count, array $vars = [])
     {
-        if ($count == 1) {
+        if ($count === 1) {
             return $this->singular($key, $vars);
         }
 
