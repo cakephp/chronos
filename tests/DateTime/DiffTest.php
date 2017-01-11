@@ -817,18 +817,25 @@ class DiffTest extends TestCase
         });
     }
 
-    public function testDiffForHumansJustNow()
-    {
-        $this->wrapWithTestNow(function () {
-            $this->assertSame('just now', Chronos::now()->diffForHumans());
-        });
-    }
-
     public function testDiffForHumansWithNowAbsolute()
     {
         $this->wrapWithTestNow(function () {
             $this->assertSame('1 second', Chronos::now()->subSeconds(1)->diffForHumans(null, true));
             $this->assertSame('1 second', Chronos::now()->addSeconds(1)->diffForHumans(null, true));
+        });
+    }
+
+    public function testDiffForHumansWithoutDiff()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('0 seconds ago', Chronos::now()->diffForHumans());
+        });
+    }
+
+    public function testDiffForHumansWithoutDiffAbsolute()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('0 seconds', Chronos::now()->diffForHumans(null, true));
         });
     }
 

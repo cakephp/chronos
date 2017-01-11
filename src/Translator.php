@@ -40,7 +40,6 @@ class Translator
         'from_now' => '{time} from now',
         'after' => '{time} after',
         'before' => '{time} before',
-        'just_now' => 'just now',
     ];
 
     /**
@@ -64,7 +63,7 @@ class Translator
      */
     public function plural($key, $count, array $vars = [])
     {
-        if ($count === 0 || $count === 1) {
+        if ($count === 1) {
             return $this->singular($key, $vars);
         }
 

@@ -77,11 +77,8 @@ class DifferenceFormatter
                 $unit = 'second';
                 break;
         }
-        if ($count === 0) {
-            $unit = 'just_now';
-        }
         $time = $this->translate->plural($unit, $count, ['count' => $count]);
-        if ($absolute || $count === 0) {
+        if ($absolute) {
             return $time;
         }
         $isFuture = $diffInterval->invert === 1;
