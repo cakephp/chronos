@@ -240,6 +240,66 @@ trait ComparisonTrait
     }
 
     /**
+     * Determines if the instance is within the next week
+     *
+     * @return bool
+     */
+    public function isNextWeek()
+    {
+        return $this->toDateString() === static::now($this->tz)->addWeek()->toDateString();
+    }
+
+    /**
+     * Determines if the instance is within the last week
+     *
+     * @return bool
+     */
+    public function isLastWeek()
+    {
+        return $this->toDateString() === static::now($this->tz)->subWeek()->toDateString();
+    }
+
+    /**
+     * Determines if the instance is within the next month
+     *
+     * @return bool
+     */
+    public function isNextMonth()
+    {
+        return $this->toDateString() === static::now($this->tz)->addMonth()->toDateString();
+    }
+
+    /**
+     * Determines if the instance is within the last month
+     *
+     * @return bool
+     */
+    public function isLastMonth()
+    {
+        return $this->toDateString() === static::now($this->tz)->subMonth()->toDateString();
+    }
+
+    /**
+     * Determines if the instance is within the next year
+     *
+     * @return bool
+     */
+    public function isNextYear()
+    {
+        return $this->toDateString() === static::now($this->tz)->addYear()->toDateString();
+    }
+
+    /**
+     * Determines if the instance is within the last year
+     *
+     * @return bool
+     */
+    public function isLastYear()
+    {
+        return $this->toDateString() === static::now($this->tz)->subYear()->toDateString();
+    }
+
+    /**
      * Determines if the instance is in the future, ie. greater (after) than now
      *
      * @return bool
