@@ -148,6 +148,114 @@ class IsTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testIsNextWeekTrue($class)
+    {
+        $this->assertTrue($class::now()->addWeek()->isNextWeek());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastWeekTrue($class)
+    {
+        $this->assertTrue($class::now()->subWeek()->isLastWeek());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsNextWeekFalse($class)
+    {
+        $this->assertFalse($class::now()->addWeek(2)->isNextWeek());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastWeekFalse($class)
+    {
+        $this->assertFalse($class::now()->subWeek(2)->isLastWeek());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsNextMonthTrue($class)
+    {
+        $this->assertTrue($class::now()->addMonth()->isNextMonth());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastMonthTrue($class)
+    {
+        $this->assertTrue($class::now()->subMonth()->isLastMonth());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsNextMonthFalse($class)
+    {
+        $this->assertFalse($class::now()->addMonth(2)->isNextMonth());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastMonthFalse($class)
+    {
+        $this->assertFalse($class::now()->subMonth(2)->isLastMonth());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsNextYearTrue($class)
+    {
+        $this->assertTrue($class::now()->addYear()->isNextYear());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastYearTrue($class)
+    {
+        $this->assertTrue($class::now()->subYear()->isLastYear());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsNextYearFalse($class)
+    {
+        $this->assertFalse($class::now()->addYear(2)->isNextYear());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsLastYearFalse($class)
+    {
+        $this->assertFalse($class::now()->subYear(2)->isLastYear());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testIsFutureTrue($class)
     {
         $this->assertTrue($class::now()->addSecond()->isFuture());
