@@ -246,7 +246,7 @@ trait ComparisonTrait
      */
     public function isNextWeek()
     {
-        return $this->toDateString() === static::now($this->tz)->addWeek()->toDateString();
+        return $this->weekOfYear === static::now($this->tz)->addWeek()->weekOfYear;
     }
 
     /**
@@ -256,7 +256,7 @@ trait ComparisonTrait
      */
     public function isLastWeek()
     {
-        return $this->toDateString() === static::now($this->tz)->subWeek()->toDateString();
+        return $this->weekOfYear === static::now($this->tz)->subWeek()->weekOfYear;
     }
 
     /**
@@ -266,7 +266,7 @@ trait ComparisonTrait
      */
     public function isNextMonth()
     {
-        return $this->toDateString() === static::now($this->tz)->addMonth()->toDateString();
+        return $this->month === static::now($this->tz)->addMonth()->month;
     }
 
     /**
@@ -276,7 +276,7 @@ trait ComparisonTrait
      */
     public function isLastMonth()
     {
-        return $this->toDateString() === static::now($this->tz)->subMonth()->toDateString();
+        return $this->month === static::now($this->tz)->subMonth()->month;
     }
 
     /**
@@ -286,7 +286,7 @@ trait ComparisonTrait
      */
     public function isNextYear()
     {
-        return $this->toDateString() === static::now($this->tz)->addYear()->toDateString();
+        return $this->year === static::now($this->tz)->addYear()->year;
     }
 
     /**
@@ -296,7 +296,7 @@ trait ComparisonTrait
      */
     public function isLastYear()
     {
-        return $this->toDateString() === static::now($this->tz)->subYear()->toDateString();
+        return $this->year === static::now($this->tz)->subYear()->year;
     }
 
     /**
