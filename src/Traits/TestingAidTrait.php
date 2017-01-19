@@ -43,7 +43,7 @@ trait TestingAidTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param \Cake\Chronos\ChronosInterface|string|null $testNow
+     * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
      * @return void
      */
     public static function setTestNow($testNow = null)
