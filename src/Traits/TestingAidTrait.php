@@ -35,6 +35,7 @@ trait TestingAidTrait
      *   - A call to the static now() method, ex. ChronosInterface::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Chronos('now')
+     *   - When a string containing the desired time is passed to ChronosInterface::parse()
      *
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
@@ -42,12 +43,12 @@ trait TestingAidTrait
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $testNow The instance to use for all future instances.
+     * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
      * @return void
      */
-    public static function setTestNow(ChronosInterface $testNow = null)
+    public static function setTestNow($testNow = null)
     {
-        static::$testNow = $testNow;
+        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
     /**

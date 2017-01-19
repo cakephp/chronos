@@ -48,6 +48,17 @@ class TestingAidsTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testTestingAidsWithTestNowSetToString($class)
+    {
+        $class::setTestNow('2016-11-23');
+        $this->assertTrue($class::hasTestNow());
+        $this->assertEquals($class::getTestNow(), $class::parse('2016-11-23'));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testConstructorWithTestValueSet($class)
     {
         $notNow = $class::yesterday();
