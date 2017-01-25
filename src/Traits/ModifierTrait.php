@@ -448,9 +448,7 @@ trait ModifierTrait
      */
     public function addDay($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("$value day");
+        return $this->addDays($value);
     }
 
     /**
@@ -461,9 +459,7 @@ trait ModifierTrait
      */
     public function subDay($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value day");
+        return $this->subDays($value);
     }
 
     /**
@@ -474,9 +470,7 @@ trait ModifierTrait
      */
     public function subDays($value)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value day");
+        return $this->addDays(-1 * $value);
     }
 
     /**
@@ -548,9 +542,7 @@ trait ModifierTrait
      */
     public function addWeek($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("$value week");
+        return $this->addWeeks($value);
     }
 
     /**
@@ -561,9 +553,7 @@ trait ModifierTrait
      */
     public function subWeek($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value week");
+        return $this->subWeeks($value);
     }
 
     /**
@@ -574,9 +564,7 @@ trait ModifierTrait
      */
     public function subWeeks($value)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value week");
+        return $this->addWeeks(-1 * $value);
     }
 
     /**
@@ -601,9 +589,7 @@ trait ModifierTrait
      */
     public function addHour($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("$value hour");
+        return $this->addHours($value);
     }
 
     /**
@@ -614,9 +600,7 @@ trait ModifierTrait
      */
     public function subHour($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value hour");
+        return $this->subHours($value);
     }
 
     /**
@@ -627,9 +611,7 @@ trait ModifierTrait
      */
     public function subHours($value)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value hour");
+        return $this->addHours(-1 * $value);
     }
 
     /**
@@ -654,9 +636,7 @@ trait ModifierTrait
      */
     public function addMinute($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("$value minute");
+        return $this->addMinutes($value);
     }
 
     /**
@@ -667,9 +647,7 @@ trait ModifierTrait
      */
     public function subMinute($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value minute");
+        return $this->subMinutes($value);
     }
 
     /**
@@ -680,9 +658,7 @@ trait ModifierTrait
      */
     public function subMinutes($value)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value minute");
+        return $this->addMinutes(-1 * $value);
     }
 
     /**
@@ -707,9 +683,7 @@ trait ModifierTrait
      */
     public function addSecond($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("$value second");
+        return $this->addSeconds($value);
     }
 
     /**
@@ -720,9 +694,7 @@ trait ModifierTrait
      */
     public function subSecond($value = 1)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value second");
+        return $this->subSeconds($value);
     }
 
     /**
@@ -733,9 +705,7 @@ trait ModifierTrait
      */
     public function subSeconds($value)
     {
-        $value = (int)$value;
-
-        return $this->modify("-$value second");
+        return $this->addSeconds(-1 * $value);
     }
 
     /**
