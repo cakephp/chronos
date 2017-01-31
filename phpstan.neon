@@ -1,0 +1,5 @@
+parameters:
+	ignoreErrors:
+		- '#Call to an undefined static method Cake\\Chronos\\ChronosInterval::[a-zA-Z0-9_]+\(\)#'
+		- '#Call to an undefined method Cake\\Chronos\\ChronosInterface::now\(\)#'
+		- '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
