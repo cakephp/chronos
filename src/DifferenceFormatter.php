@@ -20,6 +20,14 @@ namespace Cake\Chronos;
  */
 class DifferenceFormatter
 {
+
+    /**
+     * The text translator object
+     *
+     * @var \Cake\Chronos\Translator
+     */
+    protected $translate;
+
     /**
      * Constructor.
      *
