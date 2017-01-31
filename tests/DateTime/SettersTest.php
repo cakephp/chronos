@@ -11,7 +11,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace Cake\Chronos\Test;
+namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;

@@ -11,7 +11,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace Interval;
+namespace Cake\Chronos\Test\Interval;
 
 use Cake\Chronos\ChronosInterval;
 use TestCase;
