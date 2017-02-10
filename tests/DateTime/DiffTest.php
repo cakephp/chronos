@@ -237,7 +237,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysFilteredNegativeWithSignWithMutated($class)
     {
         $dt = $class::createFromDate(2000, 1, 31);
-        $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) use ($class) {
+        $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->copy()->startOfMonth(), false));
     }

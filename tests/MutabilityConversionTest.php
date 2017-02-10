@@ -10,9 +10,11 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+namespace Cake\Chronos\Test;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
+use TestCase;
 
 class MutabilityConversionTest extends TestCase
 {
