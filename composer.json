@@ -29,9 +29,9 @@
     "php": ">=5.5.9"
   },
   "require-dev": {
-    "phpunit/phpunit": "*",
+    "phpunit/phpunit": "<6.0",
     "athletic/athletic": "~0.1",
-    "cakephp/cakephp-codesniffer": "dev-master"
+    "cakephp/cakephp-codesniffer": "~2.3"
   },
   "autoload": {
     "psr-4": {
