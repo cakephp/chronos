@@ -166,4 +166,20 @@ class MutableDateTime extends DateTime implements ChronosInterface
                 throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
     }
+
+    /**
+     * Return properties for debugging.
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        $properties = [
+            'currentTime' => $this->format('Y-m-d H:i:s.u'),
+            'timezone' => $this->getTimezone()->getName(),
+            'hasFixedNow' => isset(self::$testNow)
+        ];
+
+        return $properties;
+    }
 }
