@@ -127,4 +127,20 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     {
         return $this;
     }
+
+    /**
+     * Return properties for debugging.
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        $properties = [
+            'time' => $this->format('Y-m-d H:i:s.u'),
+            'timezone' => $this->getTimezone()->getName(),
+            'hasFixedNow' => isset(self::$testNow)
+        ];
+
+        return $properties;
+    }
 }

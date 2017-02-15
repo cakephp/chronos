@@ -121,4 +121,19 @@ class Date extends DateTimeImmutable implements ChronosInterface
     {
         return MutableDate::instance($this);
     }
+
+    /**
+     * Return properties for debugging.
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        $properties = [
+            'date' => $this->format('Y-m-d'),
+            'hasFixedNow' => isset(self::$testNow)
+        ];
+
+        return $properties;
+    }
 }
