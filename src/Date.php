@@ -130,7 +130,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
     public function __debugInfo()
     {
         $properties = [
-            'currentDate' => $this->format('Y-m-d'),
+            'date' => $this->format('Y-m-d'),
             'hasFixedNow' => isset(self::$testNow)
         ];
 
