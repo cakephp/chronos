@@ -70,7 +70,7 @@ find ./src -type f -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
 
 At this point your code should mostly work as it did before. The biggest
-different is that Chronos instances are immutable.
+difference is that Chronos instances are immutable.
 
 ## Immutable Object Changes
 
