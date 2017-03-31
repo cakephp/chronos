@@ -18,7 +18,7 @@ namespace Cake\Chronos\Traits;
  */
 trait RelativeKeywordTrait
 {
-    protected static $relativePattern = '/this|next|last|tomorrow|yesterday|today|[+-]|first|last|ago/i';
+    protected static $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
 
     /**
      * Determine if there is a relative keyword in the time string, this is to
