@@ -168,6 +168,32 @@ class MutableDateTime extends DateTime implements ChronosInterface
     }
 
     /**
+     * Overloading original modify method to handling modification with DST change
+     *
+     * For example, i have the date 2014-03-30 00:00:00 in Europe/London (new Carbon('2014-03-30 00:00:00,
+     *   'Europe/London')), then if i want to increase date by 1 day, i expect 2014-03-31 00:00:00, but if want to
+     *   increase date by 24 hours, then i expect 2014-03-31 01:00:00, because in this timezone there will be that time
+     *   after 24 hours (timezone offset changes because of Daylight correction). The same for minutes and seconds.
+     *
+     * @param string $modify argument for php DateTime::modify method
+     *
+     * @return static
+     */
+    public function modify($modify)
+    {
+        if (!preg_match('/(sec|second|min|minute|hour)s?/i', $modify)) {
+            return parent::modify($modify);
+        }
+
+        $timezone = $this->getTimezone();
+        $this->setTimezone('UTC');
+        parent::modify($modify);
+        $this->setTimezone($timezone);
+
+        return $this;
+    }
+
+    /**
      * Return properties for debugging.
      *
      * @return array
