@@ -48,6 +48,13 @@ trait TimezoneTrait
      */
     public function setTimezone($value)
     {
-        return parent::setTimezone(static::safeCreateDateTimeZone($value));
+        $date = parent::setTimezone(static::safeCreateDateTimeZone($value));
+
+        // https://bugs.php.net/bug.php?id=72338
+        // this is workaround for this bug
+        // Needed for PHP below 7.0 version
+        $date->getTimestamp();
+
+        return $date;
     }
 }
