@@ -44,5 +44,14 @@
       "Cake\\Chronos\\Test\\": "tests"
     },
     "files": ["tests/TestCase.php"]
+  },
+  "scripts": {
+    "check": [
+      "@test",
+      "@cs-check"
+    ],
+    "test": "phpunit",
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf"
   }
 }

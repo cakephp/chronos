@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+ <description>Default configuration</description>
+
+ <rule ref="vendor/cakephp/cakephp-codesniffer/CakePHP"/>
+
+ <file>./src</file>
+ <file>./tests</file>
+
+ <arg phpcs-only="true" value="p"/>
+ <arg name="extensions" value="php"/>
+
+ <config name="colors" value="1"/>
+</ruleset>
