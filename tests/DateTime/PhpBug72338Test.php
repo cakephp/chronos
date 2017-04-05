@@ -40,7 +40,7 @@ class PhpBug72338Test extends TestCase
     {
         $date = $class::createFromTimestamp(0)->setTimezone('+02:00');
         $date1 = new $class('1970-01-01T02:00:00+02:00');
-        $this->assertEquals($date->format('U'), $date1->format('U'));
+        $this->assertSame($date->format('U'), $date1->format('U'));
     }
 
     /**
@@ -52,6 +52,6 @@ class PhpBug72338Test extends TestCase
     public function testSecondSetTimezone($class)
     {
         $date = $class::createFromTimestamp(0)->setTimezone('+02:00')->setTimezone('Europe/Moscow');
-        $this->assertEquals('0', $date->format('U'));
+        $this->assertSame('0', $date->format('U'));
     }
 }
