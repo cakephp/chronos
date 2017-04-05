@@ -31,7 +31,8 @@
   "require-dev": {
     "phpunit/phpunit": "<6.0",
     "athletic/athletic": "~0.1",
-    "cakephp/cakephp-codesniffer": "~2.3"
+    "cakephp/cakephp-codesniffer": "~2.3",
+    "phpbench/phpbench": "@dev"
   },
   "autoload": {
     "psr-4": {
@@ -52,6 +53,7 @@
     ],
     "test": "phpunit",
     "cs-check": "phpcs",
-    "cs-fix": "phpcbf"
+    "cs-fix": "phpcbf",
+    "bench": "phpbench run"
   }
 }
