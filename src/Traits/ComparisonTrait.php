@@ -144,7 +144,7 @@ trait ComparisonTrait
      *
      * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
     public function closest(ChronosInterface $dt1, ChronosInterface $dt2)
     {
@@ -156,7 +156,7 @@ trait ComparisonTrait
      *
      * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
     public function farthest(ChronosInterface $dt1, ChronosInterface $dt2)
     {
