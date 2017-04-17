@@ -25,6 +25,8 @@ install:
   - echo extension=php_openssl.dll >> php.ini
   - cd C:\projects\chronos
   - appveyor DownloadFile https://getcomposer.org/composer.phar
+  # phpstan requires php 7.0. While here used php 5.5 we can't install it
+  - php composer.phar remove --dev phpstan/phpstan
   - php composer.phar install --prefer-dist --no-interaction --ansi --no-progress
 
 test_script:
