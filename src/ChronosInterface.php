@@ -53,6 +53,14 @@ interface ChronosInterface extends DateTimeInterface
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
+     * Get a ChronosInterface instance for the current date and time
+     *
+     * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
+     * @return static
+     */
+    public static function now($tz);
+
+    /**
      * Get a copy of the instance
      *
      * @return static
