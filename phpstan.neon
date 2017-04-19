@@ -1,5 +1,11 @@
 parameters:
 	ignoreErrors:
+		# Appears because interface can't describe properties and formally it doesen't have properties.
 		- '#Call to an undefined static method Cake\\Chronos\\ChronosInterval::[a-zA-Z0-9_]+\(\)#'
-		- '#Call to an undefined method Cake\\Chronos\\ChronosInterface::now\(\)#'
 		- '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
+		
+		# I don't know why it appears. Maybe because of https://github.com/phpstan/phpstan/issues/100 ?
+		- '#Property Cake\\Chronos\\MutableDateTime::\$(tz|timezone) \(DateTimeZone\) does not accept string#'
+		
+		# This attempt is correct because it is just test for an Exception
+		- '#Access to an undefined property Cake\\Chronos\\MutableDateTime::\$doesNotExit#'

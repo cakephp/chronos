@@ -32,7 +32,8 @@
     "phpunit/phpunit": "<6.0",
     "athletic/athletic": "~0.1",
     "cakephp/cakephp-codesniffer": "~2.3",
-    "phpbench/phpbench": "@dev"
+    "phpbench/phpbench": "@dev",
+    "phpstan/phpstan": "^0.6.4"
   },
   "autoload": {
     "psr-4": {
@@ -49,11 +50,13 @@
   "scripts": {
     "check": [
       "@test",
-      "@cs-check"
+      "@cs-check",
+      "@phpstan"
     ],
     "test": "phpunit",
     "cs-check": "phpcs",
     "cs-fix": "phpcbf",
-    "bench": "phpbench run"
+    "bench": "phpbench run",
+    "phpstan": "phpstan analyze -c phpstan.neon -l 3 src tests"
   }
 }
