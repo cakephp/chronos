@@ -20,31 +20,31 @@ use InvalidArgumentException;
  * Provides the magic methods that allow read access
  * to magic properties.
  *
- * @property int year
- * @property int yearIso
- * @property int month
- * @property int day
- * @property int hour
- * @property int minute
- * @property int second
- * @property int micro
- * @property int dayOfWeek
- * @property int dayOfYear
- * @property int weekOfYear
- * @property int daysInMonth
- * @property int timestamp
- * @property int weekOfMonth
- * @property int age
- * @property int quarter
- * @property int offset
- * @property int offsetHours
- * @property boolean dst
- * @property boolean local
- * @property boolean utc
- * @property \DateTimeZone timezone
- * @property \DateTimeZone tz
- * @property string timezoneName
- * @property string tzName
+ * @property-read int year
+ * @property-read int yearIso
+ * @property-read int month
+ * @property-read int day
+ * @property-read int hour
+ * @property-read int minute
+ * @property-read int second
+ * @property-read int micro
+ * @property-read int dayOfWeek
+ * @property-read int dayOfYear
+ * @property-read int weekOfYear
+ * @property-read int daysInMonth
+ * @property-read int timestamp
+ * @property-read int weekOfMonth
+ * @property-read int age
+ * @property-read int quarter
+ * @property-read int offset
+ * @property-read int offsetHours
+ * @property-read boolean dst
+ * @property-read boolean local
+ * @property-read boolean utc
+ * @property-read \DateTimeZone timezone
+ * @property-read \DateTimeZone tz
+ * @property-read string timezoneName
+ * @property-read string tzName
  */
 trait MagicPropertyTrait
 {
