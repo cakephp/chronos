@@ -19,6 +19,32 @@ use InvalidArgumentException;
 /**
  * Provides the magic methods that allow read access
  * to magic properties.
+ *
+ * @property int year
+ * @property int yearIso
+ * @property int month
+ * @property int day
+ * @property int hour
+ * @property int minute
+ * @property int second
+ * @property int micro
+ * @property int dayOfWeek
+ * @property int dayOfYear
+ * @property int weekOfYear
+ * @property int daysInMonth
+ * @property int timestamp
+ * @property int weekOfMonth
+ * @property int age
+ * @property int quarter
+ * @property int offset
+ * @property int offsetHours
+ * @property boolean dst
+ * @property boolean local
+ * @property boolean utc
+ * @property \DateTimeZone timezone
+ * @property \DateTimeZone tz
+ * @property string timezoneName
+ * @property string tzName
  */
 trait MagicPropertyTrait
 {
