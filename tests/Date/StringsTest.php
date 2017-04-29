@@ -132,7 +132,7 @@ class StringsTest extends TestCase
     public function testToIso8601String($class)
     {
         $d = $class::create(1975, 12, 25, 14, 15, 16);
-        $this->assertSame('1975-12-25T00:00:00+00:00', $d->toIso8601String());
+        $this->assertSame('1975-12-25T00:00:00+0000', $d->toIso8601String());
     }
 
     /**

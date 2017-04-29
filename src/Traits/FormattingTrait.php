@@ -130,7 +130,7 @@ trait FormattingTrait
      */
     public function toIso8601String()
     {
-        return $this->format(DateTime::ATOM);
+        return $this->format(DateTime::ISO8601);
     }
 
     /**
