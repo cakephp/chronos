@@ -80,7 +80,6 @@ class Date extends DateTimeImmutable implements ChronosInterface
      */
     public function __construct($time = 'now')
     {
-        $tz = new DateTimeZone('UTC');
         if (static::$testNow === null) {
             $time = $this->stripTime($time);
 
