@@ -169,6 +169,10 @@ class IsTest extends TestCase
     public function testIsNextWeekFalse($class)
     {
         $this->assertFalse($class::now()->addWeek(2)->isNextWeek());
+
+        $class::setTestNow('2017-W01');
+        $time = new $class('2018-W02');
+        $this->assertFalse($time->isNextWeek());
     }
 
     /**
@@ -178,6 +182,10 @@ class IsTest extends TestCase
     public function testIsLastWeekFalse($class)
     {
         $this->assertFalse($class::now()->subWeek(2)->isLastWeek());
+
+        $class::setTestNow('2018-W02');
+        $time = new $class('2017-W01');
+        $this->assertFalse($time->isLastWeek());
     }
 
     /**
@@ -205,6 +213,10 @@ class IsTest extends TestCase
     public function testIsNextMonthFalse($class)
     {
         $this->assertFalse($class::now()->addMonth(2)->isNextMonth());
+
+        $class::setTestNow('2017-12-31');
+        $time = new $class('2017-01-01');
+        $this->assertFalse($time->isNextMonth());
     }
 
     /**
@@ -214,6 +226,10 @@ class IsTest extends TestCase
     public function testIsLastMonthFalse($class)
     {
         $this->assertFalse($class::now()->subMonth(2)->isLastMonth());
+
+        $class::setTestNow('2017-01-01');
+        $time = new $class('2017-12-31');
+        $this->assertFalse($time->isLastMonth());
     }
 
     /**
