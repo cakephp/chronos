@@ -37,13 +37,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Cake\\Chronos\\": "src"
+      "Cake\\Chronos\\": "src/"
     },
     "files": ["src/carbon_compat.php"]
   },
   "autoload-dev": {
     "psr-4": {
-      "Cake\\Chronos\\Test\\": "tests"
+      "Cake\\Chronos\\Test\\": "tests/"
     },
     "files": ["tests/TestCase.php"]
   },
