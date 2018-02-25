@@ -379,6 +379,48 @@ class AddTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testAddYearWithOverflow($class)
+    {
+        $this->assertSame('2013-03-01', $class::createFromDate(2012, 2, 29)->addYearWithOverflow()->toDateString());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testAddYearsNoOverflowPositive($class)
+    {
+        $this->assertSame('2013-01-31', $class::createFromDate(2012, 1, 31)->addYear()->toDateString());
+        $this->assertSame('2014-01-31', $class::createFromDate(2012, 1, 31)->addYears(2)->toDateString());
+        $this->assertSame('2013-02-28', $class::createFromDate(2012, 2, 29)->addYear()->toDateString());
+        $this->assertSame('2013-12-31', $class::createFromDate(2011, 12, 31)->addYears(2)->toDateString());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testAddYearsNoOverflowZero($class)
+    {
+        $this->assertSame('1975-12-31', $class::createFromDate(1975, 12, 31)->addYears(0)->toDateString());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testAddYearsNoOverflowNegative($class)
+    {
+        $this->assertSame('2011-02-28', $class::createFromDate(2012, 2, 29)->addYears(-1)->toDateString());
+        $this->assertSame('2010-03-31', $class::createFromDate(2012, 3, 31)->addYears(-2)->toDateString());
+        $this->assertSame('2011-03-31', $class::createFromDate(2012, 3, 31)->addYears(-1)->toDateString());
+        $this->assertSame('2011-01-31', $class::createFromDate(2012, 1, 31)->addYears(-1)->toDateString());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testAddMonthPassingArg($class)
     {
         $this->assertSame(7, $class::createFromDate(1975, 5, 1)->addMonth(2)->month);

@@ -542,6 +542,39 @@ interface ChronosInterface extends DateTimeInterface
     public function subYears(int $value): self;
 
     /**
+     * Add years with overflowing to the instance. Positive $value
+     * travels forward while negative $value travels into the past.
+     *
+     * @param int $value The number of years to add.
+     * @return static
+     */
+    public function addYearsWithOverflow($value);
+
+    /**
+     * Add a year with overflow to the instance
+     *
+     * @param int $value The number of years to add.
+     * @return static
+     */
+    public function addYearWithOverflow($value = 1);
+
+    /**
+     * Remove a year with overflow from the instance
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYearWithOverflow($value = 1);
+
+    /**
+     * Remove years with overflow from the instance
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYearsWithOverflow($value);
+
+    /**
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *

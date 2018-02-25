@@ -247,12 +247,31 @@ trait ModifierTrait
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
+     * When adding or subtracting years, if the resulting time is a date
+     * that does not exist, the result of this operation will always be the
+     * last day of the intended month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addYears(1); // Results in 2016-01-03
+     *
+     *  (new Chronos('2012-02-29'))->addYears(1); // Results in 2013-02-28
+     * ```
+     *
      * @param int $value The number of years to add.
      * @return static
      */
     public function addYears(int $value): ChronosInterface
     {
-        return $this->modify($value . ' year');
+        $month = $this->month;
+        $date = $this->modify((int)$value . ' year');
+
+        if ($date->month !== $month) {
+            return $date->modify('last day of previous month');
+        }
+
+        return $date;
     }
 
     /**
@@ -287,6 +306,52 @@ trait ModifierTrait
     {
         return $this->addYears(-1 * $value);
     }
+
+    /**
+     * Add years with overflowing to the instance. Positive $value
+     * travels forward while negative $value travels into the past.
+     *
+     * @param int $value The number of years to add.
+     * @return static
+     */
+    public function addYearsWithOverflow($value)
+    {
+        return $this->modify((int)$value . ' year');
+    }
+
+    /**
+     * Add a year with overflow to the instance
+     *
+     * @param int $value The number of years to add.
+     * @return static
+     */
+    public function addYearWithOverflow($value = 1)
+    {
+        return $this->modify((int)$value . ' year');
+    }
+
+    /**
+     * Remove a year with overflow from the instance
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYearWithOverflow($value = 1)
+    {
+        return $this->subYearsWithOverflow($value);
+    }
+
+    /**
+     * Remove years with overflow from the instance
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYearsWithOverflow($value)
+    {
+        return $this->addYearsWithOverflow(-1 * $value);
+    }
+
 
     /**
      * Add months to the instance. Positive $value travels forward while
