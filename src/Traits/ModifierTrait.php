@@ -352,7 +352,6 @@ trait ModifierTrait
         return $this->addYearsWithOverflow(-1 * $value);
     }
 
-
     /**
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
