@@ -996,7 +996,7 @@ interface ChronosInterface extends DateTimeInterface
     public function secondsSinceMidnight();
 
     /**
-     * The number of seconds until 23:23:59.
+     * The number of seconds until 23:59:59.
      *
      * @return int
      */
