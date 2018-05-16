@@ -96,11 +96,11 @@ class TimeMutateTest extends TestCase
         $this->assertEquals(0, $new->hour);
         $this->assertEquals(0, $new->minute);
         $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $new->format('v'));
+        $this->assertEquals(0, $new->format('u'));
         $this->assertEquals(0, $date->hour);
         $this->assertEquals(0, $date->minute);
         $this->assertEquals(0, $date->second);
-        $this->assertEquals(0, $date->format('v'));
+        $this->assertEquals(0, $date->format('u'));
     }
 
     /**
