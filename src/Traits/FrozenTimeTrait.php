@@ -61,7 +61,7 @@ trait FrozenTimeTrait
      */
     public function setTime($hours, $minutes, $seconds = null, $microseconds = null)
     {
-        return parent::setTime(0, 0, 0);
+        return parent::setTime(0, 0, 0, 0);
     }
 
     /**
