@@ -13,6 +13,10 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
+use Cake\Chronos\Chronos;
+use Cake\Chronos\Date;
+use Cake\Chronos\MutableDate;
+use Cake\Chronos\MutableDateTime;
 use DateTimeZone;
 use TestCase;
 
@@ -186,5 +190,22 @@ class TestingAidsTest extends TestCase
         $this->assertEquals(new DateTimeZone('America/Toronto'), $result->tz);
         $this->assertEquals('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
         $this->assertEquals(new DateTimeZone('Europe/Copenhagen'), $class::getTestNow()->tz);
+    }
+
+    /**
+     * Test that setting testNow() on one class sets it on all of the chronos classes.
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSetTestNowSingular($class)
+    {
+        $c = new $class('2016-01-03 00:00:00', 'Europe/Copenhagen');
+        $class::setTestNow($c);
+
+        $this->assertSame($c, MutableDate::getTestNow());
+        $this->assertSame($c, Date::getTestNow());
+        $this->assertSame($c, Chronos::getTestNow());
+        $this->assertSame($c, MutableDateTime::getTestNow());
     }
 }
