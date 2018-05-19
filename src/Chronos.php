@@ -164,7 +164,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * Get the ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return static the current instance used for testing
+     * @return \Cake\Chronos\ChronosInterface The current instance used for testing
      */
     public static function getTestNow()
     {
