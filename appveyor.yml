@@ -16,7 +16,7 @@ init:
 
 install:
   - cd c:\
-  - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.5.10-nts-Win32-VC11-x86.zip -FileName php.zip
+  - curl -fsS https://windows.php.net/downloads/releases/archives/php-5.5.29-nts-Win32-VC11-x86.zip -o php.zip
   - 7z x php.zip -oc:\php
   - cd c:\php
   - copy php.ini-production php.ini

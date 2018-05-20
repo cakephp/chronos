@@ -82,7 +82,8 @@ class MutableDateTime extends DateTime implements ChronosInterface
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
         }
 
-        if (static::$testNow === null) {
+        $testNow = Chronos::getTestNow();
+        if ($testNow === null) {
             parent::__construct($time === null ? 'now' : $time, $tz);
 
             return;
@@ -95,16 +96,16 @@ class MutableDateTime extends DateTime implements ChronosInterface
             return;
         }
 
-        $testInstance = clone static::getTestNow();
+        $testNow = clone $testNow;
         if ($relative) {
-            $testInstance = $testInstance->modify($time);
+            $testNow = $testNow->modify($time);
         }
 
-        if ($tz !== $testInstance->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+        if ($tz !== $testNow->getTimezone()) {
+            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
-        $time = $testInstance->format('Y-m-d H:i:s.u');
+        $time = $testNow->format('Y-m-d H:i:s.u');
         parent::__construct($time, $tz);
     }
 
@@ -177,7 +178,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
         $properties = [
             'time' => $this->format('Y-m-d H:i:s.u'),
             'timezone' => $this->getTimezone()->getName(),
-            'hasFixedNow' => isset(self::$testNow)
+            'hasFixedNow' => static::hasTestNow(),
         ];
 
         return $properties;

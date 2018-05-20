@@ -56,8 +56,17 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     use Traits\MagicPropertyTrait;
     use Traits\ModifierTrait;
     use Traits\RelativeKeywordTrait;
-    use Traits\TestingAidTrait;
     use Traits\TimezoneTrait;
+
+    /**
+     * A test ChronosInterface instance to be returned when now instances are created
+     *
+     * There is a single test now for all date/time classes provided by Chronos.
+     * This aims to emulate stubbing out 'now' which is a single global fact.
+     *
+     * @var \Cake\Chronos\ChronosInterface
+     */
+    protected static $testNow;
 
     /**
      * Format to use for __toString method when type juggling occurs.
@@ -82,7 +91,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         static::$_lastErrors = [];
-        if (static::$testNow === null) {
+        $testNow = static::getTestNow();
+        if ($testNow === null) {
             parent::__construct($time === null ? 'now' : $time, $tz);
 
             return;
@@ -95,16 +105,15 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             return;
         }
 
-        $testInstance = static::getTestNow();
         if ($relative) {
-            $testInstance = $testInstance->modify($time);
+            $testNow = $testNow->modify($time);
         }
 
-        if ($tz !== $testInstance->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+        if ($tz !== $testNow->getTimezone()) {
+            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
-        $time = $testInstance->format('Y-m-d H:i:s.u');
+        $time = $testNow->format('Y-m-d H:i:s.u');
         parent::__construct($time, $tz);
     }
 
@@ -129,6 +138,51 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
+     * Set a ChronosInterface instance (real or mock) to be returned when a "now"
+     * instance is created.  The provided instance will be returned
+     * specifically under the following conditions:
+     *   - A call to the static now() method, ex. ChronosInterface::now()
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Chronos(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Chronos('now')
+     *   - When a string containing the desired time is passed to ChronosInterface::parse()
+     *
+     * Note the timezone parameter was left out of the examples above and
+     * has no affect as the mock value will be returned regardless of its value.
+     *
+     * To clear the test instance call this method using the default
+     * parameter of null.
+     *
+     * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
+     * @return void
+     */
+    public static function setTestNow($testNow = null)
+    {
+        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
+    }
+
+    /**
+     * Get the ChronosInterface instance (real or mock) to be returned when a "now"
+     * instance is created.
+     *
+     * @return \Cake\Chronos\ChronosInterface The current instance used for testing
+     */
+    public static function getTestNow()
+    {
+        return static::$testNow;
+    }
+
+    /**
+     * Determine if there is a valid test instance set. A valid test instance
+     * is anything that is not null.
+     *
+     * @return bool True if there is a test instance, otherwise false
+     */
+    public static function hasTestNow()
+    {
+        return static::$testNow !== null;
+    }
+
+    /**
      * Return properties for debugging.
      *
      * @return array
@@ -138,7 +192,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         $properties = [
             'time' => $this->format('Y-m-d H:i:s.u'),
             'timezone' => $this->getTimezone()->getName(),
-            'hasFixedNow' => isset(self::$testNow)
+            'hasFixedNow' => self::hasTestNow()
         ];
 
         return $properties;
