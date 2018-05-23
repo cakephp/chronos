@@ -79,9 +79,28 @@ class TimeMutateTest extends TestCase
         $this->assertEquals(0, $new->hour);
         $this->assertEquals(0, $new->minute);
         $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $new->format('u'));
         $this->assertEquals(0, $date->hour);
         $this->assertEquals(0, $date->minute);
         $this->assertEquals(0, $date->second);
+        $this->assertEquals(0, $date->format('u'));
+    }
+
+    /**
+     * Test that setTime() ignores microseconds
+     */
+    public function testSetTimeIgnored()
+    {
+        $date = new Date();
+        $new = $date->setTime(1, 2, 3, 4);
+        $this->assertEquals(0, $new->hour);
+        $this->assertEquals(0, $new->minute);
+        $this->assertEquals(0, $new->second);
+        $this->assertEquals(0, $new->format('u'));
+        $this->assertEquals(0, $date->hour);
+        $this->assertEquals(0, $date->minute);
+        $this->assertEquals(0, $date->second);
+        $this->assertEquals(0, $date->format('u'));
     }
 
     /**

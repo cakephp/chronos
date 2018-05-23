@@ -3,6 +3,10 @@
  <description>Default configuration</description>
 
  <rule ref="vendor/cakephp/cakephp-codesniffer/CakePHP"/>
+ <!-- Necessary for class aliases used for backwards compat -->
+ <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+  <severity>0</severity>
+ </rule>
 
  <file>./src</file>
  <file>./tests</file>
