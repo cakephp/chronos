@@ -503,8 +503,7 @@ class ChronosInterval extends DateInterval
             static::PERIOD_MINUTES => $i,
             static::PERIOD_SECONDS => $s,
         ]);
-
-
+        
         $specString = static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
@@ -523,6 +522,5 @@ class ChronosInterval extends DateInterval
         }
 
         return $this->invert === 1 ? '-' . $specString : $specString;
-
     }
 }
