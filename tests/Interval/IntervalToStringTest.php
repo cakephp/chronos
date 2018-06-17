@@ -58,8 +58,8 @@ class IntervalToStringTest extends TestCase
     {
         $ci1 = new ChronosInterval(0, 0, 1);
         $ci2 = new ChronosInterval(0, 0, 0, 7);
-        $ci3 = new ChronosInterval(0, 0, 0, 0, 7*24);
-        $ci4 = new ChronosInterval(0, 0, 0, 0, 0, 7*24*60);
+        $ci3 = new ChronosInterval(0, 0, 0, 0, 7 * 24);
+        $ci4 = new ChronosInterval(0, 0, 0, 0, 0, 7 * 24 * 60);
 
         $this->assertEquals('P7D', (string)$ci1);
         $this->assertEquals('P7D', (string)$ci2);
@@ -71,8 +71,8 @@ class IntervalToStringTest extends TestCase
     {
         $ci1 = new ChronosInterval(0, 0, 0, 1);
         $ci2 = new ChronosInterval(0, 0, 0, 0, 24);
-        $ci3 = new ChronosInterval(0, 0, 0, 0, 0, 24*60);
-        $ci4 = new ChronosInterval(0, 0, 0, 0, 0, 0, 24*60*60);
+        $ci3 = new ChronosInterval(0, 0, 0, 0, 0, 24 * 60);
+        $ci4 = new ChronosInterval(0, 0, 0, 0, 0, 0, 24 * 60 * 60);
 
         $this->assertEquals('P1D', (string)$ci1);
         $this->assertEquals('P1D', (string)$ci2);

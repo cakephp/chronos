@@ -440,7 +440,7 @@ class ChronosInterval extends DateInterval
         $oneMinuteInSeconds = 60;
         $oneHourInSeconds = $oneMinuteInSeconds * 60;
         $oneDayInSeconds = $oneHourInSeconds * 24;
-        $oneMonthInDdays = 365/12;
+        $oneMonthInDdays = 365 / 12;
         $oneMonthInSeconds = $oneDayInSeconds * $oneMonthInDdays;
         $oneYearInSeconds = 12 * $oneMonthInSeconds;
 
@@ -462,31 +462,31 @@ class ChronosInterval extends DateInterval
 
         // years
         if ($totalSecs >= $oneYearInSeconds) {
-            $y = floor ($totalSecs / $oneYearInSeconds);
+            $y = floor($totalSecs / $oneYearInSeconds);
             $totalSecs = $totalSecs - $y * $oneYearInSeconds;
         }
 
         // months
         if ($totalSecs >= $oneMonthInSeconds) {
-            $m = floor ($totalSecs / $oneMonthInSeconds);
+            $m = floor($totalSecs / $oneMonthInSeconds);
             $totalSecs = $totalSecs - $m * $oneMonthInSeconds;
         }
 
         // days
         if ($totalSecs >= $oneDayInSeconds) {
-            $d = floor ($totalSecs / $oneDayInSeconds);
+            $d = floor($totalSecs / $oneDayInSeconds);
             $totalSecs = $totalSecs - $d * $oneDayInSeconds;
         }
 
         // hours
         if ($totalSecs >= $oneHourInSeconds) {
-            $h = floor ($totalSecs / $oneHourInSeconds);
+            $h = floor($totalSecs / $oneHourInSeconds);
             $totalSecs = $totalSecs - $h * $oneHourInSeconds;
         }
 
         // minutes
         if ($totalSecs >= $oneMinuteInSeconds) {
-            $i = floor ($totalSecs / $oneMinuteInSeconds);
+            $i = floor($totalSecs / $oneMinuteInSeconds);
             $totalSecs = $totalSecs - $i * $oneMinuteInSeconds;
         }
 
@@ -503,7 +503,7 @@ class ChronosInterval extends DateInterval
             static::PERIOD_MINUTES => $i,
             static::PERIOD_SECONDS => $s,
         ]);
-        
+
         $specString = static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
