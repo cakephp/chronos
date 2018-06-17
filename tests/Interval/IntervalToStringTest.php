@@ -25,6 +25,12 @@ class IntervalToStringTest extends TestCase
         $this->assertEquals('PT0S', (string)$ci);
     }
 
+    public function testNegativeArguments()
+    {
+        $ci = new ChronosInterval(1, -2, 0, 15);
+        $this->assertEquals('P1Y15D', (string)$ci, 'Negative arguments are not considered');
+    }
+
     /**
      * Date section
      */
