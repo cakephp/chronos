@@ -440,8 +440,8 @@ class ChronosInterval extends DateInterval
         $oneMinuteInSeconds = 60;
         $oneHourInSeconds = $oneMinuteInSeconds * 60;
         $oneDayInSeconds = $oneHourInSeconds * 24;
-        $oneMonthInDdays = 365 / 12;
-        $oneMonthInSeconds = $oneDayInSeconds * $oneMonthInDdays;
+        $oneMonthInDays = 365 / 12;
+        $oneMonthInSeconds = $oneDayInSeconds * $oneMonthInDays;
         $oneYearInSeconds = 12 * $oneMonthInSeconds;
 
         // convert
