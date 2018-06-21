@@ -168,7 +168,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      */
     public static function getTestNow()
     {
-        return static::$testNow;
+        return is_object(static::$testNow) ? clone static::$testNow : static::$testNow;
     }
 
     /**

@@ -45,7 +45,7 @@ class TestingAidsTest extends TestCase
         $class::setTestNow($notNow);
 
         $this->assertTrue($class::hasTestNow());
-        $this->assertSame($notNow, $class::getTestNow());
+        $this->assertEquals($notNow, $class::getTestNow());
     }
 
     /**
@@ -203,9 +203,9 @@ class TestingAidsTest extends TestCase
         $c = new $class('2016-01-03 00:00:00', 'Europe/Copenhagen');
         $class::setTestNow($c);
 
-        $this->assertSame($c, MutableDate::getTestNow());
-        $this->assertSame($c, Date::getTestNow());
-        $this->assertSame($c, Chronos::getTestNow());
-        $this->assertSame($c, MutableDateTime::getTestNow());
+        $this->assertEquals($c, MutableDate::getTestNow());
+        $this->assertEquals($c, Date::getTestNow());
+        $this->assertEquals($c, Chronos::getTestNow());
+        $this->assertEquals($c, MutableDateTime::getTestNow());
     }
 }
