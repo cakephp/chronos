@@ -436,16 +436,72 @@ class ChronosInterval extends DateInterval
      */
     public function __toString()
     {
+        // equivalence
+        $oneMinuteInSeconds = 60;
+        $oneHourInSeconds = $oneMinuteInSeconds * 60;
+        $oneDayInSeconds = $oneHourInSeconds * 24;
+        $oneMonthInDays = 365 / 12;
+        $oneMonthInSeconds = $oneDayInSeconds * $oneMonthInDays;
+        $oneYearInSeconds = 12 * $oneMonthInSeconds;
+
+        // convert
+        $ySecs = $this->y * $oneYearInSeconds;
+        $mSecs = $this->m * $oneMonthInSeconds;
+        $dSecs = $this->d * $oneDayInSeconds;
+        $hSecs = $this->h * $oneHourInSeconds;
+        $iSecs = $this->i * $oneMinuteInSeconds;
+        $sSecs = $this->s;
+
+        $totalSecs = $ySecs + $mSecs + $dSecs + $hSecs + $iSecs + $sSecs;
+
+        $y = null;
+        $m = null;
+        $d = null;
+        $h = null;
+        $i = null;
+
+        // years
+        if ($totalSecs >= $oneYearInSeconds) {
+            $y = floor($totalSecs / $oneYearInSeconds);
+            $totalSecs = $totalSecs - $y * $oneYearInSeconds;
+        }
+
+        // months
+        if ($totalSecs >= $oneMonthInSeconds) {
+            $m = floor($totalSecs / $oneMonthInSeconds);
+            $totalSecs = $totalSecs - $m * $oneMonthInSeconds;
+        }
+
+        // days
+        if ($totalSecs >= $oneDayInSeconds) {
+            $d = floor($totalSecs / $oneDayInSeconds);
+            $totalSecs = $totalSecs - $d * $oneDayInSeconds;
+        }
+
+        // hours
+        if ($totalSecs >= $oneHourInSeconds) {
+            $h = floor($totalSecs / $oneHourInSeconds);
+            $totalSecs = $totalSecs - $h * $oneHourInSeconds;
+        }
+
+        // minutes
+        if ($totalSecs >= $oneMinuteInSeconds) {
+            $i = floor($totalSecs / $oneMinuteInSeconds);
+            $totalSecs = $totalSecs - $i * $oneMinuteInSeconds;
+        }
+
+        $s = $totalSecs;
+
         $date = array_filter([
-            static::PERIOD_YEARS => $this->y,
-            static::PERIOD_MONTHS => $this->m,
-            static::PERIOD_DAYS => $this->d,
+            static::PERIOD_YEARS => $y,
+            static::PERIOD_MONTHS => $m,
+            static::PERIOD_DAYS => $d,
         ]);
 
         $time = array_filter([
-            static::PERIOD_HOURS => $this->h,
-            static::PERIOD_MINUTES => $this->i,
-            static::PERIOD_SECONDS => $this->s,
+            static::PERIOD_HOURS => $h,
+            static::PERIOD_MINUTES => $i,
+            static::PERIOD_SECONDS => $s,
         ]);
 
         $specString = static::PERIOD_PREFIX;
