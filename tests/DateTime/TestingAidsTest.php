@@ -87,6 +87,62 @@ class TestingAidsTest extends TestCase
     }
 
     /**
+     * Ensure that using test now doesn't mutate test now.
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testNowNoMutateDateTime($class)
+    {
+        $value = '2018-06-21 10:11:12';
+        $notNow = new MutableDateTime($value);
+        $class::setTestNow($notNow);
+
+        $instance = new $class('-10 minutes');
+        $this->assertSame('10:01:12', $instance->format('H:i:s'));
+
+        $instance = new $class('-10 minutes');
+        $this->assertSame('10:01:12', $instance->format('H:i:s'));
+    }
+
+    /**
+     * Ensure that using test now doesn't mutate test now.
+     *
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testNowNoMutateDate($class)
+    {
+        $value = '2018-06-21 10:11:12';
+        $notNow = new MutableDateTime($value);
+        $class::setTestNow($notNow);
+
+        $instance = new $class('-1 day');
+        $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
+
+        $instance = new $class('-1 day');
+        $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
+    }
+
+    /**
+     * Ensure that setting a datetime into test now doesn't violate date semantics
+     *
+     * Modifying date instances by hours should not change the date.
+     *
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testNowTestDateTimeConstraints($class)
+    {
+        $value = '2018-06-21 10:11:12';
+        $notNow = new MutableDateTime($value);
+        $class::setTestNow($notNow);
+
+        $instance = new $class('-23 hours');
+        $this->assertSame('2018-06-21 00:00:00', $instance->format('Y-m-d H:i:s'));
+    }
+
+    /**
      * @dataProvider classNameProvider
      * @return void
      */
