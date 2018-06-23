@@ -99,8 +99,12 @@ class Date extends DateTimeImmutable implements ChronosInterface
             return;
         }
 
+        $testNow = clone $testNow;
         if ($relative) {
-            $testNow = $testNow->modify($time);
+            $time = $this->stripRelativeTime($time);
+            if (strlen($time) > 0) {
+                $testNow = $testNow->modify($time);
+            }
         }
 
         if ($tz !== $testNow->getTimezone()) {

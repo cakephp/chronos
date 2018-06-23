@@ -105,6 +105,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             return;
         }
 
+        $testNow = clone $testNow;
         if ($relative) {
             $testNow = $testNow->modify($time);
         }

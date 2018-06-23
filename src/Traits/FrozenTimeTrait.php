@@ -49,6 +49,17 @@ trait FrozenTimeTrait
     }
 
     /**
+     * Remove time components from strtotime relative strings.
+     *
+     * @param string $time The input expression
+     * @return string The output expression with no time modifiers.
+     */
+    protected function stripRelativeTime($time)
+    {
+        return preg_replace('/([-+]\s*\d+\s(?:minutes|seconds|hours|microseconds))/', '', $time);
+    }
+
+    /**
      * Modify the time on the Date.
      *
      * This method ignores all inputs and forces all inputs to 0.
