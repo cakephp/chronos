@@ -116,7 +116,6 @@ trait ComparisonTrait
         return $this > $dt;
     }
 
-
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
