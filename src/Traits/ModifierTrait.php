@@ -157,7 +157,7 @@ trait ModifierTrait
         $minute = $time[1] ?? 0;
         $second = $time[2] ?? 0;
 
-        return $this->setTime($hour, $minute, $second);
+        return $this->setTime((int)$hour, (int)$minute, (int)$second);
     }
 
     /**
