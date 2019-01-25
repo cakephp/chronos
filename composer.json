@@ -26,12 +26,12 @@
     "source": "https://github.com/cakephp/chronos"
   },
   "require": {
-    "php": "^5.5.9|^7"
+    "php": "^7.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "<6.0 || ^7.0",
+    "phpunit/phpunit": "^7.0",
     "athletic/athletic": "~0.1",
-    "cakephp/cakephp-codesniffer": "^3.0",
+    "cakephp/cakephp-codesniffer": "dev-next",
     "phpbench/phpbench": "@dev",
     "phpstan/phpstan": "^0.6.4"
   },
