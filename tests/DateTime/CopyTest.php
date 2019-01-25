@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,13 +14,11 @@
 
 namespace Cake\Chronos\Test\DateTime;
 
-use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
 use TestCase;
 
 class CopyTest extends TestCase
 {
-
     public function testCopy()
     {
         $dating = MutableDateTime::now();

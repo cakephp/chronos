@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Cake\Chronos\Benchmarks\MutableDateTime;
 
 use Cake\Chronos\MutableDateTime;

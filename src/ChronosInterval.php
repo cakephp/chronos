@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -68,20 +69,20 @@ class ChronosInterval extends DateInterval
     /**
      * Interval spec period designators
      */
-    const PERIOD_PREFIX = 'P';
-    const PERIOD_YEARS = 'Y';
-    const PERIOD_MONTHS = 'M';
-    const PERIOD_DAYS = 'D';
-    const PERIOD_TIME_PREFIX = 'T';
-    const PERIOD_HOURS = 'H';
-    const PERIOD_MINUTES = 'M';
-    const PERIOD_SECONDS = 'S';
+    public const PERIOD_PREFIX = 'P';
+    public const PERIOD_YEARS = 'Y';
+    public const PERIOD_MONTHS = 'M';
+    public const PERIOD_DAYS = 'D';
+    public const PERIOD_TIME_PREFIX = 'T';
+    public const PERIOD_HOURS = 'H';
+    public const PERIOD_MINUTES = 'M';
+    public const PERIOD_SECONDS = 'S';
 
     /**
      * Before PHP 5.4.20/5.5.4 instead of `false` days will be set to -99999 when the interval instance
      * was created by DateTime:diff().
      */
-    const PHP_DAYS_FALSE = -99999;
+    public const PHP_DAYS_FALSE = -99999;
 
     /**
      * Whether or not this object was created in HHVM
@@ -98,7 +99,7 @@ class ChronosInterval extends DateInterval
      */
     protected static function wasCreatedFromDiff(DateInterval $interval)
     {
-        return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
+        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
     }
 
     /**
@@ -112,8 +113,15 @@ class ChronosInterval extends DateInterval
      * @param int|null $minutes The minutes to use.
      * @param int|null $seconds The seconds to use.
      */
-    public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
-    {
+    public function __construct(
+        $years = 1,
+        $months = null,
+        $weeks = null,
+        $days = null,
+        $hours = null,
+        $minutes = null,
+        $seconds = null
+    ) {
         $this->isHHVM = defined('HHVM_VERSION');
         $spec = static::PERIOD_PREFIX;
 
@@ -124,7 +132,7 @@ class ChronosInterval extends DateInterval
         $specDays += $weeks > 0 ? $weeks * ChronosInterface::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
-        $spec .= ($specDays > 0) ? $specDays . static::PERIOD_DAYS : '';
+        $spec .= $specDays > 0 ? $specDays . static::PERIOD_DAYS : '';
 
         if ($spec === static::PERIOD_PREFIX) {
             $spec .= '0' . static::PERIOD_YEARS;
@@ -155,8 +163,15 @@ class ChronosInterval extends DateInterval
      * @param int|null $seconds The seconds to use.
      * @return static
      */
-    public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
-    {
+    public static function create(
+        $years = 1,
+        $months = null,
+        $weeks = null,
+        $days = null,
+        $hours = null,
+        $minutes = null,
+        $seconds = null
+    ) {
         return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
 
@@ -413,7 +428,7 @@ class ChronosInterval extends DateInterval
      */
     public function add(DateInterval $interval)
     {
-        $sign = ($interval->invert === 1) ? -1 : 1;
+        $sign = $interval->invert === 1 ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
             $this->dayz = $this->dayz + ($interval->days * $sign);

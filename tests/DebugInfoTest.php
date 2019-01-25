@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -25,7 +26,7 @@ class DebugInfoTest extends TestCase
         $expected = [
             'time' => '2001-02-03 10:20:30.000000',
             'timezone' => 'America/Toronto',
-            'hasFixedNow' => false
+            'hasFixedNow' => false,
         ];
 
         $chronos = Chronos::create(2001, 2, 3, 10, 20, 30);
@@ -39,7 +40,7 @@ class DebugInfoTest extends TestCase
     {
         $expected = [
             'date' => '2001-02-03',
-            'hasFixedNow' => false
+            'hasFixedNow' => false,
         ];
 
         $date = Date::create(2001, 2, 3, 10, 20, 30);
@@ -54,7 +55,7 @@ class DebugInfoTest extends TestCase
         $expected = [
             'time' => '2001-02-03 10:20:30.000000',
             'timezone' => 'America/Toronto',
-            'hasFixedNow' => true
+            'hasFixedNow' => true,
         ];
 
         Chronos::setTestNow(Chronos::now());
@@ -70,7 +71,7 @@ class DebugInfoTest extends TestCase
     {
         $expected = [
             'date' => '2001-02-03',
-            'hasFixedNow' => true
+            'hasFixedNow' => true,
         ];
 
         Date::setTestNow(Chronos::now());

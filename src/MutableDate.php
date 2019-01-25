@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -108,7 +109,7 @@ class MutableDate extends DateTime implements ChronosInterface
         }
 
         if ($tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
 
         $time = $testNow->format('Y-m-d 00:00:00');
@@ -134,7 +135,7 @@ class MutableDate extends DateTime implements ChronosInterface
     {
         $properties = [
             'date' => $this->format('Y-m-d'),
-            'hasFixedNow' => static::hasTestNow()
+            'hasFixedNow' => static::hasTestNow(),
         ];
 
         return $properties;

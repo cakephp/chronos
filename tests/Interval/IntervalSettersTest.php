@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -18,7 +19,6 @@ use TestCase;
 
 class IntervalSettersTest extends TestCase
 {
-
     public function testYearsSetter()
     {
         $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);

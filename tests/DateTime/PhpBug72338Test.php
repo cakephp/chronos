@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -17,7 +18,6 @@ use TestCase;
 
 class PhpBug72338Test extends TestCase
 {
-
     /**
      * Ensures that $date->format('U') returns unchanged timestamp
      *

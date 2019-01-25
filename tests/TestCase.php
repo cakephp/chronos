@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -44,7 +45,7 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             'mutable' => [MutableDateTime::class],
-            'immutable' => [Chronos::class]
+            'immutable' => [Chronos::class],
         ];
     }
 
@@ -52,7 +53,7 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             'mutable' => [MutableDate::class],
-            'immutable' => [Date::class]
+            'immutable' => [Date::class],
         ];
     }
 
@@ -102,7 +103,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        Chronos::setTestNow(($dt === null) ? Chronos::now() : $dt);
+        Chronos::setTestNow($dt ?? Chronos::now());
         $func();
         Chronos::setTestNow();
     }

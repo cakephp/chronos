@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -16,13 +17,10 @@ namespace Cake\Chronos\Test\Interval;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use DateInterval;
-use Exception;
-use InvalidArgumentException;
 use TestCase;
 
 class IntervalConstructTest extends TestCase
 {
-
     public function testDefaults()
     {
         $ci = new ChronosInterval();

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -19,10 +20,9 @@ use TestCase;
 
 class DiffTest extends TestCase
 {
-
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
-        parent::wrapWithTestNow($func, ($dt === null) ? Chronos::createFromDate(2012, 1, 1) : $dt);
+        parent::wrapWithTestNow($func, $dt ?? Chronos::createFromDate(2012, 1, 1));
     }
 
     /**
@@ -294,7 +294,7 @@ class DiffTest extends TestCase
         $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
 
         $this->assertSame(40, $dt1->diffInHoursFiltered(function ($date) {
-            return ($date->hour > 8 && $date->hour < 17);
+            return $date->hour > 8 && $date->hour < 17;
         }, $dt2));
     }
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,7 +14,6 @@ namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
-use DateTimeZone;
 use TestCase;
 
 /**
@@ -21,7 +21,6 @@ use TestCase;
  */
 class ConstructTest extends TestCase
 {
-
     /**
      * @dataProvider dateClassProvider
      * @return void

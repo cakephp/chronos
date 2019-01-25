@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -14,7 +15,6 @@
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosInterface;
 
 /**
  * Provides methods for setting a 'test' now. This lets you
@@ -22,7 +22,6 @@ use Cake\Chronos\ChronosInterface;
  */
 trait TestingAidTrait
 {
-
     /**
      * Set the test now used by Date and Time classes provided by Chronos
      *

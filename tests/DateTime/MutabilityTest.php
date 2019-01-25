@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -18,7 +19,6 @@ use TestCase;
 
 class MutabilityTest extends TestCase
 {
-
     public function testAdd()
     {
         $dt1 = MutableDateTime::createFromDate(2000, 1, 1);

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -15,12 +16,10 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
-use InvalidArgumentException;
 use TestCase;
 
 class SettersTest extends TestCase
 {
-
     public function testYearSetter()
     {
         $d = MutableDateTime::now();

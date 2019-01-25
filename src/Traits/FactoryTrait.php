@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -144,22 +145,33 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
-    {
-        $year = ($year === null) ? date('Y') : $year;
-        $month = ($month === null) ? date('n') : $month;
-        $day = ($day === null) ? date('j') : $day;
+    public static function create(
+        $year = null,
+        $month = null,
+        $day = null,
+        $hour = null,
+        $minute = null,
+        $second = null,
+        $tz = null
+    ) {
+        $year = $year ?? date('Y');
+        $month = $month ?? date('n');
+        $day = $day ?? date('j');
 
         if ($hour === null) {
             $hour = date('G');
-            $minute = ($minute === null) ? date('i') : $minute;
-            $second = ($second === null) ? date('s') : $second;
+            $minute = $minute ?? date('i');
+            $second = $second ?? date('s');
         } else {
-            $minute = ($minute === null) ? 0 : $minute;
-            $second = ($second === null) ? 0 : $second;
+            $minute = $minute ?? 0;
+            $second = $second ?? 0;
         }
 
-        $instance = static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', 0, $month, $day, $hour, $minute, $second), $tz);
+        $instance = static::createFromFormat(
+            'Y-n-j G:i:s',
+            sprintf('%s-%s-%s %s:%02s:%02s', 0, $month, $day, $hour, $minute, $second),
+            $tz
+        );
 
         return $instance->addYears($year);
     }

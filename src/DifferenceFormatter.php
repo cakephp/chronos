@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -20,7 +21,6 @@ namespace Cake\Chronos;
  */
 class DifferenceFormatter
 {
-
     /**
      * The text translator object
      *
@@ -47,7 +47,7 @@ class DifferenceFormatter
      * @return string The difference between the two days in a human readable format
      * @see \Cake\Chronos\ChronosInterface::diffForHumans
      */
-    public function diffForHumans(ChronosInterface $date, ChronosInterface $other = null, $absolute = false)
+    public function diffForHumans(ChronosInterface $date, ?ChronosInterface $other = null, $absolute = false)
     {
         $isNow = $other === null;
         if ($isNow) {
@@ -56,15 +56,15 @@ class DifferenceFormatter
         $diffInterval = $date->diff($other);
 
         switch (true) {
-            case ($diffInterval->y > 0):
+            case $diffInterval->y > 0:
                 $unit = 'year';
                 $count = $diffInterval->y;
                 break;
-            case ($diffInterval->m > 0):
+            case $diffInterval->m > 0:
                 $unit = 'month';
                 $count = $diffInterval->m;
                 break;
-            case ($diffInterval->d > 0):
+            case $diffInterval->d > 0:
                 $unit = 'day';
                 $count = $diffInterval->d;
                 if ($count >= ChronosInterface::DAYS_PER_WEEK) {
@@ -72,11 +72,11 @@ class DifferenceFormatter
                     $count = (int)($count / ChronosInterface::DAYS_PER_WEEK);
                 }
                 break;
-            case ($diffInterval->h > 0):
+            case $diffInterval->h > 0:
                 $unit = 'hour';
                 $count = $diffInterval->h;
                 break;
-            case ($diffInterval->i > 0):
+            case $diffInterval->i > 0:
                 $unit = 'minute';
                 $count = $diffInterval->i;
                 break;

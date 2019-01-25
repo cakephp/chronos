@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -169,9 +170,9 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function min(ChronosInterface $dt = null)
+    public function min(?ChronosInterface $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
         return $this->lt($dt) ? $this : $dt;
     }
@@ -182,9 +183,9 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function max(ChronosInterface $dt = null)
+    public function max(?ChronosInterface $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
         return $this->gt($dt) ? $this : $dt;
     }
@@ -446,7 +447,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with or null to use current day.
      * @return static
      */
-    public function isBirthday(ChronosInterface $dt = null)
+    public function isBirthday(?ChronosInterface $dt = null)
     {
         if ($dt === null) {
             $dt = static::now($this->tz);

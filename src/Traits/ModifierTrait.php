@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,8 +14,6 @@
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
-use DateTime;
-use DateTimeImmutable;
 
 /**
  * Provides a suite of modifier methods.
@@ -28,7 +27,6 @@ use DateTimeImmutable;
  */
 trait ModifierTrait
 {
-
     /**
      * Names of days of the week.
      *
@@ -156,8 +154,8 @@ trait ModifierTrait
     {
         $time = explode(":", $time);
         $hour = $time[0];
-        $minute = isset($time[1]) ? $time[1] : 0;
-        $second = isset($time[2]) ? $time[2] : 0;
+        $minute = $time[1] ?? 0;
+        $second = $time[2] ?? 0;
 
         return $this->setTime($hour, $minute, $second);
     }
@@ -832,7 +830,9 @@ trait ModifierTrait
      */
     public function startOfCentury()
     {
-        $year = $this->startOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)->year;
+        $year = $this->startOfYear()
+            ->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)
+            ->year;
 
         return $this->modify("first day of january $year, midnight");
     }
@@ -844,7 +844,14 @@ trait ModifierTrait
      */
     public function endOfCentury()
     {
-        $year = $this->endOfYear()->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + ChronosInterface::YEARS_PER_CENTURY)->year;
+        $y = ($this->year - 1)
+            - ($this->year - 1)
+            % ChronosInterface::YEARS_PER_CENTURY
+            + ChronosInterface::YEARS_PER_CENTURY;
+
+        $year = $this->endOfYear()
+            ->year($y)
+            ->year;
 
         return $this->modify("last day of december $year, 23:59:59");
     }
@@ -967,7 +974,7 @@ trait ModifierTrait
         $check = $dt->format('Y-m');
         $dt = $dt->modify("+$nth " . static::$days[$dayOfWeek]);
 
-        return ($dt->format('Y-m') === $check) ? $dt : false;
+        return $dt->format('Y-m') === $check ? $dt : false;
     }
 
     /**
@@ -981,7 +988,10 @@ trait ModifierTrait
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER - 2)->firstOfMonth($dayOfWeek);
+        return $this
+            ->day(1)
+            ->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER - 2)
+            ->firstOfMonth($dayOfWeek);
     }
 
     /**
@@ -995,7 +1005,10 @@ trait ModifierTrait
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER)->lastOfMonth($dayOfWeek);
+        return $this
+            ->day(1)
+            ->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER)
+            ->lastOfMonth($dayOfWeek);
     }
 
     /**
@@ -1015,7 +1028,7 @@ trait ModifierTrait
         $year = $dt->year;
         $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $dt->month || $year !== $dt->year) ? false : $dt;
+        return $lastMonth < $dt->month || $year !== $dt->year ? false : $dt;
     }
 
     /**
@@ -1073,9 +1086,9 @@ trait ModifierTrait
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function average(ChronosInterface $dt = null)
+    public function average(?ChronosInterface $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
         return $this->addSeconds((int)($this->diffInSeconds($dt, false) / 2));
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -108,7 +109,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
         }
 
         if ($tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
 
         $time = $testNow->format('Y-m-d 00:00:00');

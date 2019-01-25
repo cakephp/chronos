@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -84,7 +85,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
 
         $testNow = Chronos::getTestNow();
         if ($testNow === null) {
-            parent::__construct($time === null ? 'now' : $time, $tz);
+            parent::__construct($time ?? 'now', $tz);
 
             return;
         }
@@ -102,7 +103,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
         }
 
         if ($tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
 
         $time = $testNow->format('Y-m-d H:i:s.u');
@@ -112,7 +113,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
     /**
      * Create a new immutable instance from current mutable instance.
      *
-     * @return Chronos
+     * @return \Cake\Chronos\Chronos
      */
     public function toImmutable()
     {

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -44,9 +45,9 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInYears(ChronosInterface $dt = null, $abs = true)
+    public function diffInYears(?ChronosInterface $dt = null, $abs = true)
     {
-        $dt = $dt === null ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
         return (int)$this->diff($dt, $abs)->format('%r%y');
     }
@@ -58,11 +59,13 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInMonths(ChronosInterface $dt = null, $abs = true)
+    public function diffInMonths(?ChronosInterface $dt = null, $abs = true)
     {
-        $dt = $dt === null ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
-        return $this->diffInYears($dt, $abs) * ChronosInterface::MONTHS_PER_YEAR + (int)$this->diff($dt, $abs)->format('%r%m');
+        return $this->diffInYears($dt, $abs)
+            * ChronosInterface::MONTHS_PER_YEAR
+            + (int)$this->diff($dt, $abs)->format('%r%m');
     }
 
     /**
@@ -72,7 +75,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeeks(ChronosInterface $dt = null, $abs = true)
+    public function diffInWeeks(?ChronosInterface $dt = null, $abs = true)
     {
         return (int)($this->diffInDays($dt, $abs) / ChronosInterface::DAYS_PER_WEEK);
     }
@@ -84,9 +87,9 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInDays(ChronosInterface $dt = null, $abs = true)
+    public function diffInDays(?ChronosInterface $dt = null, $abs = true)
     {
-        $dt = $dt === null ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
 
         return (int)$this->diff($dt, $abs)->format('%r%a');
     }
@@ -99,7 +102,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
+    public function diffInDaysFiltered(callable $callback, ?ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffFiltered(ChronosInterval::day(), $callback, $dt, $abs);
     }
@@ -112,7 +115,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true)
+    public function diffInHoursFiltered(callable $callback, ?ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffFiltered(ChronosInterval::hour(), $callback, $dt, $abs);
     }
@@ -126,10 +129,10 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true)
+    public function diffFiltered(ChronosInterval $ci, callable $callback, ?ChronosInterface $dt = null, $abs = true)
     {
         $start = $this;
-        $end = $dt === null ? static::now($this->tz) : $dt;
+        $end = $dt ?? static::now($this->tz);
         $inverse = false;
 
         if (defined('HHVM_VERSION')) {
@@ -160,7 +163,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekdays(ChronosInterface $dt = null, $abs = true)
+    public function diffInWeekdays(?ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffInDaysFiltered(function (ChronosInterface $date) {
             return $date->isWeekday();
@@ -174,7 +177,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekendDays(ChronosInterface $dt = null, $abs = true)
+    public function diffInWeekendDays(?ChronosInterface $dt = null, $abs = true)
     {
         return $this->diffInDaysFiltered(function (ChronosInterface $date) {
             return $date->isWeekend();
@@ -188,9 +191,13 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInHours(ChronosInterface $dt = null, $abs = true)
+    public function diffInHours(?ChronosInterface $dt = null, $abs = true)
     {
-        return (int)($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR);
+        return (int)(
+            $this->diffInSeconds($dt, $abs)
+            / ChronosInterface::SECONDS_PER_MINUTE
+            / ChronosInterface::MINUTES_PER_HOUR
+        );
     }
 
     /**
@@ -200,7 +207,7 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInMinutes(ChronosInterface $dt = null, $abs = true)
+    public function diffInMinutes(?ChronosInterface $dt = null, $abs = true)
     {
         return (int)($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE);
     }
@@ -212,9 +219,9 @@ trait DifferenceTrait
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInSeconds(ChronosInterface $dt = null, $abs = true)
+    public function diffInSeconds(?ChronosInterface $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?? static::now($this->tz);
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
@@ -276,7 +283,7 @@ trait DifferenceTrait
      * @param bool $absolute removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForHumans(ChronosInterface $other = null, $absolute = false)
+    public function diffForHumans(?ChronosInterface $other = null, $absolute = false)
     {
         return static::diffFormatter()->diffForHumans($this, $other, $absolute);
     }

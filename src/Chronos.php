@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -93,7 +94,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         static::$_lastErrors = [];
         $testNow = static::getTestNow();
         if ($testNow === null) {
-            parent::__construct($time === null ? 'now' : $time, $tz);
+            parent::__construct($time ?? 'now', $tz);
 
             return;
         }
@@ -111,7 +112,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         if ($tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
+            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
 
         $time = $testNow->format('Y-m-d H:i:s.u');
@@ -193,7 +194,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         $properties = [
             'time' => $this->format('Y-m-d H:i:s.u'),
             'timezone' => $this->getTimezone()->getName(),
-            'hasFixedNow' => self::hasTestNow()
+            'hasFixedNow' => self::hasTestNow(),
         ];
 
         return $properties;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,7 +14,6 @@
 namespace Cake\Chronos;
 
 use DateTimeInterface;
-use DateTimeZone;
 
 /**
  * An extension to the DateTimeInterface for a friendlier API
@@ -25,33 +25,33 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * The day constants
      */
-    const MONDAY = 1;
-    const TUESDAY = 2;
-    const WEDNESDAY = 3;
-    const THURSDAY = 4;
-    const FRIDAY = 5;
-    const SATURDAY = 6;
-    const SUNDAY = 7;
+    public const MONDAY = 1;
+    public const TUESDAY = 2;
+    public const WEDNESDAY = 3;
+    public const THURSDAY = 4;
+    public const FRIDAY = 5;
+    public const SATURDAY = 6;
+    public const SUNDAY = 7;
 
     /**
      * Number of X in Y
      */
-    const YEARS_PER_CENTURY = 100;
-    const YEARS_PER_DECADE = 10;
-    const MONTHS_PER_YEAR = 12;
-    const MONTHS_PER_QUARTER = 3;
-    const WEEKS_PER_YEAR = 52;
-    const DAYS_PER_WEEK = 7;
-    const HOURS_PER_DAY = 24;
-    const MINUTES_PER_HOUR = 60;
-    const SECONDS_PER_MINUTE = 60;
+    public const YEARS_PER_CENTURY = 100;
+    public const YEARS_PER_DECADE = 10;
+    public const MONTHS_PER_YEAR = 12;
+    public const MONTHS_PER_QUARTER = 3;
+    public const WEEKS_PER_YEAR = 52;
+    public const DAYS_PER_WEEK = 7;
+    public const HOURS_PER_DAY = 24;
+    public const MINUTES_PER_HOUR = 60;
+    public const SECONDS_PER_MINUTE = 60;
 
     /**
      * Default format to use for __toString method when type juggling occurs.
      *
      * @var string
      */
-    const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
+    public const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * Get a ChronosInterface instance for the current date and time
@@ -363,7 +363,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function min(ChronosInterface $dt = null);
+    public function min(?ChronosInterface $dt = null);
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
@@ -371,7 +371,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function max(ChronosInterface $dt = null);
+    public function max(?ChronosInterface $dt = null);
 
     /**
      * Determines if the instance is a weekday
@@ -875,7 +875,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $absolute Removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForHumans(ChronosInterface $other = null, $absolute = false);
+    public function diffForHumans(?ChronosInterface $other = null, $absolute = false);
 
     /**
      * Get the difference in years
@@ -884,7 +884,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInYears(ChronosInterface $dt = null, $abs = true);
+    public function diffInYears(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in months
@@ -893,7 +893,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInMonths(ChronosInterface $dt = null, $abs = true);
+    public function diffInMonths(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weeks
@@ -902,7 +902,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeeks(ChronosInterface $dt = null, $abs = true);
+    public function diffInWeeks(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in days
@@ -911,7 +911,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInDays(ChronosInterface $dt = null, $abs = true);
+    public function diffInDays(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in days using a filter callable
@@ -921,7 +921,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInDaysFiltered(callable $callback, ChronosInterface $dt = null, $abs = true);
+    public function diffInDaysFiltered(callable $callback, ?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in hours using a filter callable
@@ -931,7 +931,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInHoursFiltered(callable $callback, ChronosInterface $dt = null, $abs = true);
+    public function diffInHoursFiltered(callable $callback, ?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference by the given interval using a filter callable
@@ -942,7 +942,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffFiltered(ChronosInterval $ci, callable $callback, ChronosInterface $dt = null, $abs = true);
+    public function diffFiltered(ChronosInterval $ci, callable $callback, ?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weekdays
@@ -951,7 +951,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekdays(ChronosInterface $dt = null, $abs = true);
+    public function diffInWeekdays(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in weekend days using a filter
@@ -960,7 +960,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekendDays(ChronosInterface $dt = null, $abs = true);
+    public function diffInWeekendDays(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in hours
@@ -969,7 +969,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInHours(ChronosInterface $dt = null, $abs = true);
+    public function diffInHours(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in minutes
@@ -978,7 +978,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInMinutes(ChronosInterface $dt = null, $abs = true);
+    public function diffInMinutes(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * Get the difference in seconds
@@ -987,7 +987,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
-    public function diffInSeconds(ChronosInterface $dt = null, $abs = true);
+    public function diffInSeconds(?ChronosInterface $dt = null, $abs = true);
 
     /**
      * The number of seconds since midnight.
@@ -1217,7 +1217,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return static
      */
-    public function average(ChronosInterface $dt = null);
+    public function average(?ChronosInterface $dt = null);
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
