@@ -19,7 +19,7 @@ namespace Cake\Chronos;
  * Provides a swappable component for other libraries to leverage.
  * when localizing or customizing the difference output.
  */
-class DifferenceFormatter
+class DifferenceFormatter implements DifferenceFormatterInterface
 {
     /**
      * The text translator object
@@ -47,8 +47,11 @@ class DifferenceFormatter
      * @return string The difference between the two days in a human readable format
      * @see \Cake\Chronos\ChronosInterface::diffForHumans
      */
-    public function diffForHumans(ChronosInterface $date, ?ChronosInterface $other = null, $absolute = false)
-    {
+    public function diffForHumans(
+        ChronosInterface $date,
+        ?ChronosInterface $other = null,
+        bool $absolute = false
+    ): string {
         $isNow = $other === null;
         if ($isNow) {
             $other = $date->now($date->tz);
