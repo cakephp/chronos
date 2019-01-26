@@ -33,7 +33,7 @@ class DifferenceFormatter
      *
      * @param \Cake\Chronos\Translator|null $translate The text translator object.
      */
-    public function __construct($translate = null)
+    public function __construct(?Translator $translate = null)
     {
         $this->translate = $translate ?: new Translator();
     }
@@ -47,8 +47,11 @@ class DifferenceFormatter
      * @return string The difference between the two days in a human readable format
      * @see \Cake\Chronos\ChronosInterface::diffForHumans
      */
-    public function diffForHumans(ChronosInterface $date, ?ChronosInterface $other = null, $absolute = false)
-    {
+    public function diffForHumans(
+        ChronosInterface $date,
+        ?ChronosInterface $other = null,
+        bool $absolute = false
+    ): string {
         $isNow = $other === null;
         if ($isNow) {
             $other = $date->now($date->tz);

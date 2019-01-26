@@ -56,7 +56,7 @@ trait MagicPropertyTrait
      * @return string|int|\DateTimeZone The property value.
      * @throws \InvalidArgumentException
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         static $formats = [
             'year' => 'Y',
@@ -119,7 +119,7 @@ trait MagicPropertyTrait
      * @param string $name The property name to check.
      * @return bool Whether or not the property exists.
      */
-    public function __isset($name)
+    public function __isset(string $name): bool
     {
         try {
             $this->__get($name);

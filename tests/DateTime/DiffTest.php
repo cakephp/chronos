@@ -709,16 +709,6 @@ class DiffTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testDiffInSecondsEnsureIsTruncated($class)
-    {
-        $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInSeconds($dt->copy()->addSeconds(1.9)));
-    }
-
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
     public function testDiffInSecondsWithTimezones($class)
     {
         $dtOttawa = $class::createFromDate(2000, 1, 1, 'America/Toronto');

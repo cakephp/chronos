@@ -19,6 +19,11 @@ namespace Cake\Chronos\Traits;
  */
 trait RelativeKeywordTrait
 {
+    /**
+     * Regex for relative period.
+     *
+     * @var string
+     */
     protected static $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
 
     /**
@@ -28,7 +33,7 @@ trait RelativeKeywordTrait
      * @param string|null $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
-    public static function hasRelativeKeywords($time)
+    public static function hasRelativeKeywords(?string $time): bool
     {
         // skip common format with a '-' in it
         if ($time && preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1) {

@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosInterface;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -50,7 +51,7 @@ trait FactoryTrait
      * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param string $time The strtotime compatible string to parse
+     * @param string|int|null $time The strtotime compatible string to parse
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
@@ -108,7 +109,7 @@ trait FactoryTrait
      *
      * @return \Cake\Chronos\ChronosInterface
      */
-    public static function maxValue()
+    public static function maxValue(): ChronosInterface
     {
         return static::createFromTimestamp(PHP_INT_MAX);
     }
@@ -118,7 +119,7 @@ trait FactoryTrait
      *
      * @return \Cake\Chronos\ChronosInterface
      */
-    public static function minValue()
+    public static function minValue(): ChronosInterface
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
@@ -146,15 +147,15 @@ trait FactoryTrait
      * @return static
      */
     public static function create(
-        $year = null,
-        $month = null,
-        $day = null,
-        $hour = null,
-        $minute = null,
-        $second = null,
+        ?int $year = null,
+        ?int $month = null,
+        ?int $day = null,
+        ?int $hour = null,
+        ?int $minute = null,
+        ?int $second = null,
         $tz = null
     ) {
-        $year = $year ?? date('Y');
+        $year = $year ?? (int)date('Y');
         $month = $month ?? date('n');
         $day = $day ?? date('j');
 
@@ -179,13 +180,13 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance from just a date. The time portion is set to now.
      *
-     * @param int $year The year to create an instance with.
-     * @param int $month The month to create an instance with.
-     * @param int $day The day to create an instance with.
+     * @param int|null $year The year to create an instance with.
+     * @param int|null $month The month to create an instance with.
+     * @param int|null $day The day to create an instance with.
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
+    public static function createFromDate(?int $year = null, ?int $month = null, ?int $day = null, $tz = null)
     {
         return static::create($year, $month, $day, null, null, null, $tz);
     }
@@ -199,7 +200,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
+    public static function createFromTime(?int $hour = null, ?int $minute = null, ?int $second = null, $tz = null)
     {
         return static::create(null, null, null, $hour, $minute, $second, $tz);
     }
@@ -239,7 +240,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null)
+    public static function createFromTimestamp(int $timestamp, $tz = null)
     {
         return static::now($tz)->setTimestamp($timestamp);
     }
@@ -250,7 +251,7 @@ trait FactoryTrait
      * @param int $timestamp The UTC timestamp to create an instance from.
      * @return static
      */
-    public static function createFromTimestampUTC($timestamp)
+    public static function createFromTimestampUTC(int $timestamp)
     {
         return new static('@' . $timestamp);
     }
@@ -262,7 +263,7 @@ trait FactoryTrait
      * @return \DateTimeZone
      * @throws \InvalidArgumentException
      */
-    protected static function safeCreateDateTimeZone($object)
+    protected static function safeCreateDateTimeZone($object): DateTimeZone
     {
         if ($object === null) {
             return new DateTimeZone(date_default_timezone_get());
@@ -281,7 +282,7 @@ trait FactoryTrait
      *
      * @return array
      */
-    public static function getLastErrors()
+    public static function getLastErrors(): array
     {
         if (empty(static::$_lastErrors)) {
             return parent::getLastErrors();

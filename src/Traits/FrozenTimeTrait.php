@@ -32,7 +32,7 @@ trait FrozenTimeTrait
      *   to be in UTC. The 'now' and '' values will use the current local time.
      * @return string The date component of $time.
      */
-    protected function stripTime($time)
+    protected function stripTime($time): string
     {
         if (is_int($time) || ctype_digit($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
@@ -59,7 +59,7 @@ trait FrozenTimeTrait
      * @param string $time The input expression
      * @return string The output expression with no time modifiers.
      */
-    protected function stripRelativeTime($time)
+    protected function stripRelativeTime(string $time): string
     {
         return preg_replace('/([-+]\s*\d+\s(?:minutes|seconds|hours|microseconds))/', '', $time);
     }
