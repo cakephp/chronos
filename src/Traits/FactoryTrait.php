@@ -186,8 +186,12 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromDate(?int $year = null, ?int $month = null, ?int $day = null, $tz = null): ChronosInterface
-    {
+    public static function createFromDate(
+        ?int $year = null,
+        ?int $month = null,
+        ?int $day = null,
+        $tz = null
+    ): ChronosInterface {
         return static::create($year, $month, $day, null, null, null, $tz);
     }
 
@@ -200,8 +204,12 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromTime(?int $hour = null, ?int $minute = null, ?int $second = null, $tz = null): ChronosInterface
-    {
+    public static function createFromTime(
+        ?int $hour = null,
+        ?int $minute = null,
+        ?int $second = null,
+        $tz = null
+    ): ChronosInterface {
         return static::create(null, null, null, $hour, $minute, $second, $tz);
     }
 

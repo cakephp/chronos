@@ -138,8 +138,14 @@ trait ModifierTrait
      * @param int $second The second to set.
      * @return static
      */
-    public function setDateTime(int $year, int $month, int $day, int $hour, int $minute, int $second = 0): ChronosInterface
-    {
+    public function setDateTime(
+        int $year,
+        int $month,
+        int $day,
+        int $hour,
+        int $minute,
+        int $second = 0
+    ): ChronosInterface {
         return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
     }
 
