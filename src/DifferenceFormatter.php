@@ -33,7 +33,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
      *
      * @param \Cake\Chronos\Translator|null $translate The text translator object.
      */
-    public function __construct($translate = null)
+    public function __construct(?Translator $translate = null)
     {
         $this->translate = $translate ?: new Translator();
     }

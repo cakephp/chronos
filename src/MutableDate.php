@@ -77,7 +77,7 @@ class MutableDate extends DateTime implements ChronosInterface
      * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param string|null $time Fixed or relative time
+     * @param string|int|null $time Fixed or relative time
      */
     public function __construct($time = 'now')
     {
@@ -121,7 +121,7 @@ class MutableDate extends DateTime implements ChronosInterface
      *
      * @return \Cake\Chronos\Date
      */
-    public function toImmutable()
+    public function toImmutable(): Date
     {
         return Date::instance($this);
     }
@@ -131,7 +131,7 @@ class MutableDate extends DateTime implements ChronosInterface
      *
      * @return array
      */
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         $properties = [
             'date' => $this->format('Y-m-d'),

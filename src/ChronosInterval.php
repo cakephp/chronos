@@ -81,7 +81,7 @@ class ChronosInterval extends DateInterval
      * @param \DateInterval $interval The interval to check.
      * @return bool
      */
-    protected static function wasCreatedFromDiff(DateInterval $interval)
+    protected static function wasCreatedFromDiff(DateInterval $interval): bool
     {
         return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
     }
@@ -98,13 +98,13 @@ class ChronosInterval extends DateInterval
      * @param int|null $seconds The seconds to use.
      */
     public function __construct(
-        $years = 1,
-        $months = null,
-        $weeks = null,
-        $days = null,
-        $hours = null,
-        $minutes = null,
-        $seconds = null
+        ?int $years = 1,
+        ?int $months = null,
+        ?int $weeks = null,
+        ?int $days = null,
+        ?int $hours = null,
+        ?int $minutes = null,
+        ?int $seconds = null
     ) {
         $this->isHHVM = defined('HHVM_VERSION');
         $spec = static::PERIOD_PREFIX;
@@ -148,13 +148,13 @@ class ChronosInterval extends DateInterval
      * @return static
      */
     public static function create(
-        $years = 1,
-        $months = null,
-        $weeks = null,
-        $days = null,
-        $hours = null,
-        $minutes = null,
-        $seconds = null
+        ?int $years = 1,
+        ?int $months = null,
+        ?int $weeks = null,
+        ?int $days = null,
+        ?int $hours = null,
+        ?int $minutes = null,
+        ?int $seconds = null
     ) {
         return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
@@ -175,7 +175,7 @@ class ChronosInterval extends DateInterval
      * @param array $args Contains the value to use.
      * @return static
      */
-    public static function __callStatic($name, $args)
+    public static function __callStatic(string $name, array $args)
     {
         $arg = count($args) === 0 ? 1 : $args[0];
 
@@ -242,7 +242,7 @@ class ChronosInterval extends DateInterval
      * @throws \InvalidArgumentException
      * @return int
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         switch ($name) {
             case 'years':
@@ -292,7 +292,7 @@ class ChronosInterval extends DateInterval
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function __set($name, $val)
+    public function __set(string $name, $val): void
     {
         switch ($name) {
             case 'years':
@@ -341,7 +341,7 @@ class ChronosInterval extends DateInterval
      * @param int $days Number of days to set
      * @return static
      */
-    public function weeksAndDays($weeks, $days)
+    public function weeksAndDays(int $weeks, int $days)
     {
         $this->dayz = ($weeks * ChronosInterface::DAYS_PER_WEEK) + $days;
 
@@ -359,7 +359,7 @@ class ChronosInterval extends DateInterval
      * @param array $args The value to set.
      * @return static
      */
-    public function __call($name, $args)
+    public function __call(string $name, array $args)
     {
         $arg = count($args) === 0 ? 1 : $args[0];
 
@@ -433,7 +433,7 @@ class ChronosInterval extends DateInterval
      *
      * @return string Interval as string representation
      */
-    public function __toString()
+    public function __toString(): string
     {
         // equivalence
         $oneMinuteInSeconds = 60;

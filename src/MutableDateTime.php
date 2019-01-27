@@ -74,7 +74,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null $time Fixed or relative time
+     * @param string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $tz The timezone for the instance
      */
     public function __construct($time = 'now', $tz = null)
@@ -115,7 +115,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      *
      * @return \Cake\Chronos\Chronos
      */
-    public function toImmutable()
+    public function toImmutable(): Chronos
     {
         return Chronos::instance($this);
     }
@@ -128,7 +128,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function __set($name, $value)
+    public function __set(string $name, $value): void
     {
         switch ($name) {
             case 'year':
@@ -174,7 +174,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
      *
      * @return array
      */
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         $properties = [
             'time' => $this->format('Y-m-d H:i:s.u'),

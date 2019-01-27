@@ -29,7 +29,7 @@ trait TestingAidTrait
      * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
      * @return void
      */
-    public static function setTestNow($testNow = null)
+    public static function setTestNow($testNow = null): void
     {
         Chronos::setTestNow($testNow);
     }
@@ -51,7 +51,7 @@ trait TestingAidTrait
      * @see \Cake\Chronos\Chronos::hasTestNow()
      * @return bool True if there is a test instance, otherwise false
      */
-    public static function hasTestNow()
+    public static function hasTestNow(): bool
     {
         return Chronos::hasTestNow();
     }
