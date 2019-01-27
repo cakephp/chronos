@@ -155,7 +155,7 @@ class ChronosInterval extends DateInterval
         ?int $hours = null,
         ?int $minutes = null,
         ?int $seconds = null
-    ) {
+    ): self {
         return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
 
@@ -175,7 +175,7 @@ class ChronosInterval extends DateInterval
      * @param array $args Contains the value to use.
      * @return static
      */
-    public static function __callStatic(string $name, array $args)
+    public static function __callStatic(string $name, array $args): self
     {
         $arg = count($args) === 0 ? 1 : $args[0];
 
@@ -220,7 +220,7 @@ class ChronosInterval extends DateInterval
      * @throws \InvalidArgumentException
      * @return static
      */
-    public static function instance(DateInterval $di)
+    public static function instance(DateInterval $di): self
     {
         if (static::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException(
@@ -339,7 +339,7 @@ class ChronosInterval extends DateInterval
      *
      * @param int $weeks Number of weeks to set
      * @param int $days Number of days to set
-     * @return static
+     * @return $this
      */
     public function weeksAndDays(int $weeks, int $days)
     {
@@ -357,7 +357,7 @@ class ChronosInterval extends DateInterval
      * @param string $name The property name to augment. Accepts plural forms in addition
      *   to singular ones.
      * @param array $args The value to set.
-     * @return static
+     * @return $this
      */
     public function __call(string $name, array $args)
     {
@@ -408,7 +408,7 @@ class ChronosInterval extends DateInterval
      * Add the passed interval to the current instance
      *
      * @param \DateInterval $interval The interval to add.
-     * @return static
+     * @return $this
      */
     public function add(DateInterval $interval)
     {

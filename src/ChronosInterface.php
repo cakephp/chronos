@@ -59,14 +59,14 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
-    public static function now($tz);
+    public static function now($tz): self;
 
     /**
      * Get a copy of the instance
      *
      * @return static
      */
-    public function copy();
+    public function copy(): self;
 
     /**
      * Set the instance's year
@@ -74,7 +74,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The year value.
      * @return static
      */
-    public function year(int $value);
+    public function year(int $value): self;
 
     /**
      * Set the instance's month
@@ -82,7 +82,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The month value.
      * @return static
      */
-    public function month(int $value);
+    public function month(int $value): self;
 
     /**
      * Set the instance's day
@@ -90,7 +90,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The day value.
      * @return static
      */
-    public function day(int $value);
+    public function day(int $value): self;
 
     /**
      * Set the instance's hour
@@ -98,7 +98,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The hour value.
      * @return static
      */
-    public function hour(int $value);
+    public function hour(int $value): self;
 
     /**
      * Set the instance's minute
@@ -106,7 +106,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The minute value.
      * @return static
      */
-    public function minute(int $value);
+    public function minute(int $value): self;
 
     /**
      * Set the instance's second
@@ -114,7 +114,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The seconds value.
      * @return static
      */
-    public function second(int $value);
+    public function second(int $value): self;
 
     /**
      * Set the date and time all together
@@ -127,7 +127,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $second The second to set.
      * @return static
      */
-    public function setDateTime(int $year, int $month, int $day, int $hour, int $minute, int $second = 0);
+    public function setDateTime(int $year, int $month, int $day, int $hour, int $minute, int $second = 0): self;
 
     /**
      * Set the time by time string
@@ -135,7 +135,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param string $time Time as string.
      * @return static
      */
-    public function setTimeFromTimeString(string $time);
+    public function setTimeFromTimeString(string $time): self;
 
     /**
      * Set the instance's timestamp
@@ -143,7 +143,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The timestamp value to set.
      * @return static
      */
-    public function timestamp(int $value);
+    public function timestamp(int $value): self;
 
     /**
      * Alias for setTimezone()
@@ -151,7 +151,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function timezone($value);
+    public function timezone($value): self;
 
     /**
      * Alias for setTimezone()
@@ -159,7 +159,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function tz($value);
+    public function tz($value): self;
 
     /**
      * Set the instance's timezone from a string or object
@@ -167,7 +167,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function setTimezone($value);
+    public function setTimezone($value): self;
 
     /**
      * Format the instance as date
@@ -346,7 +346,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
-    public function closest(ChronosInterface $dt1, ChronosInterface $dt2);
+    public function closest(ChronosInterface $dt1, ChronosInterface $dt2): self;
 
     /**
      * Get the farthest date from the instance.
@@ -355,7 +355,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
      * @return static
      */
-    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2);
+    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2): self;
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
@@ -363,7 +363,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function min(?ChronosInterface $dt = null);
+    public function min(?ChronosInterface $dt = null): self;
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
@@ -371,7 +371,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function max(?ChronosInterface $dt = null);
+    public function max(?ChronosInterface $dt = null): self;
 
     /**
      * Determines if the instance is a weekday
@@ -514,7 +514,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYears(int $value);
+    public function addYears(int $value): self;
 
     /**
      * Add a year to the instance
@@ -522,7 +522,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYear(int $value = 1);
+    public function addYear(int $value = 1): self;
 
     /**
      * Remove a year from the instance
@@ -530,7 +530,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYear(int $value = 1);
+    public function subYear(int $value = 1): self;
 
     /**
      * Remove years from the instance.
@@ -538,7 +538,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYears(int $value);
+    public function subYears(int $value): self;
 
     /**
      * Add months to the instance. Positive $value travels forward while
@@ -559,7 +559,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonths(int $value);
+    public function addMonths(int $value): self;
 
     /**
      * Add a month to the instance
@@ -579,7 +579,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonth(int $value = 1);
+    public function addMonth(int $value = 1): self;
 
     /**
      * Remove a month from the instance
@@ -599,7 +599,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonth(int $value = 1);
+    public function subMonth(int $value = 1): self;
 
     /**
      * Remove months from the instance
@@ -619,7 +619,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonths(int $value);
+    public function subMonths(int $value): self;
 
     /**
      * Add months with overflowing to the instance. Positive $value
@@ -628,7 +628,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsWithOverflow(int $value);
+    public function addMonthsWithOverflow(int $value): self;
 
     /**
      * Add a month with overflow to the instance
@@ -636,7 +636,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthWithOverflow(int $value = 1);
+    public function addMonthWithOverflow(int $value = 1): self;
 
     /**
      * Remove a month with overflow from the instance
@@ -644,7 +644,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthWithOverflow(int $value = 1);
+    public function subMonthWithOverflow(int $value = 1): self;
 
     /**
      * Remove months with overflow from the instance
@@ -652,7 +652,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsWithOverflow(int $value);
+    public function subMonthsWithOverflow(int $value): self;
 
     /**
      * Add days to the instance. Positive $value travels forward while
@@ -661,7 +661,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to add.
      * @return static
      */
-    public function addDays(int $value);
+    public function addDays(int $value): self;
 
     /**
      * Add a day to the instance
@@ -669,7 +669,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to add.
      * @return static
      */
-    public function addDay(int $value = 1);
+    public function addDay(int $value = 1): self;
 
     /**
      * Remove a day from the instance
@@ -677,7 +677,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDay(int $value = 1);
+    public function subDay(int $value = 1): self;
 
     /**
      * Remove days from the instance
@@ -685,7 +685,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDays(int $value);
+    public function subDays(int $value): self;
 
     /**
      * Add weekdays to the instance. Positive $value travels forward while
@@ -694,7 +694,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weekdays to add.
      * @return static
      */
-    public function addWeekdays(int $value);
+    public function addWeekdays(int $value): self;
 
     /**
      * Add a weekday to the instance
@@ -702,7 +702,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weekdays to add.
      * @return static
      */
-    public function addWeekday(int $value = 1);
+    public function addWeekday(int $value = 1): self;
 
     /**
      * Remove a weekday from the instance
@@ -710,7 +710,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weekdays to remove.
      * @return static
      */
-    public function subWeekday(int $value = 1);
+    public function subWeekday(int $value = 1): self;
 
     /**
      * Remove weekdays from the instance
@@ -718,7 +718,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weekdays to remove.
      * @return static
      */
-    public function subWeekdays(int $value);
+    public function subWeekdays(int $value): self;
 
     /**
      * Add weeks to the instance. Positive $value travels forward while
@@ -727,7 +727,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weeks to add.
      * @return static
      */
-    public function addWeeks(int $value);
+    public function addWeeks(int $value): self;
 
     /**
      * Add a week to the instance
@@ -735,7 +735,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weeks to add.
      * @return static
      */
-    public function addWeek(int $value = 1);
+    public function addWeek(int $value = 1): self;
 
     /**
      * Remove a week from the instance
@@ -743,7 +743,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weeks to remove.
      * @return static
      */
-    public function subWeek(int $value = 1);
+    public function subWeek(int $value = 1): self;
 
     /**
      * Remove weeks to the instance
@@ -751,7 +751,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of weeks to remove.
      * @return static
      */
-    public function subWeeks(int $value);
+    public function subWeeks(int $value): self;
 
     /**
      * Add hours to the instance. Positive $value travels forward while
@@ -760,7 +760,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of hours to add.
      * @return static
      */
-    public function addHours(int $value);
+    public function addHours(int $value): self;
 
     /**
      * Add an hour to the instance
@@ -768,7 +768,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of hours to add.
      * @return static
      */
-    public function addHour(int $value = 1);
+    public function addHour(int $value = 1): self;
 
     /**
      * Remove an hour from the instance
@@ -776,7 +776,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of hours to remove.
      * @return static
      */
-    public function subHour(int $value = 1);
+    public function subHour(int $value = 1): self;
 
     /**
      * Remove hours from the instance
@@ -784,7 +784,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of hours to remove.
      * @return static
      */
-    public function subHours(int $value);
+    public function subHours(int $value): self;
 
     /**
      * Add minutes to the instance. Positive $value travels forward while
@@ -793,7 +793,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of minutes to add.
      * @return static
      */
-    public function addMinutes(int $value);
+    public function addMinutes(int $value): self;
 
     /**
      * Add a minute to the instance
@@ -801,7 +801,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of minutes to add.
      * @return static
      */
-    public function addMinute(int $value = 1);
+    public function addMinute(int $value = 1): self;
 
     /**
      * Remove a minute from the instance
@@ -809,7 +809,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of minutes to remove.
      * @return static
      */
-    public function subMinute(int $value = 1);
+    public function subMinute(int $value = 1): self;
 
     /**
      * Remove minutes from the instance
@@ -817,7 +817,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of minutes to remove.
      * @return static
      */
-    public function subMinutes(int $value);
+    public function subMinutes(int $value): self;
 
     /**
      * Add seconds to the instance. Positive $value travels forward while
@@ -826,7 +826,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of seconds to add.
      * @return static
      */
-    public function addSeconds(int $value);
+    public function addSeconds(int $value): self;
 
     /**
      * Add a second to the instance
@@ -834,7 +834,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of seconds to add.
      * @return static
      */
-    public function addSecond(int $value = 1);
+    public function addSecond(int $value = 1): self;
 
     /**
      * Remove a second from the instance
@@ -842,7 +842,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of seconds to remove.
      * @return static
      */
-    public function subSecond(int $value = 1);
+    public function subSecond(int $value = 1): self;
 
     /**
      * Remove seconds from the instance
@@ -850,7 +850,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of seconds to remove.
      * @return static
      */
-    public function subSeconds(int $value);
+    public function subSeconds(int $value): self;
 
     /**
      * Get the difference in a human readable format in the current locale.
@@ -1013,84 +1013,84 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @return static
      */
-    public function startOfDay();
+    public function startOfDay(): self;
 
     /**
      * Resets the time to 23:59:59
      *
      * @return static
      */
-    public function endOfDay();
+    public function endOfDay(): self;
 
     /**
      * Resets the date to the first day of the month and the time to 00:00:00
      *
      * @return static
      */
-    public function startOfMonth();
+    public function startOfMonth(): self;
 
     /**
      * Resets the date to end of the month and time to 23:59:59
      *
      * @return static
      */
-    public function endOfMonth();
+    public function endOfMonth(): self;
 
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
      *
      * @return static
      */
-    public function startOfYear();
+    public function startOfYear(): self;
 
     /**
      * Resets the date to end of the year and time to 23:59:59
      *
      * @return static
      */
-    public function endOfYear();
+    public function endOfYear(): self;
 
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
      *
      * @return static
      */
-    public function startOfDecade();
+    public function startOfDecade(): self;
 
     /**
      * Resets the date to end of the decade and time to 23:59:59
      *
      * @return static
      */
-    public function endOfDecade();
+    public function endOfDecade(): self;
 
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
      * @return static
      */
-    public function startOfCentury();
+    public function startOfCentury(): self;
 
     /**
      * Resets the date to end of the century and time to 23:59:59
      *
      * @return static
      */
-    public function endOfCentury();
+    public function endOfCentury(): self;
 
     /**
      * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
      *
      * @return static
      */
-    public function startOfWeek();
+    public function startOfWeek(): self;
 
     /**
      * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
      *
      * @return static
      */
-    public function endOfWeek();
+    public function endOfWeek(): self;
 
     /**
      * Modify to the next occurrence of a given day of the week.
@@ -1222,7 +1222,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return static
      */
-    public function average(?ChronosInterface $dt = null);
+    public function average(?ChronosInterface $dt = null): self;
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.

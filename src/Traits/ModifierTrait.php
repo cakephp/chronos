@@ -108,7 +108,7 @@ trait ModifierTrait
      * @param int $day The day to set.
      * @return static
      */
-    public function setDate($year, $month, $day)
+    public function setDate($year, $month, $day): ChronosInterface
     {
         return $this->modify('+0 day')->setDateParent($year, $month, $day);
     }
@@ -122,7 +122,7 @@ trait ModifierTrait
      * @param int $day The day to set.
      * @return static
      */
-    private function setDateParent(int $year, int $month, int $day)
+    private function setDateParent(int $year, int $month, int $day): ChronosInterface
     {
         return parent::setDate($year, $month, $day);
     }
@@ -138,7 +138,7 @@ trait ModifierTrait
      * @param int $second The second to set.
      * @return static
      */
-    public function setDateTime(int $year, int $month, int $day, int $hour, int $minute, int $second = 0)
+    public function setDateTime(int $year, int $month, int $day, int $hour, int $minute, int $second = 0): ChronosInterface
     {
         return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
     }
@@ -149,7 +149,7 @@ trait ModifierTrait
      * @param string $time Time as string.
      * @return static
      */
-    public function setTimeFromTimeString(string $time)
+    public function setTimeFromTimeString(string $time): ChronosInterface
     {
         $time = explode(":", $time);
         $hour = $time[0];
@@ -165,7 +165,7 @@ trait ModifierTrait
      * @param int $value The timestamp value to set.
      * @return static
      */
-    public function timestamp(int $value)
+    public function timestamp(int $value): ChronosInterface
     {
         return $this->setTimestamp($value);
     }
@@ -176,7 +176,7 @@ trait ModifierTrait
      * @param int $value The year value.
      * @return static
      */
-    public function year(int $value)
+    public function year(int $value): ChronosInterface
     {
         return $this->setDate($value, $this->month, $this->day);
     }
@@ -187,7 +187,7 @@ trait ModifierTrait
      * @param int $value The month value.
      * @return static
      */
-    public function month(int $value)
+    public function month(int $value): ChronosInterface
     {
         return $this->setDate($this->year, $value, $this->day);
     }
@@ -198,7 +198,7 @@ trait ModifierTrait
      * @param int $value The day value.
      * @return static
      */
-    public function day(int $value)
+    public function day(int $value): ChronosInterface
     {
         return $this->setDate($this->year, $this->month, $value);
     }
@@ -209,7 +209,7 @@ trait ModifierTrait
      * @param int $value The hour value.
      * @return static
      */
-    public function hour(int $value)
+    public function hour(int $value): ChronosInterface
     {
         return $this->setTime($value, $this->minute, $this->second);
     }
@@ -220,7 +220,7 @@ trait ModifierTrait
      * @param int $value The minute value.
      * @return static
      */
-    public function minute(int $value)
+    public function minute(int $value): ChronosInterface
     {
         return $this->setTime($this->hour, $value, $this->second);
     }
@@ -231,7 +231,7 @@ trait ModifierTrait
      * @param int $value The seconds value.
      * @return static
      */
-    public function second(int $value)
+    public function second(int $value): ChronosInterface
     {
         return $this->setTime($this->hour, $this->minute, $value);
     }
@@ -243,7 +243,7 @@ trait ModifierTrait
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYears(int $value)
+    public function addYears(int $value): ChronosInterface
     {
         return $this->modify($value . ' year');
     }
@@ -254,7 +254,7 @@ trait ModifierTrait
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYear(int $value = 1)
+    public function addYear(int $value = 1): ChronosInterface
     {
         return $this->addYears($value);
     }
@@ -265,7 +265,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYear(int $value = 1)
+    public function subYear(int $value = 1): ChronosInterface
     {
         return $this->subYears($value);
     }
@@ -276,7 +276,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYears(int $value)
+    public function subYears(int $value): ChronosInterface
     {
         return $this->addYears(-1 * $value);
     }
@@ -300,7 +300,7 @@ trait ModifierTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonths(int $value)
+    public function addMonths(int $value): ChronosInterface
     {
         $day = $this->day;
         $date = $this->modify($value . ' month');
@@ -330,7 +330,7 @@ trait ModifierTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonth(int $value = 1)
+    public function addMonth(int $value = 1): ChronosInterface
     {
         return $this->addMonths($value);
     }
@@ -353,7 +353,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonth(int $value = 1)
+    public function subMonth(int $value = 1): ChronosInterface
     {
         return $this->subMonths($value);
     }
@@ -376,7 +376,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonths(int $value)
+    public function subMonths(int $value): ChronosInterface
     {
         return $this->addMonths(-1 * $value);
     }
@@ -388,7 +388,7 @@ trait ModifierTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthsWithOverflow(int $value)
+    public function addMonthsWithOverflow(int $value): ChronosInterface
     {
         return $this->modify($value . ' month');
     }
@@ -399,7 +399,7 @@ trait ModifierTrait
      * @param int $value The number of months to add.
      * @return static
      */
-    public function addMonthWithOverflow(int $value = 1)
+    public function addMonthWithOverflow(int $value = 1): ChronosInterface
     {
         return $this->modify($value . ' month');
     }
@@ -410,7 +410,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthWithOverflow(int $value = 1)
+    public function subMonthWithOverflow(int $value = 1): ChronosInterface
     {
         return $this->subMonthsWithOverflow($value);
     }
@@ -421,7 +421,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsWithOverflow(int $value)
+    public function subMonthsWithOverflow(int $value): ChronosInterface
     {
         return $this->addMonthsWithOverflow(-1 * $value);
     }
@@ -433,7 +433,7 @@ trait ModifierTrait
      * @param int $value The number of days to add.
      * @return static
      */
-    public function addDays(int $value)
+    public function addDays(int $value): ChronosInterface
     {
         return $this->modify("$value day");
     }
@@ -444,7 +444,7 @@ trait ModifierTrait
      * @param int $value The number of days to add.
      * @return static
      */
-    public function addDay(int $value = 1)
+    public function addDay(int $value = 1): ChronosInterface
     {
         return $this->modify("$value day");
     }
@@ -455,7 +455,7 @@ trait ModifierTrait
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDay(int $value = 1)
+    public function subDay(int $value = 1): ChronosInterface
     {
         return $this->modify("-$value day");
     }
@@ -466,7 +466,7 @@ trait ModifierTrait
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDays(int $value)
+    public function subDays(int $value): ChronosInterface
     {
         return $this->modify("-$value day");
     }
@@ -478,7 +478,7 @@ trait ModifierTrait
      * @param int $value The number of weekdays to add.
      * @return static
      */
-    public function addWeekdays(int $value)
+    public function addWeekdays(int $value): ChronosInterface
     {
         return $this->modify((int)$value . ' weekdays ' . $this->format('H:i:s'));
     }
@@ -489,7 +489,7 @@ trait ModifierTrait
      * @param int $value The number of weekdays to add.
      * @return static
      */
-    public function addWeekday(int $value = 1)
+    public function addWeekday(int $value = 1): ChronosInterface
     {
         return $this->addWeekdays($value);
     }
@@ -500,7 +500,7 @@ trait ModifierTrait
      * @param int $value The number of weekdays to remove.
      * @return static
      */
-    public function subWeekdays(int $value)
+    public function subWeekdays(int $value): ChronosInterface
     {
         return $this->modify("$value weekdays ago, " . $this->format('H:i:s'));
     }
@@ -511,7 +511,7 @@ trait ModifierTrait
      * @param int $value The number of weekdays to remove.
      * @return static
      */
-    public function subWeekday(int $value = 1)
+    public function subWeekday(int $value = 1): ChronosInterface
     {
         return $this->subWeekdays($value);
     }
@@ -523,7 +523,7 @@ trait ModifierTrait
      * @param int $value The number of weeks to add.
      * @return static
      */
-    public function addWeeks(int $value)
+    public function addWeeks(int $value): ChronosInterface
     {
         return $this->modify("$value week");
     }
@@ -534,7 +534,7 @@ trait ModifierTrait
      * @param int $value The number of weeks to add.
      * @return static
      */
-    public function addWeek(int $value = 1)
+    public function addWeek(int $value = 1): ChronosInterface
     {
         return $this->modify("$value week");
     }
@@ -545,7 +545,7 @@ trait ModifierTrait
      * @param int $value The number of weeks to remove.
      * @return static
      */
-    public function subWeek(int $value = 1)
+    public function subWeek(int $value = 1): ChronosInterface
     {
         return $this->modify("-$value week");
     }
@@ -556,7 +556,7 @@ trait ModifierTrait
      * @param int $value The number of weeks to remove.
      * @return static
      */
-    public function subWeeks(int $value)
+    public function subWeeks(int $value): ChronosInterface
     {
         return $this->modify("-$value week");
     }
@@ -568,7 +568,7 @@ trait ModifierTrait
      * @param int $value The number of hours to add.
      * @return static
      */
-    public function addHours(int $value)
+    public function addHours(int $value): ChronosInterface
     {
         return $this->modify("$value hour");
     }
@@ -579,7 +579,7 @@ trait ModifierTrait
      * @param int $value The number of hours to add.
      * @return static
      */
-    public function addHour(int $value = 1)
+    public function addHour(int $value = 1): ChronosInterface
     {
         return $this->modify("$value hour");
     }
@@ -590,7 +590,7 @@ trait ModifierTrait
      * @param int $value The number of hours to remove.
      * @return static
      */
-    public function subHour(int $value = 1)
+    public function subHour(int $value = 1): ChronosInterface
     {
         return $this->modify("-$value hour");
     }
@@ -601,7 +601,7 @@ trait ModifierTrait
      * @param int $value The number of hours to remove.
      * @return static
      */
-    public function subHours(int $value)
+    public function subHours(int $value): ChronosInterface
     {
         return $this->modify("-$value hour");
     }
@@ -613,7 +613,7 @@ trait ModifierTrait
      * @param int $value The number of minutes to add.
      * @return static
      */
-    public function addMinutes(int $value)
+    public function addMinutes(int $value): ChronosInterface
     {
         return $this->modify("$value minute");
     }
@@ -624,7 +624,7 @@ trait ModifierTrait
      * @param int $value The number of minutes to add.
      * @return static
      */
-    public function addMinute(int $value = 1)
+    public function addMinute(int $value = 1): ChronosInterface
     {
         return $this->modify("$value minute");
     }
@@ -635,7 +635,7 @@ trait ModifierTrait
      * @param int $value The number of minutes to remove.
      * @return static
      */
-    public function subMinute(int $value = 1)
+    public function subMinute(int $value = 1): ChronosInterface
     {
         return $this->modify("-$value minute");
     }
@@ -646,7 +646,7 @@ trait ModifierTrait
      * @param int $value The number of minutes to remove.
      * @return static
      */
-    public function subMinutes(int $value)
+    public function subMinutes(int $value): ChronosInterface
     {
         return $this->modify("-$value minute");
     }
@@ -658,7 +658,7 @@ trait ModifierTrait
      * @param int $value The number of seconds to add.
      * @return static
      */
-    public function addSeconds(int $value)
+    public function addSeconds(int $value): ChronosInterface
     {
         return $this->modify("$value second");
     }
@@ -669,7 +669,7 @@ trait ModifierTrait
      * @param int $value The number of seconds to add.
      * @return static
      */
-    public function addSecond(int $value = 1)
+    public function addSecond(int $value = 1): ChronosInterface
     {
         return $this->modify("$value second");
     }
@@ -680,7 +680,7 @@ trait ModifierTrait
      * @param int $value The number of seconds to remove.
      * @return static
      */
-    public function subSecond(int $value = 1)
+    public function subSecond(int $value = 1): ChronosInterface
     {
         return $this->modify("-$value second");
     }
@@ -691,7 +691,7 @@ trait ModifierTrait
      * @param int $value The number of seconds to remove.
      * @return static
      */
-    public function subSeconds(int $value)
+    public function subSeconds(int $value): ChronosInterface
     {
         return $this->modify("-$value second");
     }
@@ -701,7 +701,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfDay()
+    public function startOfDay(): ChronosInterface
     {
         return $this->modify('midnight');
     }
@@ -711,7 +711,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfDay()
+    public function endOfDay(): ChronosInterface
     {
         return $this->modify('23:59:59');
     }
@@ -721,7 +721,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfMonth()
+    public function startOfMonth(): ChronosInterface
     {
         return $this->modify('first day of this month midnight');
     }
@@ -731,7 +731,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfMonth()
+    public function endOfMonth(): ChronosInterface
     {
         return $this->modify('last day of this month, 23:59:59');
     }
@@ -741,7 +741,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfYear()
+    public function startOfYear(): ChronosInterface
     {
         return $this->modify('first day of january midnight');
     }
@@ -751,7 +751,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfYear()
+    public function endOfYear(): ChronosInterface
     {
         return $this->modify('last day of december, 23:59:59');
     }
@@ -761,7 +761,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfDecade()
+    public function startOfDecade(): ChronosInterface
     {
         $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE;
 
@@ -773,7 +773,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfDecade()
+    public function endOfDecade(): ChronosInterface
     {
         $year = $this->year - $this->year % ChronosInterface::YEARS_PER_DECADE + ChronosInterface::YEARS_PER_DECADE - 1;
 
@@ -785,7 +785,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfCentury()
+    public function startOfCentury(): ChronosInterface
     {
         $year = $this->startOfYear()
             ->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)
@@ -799,7 +799,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfCentury()
+    public function endOfCentury(): ChronosInterface
     {
         $y = ($this->year - 1)
             - ($this->year - 1)
@@ -818,7 +818,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function startOfWeek()
+    public function startOfWeek(): ChronosInterface
     {
         $dt = $this;
         if ($dt->dayOfWeek !== static::$weekStartsAt) {
@@ -833,7 +833,7 @@ trait ModifierTrait
      *
      * @return static
      */
-    public function endOfWeek()
+    public function endOfWeek(): ChronosInterface
     {
         $dt = $this;
         if ($dt->dayOfWeek !== static::$weekEndsAt) {
@@ -1043,7 +1043,7 @@ trait ModifierTrait
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
      * @return static
      */
-    public function average(?ChronosInterface $dt = null)
+    public function average(?ChronosInterface $dt = null): ChronosInterface
     {
         $dt = $dt ?? static::now($this->tz);
 

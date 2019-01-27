@@ -13,6 +13,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosInterface;
+
 /**
  * Provides methods for copying datetime objects.
  *
@@ -25,7 +27,7 @@ trait CopyTrait
      *
      * @return static
      */
-    public function copy()
+    public function copy(): ChronosInterface
     {
         return static::instance($this);
     }
