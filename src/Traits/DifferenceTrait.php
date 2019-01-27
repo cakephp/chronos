@@ -34,7 +34,7 @@ trait DifferenceTrait
     /**
      * Instance of the diff formatting object.
      *
-     * @var \Cake\Chronos\DifferenceFormatter
+     * @var \Cake\Chronos\DifferenceFormatterInterface
      */
     protected static $diffFormatter;
 
@@ -291,8 +291,8 @@ trait DifferenceTrait
     /**
      * Get the difference formatter instance or overwrite the current one.
      *
-     * @param \Cake\Chronos\DifferenceFormatter|null $formatter The formatter instance when setting.
-     * @return \Cake\Chronos\DifferenceFormatter The formatter instance.
+     * @param \Cake\Chronos\DifferenceFormatterInterface|null $formatter The formatter instance when setting.
+     * @return \Cake\Chronos\DifferenceFormatterInterface The formatter instance.
      */
     public static function diffFormatter($formatter = null)
     {
