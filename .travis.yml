@@ -10,11 +10,6 @@ php:
 
 sudo: false
 
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
-
 env:
   global:
     - DEFAULT=1
@@ -35,11 +30,9 @@ matrix:
 before_install:
   - if [ $HHVM != 1 && $TRAVIS_PHP_VERSION != 7.* ]; then phpenv config-rm xdebug.ini; fi
 
-  - travis_retry composer self-update
-
 install:
-  - if [[ $PHPSTAN = 0 ]]; then composer remove --dev phpstan/phpstan; fi
-  - travis_retry composer install --no-interaction --prefer-dist
+  - if [[ $PHPSTAN = 0 ]]; then composer remove phpstan/phpstan; fi
+  - composer install --no-interaction --prefer-dist
 
 script:
   - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.3 ]]; then export CODECOVERAGE=1; vendor/bin/phpunit --coverage-clover=clover.xml; fi
