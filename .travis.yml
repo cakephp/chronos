@@ -5,7 +5,7 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - 7.2
+  - 7.3
   - nightly
 
 sudo: false
@@ -42,14 +42,14 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist
 
 script:
-  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.2 ]]; then export CODECOVERAGE=1; vendor/bin/phpunit --coverage-clover=clover.xml; fi
-  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION != 7.2 ]]; then vendor/bin/phpunit; fi
+  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.3 ]]; then export CODECOVERAGE=1; vendor/bin/phpunit --coverage-clover=clover.xml; fi
+  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION != 7.3 ]]; then vendor/bin/phpunit; fi
 
   - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs ./src ./tests; fi
   - if [[ $PHPSTAN = 1 ]]; then composer phpstan; fi
 
 after_success:
-  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.2 ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.3 ]]; then bash <(curl -s https://codecov.io/bash); fi
 
 notifications:
   email: false
