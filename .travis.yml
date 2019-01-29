@@ -32,7 +32,7 @@ before_install:
 
 install:
   - if [[ $PHPSTAN = 0 ]]; then composer remove phpstan/phpstan; fi
-  - composer install --no-interaction --prefer-dist
+  - travis_retry composer install --no-interaction --prefer-dist
 
 script:
   - if [[ $DEFAULT = 1 && $TRAVIS_PHP_VERSION = 7.3 ]]; then export CODECOVERAGE=1; vendor/bin/phpunit --coverage-clover=clover.xml; fi
