@@ -167,7 +167,7 @@ trait ComparisonTrait
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
     public function min(ChronosInterface $dt = null)
     {
@@ -180,7 +180,7 @@ trait ComparisonTrait
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
     public function max(ChronosInterface $dt = null)
     {
@@ -444,7 +444,7 @@ trait ComparisonTrait
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with or null to use current day.
-     * @return static
+     * @return bool
      */
     public function isBirthday(ChronosInterface $dt = null)
     {

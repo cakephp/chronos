@@ -22,17 +22,17 @@ use InvalidArgumentException;
  * This object can be mutated in place using any setter method,
  * or __set().
  *
- * @property-read int $year
- * @property-read int $yearIso
- * @property-read int $month
- * @property-read int $day
- * @property-read int $hour
- * @property-read int $minute
- * @property-read int $second
- * @property-read int $timestamp seconds since the Unix Epoch
- * @property-read DateTimeZone $timezone the current timezone
- * @property-read DateTimeZone $tz alias of timezone
- * @property-read int $micro
+ * @property int $year
+ * @property int $yearIso
+ * @property int $month
+ * @property int $day
+ * @property int $hour
+ * @property int $minute
+ * @property int $second
+ * @property int $timestamp seconds since the Unix Epoch
+ * @property DateTimeZone|string $timezone the current timezone
+ * @property DateTimeZone|string $tz alias of timezone
+ * @property int $micro
  * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5

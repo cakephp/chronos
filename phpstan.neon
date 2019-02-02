@@ -1,6 +1,9 @@
 parameters:
-	ignoreErrors:
-		- '#Call to an undefined method Cake\\Chronos\\ChronosInterface::modify\(\).#'
-		# Appears because interface can't describe properties and formally it doesn't have properties.
-		- '#Call to an undefined static method Cake\\Chronos\\ChronosInterval::[a-zA-Z0-9_]+\(\)#'
-		- '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
+    ignoreErrors:
+        # Appears because interface can't describe properties and formally it doesn't have properties.
+        - '#Static call to instance method Cake\\Chronos\\ChronosInterval::[a-zA-Z0-9_]+\(\)#'
+        - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
+        - '#Method Cake\\Chronos\\ChronosInterval::[a-zA-Z]+\(.*?\) invoked#'
+        - '#Call to an undefined static method DateInterval::__get\(\)#'
+        - '#Access to an undefined property Cake\\Chronos\\MutableDateTime::\$doesNotExit#'
+        - '#Access to an undefined property Cake\\Chronos\\ChronosInterval::\$sdfsdfss#'
