@@ -34,7 +34,7 @@ before_install:
   - if [ $TRAVIS_PHP_VERSION != 7.* ]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $PHPSTAN = 1 ]]; then composer require "phpstan/phpstan:^0.10"; fi
+  - if [[ $PHPSTAN = 1 ]]; then composer require "phpstan/phpstan:^0.9"; fi
 
 script:
   - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit; fi
