@@ -175,16 +175,20 @@ class MutableDateTime extends DateTime implements ChronosInterface
      */
     public function __debugInfo()
     {
-        if (!property_exists($this, 'date') || !property_exists($this, 'timezone')) {
-            return [
-                'hasFixedNow' => self::hasTestNow(),
-            ];
-        }
+        $vars = get_object_vars($this);
 
-        return [
-            'time' => $this->format('Y-m-d H:i:s.u'),
-            'timezone' => $this->getTimezone()->getName(),
+        $properties = [
             'hasFixedNow' => static::hasTestNow(),
         ];
+
+        if (isset($vars['date'])) {
+            $properties['time'] = $this->format('Y-m-d H:i:s.u');
+        }
+
+        if (isset($vars['timezone'])) {
+            $properties['timezone'] = $this->getTimezone()->getName();
+        }
+
+        return $properties;
     }
 }

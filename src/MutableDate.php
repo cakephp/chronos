@@ -132,15 +132,16 @@ class MutableDate extends DateTime implements ChronosInterface
      */
     public function __debugInfo()
     {
-        if (!property_exists($this, 'date')) {
-            return [
-                'hasFixedNow' => self::hasTestNow(),
-            ];
+        $vars = get_object_vars($this);
+
+        $properties = [
+            'hasFixedNow' => static::hasTestNow(),
+        ];
+
+        if (isset($vars['date'])) {
+            $properties['date'] = $this->format('Y-m-d');
         }
 
-        return [
-            'date' => $this->format('Y-m-d'),
-            'hasFixedNow' => static::hasTestNow()
-        ];
+        return $properties;
     }
 }
