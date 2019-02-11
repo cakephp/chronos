@@ -190,6 +190,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      */
     public function __debugInfo()
     {
+        // Conditionally add properties if state exists to avoid
+        // errors when using a debugger.
         $vars = get_object_vars($this);
 
         $properties = [
