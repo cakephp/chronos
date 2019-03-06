@@ -31,19 +31,19 @@ matrix:
   fast_finish: true
 
 before_install:
-  - if [ $TRAVIS_PHP_VERSION != 7.* ]; then phpenv config-rm xdebug.ini; fi
+  - phpenv config-rm xdebug.ini
 
 install:
-  - if [[ $PHPSTAN = 1 ]]; then composer require "phpstan/phpstan:^0.9"; fi
+  - if [[ $PHPSTAN == 1 ]]; then composer require "phpstan/phpstan:^0.9"; fi
 
 script:
-  - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit; fi
-  - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs ./src ./tests; fi
-  - if [[ $PHPSTAN = 1 ]]; then composer phpstan; fi
-  - if [[ $COVERAGE = 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
+  - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit; fi
+  - if [[ $PHPCS == 1 ]]; then vendor/bin/phpcs src/ tests/; fi
+  - if [[ $PHPSTAN == 1 ]]; then composer phpstan; fi
+  - if [[ $COVERAGE == 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
 
 after_success:
-  - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $COVERAGE == 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
 
 notifications:
   email: false
