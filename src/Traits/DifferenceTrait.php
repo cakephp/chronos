@@ -16,6 +16,7 @@ namespace Cake\Chronos\Traits;
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
+use Cake\Chronos\DifferenceFormatterInterface;
 use DatePeriod;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -298,7 +299,7 @@ trait DifferenceTrait
      * @param \Cake\Chronos\DifferenceFormatterInterface|null $formatter The formatter instance when setting.
      * @return \Cake\Chronos\DifferenceFormatterInterface The formatter instance.
      */
-    public static function diffFormatter(?DifferenceFormatter $formatter = null): DifferenceFormatter
+    public static function diffFormatter(?DifferenceFormatterInterface $formatter = null): DifferenceFormatterInterface
     {
         if ($formatter === null) {
             if (static::$diffFormatter === null) {

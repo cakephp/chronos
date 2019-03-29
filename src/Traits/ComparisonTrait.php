@@ -168,9 +168,9 @@ trait ComparisonTrait
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
-    public function min(?ChronosInterface $dt = null)
+    public function min(?ChronosInterface $dt = null): ChronosInterface
     {
         $dt = $dt ?? static::now($this->tz);
 
@@ -181,9 +181,9 @@ trait ComparisonTrait
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return static
+     * @return \Cake\Chronos\ChronosInterface
      */
-    public function max(?ChronosInterface $dt = null)
+    public function max(?ChronosInterface $dt = null): ChronosInterface
     {
         $dt = $dt ?? static::now($this->tz);
 
