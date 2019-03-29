@@ -39,7 +39,7 @@ trait FormattingTrait
      * @param string $format The format to use in future __toString() calls.
      * @return void
      */
-    public static function setToStringFormat(string $format): void
+    public static function setToStringFormat($format): void
     {
         static::$toStringFormat = $format;
     }
