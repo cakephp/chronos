@@ -46,8 +46,8 @@ use InvalidArgumentException;
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * @property-read string $timezoneName
+ * @property-read string $tzName
  */
 class MutableDateTime extends DateTime implements ChronosInterface
 {
@@ -176,11 +176,21 @@ class MutableDateTime extends DateTime implements ChronosInterface
      */
     public function __debugInfo(): array
     {
+        // Conditionally add properties if state exists to avoid
+        // errors when using a debugger.
+        $vars = get_object_vars($this);
+
         $properties = [
-            'time' => $this->format('Y-m-d H:i:s.u'),
-            'timezone' => $this->getTimezone()->getName(),
             'hasFixedNow' => static::hasTestNow(),
         ];
+
+        if (isset($vars['date'])) {
+            $properties['time'] = $this->format('Y-m-d H:i:s.u');
+        }
+
+        if (isset($vars['timezone'])) {
+            $properties['timezone'] = $this->getTimezone()->getName();
+        }
 
         return $properties;
     }

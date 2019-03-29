@@ -45,8 +45,8 @@ use DateTimeZone;
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * @property-read string $timezoneName
+ * @property-read string $tzName
  */
 class MutableDate extends DateTime implements ChronosInterface
 {
@@ -133,10 +133,17 @@ class MutableDate extends DateTime implements ChronosInterface
      */
     public function __debugInfo(): array
     {
+        // Conditionally add properties if state exists to avoid
+        // errors when using a debugger.
+        $vars = get_object_vars($this);
+
         $properties = [
-            'date' => $this->format('Y-m-d'),
             'hasFixedNow' => static::hasTestNow(),
         ];
+
+        if (isset($vars['date'])) {
+            $properties['date'] = $this->format('Y-m-d');
+        }
 
         return $properties;
     }
