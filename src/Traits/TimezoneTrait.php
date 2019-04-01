@@ -14,6 +14,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosInterface;
+
 /**
  * Methods for modifying/reading timezone data.
  */
@@ -25,7 +27,7 @@ trait TimezoneTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function timezone($value)
+    public function timezone($value): ChronosInterface
     {
         return $this->setTimezone($value);
     }
@@ -36,7 +38,7 @@ trait TimezoneTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function tz($value)
+    public function tz($value): ChronosInterface
     {
         return $this->setTimezone($value);
     }
@@ -47,7 +49,7 @@ trait TimezoneTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function setTimezone($value)
+    public function setTimezone($value): ChronosInterface
     {
         $date = parent::setTimezone(static::safeCreateDateTimeZone($value));
 

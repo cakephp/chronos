@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosInterface;
 
 /**
  * Provides methods for setting a 'test' now. This lets you
@@ -40,7 +41,7 @@ trait TestingAidTrait
      * @see \Cake\Chronos\Chronos::getTestNow()
      * @return \Cake\Chronos\ChronosInterface|null the current instance used for testing or null.
      */
-    public static function getTestNow()
+    public static function getTestNow(): ?ChronosInterface
     {
         return Chronos::getTestNow();
     }

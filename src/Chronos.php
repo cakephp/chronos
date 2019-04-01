@@ -132,11 +132,11 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Get a copy of the instance
      *
-     * @return $this
+     * @return static
      */
-    public function copy()
+    public function copy(): ChronosInterface
     {
-        return $this;
+        return clone $this;
     }
 
     /**

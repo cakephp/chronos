@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosInterface;
 use DateTimeInterface;
 
 /**
@@ -75,7 +76,7 @@ trait FrozenTimeTrait
      * @param int $microseconds The microseconds to set (ignored)
      * @return static A modified Date instance.
      */
-    public function setTime($hours, $minutes, $seconds = null, $microseconds = null)
+    public function setTime($hours, $minutes, $seconds = null, $microseconds = null): ChronosInterface
     {
         if (CHRONOS_SUPPORTS_MICROSECONDS) {
             return parent::setTime(0, 0, 0, 0);
@@ -92,7 +93,7 @@ trait FrozenTimeTrait
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    public function add($interval)
+    public function add($interval): ChronosInterface
     {
         return parent::add($interval)->setTime(0, 0, 0);
     }
@@ -105,7 +106,7 @@ trait FrozenTimeTrait
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    public function sub($interval)
+    public function sub($interval): ChronosInterface
     {
         return parent::sub($interval)->setTime(0, 0, 0);
     }
@@ -118,7 +119,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function timezone($value)
+    public function timezone($value): ChronosInterface
     {
         return $this;
     }
@@ -131,7 +132,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function tz($value)
+    public function tz($value): ChronosInterface
     {
         return $this;
     }
@@ -144,7 +145,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function setTimezone($value)
+    public function setTimezone($value): ChronosInterface
     {
         return $this;
     }
@@ -158,7 +159,7 @@ trait FrozenTimeTrait
      * @param int $value The timestamp value to set.
      * @return static
      */
-    public function setTimestamp($value)
+    public function setTimestamp($value): ChronosInterface
     {
         return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
@@ -172,7 +173,7 @@ trait FrozenTimeTrait
      * @param string $relative The relative change to make.
      * @return static A new date with the applied date changes.
      */
-    public function modify($relative)
+    public function modify($relative): ChronosInterface
     {
         if (preg_match('/hour|minute|second/', $relative)) {
             return $this;
