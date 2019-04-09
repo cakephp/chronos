@@ -21,3 +21,4 @@ appveyor.yml export-ignore
 phpbench.json export-ignore
 phpcs.xml.dist export-ignore
 phpstan.neon export-ignore
+benchmarks export-ignore
