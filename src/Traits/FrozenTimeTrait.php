@@ -41,11 +41,11 @@ trait FrozenTimeTrait
         if ($time instanceof DateTimeInterface) {
             $time = $time->format('Y-m-d 00:00:00');
         }
-        if (substr($time, 0, 1) === '@') {
-            return gmdate('Y-m-d 00:00:00', (int)substr($time, 1));
-        }
         if ($time === null || $time === 'now' || $time === '') {
             return date('Y-m-d 00:00:00');
+        }
+        if (substr($time, 0, 1) === '@') {
+            return gmdate('Y-m-d 00:00:00', (int)substr($time, 1));
         }
         if ($this->hasRelativeKeywords($time)) {
             return date('Y-m-d 00:00:00', strtotime($time));
