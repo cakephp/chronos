@@ -117,8 +117,32 @@ class NowAndOtherStaticHelpersTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testMinValueNonUtcTimezone($class)
+    {
+        date_default_timezone_set('Europe/Amsterdam');
+
+        $this->assertLessThanOrEqual(-2147483647, $class::minValue()->getTimestamp());
+        $this->assertTrue($class::now()->gt($class::minValue()));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testMaxValue($class)
     {
         $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testMaxValueNonUtcTimezone($class)
+    {
+        date_default_timezone_set('Europe/Amsterdam');
+
+        $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
+        $this->assertTrue($class::now()->lt($class::maxValue()));
     }
 }
