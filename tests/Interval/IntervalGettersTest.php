@@ -19,11 +19,10 @@ use TestCase;
 
 class IntervalGettersTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         ChronosInterval::year()->sdfsdfss;
     }
 

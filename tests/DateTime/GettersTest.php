@@ -21,11 +21,12 @@ class GettersTest extends TestCase
 {
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testGettersThrowExceptionOnUnknownGetter($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
 
@@ -476,11 +477,12 @@ class GettersTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testInvalidGetter($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $d = $class::now();
         $bb = $d->doesNotExit;
     }

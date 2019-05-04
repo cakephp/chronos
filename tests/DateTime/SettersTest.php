@@ -170,35 +170,29 @@ class SettersTest extends TestCase
         $this->assertSame(11, $d->timestamp);
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unknown or bad timezone
-     * @return void
-     */
     public function testSetTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Unknown or bad timezone');
+
         $d = MutableDateTime::now();
         $d->setTimezone('sdf');
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unknown or bad timezone
-     * @return void
-     */
     public function testTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Unknown or bad timezone');
+
         $d = MutableDateTime::now();
         $d->timezone = 'sdf';
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unknown or bad timezone
-     * @return void
-     */
     public function testTzWithInvalidTimezone()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Unknown or bad timezone');
+
         $d = MutableDateTime::now();
         $d->tz('sdf');
     }
@@ -257,11 +251,10 @@ class SettersTest extends TestCase
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $d = MutableDateTime::now();
         $d->doesNotExit = 'bb';
     }

@@ -232,11 +232,10 @@ class IntervalConstructTest extends TestCase
         $this->assertSame(1, $ci->invert);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testInstanceWithDaysThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $ci = ChronosInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
     }
 }
