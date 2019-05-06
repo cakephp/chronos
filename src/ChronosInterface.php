@@ -151,7 +151,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function timezone($value): self;
+    public function timezone($value);
 
     /**
      * Alias for setTimezone()
@@ -159,7 +159,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function tz($value): self;
+    public function tz($value);
 
     /**
      * Set the instance's timezone from a string or object
@@ -167,7 +167,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function setTimezone($value): self;
+    public function setTimezone($value);
 
     /**
      * Format the instance as date
