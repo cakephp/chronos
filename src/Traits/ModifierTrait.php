@@ -807,7 +807,7 @@ trait ModifierTrait
      */
     public function endOfCentury(): ChronosInterface
     {
-        $y = ($this->year - 1)
+        $y = $this->year - 1
             - ($this->year - 1)
             % ChronosInterface::YEARS_PER_CENTURY
             + ChronosInterface::YEARS_PER_CENTURY;

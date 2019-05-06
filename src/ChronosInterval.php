@@ -32,21 +32,21 @@ use InvalidArgumentException;
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  *
- * @method static ChronosInterval years($years = 1) Create instance specifying a number of years.
- * @method static ChronosInterval year($years = 1) Alias for years
- * @method static ChronosInterval months($months = 1) Create instance specifying a number of months.
- * @method static ChronosInterval month($months = 1) Alias for months
- * @method static ChronosInterval weeks($weeks = 1) Create instance specifying a number of weeks.
- * @method static ChronosInterval week($weeks = 1) Alias for weeks
- * @method static ChronosInterval days($days = 1) Create instance specifying a number of days.
- * @method static ChronosInterval dayz($days = 1) Alias for days
- * @method static ChronosInterval day($days = 1) Alias for days
- * @method static ChronosInterval hours($hours = 1) Create instance specifying a number of hours.
- * @method static ChronosInterval hour($hours = 1) Alias for hours
- * @method static ChronosInterval minutes($minutes = 1) Create instance specifying a number of minutes.
- * @method static ChronosInterval minute($minutes = 1) Alias for minutes
- * @method static ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
- * @method static ChronosInterval second($seconds = 1) Alias for seconds
+ * @method static \Cake\Chronos\ChronosInterval years($years = 1) Create instance specifying a number of years.
+ * @method static \Cake\Chronos\ChronosInterval year($years = 1) Alias for years
+ * @method static \Cake\Chronos\ChronosInterval months($months = 1) Create instance specifying a number of months.
+ * @method static \Cake\Chronos\ChronosInterval month($months = 1) Alias for months
+ * @method static \Cake\Chronos\ChronosInterval weeks($weeks = 1) Create instance specifying a number of weeks.
+ * @method static \Cake\Chronos\ChronosInterval week($weeks = 1) Alias for weeks
+ * @method static \Cake\Chronos\ChronosInterval days($days = 1) Create instance specifying a number of days.
+ * @method static \Cake\Chronos\ChronosInterval dayz($days = 1) Alias for days
+ * @method static \Cake\Chronos\ChronosInterval day($days = 1) Alias for days
+ * @method static \Cake\Chronos\ChronosInterval hours($hours = 1) Create instance specifying a number of hours.
+ * @method static \Cake\Chronos\ChronosInterval hour($hours = 1) Alias for hours
+ * @method static \Cake\Chronos\ChronosInterval minutes($minutes = 1) Create instance specifying a number of minutes.
+ * @method static \Cake\Chronos\ChronosInterval minute($minutes = 1) Alias for minutes
+ * @method static \Cake\Chronos\ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
+ * @method static \Cake\Chronos\ChronosInterval second($seconds = 1) Alias for seconds
  */
 class ChronosInterval extends DateInterval
 {

@@ -119,7 +119,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function timezone($value): ChronosInterface
+    public function timezone($value)
     {
         return $this;
     }
@@ -132,7 +132,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function tz($value): ChronosInterface
+    public function tz($value)
     {
         return $this;
     }
@@ -145,7 +145,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return $this
      */
-    public function setTimezone($value): ChronosInterface
+    public function setTimezone($value)
     {
         return $this;
     }

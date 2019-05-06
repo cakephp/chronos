@@ -39,9 +39,9 @@ use InvalidArgumentException;
  * @property-read int $quarter
  * @property-read int $offset
  * @property-read int $offsetHours
- * @property-read boolean $dst
- * @property-read boolean $local
- * @property-read boolean $utc
+ * @property-read bool $dst
+ * @property-read bool $local
+ * @property-read bool $utc
  * @property-read \DateTimeZone $timezone
  * @property-read \DateTimeZone $tz
  * @property-read string $timezoneName
