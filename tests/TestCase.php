@@ -24,7 +24,7 @@ abstract class TestCase extends BaseTestCase
 {
     private $saveTz;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         //save current timezone
         $this->saveTz = date_default_timezone_get();
@@ -32,7 +32,7 @@ abstract class TestCase extends BaseTestCase
         date_default_timezone_set('America/Toronto');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         date_default_timezone_set($this->saveTz);
         MutableDateTime::setTestNow(null);

@@ -90,11 +90,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidMonth($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(null, -5);
     }
 
@@ -120,11 +121,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidDay($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(null, null, -4);
     }
 
@@ -152,11 +154,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidHour($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(null, null, null, -1);
     }
 
@@ -182,11 +185,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidMinute($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(2011, 1, 1, 0, -2, 0);
     }
 
@@ -212,11 +216,12 @@ class CreateTest extends TestCase
 
     /**
      * @dataProvider classNameProvider
-     * @expectedException \InvalidArgumentException
      * @return void
      */
     public function testCreateWithInvalidSecond($class)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $class::create(null, null, null, null, null, -2);
     }
 

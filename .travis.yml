@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
   - 7.3
 
@@ -32,7 +31,7 @@ matrix:
   fast_finish: true
 
 before_install:
-  - if [ $TRAVIS_PHP_VERSION != 7.3 ]; then phpenv config-rm xdebug.ini; fi
+  - phpenv config-rm xdebug.ini
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist
