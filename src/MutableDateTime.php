@@ -165,7 +165,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
 
             case 'date':
                 $newDate = Chronos::parse($value);
-                try{
+                try {
                     $this->setDateTime(
                         $newDate->year,
                         $newDate->month,

@@ -22,7 +22,6 @@ use function Opis\Closure\unserialize as opisUnserialize;
 
 class SettersTest extends TestCase
 {
-
     public function testYearSetter()
     {
         $d = MutableDateTime::now();
