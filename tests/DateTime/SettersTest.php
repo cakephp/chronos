@@ -284,11 +284,12 @@ class SettersTest extends TestCase
         $this->assertSame($dateString, $d->toDateTimeString());
     }
 
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage DateTimeImmutable::__construct(): Failed to parse time string (invalid) at position 0 (i): The timezone could not be found in the database
+     */
     public function testInvalidDateSetter()
     {
-        $this->expectException(\Exception::class);
-        $message = 'DateTimeImmutable::__construct(): Failed to parse time string (invalid) at position 0 (i): The timezone could not be found in the database';
-        $this->expectExceptionMessage($message);
         $dateString = 'invalid';
         $d = new MutableDateTime();
         $d->date = $dateString;
