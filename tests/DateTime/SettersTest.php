@@ -17,8 +17,6 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
 use InvalidArgumentException;
 use TestCase;
-use function Opis\Closure\serialize as opisSerialize;
-use function Opis\Closure\unserialize as opisUnserialize;
 
 class SettersTest extends TestCase
 {
@@ -300,7 +298,7 @@ class SettersTest extends TestCase
     {
         $dateString = '1977-05-05 04:00:00';
         $d = new Chronos($dateString);
-        $unserialized = opisUnserialize(opisSerialize($d));
+        $unserialized = \Opis\Closure\unserialize(\Opis\Closure\serialize($d));
         $this->assertSame($dateString, $unserialized->toDateTimeString());
         $this->assertSame(Chronos::class, get_class($unserialized));
     }
@@ -310,8 +308,8 @@ class SettersTest extends TestCase
         $dateString = '1977-05-05 04:00:00';
         $d = new MutableDateTime($dateString);
 
-        $serialized = opisSerialize($d);
-        $unserialized = opisUnserialize($serialized);
+        $serialized = \Opis\Closure\serialize($d);
+        $unserialized = \Opis\Closure\unserialize($serialized);
         $this->assertSame($dateString, $unserialized->toDateTimeString());
         $this->assertSame(MutableDateTime::class, get_class($unserialized));
     }
