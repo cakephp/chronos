@@ -17,6 +17,8 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
 use InvalidArgumentException;
 use TestCase;
+use function Opis\Closure\serialize as opisSerialize;
+use function Opis\Closure\unserialize as opisUnserialize;
 
 class SettersTest extends TestCase
 {
@@ -274,5 +276,66 @@ class SettersTest extends TestCase
         $this->assertSame(9, $d->hour);
         $this->assertSame(15, $d->minute);
         $this->assertSame(30, $d->second);
+    }
+
+    public function testDateSetter()
+    {
+        $dateString = '1977-05-05 04:00:00';
+        $d = new MutableDateTime();
+        $this->assertNotSame(1977, $d->year);
+        $d->date = $dateString;
+        $this->assertSame($dateString, $d->toDateTimeString());
+    }
+
+    public function testInvalidDateSetter()
+    {
+        $this->expectException(\Exception::class);
+        $message = 'DateTimeImmutable::__construct(): Failed to parse time string (invalid) at position 0 (i): The timezone could not be found in the database';
+        $this->expectExceptionMessage($message);
+        $dateString = 'invalid';
+        $d = new MutableDateTime();
+        $d->date = $dateString;
+    }
+
+    public function testOpisSerializeChronos()
+    {
+        $dateString = '1977-05-05 04:00:00';
+        $d = new Chronos($dateString);
+        $unserialized = opisUnserialize(opisSerialize($d));
+        $this->assertSame($dateString, $unserialized->toDateTimeString());
+        $this->assertSame(Chronos::class, get_class($unserialized));
+    }
+
+    public function testOpisSerializeMutableDateTime()
+    {
+        $dateString = '1977-05-05 04:00:00';
+        $d = new MutableDateTime($dateString);
+
+        $serialized = opisSerialize($d);
+        $unserialized = opisUnserialize($serialized);
+        $this->assertSame($dateString, $unserialized->toDateTimeString());
+        $this->assertSame(MutableDateTime::class, get_class($unserialized));
+    }
+
+    public function testSerializeMutableDateTime()
+    {
+        $dateString = '1977-05-05 04:00:00';
+        $d = new MutableDateTime($dateString);
+
+        $serialized = serialize($d);
+        $unserialized = unserialize($serialized);
+        $this->assertSame($dateString, $unserialized->toDateTimeString());
+        $this->assertSame(MutableDateTime::class, get_class($unserialized));
+    }
+
+    public function testSerializeChronos()
+    {
+        $dateString = '1977-05-05 04:00:00';
+        $d = new Chronos($dateString);
+
+        $serialized = serialize($d);
+        $unserialized = unserialize($serialized);
+        $this->assertSame($dateString, $unserialized->toDateTimeString());
+        $this->assertSame(Chronos::class, get_class($unserialized));
     }
 }

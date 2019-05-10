@@ -33,7 +33,8 @@
     "athletic/athletic": "~0.1",
     "cakephp/cakephp-codesniffer": "^3.0",
     "phpbench/phpbench": "@dev",
-    "phpstan/phpstan": "^0.6.4"
+    "phpstan/phpstan": "^0.6.4",
+    "opis/closure" : "^3.1"
   },
   "autoload": {
     "psr-4": {

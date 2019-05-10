@@ -163,6 +163,26 @@ class MutableDateTime extends DateTime implements ChronosInterface
                 $this->timezone($value);
                 break;
 
+            case 'date':
+                $newDate = Chronos::parse($value);
+                try{
+                    $this->setDateTime(
+                        $newDate->year,
+                        $newDate->month,
+                        $newDate->day,
+                        $newDate->hour,
+                        $newDate->minute,
+                        $newDate->second
+                    );
+                } catch (\Exception $ex) {
+                    $this->__construct($value);
+                }
+                break;
+
+            case 'timezone_type':
+                $this->timezone_type = $value;
+                break;
+
             default:
                 throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
