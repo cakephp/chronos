@@ -47,8 +47,6 @@ use InvalidArgumentException;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
- * @property-read string $date used in opis/closure serialization via reflection
- * @property-read int $timezone_type used in opis/closure serialization via reflection
  */
 class MutableDateTime extends DateTime implements ChronosInterface
 {
@@ -182,7 +180,6 @@ class MutableDateTime extends DateTime implements ChronosInterface
                 break;
 
             case 'timezone_type':
-                $this->timezone_type = $value;
                 break;
 
             default:

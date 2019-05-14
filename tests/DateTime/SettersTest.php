@@ -15,6 +15,7 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
+use Cake\Chronos\Test\TestMutableDateTime;
 use InvalidArgumentException;
 use TestCase;
 
@@ -278,7 +279,7 @@ class SettersTest extends TestCase
     public function testDateSetter()
     {
         $dateString = '1977-05-05 04:00:00';
-        $d = new MutableDateTime();
+        $d = new TestMutableDateTime();
         $this->assertNotSame(1977, $d->year);
         $d->date = $dateString;
         $this->assertSame($dateString, $d->toDateTimeString());
@@ -291,7 +292,7 @@ class SettersTest extends TestCase
     public function testInvalidDateSetter()
     {
         $dateString = 'invalid';
-        $d = new MutableDateTime();
+        $d = new TestMutableDateTime();
         $d->date = $dateString;
     }
 
@@ -307,23 +308,23 @@ class SettersTest extends TestCase
     public function testOpisSerializeMutableDateTime()
     {
         $dateString = '1977-05-05 04:00:00';
-        $d = new MutableDateTime($dateString);
+        $d = new TestMutableDateTime($dateString);
 
         $serialized = \Opis\Closure\serialize($d);
         $unserialized = \Opis\Closure\unserialize($serialized);
         $this->assertSame($dateString, $unserialized->toDateTimeString());
-        $this->assertSame(MutableDateTime::class, get_class($unserialized));
+        $this->assertSame(TestMutableDateTime::class, get_class($unserialized));
     }
 
     public function testSerializeMutableDateTime()
     {
         $dateString = '1977-05-05 04:00:00';
-        $d = new MutableDateTime($dateString);
+        $d = new TestMutableDateTime($dateString);
 
         $serialized = serialize($d);
         $unserialized = unserialize($serialized);
         $this->assertSame($dateString, $unserialized->toDateTimeString());
-        $this->assertSame(MutableDateTime::class, get_class($unserialized));
+        $this->assertSame(TestMutableDateTime::class, get_class($unserialized));
     }
 
     public function testSerializeChronos()
