@@ -165,7 +165,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
 
             case 'date':
                 $newDate = Chronos::parse($value);
-                set_error_handler(function() {
+                set_error_handler(function () {
                     throw new \Exception('Warning catch as Exception');
                 }, E_WARNING);
                 try {
