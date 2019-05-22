@@ -140,7 +140,7 @@ a mutable variant of `Date`.
 
 # Documentation
 
-A more descriptive documentation can be found at [book.cakephp.org/3.0/en/chronos.html](http://book.cakephp.org/3.0/en/chronos.html).
+A more descriptive documentation can be found at [book.cakephp.org/chronos/1.x/en/](https://book.cakephp.org/chronos/1.x/en/).
 
 # API Documentation
 
