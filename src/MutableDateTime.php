@@ -165,6 +165,9 @@ class MutableDateTime extends DateTime implements ChronosInterface
 
             case 'date':
                 $newDate = Chronos::parse($value);
+                set_error_handler(function() {
+                    throw new \Exception('Warning catch as Exception');
+                }, E_WARNING);
                 try {
                     $this->setDateTime(
                         $newDate->year,
@@ -177,6 +180,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
                 } catch (\Exception $ex) {
                     $this->__construct($value);
                 }
+                restore_error_handler();
                 break;
 
             case 'timezone_type':
