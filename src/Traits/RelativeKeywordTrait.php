@@ -30,7 +30,7 @@ trait RelativeKeywordTrait
     public static function hasRelativeKeywords($time)
     {
         // Just a time
-        if (preg_match('/^[0-2][0-9]:[0-5][0-9](?::[0-5][0-9])?$/', $time) > 0) {
+        if (preg_match('/^[0-2][0-9]:[0-5][0-9](?::[0-5][0-9])?$/', $time)) {
             return true;
         }
 
