@@ -166,6 +166,8 @@ class TestingAidsTest extends TestCase
         $notNow = $class::parse('2013-09-01 05:15:05');
         $class::setTestNow($notNow);
 
+        $this->assertSame('2013-09-01 06:30:00', $class::parse('06:30:00')->toDateTimeString());
+
         $this->assertSame('2013-09-01 05:10:05', $class::parse('5 minutes ago')->toDateTimeString());
 
         $this->assertSame('2013-08-25 05:15:05', $class::parse('1 week ago')->toDateTimeString());
