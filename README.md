@@ -144,4 +144,4 @@ A more descriptive documentation can be found at [book.cakephp.org/chronos/1.x/e
 
 # API Documentation
 
-API documentation can be found on [api.cakephp.org/chronos](http://api.cakephp.org/chronos).
+API documentation can be found on [api.cakephp.org/chronos](https://api.cakephp.org/chronos).

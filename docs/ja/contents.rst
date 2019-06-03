@@ -4,4 +4,4 @@
 
     /index
 
-    API <http://api.cakephp.org/chronos>
+    API <https://api.cakephp.org/chronos>
