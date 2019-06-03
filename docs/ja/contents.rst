@@ -3,3 +3,5 @@
     :caption: CakePHP Chronos
 
     /index
+
+    API <http://api.cakephp.org/chronos>
