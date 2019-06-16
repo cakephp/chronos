@@ -101,7 +101,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
             $testNow = $testNow->modify($time);
         }
 
-        if ($tz !== $testNow->getTimezone()) {
+        if (!$relative && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
