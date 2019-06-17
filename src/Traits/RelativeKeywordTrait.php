@@ -26,7 +26,7 @@ trait RelativeKeywordTrait
      * @param string $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
-    public static function hasRelativeTime($time)
+    private static function isTimeExpression($time)
     {
         // Just a time
         if (preg_match('/^[0-2]?[0-9]:[0-5][0-9](?::[0-5][0-9])?$/', $time)) {
@@ -43,9 +43,9 @@ trait RelativeKeywordTrait
      * @param string $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
-    public static function hasRelativeKeywords($time)
+    private static function hasRelativeKeywords($time)
     {
-        if (self::hasRelativeTime($time)) {
+        if (self::isTimeExpression($time)) {
             return true;
         }
         // skip common format with a '-' in it
