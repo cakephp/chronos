@@ -43,7 +43,7 @@ trait RelativeKeywordTrait
      * @param string $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
-    private static function hasRelativeKeywords($time)
+    public static function hasRelativeKeywords($time)
     {
         if (self::isTimeExpression($time)) {
             return true;
