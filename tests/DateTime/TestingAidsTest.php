@@ -227,7 +227,7 @@ class TestingAidsTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testTimeZoneWithTestValueSet($class)
+    public function testParseWithTimeZone($class)
     {
         $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
         $class::setTestNow($notNow);
@@ -235,6 +235,44 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-07-01T12:00:00-04:00', $class::parse('now')->toIso8601String());
         $this->assertSame('2013-07-01T11:00:00-05:00', $class::parse('now', 'America/Mexico_City')->toIso8601String());
         $this->assertSame('2013-07-01T09:00:00-07:00', $class::parse('now', 'America/Vancouver')->toIso8601String());
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseRelativeWithTimeZone($class)
+    {
+        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
+        $class::setTestNow($notNow);
+
+        $this->assertSame('2013-07-01T10:55:00-05:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01 10:55:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toDateTimeString());
+    }
+
+    /**
+     * Test parse() with relative values and timezones
+     *
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseRelativeWithTimezoneAndTestValueSet($class)
+    {
+        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
+        $class::setTestNow($notNow);
+
+        $this->assertSame('06:30:00', $class::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toTimeString());
+        $this->assertSame('06:30:00', $class::parse('6:30', 'America/Mexico_City')->toTimeString());
+
+        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('2013-07-01 06:30:00')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toIso8601String());
+
+        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('06:30')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('6:30')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('6:30', 'America/Mexico_City')->toIso8601String());
+
+        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('6:30:00', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('06:30:00', 'America/Mexico_City')->toIso8601String());
     }
 
     /**
