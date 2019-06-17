@@ -238,6 +238,19 @@ class TestingAidsTest extends TestCase
     }
 
     /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testParseRelativeWithTimeZone($class)
+    {
+        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
+        $class::setTestNow($notNow);
+
+        $this->assertSame('2013-07-01T10:55:00-05:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01 10:55:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toDateTimeString());
+    }
+
+    /**
      * Test parse() with relative values and timezones
      *
      * @dataProvider classNameProvider
