@@ -168,7 +168,7 @@ class GettersTest extends TestCase
     public function testGetAgeWithRealAge($class)
     {
         $d = $class::createFromDate(1975, 5, 21);
-        $age = intval(substr(date('Ymd') - date('Ymd', $d->timestamp), 0, -4));
+        $age = intval(substr((int)date('Ymd') - (int)date('Ymd', $d->timestamp), 0, -4));
 
         $this->assertSame($age, $d->age);
     }

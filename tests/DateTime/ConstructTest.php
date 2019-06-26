@@ -105,11 +105,11 @@ class ConstructTest extends TestCase
         $timezone = 'Europe/London';
         $dtz = new \DateTimeZone($timezone);
         $dt = new \DateTime('now', $dtz);
-        $dayLightSavingTimeOffset = $dt->format('I');
+        $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = new $class('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     /**
@@ -121,11 +121,11 @@ class ConstructTest extends TestCase
         $timezone = 'Europe/London';
         $dtz = new \DateTimeZone($timezone);
         $dt = new \DateTime('now', $dtz);
-        $dayLightSavingTimeOffset = $dt->format('I');
+        $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = $class::parse('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     /**
@@ -137,7 +137,7 @@ class ConstructTest extends TestCase
         $timezone = 'Asia/Tokyo';
         $dtz = new \DateTimeZone($timezone);
         $dt = new \DateTime('now', $dtz);
-        $dayLightSavingTimeOffset = $dt->format('I');
+        $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = new $class('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
@@ -153,7 +153,7 @@ class ConstructTest extends TestCase
         $timezone = 'Asia/Tokyo';
         $dtz = new \DateTimeZone($timezone);
         $dt = new \DateTime('now', $dtz);
-        $dayLightSavingTimeOffset = $dt->format('I');
+        $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = $class::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);

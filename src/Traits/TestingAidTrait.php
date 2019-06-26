@@ -39,7 +39,7 @@ trait TestingAidTrait
      * Get the test instance stored in Chronos
      *
      * @see \Cake\Chronos\Chronos::getTestNow()
-     * @return static|null the current instance used for testing or null.
+     * @return \Cake\Chronos\ChronosInterface|null the current instance used for testing or null.
      */
     public static function getTestNow()
     {
