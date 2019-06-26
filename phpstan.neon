@@ -5,5 +5,4 @@ parameters:
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
         - '#Method Cake\\Chronos\\ChronosInterval::[a-zA-Z]+\(.*?\) invoked#'
         - '#Call to an undefined static method DateInterval::__get\(\)#'
-        - '#Access to an undefined property Cake\\Chronos\\MutableDateTime::\$doesNotExit#'
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterval::\$sdfsdfss#'
