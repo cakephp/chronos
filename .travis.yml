@@ -34,6 +34,7 @@ before_install:
   - phpenv config-rm xdebug.ini
 
 install:
+  - travis_retry composer install --no-interaction --prefer-dist
   - if [[ $PHPSTAN == 1 ]]; then composer require "phpstan/phpstan:^0.9"; fi
 
 script:
