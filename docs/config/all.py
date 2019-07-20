@@ -10,10 +10,10 @@ from cakephpsphinx.config.all import *
 #
 
 # The full version, including alpha/beta/rc tags.
-release = '1.x'
+release = '2.x'
 
 # The search index version.
-search_version = 'chronos-1'
+search_version = 'chronos-2'
 
 # The marketing display name for the book.
 version_name = ''
@@ -23,7 +23,8 @@ project = 'Chronos'
 
 # Other versions that display in the version picker menu.
 version_list = [
-    {'name': '1.x', 'number': '/chronos/1.x', 'title': '1.x', 'current': True},
+    {'name': '1.x', 'number': '/chronos/1.x', 'title': '1.x'},
+    {'name': '2.x', 'number': '/chronos/2.x', 'title': '2.x', 'current': True},
 ]
 
 # Languages available.
@@ -31,10 +32,10 @@ languages = ['en', 'fr', 'ja', 'pt']
 
 # The GitHub branch name for this version of the docs
 # for edit links to point at.
-branch = 'master'
+branch = '2.x'
 
 # Current version being built
-version = '1.x'
+version = '2.x'
 
 # Language in use for this directory.
 language = 'en'
@@ -44,3 +45,5 @@ show_root_link = True
 repository = 'cakephp/chronos'
 
 source_path = 'docs/'
+
+is_prerelease = True
