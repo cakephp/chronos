@@ -111,7 +111,7 @@ trait FactoryTrait
      */
     public static function maxValue(): ChronosInterface
     {
-        return static::createFromTimestamp(PHP_INT_MAX);
+        return static::createFromTimestampUTC(PHP_INT_MAX);
     }
 
     /**
@@ -123,7 +123,7 @@ trait FactoryTrait
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
-        return static::createFromTimestamp(~$max);
+        return static::createFromTimestampUTC(~$max);
     }
 
     /**

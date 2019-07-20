@@ -59,6 +59,8 @@
         "test": "phpunit",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "bench": "phpbench run"
+        "bench": "phpbench run",
+        "phpstan": "phpstan.phar analyse src/",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan-shim:^0.11 && mv composer.backup composer.json"
     }
 }

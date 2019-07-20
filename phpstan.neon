@@ -6,8 +6,5 @@ parameters:
             message: '#Call to an undefined static method DateInterval::__get\(\)#'
             path: src/ChronosInterval.php
         -
-            message: '#Call to an undefined static method DateInterval::__set\(\)#'
-            path: src/ChronosInterval.php
-        -
             message: '#If condition is always true#'
             path: src/Traits/FrozenTimeTrait.php

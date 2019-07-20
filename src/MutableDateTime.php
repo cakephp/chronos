@@ -31,8 +31,8 @@ use InvalidArgumentException;
  * @property-read int $minute
  * @property-read int $second
  * @property-read int $timestamp seconds since the Unix Epoch
- * @property-read \DateTimeZone $timezone the current timezone
- * @property-read \DateTimeZone $tz alias of timezone
+ * @property-read \DateTimeZone|string $timezone the current timezone
+ * @property-read \DateTimeZone|string $tz alias of timezone
  * @property-read int $micro
  * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
@@ -102,10 +102,10 @@ class MutableDateTime extends DateTime implements ChronosInterface
             $testNow = $testNow->modify($time);
         }
 
-        if ($tz !== $testNow->getTimezone()) {
+        $relativetime = static::isTimeExpression($time);
+        if (!$relativetime && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
-
         $time = $testNow->format('Y-m-d H:i:s.u');
         parent::__construct($time, $tz);
     }
