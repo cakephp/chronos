@@ -27,7 +27,7 @@ trait FrozenTimeTrait
      *
      * Used to ensure constructed objects always lack time.
      *
-     * @param string|int $time The input time. Integer values will be assumed
+     * @param string|int|\DateTimeInterface $time The input time. Integer values will be assumed
      *   to be in UTC. The 'now' and '' values will use the current local time.
      * @return string The date component of $time.
      */
