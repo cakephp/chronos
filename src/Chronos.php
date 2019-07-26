@@ -110,8 +110,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             $testNow = $testNow->modify($time);
         }
 
-        $relativetime = static::isTimeExpression($time);
-        if (!$relativetime && $tz !== $testNow->getTimezone()) {
+        $relativeTime = static::isTimeExpression($time);
+        if (!$relativeTime && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 

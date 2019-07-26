@@ -3,6 +3,7 @@ parameters:
         # Appears because interface can't describe properties and formally it doesn't have properties.
         - '#Static call to instance method Cake\\Chronos\\ChronosInterval::[a-zA-Z0-9_]+\(\)#'
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
+        - '#Access to an undefined property Cake\\Chronos\\MutableDateTime::\$doesNotExit#'
         - '#Method Cake\\Chronos\\ChronosInterval::[a-zA-Z]+\(.*?\) invoked#'
         - '#Call to an undefined static method DateInterval::__get\(\)#'
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterval::\$sdfsdfss#'
