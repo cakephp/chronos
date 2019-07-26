@@ -76,7 +76,7 @@ class MutableDate extends DateTime implements ChronosInterface
      * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param string|null|DateTimeInterface $time Fixed or relative time
+     * @param string|null|\DateTimeInterface $time Fixed or relative time
      */
     public function __construct($time = 'now')
     {
