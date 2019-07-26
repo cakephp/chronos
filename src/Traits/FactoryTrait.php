@@ -50,7 +50,7 @@ trait FactoryTrait
      * (new Chronos('Monday next week'))->fn()
      *
      * @param string $time The strtotime compatible string to parse
-     * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
+     * @param \DateTimeInterface|\DateTimeZone|string|null| $tz The DateTimeZone object or timezone name.
      * @return static
      */
     public static function parse($time = 'now', $tz = null)
