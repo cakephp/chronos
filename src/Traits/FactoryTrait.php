@@ -49,8 +49,8 @@ trait FactoryTrait
      * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param string $time The strtotime compatible string to parse
-     * @param \DateTimeInterface|\DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
+     * @param \DateTimeInterface|string $time The strtotime compatible string to parse
+     * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
     public static function parse($time = 'now', $tz = null)
