@@ -27,6 +27,7 @@ matrix:
 
   allow_failures:
     - php: nightly
+    - php: 7.4snapshot
 
   fast_finish: true
 
