@@ -5,6 +5,7 @@ php:
   - 7.0
   - 7.1
   - 7.3
+  - 7.4snapshot
   - nightly
 
 sudo: false
@@ -26,11 +27,12 @@ matrix:
 
   allow_failures:
     - php: nightly
+    - php: 7.4snapshot
 
   fast_finish: true
 
 before_install:
-  - phpenv config-rm xdebug.ini
+  - if [[ $TRAVIS_PHP_VERSION != "7.4snapshot" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist
