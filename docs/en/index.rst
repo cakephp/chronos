@@ -118,16 +118,16 @@ Chronos objects provide modifier methods that let you modify the value in
 a granular way::
 
     // Set components of the datetime value.
-    $halloween = Date::create()
+    $halloween = Chronos::create()
         ->year(2015)
         ->month(10)
         ->day(31)
         ->hour(20)
         ->minute(30);
 
-You can also modify parts of a date relatively::
+You can also modify parts of the datetime relatively::
 
-    $future = Date::create()
+    $future = Chronos::create()
         ->addYear(1)
         ->subMonth(2)
         ->addDays(15)
