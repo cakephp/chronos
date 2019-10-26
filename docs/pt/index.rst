@@ -118,7 +118,7 @@ Objetos Chronos disponibilizam métodos que permitem a modificação de valores 
 forma granular::
 
     // Define componentes do valor datetime
-    $halloween = Date::create()
+    $halloween = Chronos::create()
         ->year(2015)
         ->month(10)
         ->day(31)
@@ -127,7 +127,7 @@ forma granular::
 
 Você também pode modificar partes da data relativamente::
 
-    $future = Date::create()
+    $future = Chronos::create()
         ->addYear(1)
         ->subMonth(2)
         ->addDays(15)
