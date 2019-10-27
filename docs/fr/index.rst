@@ -122,7 +122,7 @@ Les objets Chronos fournissent des méthodes de modification qui vous laissent
 modifier la valeur d'une façon assez précise::
 
     // Définit les composants de la valeur du datetime.
-    $halloween = Date::create()
+    $halloween = Chronos::create()
         ->year(2015)
         ->month(10)
         ->day(31)
@@ -131,7 +131,7 @@ modifier la valeur d'une façon assez précise::
 
 Vous pouvez aussi modifier les parties de la date de façon relative::
 
-    $future = Date::create()
+    $future = Chronos::create()
         ->addYear(1)
         ->subMonth(2)
         ->addDays(15)
