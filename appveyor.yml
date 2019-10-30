@@ -17,7 +17,7 @@ init:
 
 install:
   - cd c:\
-  - curl -fsS https://windows.php.net/downloads/releases/php-7.2.24-nts-Win32-VC15-x86.zip -o php.zip
+  - curl -fsS https://windows.php.net/downloads/releases/latest/php-7.2-nts-Win32-VC15-x86-latest.zip -o php.zip
   - 7z x php.zip -oc:\php
   - cd c:\php
   - copy php.ini-production php.ini
