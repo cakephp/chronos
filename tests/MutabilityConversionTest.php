@@ -16,7 +16,7 @@ namespace Cake\Chronos\Test;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 class MutabilityConversionTest extends TestCase
 {

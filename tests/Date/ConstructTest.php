@@ -15,7 +15,7 @@ namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 /**
  * Test constructors for Date objects.

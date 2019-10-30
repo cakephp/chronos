@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\MutableDateTime;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 class CopyTest extends TestCase
 {

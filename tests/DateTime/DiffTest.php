@@ -16,8 +16,8 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\Test\TestCase;
 use Closure;
-use TestCase;
 
 class DiffTest extends TestCase
 {

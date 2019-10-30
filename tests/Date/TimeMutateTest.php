@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 /**
  * Test that setting time components fails.

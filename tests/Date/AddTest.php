@@ -14,8 +14,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\Date;
 
+use Cake\Chronos\Test\TestCase;
 use DateInterval;
-use TestCase;
 
 class AddTest extends TestCase
 {

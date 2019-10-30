@@ -19,8 +19,8 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
+use Cake\Chronos\Test\TestCase;
 use DateTimeZone;
-use TestCase;
 
 class TestingAidsTest extends TestCase
 {

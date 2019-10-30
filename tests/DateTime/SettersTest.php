@@ -17,7 +17,7 @@ namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\MutableDateTime;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 class SettersTest extends TestCase
 {

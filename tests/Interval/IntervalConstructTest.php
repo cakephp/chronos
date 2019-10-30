@@ -17,8 +17,8 @@ namespace Cake\Chronos\Test\Interval;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\Test\TestCase;
 use DateInterval;
-use TestCase;
 
 class IntervalConstructTest extends TestCase
 {

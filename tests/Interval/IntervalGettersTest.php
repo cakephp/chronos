@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\Interval;
 
 use Cake\Chronos\ChronosInterval;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 class IntervalGettersTest extends TestCase
 {

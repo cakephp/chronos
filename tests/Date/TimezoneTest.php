@@ -15,8 +15,8 @@ namespace Cake\Chronos\Test\Date;
 
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
+use Cake\Chronos\Test\TestCase;
 use DateTimeZone;
-use TestCase;
 
 /**
  * Test that timezone methods don't do anything to calendar dates.
