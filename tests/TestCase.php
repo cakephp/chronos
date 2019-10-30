@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -11,14 +12,17 @@ declare(strict_types=1);
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-require __DIR__ . '/../vendor/autoload.php';
+namespace Cake\Chronos\Test;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
+use Closure;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 abstract class TestCase extends BaseTestCase
 {

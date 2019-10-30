@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -15,7 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\DateTime;
 
 use Cake\Chronos\Chronos;
-use TestCase;
+use Cake\Chronos\Test\TestCase;
 
 class StringsTest extends TestCase
 {

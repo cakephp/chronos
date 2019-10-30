@@ -1,17 +1,8 @@
 language: php
 
 php:
-<<<<<<< HEAD
   - 7.2
   - 7.3
-=======
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.3
-  - nightly
->>>>>>> master
 
 sudo: false
 
@@ -37,7 +28,7 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist
-  - if [[ $PHPSTAN == 1 ]]; then composer require "phpstan/phpstan:^0.9"; fi
+  - if [[ $PHPSTAN == 1 ]]; then composer phpstan-setup; fi
 
 script:
   - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit; fi
