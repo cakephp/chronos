@@ -6,6 +6,7 @@ clone_folder: c:\projects\chronos
 branches:
   only:
     - master
+    - 2.x
 
 environment:
   global:
@@ -16,7 +17,7 @@ init:
 
 install:
   - cd c:\
-  - curl -fsS https://windows.php.net/downloads/releases/archives/php-5.5.29-nts-Win32-VC11-x86.zip -o php.zip
+  - curl -fsS https://windows.php.net/downloads/releases/php-7.2.24-nts-Win32-VC15-x86.zip -o php.zip
   - 7z x php.zip -oc:\php
   - cd c:\php
   - copy php.ini-production php.ini
@@ -25,8 +26,6 @@ install:
   - echo extension=php_openssl.dll >> php.ini
   - cd C:\projects\chronos
   - appveyor DownloadFile https://getcomposer.org/composer.phar
-  # phpstan requires php 7.0. While here used php 5.5 we can't install it
-  - php composer.phar remove --dev phpstan/phpstan
   - php composer.phar install --prefer-dist --no-interaction --ansi --no-progress
 
 test_script:
