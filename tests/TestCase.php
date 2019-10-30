@@ -19,6 +19,7 @@ use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
+use Closure;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 require __DIR__ . '/../vendor/autoload.php';
