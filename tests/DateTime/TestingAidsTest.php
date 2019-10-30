@@ -123,24 +123,9 @@ class TestingAidsTest extends TestCase
 
         $instance = new $class('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
-    }
-
-    /**
-     * Ensure that setting a datetime into test now doesn't violate date semantics
-     *
-     * Modifying date instances by hours should not change the date.
-     *
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testNowTestDateTimeConstraints($class)
-    {
-        $value = '2018-06-21 10:11:12';
-        $notNow = new MutableDateTime($value);
-        $class::setTestNow($notNow);
 
         $instance = new $class('-23 hours');
-        $this->assertSame('2018-06-21 00:00:00', $instance->format('Y-m-d H:i:s'));
+        $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
     }
 
     /**

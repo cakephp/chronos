@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
+use DateTimeImmutable;
 use DateTimeInterface;
 
 /**
@@ -30,29 +31,26 @@ trait FrozenTimeTrait
      *
      * Used to ensure constructed objects always lack time.
      *
-     * @param \DateTimeInterface|string|int|null $time The input time. Integer values will be assumed
+     * @param \DateTime|\DateTimeImmutable|string|int|null $time The input time. Integer values will be assumed
      *   to be in UTC. The 'now' and '' values will use the current local time.
+     * @param \DateTimeZone|null $tz The timezone in which the date is taken
      * @return string The date component of $time.
      */
-    protected function stripTime($time): string
+    protected function stripTime($time, $tz): string
     {
         if (is_int($time) || ctype_digit($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
         }
-        if ($time instanceof DateTimeInterface) {
-            $time = $time->format('Y-m-d 00:00:00');
-        }
-        if ($time === null || $time === 'now' || $time === '') {
-            return date('Y-m-d 00:00:00');
-        }
-        if (substr($time, 0, 1) === '@') {
+
+        if (is_string($time) && substr($time, 0, 1) === '@') {
             return gmdate('Y-m-d 00:00:00', (int)substr($time, 1));
         }
-        if ($this->hasRelativeKeywords($time)) {
-            return date('Y-m-d 00:00:00', strtotime($time));
+
+        if (!($time instanceof DateTimeInterface)) {
+            $time = new DateTimeImmutable($time, $tz);
         }
 
-        return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}(?:\.\d+)?/', '00:00:00', $time);
+        return $time->format('Y-m-d 00:00:00');
     }
 
     /**

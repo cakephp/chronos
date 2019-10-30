@@ -70,6 +70,12 @@ class MutableDate extends DateTime implements ChronosInterface
     /**
      * Create a new mutable Date instance.
      *
+     * You can specify the timezone for the $time parameter. This timezone will
+     * not be used in any future modifications to the Date instance.
+     *
+     * The $timezone parameter is ignored if $time is a DateTimeInterface
+     * instance.
+     *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
@@ -78,43 +84,31 @@ class MutableDate extends DateTime implements ChronosInterface
      * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param string|int|null $time Fixed or relative time
+     * @param \DateTime|\DateTimeImmutable|string|int|null $time Fixed or relative time
+     * @param \DateTimeZone|string|null $tz The timezone in which the date is taken
      */
-    public function __construct($time = 'now')
+    public function __construct($time = 'now', $tz = null)
     {
-        $tz = new DateTimeZone('UTC');
-
-        $testNow = Chronos::getTestNow();
-        if ($testNow === null) {
-            $time = $this->stripTime($time);
-            parent::__construct($time, $tz);
-
-            return;
+        if ($tz !== null) {
+            $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
         }
 
-        $relative = static::hasRelativeKeywords($time);
-        if (!empty($time) && $time !== 'now' && !$relative) {
-            $time = $this->stripTime($time);
-
-            parent::__construct($time, $tz);
+        $testNow = Chronos::getTestNow();
+        if ($testNow === null || !static::isRelativeOnly($time)) {
+            $time = $this->stripTime($time, $tz);
+            parent::__construct($time, new DateTimeZone('UTC'));
 
             return;
         }
 
         $testNow = clone $testNow;
-        if ($relative) {
-            $time = $this->stripRelativeTime($time);
-            if (strlen($time) > 0) {
-                $testNow = $testNow->modify($time);
-            }
-        }
-
         if ($tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
+        $testNow = $testNow->modify($time);
 
         $time = $testNow->format('Y-m-d 00:00:00');
-        parent::__construct($time, $tz);
+        parent::__construct($time, new DateTimeZone('UTC'));
     }
 
     /**
