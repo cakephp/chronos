@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+
 /**
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
