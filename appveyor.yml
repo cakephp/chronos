@@ -24,6 +24,9 @@ install:
   - echo date.timezone="UTC" >> php.ini
   - echo extension_dir=ext >> php.ini
   - echo extension=php_openssl.dll >> php.ini
+  - echo extension=mbstring >> php.ini
+  - echo extension=intl >> php.ini
+  - echo extension=fileinfo >> php.ini
   - cd C:\projects\chronos
   - appveyor DownloadFile https://getcomposer.org/composer.phar
   - php composer.phar install --prefer-dist --no-interaction --ansi --no-progress
