@@ -106,7 +106,9 @@ class Date extends DateTimeImmutable implements ChronosInterface
         if ($tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
-        $testNow = $testNow->modify($time);
+        if (!empty($time)) {
+            $testNow = $testNow->modify($time);
+        }
 
         $time = $testNow->format('Y-m-d 00:00:00');
         parent::__construct($time, new DateTimeZone('UTC'));

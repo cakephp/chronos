@@ -71,6 +71,10 @@ trait RelativeKeywordTrait
      */
     private static function isRelativeOnly($time): bool
     {
+        if ($time === null) {
+            return true;
+        }
+
         if (!is_string($time)) {
             return false;
         }

@@ -29,6 +29,38 @@ class ConstructTest extends TestCase
      * @dataProvider dateClassProvider
      * @return void
      */
+    public function testCreateFromEmpty($class)
+    {
+        $c = $class::parse(null);
+        $this->assertEquals('00:00:00', $c->format('H:i:s'));
+        $this->assertEquals('UTC', $c->tzName);
+
+        $c = $class::parse('');
+        $this->assertEquals('00:00:00', $c->format('H:i:s'));
+        $this->assertEquals('UTC', $c->tzName);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testCreateFromEmptyWithTestNow($class)
+    {
+        $class::setTestNow($class::create(2001, 1, 1));
+
+        $c = $class::parse(null);
+        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertEquals('UTC', $c->tzName);
+
+        $c = $class::parse('');
+        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertEquals('UTC', $c->tzName);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
     public function testCreateFromTimestamp($class)
     {
         $ts = 1454284800;
@@ -321,7 +353,7 @@ class ConstructTest extends TestCase
         $this->assertEquals(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame('UTC', $c->tzName);
 
-        // TestNow is ajusted to London time
+        // TestNow is adjusted to London time
         $c = $class::tomorrow($londonTimezone);
         $this->assertEquals('2010-01-03 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertEquals(Chronos::tomorrow($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));

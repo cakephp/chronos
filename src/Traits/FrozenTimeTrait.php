@@ -47,7 +47,7 @@ trait FrozenTimeTrait
         }
 
         if (!($time instanceof DateTimeInterface)) {
-            $time = new DateTimeImmutable($time, $tz);
+            $time = new DateTimeImmutable($time ?? 'now', $tz);
         }
 
         return $time->format('Y-m-d 00:00:00');
