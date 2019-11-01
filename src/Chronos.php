@@ -191,21 +191,11 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      */
     public function __debugInfo()
     {
-        // Conditionally add properties if state exists to avoid
-        // errors when using a debugger.
-        $vars = get_object_vars($this);
-
         $properties = [
             'hasFixedNow' => static::hasTestNow(),
+            'time' => $this->format('Y-m-d H:i:s.u'),
+            'timezone' => $this->getTimezone()->getName(),
         ];
-
-        if (isset($vars['date'])) {
-            $properties['time'] = $this->format('Y-m-d H:i:s.u');
-        }
-
-        if (isset($vars['timezone'])) {
-            $properties['timezone'] = $this->getTimezone()->getName();
-        }
 
         return $properties;
     }
