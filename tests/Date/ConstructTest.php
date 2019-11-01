@@ -303,12 +303,7 @@ class ConstructTest extends TestCase
         $this->assertEquals($london->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame('UTC', $c->tzName);
 
-        // Confirm that timezone is adjusted before midnight is set.
-        // This implies that the relative time used by Date helpers
-        // is affected by the timezone parameter properly.
-        $london = new DateTimeImmutable('midnight', $londonTimezone);
-        $this->assertEquals('00:00:00', $london->format('H:i:s'));
-
+        // now adjusted to London time
         $c = $class::today($londonTimezone);
         $this->assertEquals(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
 
