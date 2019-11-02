@@ -24,9 +24,6 @@ matrix:
     - php: 7.2
       env: COVERAGE=1 DEFAULT=0
 
-  allow_failures:
-    - php: 7.4snapshot
-
   fast_finish: true
 
 before_install:
