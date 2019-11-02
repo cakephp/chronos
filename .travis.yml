@@ -3,6 +3,7 @@ language: php
 php:
   - 7.2
   - 7.3
+  - 7.4snapshot
 
 sudo: false
 
@@ -24,7 +25,7 @@ matrix:
   fast_finish: true
 
 before_install:
-  - phpenv config-rm xdebug.ini
+  - if [[ $TRAVIS_PHP_VERSION != "7.4snapshot" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist

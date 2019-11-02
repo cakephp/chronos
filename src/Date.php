@@ -135,17 +135,10 @@ class Date extends DateTimeImmutable implements ChronosInterface
      */
     public function __debugInfo(): array
     {
-        // Conditionally add properties if state exists to avoid
-        // errors when using a debugger.
-        $vars = get_object_vars($this);
-
         $properties = [
             'hasFixedNow' => static::hasTestNow(),
+            'date' => $this->format('Y-m-d'),
         ];
-
-        if (isset($vars['date'])) {
-            $properties['date'] = $this->format('Y-m-d');
-        }
 
         return $properties;
     }
