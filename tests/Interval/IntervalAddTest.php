@@ -30,15 +30,17 @@ class IntervalAddTest extends TestCase
 
     public function testAddWithDiffDateInterval()
     {
-        $diff = Chronos::now()->diff(Chronos::now()->addWeeks(3));
-        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
-        $this->assertDateTimeInterval($ci, 4, 3, 70, 8, 10, 11);
+        $now = Chronos::now();
+        $diff = $now->diff($now->addWeeks(3));
+        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
+        $this->assertDateTimeInterval($ci, 4, 3, 70, 8, 10, 11, 123);
     }
 
     public function testAddWithNegativeDiffDateInterval()
     {
-        $diff = Chronos::now()->diff(Chronos::now()->subWeeks(3));
-        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
-        $this->assertDateTimeInterval($ci, 4, 3, 28, 8, 10, 11);
+        $now = Chronos::now();
+        $diff = $now->diff($now->subWeeks(3));
+        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
+        $this->assertDateTimeInterval($ci, 4, 3, 28, 8, 10, 11, 123);
     }
 }

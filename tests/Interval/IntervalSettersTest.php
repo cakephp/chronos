@@ -67,20 +67,27 @@ class IntervalSettersTest extends TestCase
 
     public function testSecondsSetter()
     {
-        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
         $d->seconds = 34;
         $this->assertSame(34, $d->seconds);
     }
 
+    public function testMicroecondsSetter()
+    {
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
+        $d->microseconds = 456;
+        $this->assertSame(456, $d->microseconds);
+    }
+
     public function testFluentSetters()
     {
-        $ci = ChronosInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
+        $ci = ChronosInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59)->microseconds(123);
         $this->assertInstanceOf(ChronosInterval::class, $ci);
-        $this->assertDateTimeInterval($ci, 4, 2, 5, 3, 1, 59);
+        $this->assertDateTimeInterval($ci, 4, 2, 5, 3, 1, 59, 123);
 
-        $ci = ChronosInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
+        $ci = ChronosInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59)->microseconds(123);
         $this->assertInstanceOf(ChronosInterval::class, $ci);
-        $this->assertDateTimeInterval($ci, 4, 2, 14, 3, 1, 59);
+        $this->assertDateTimeInterval($ci, 4, 2, 14, 3, 1, 59, 123);
     }
 
     public function testFluentSettersDaysOverwritesWeeks()
