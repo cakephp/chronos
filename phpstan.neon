@@ -3,8 +3,5 @@ parameters:
     ignoreErrors:
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
         -
-            message: '#Call to an undefined static method DateInterval::__get\(\)#'
-            path: src/ChronosInterval.php
-        -
             message: '#If condition is always true#'
             path: src/Traits/FrozenTimeTrait.php

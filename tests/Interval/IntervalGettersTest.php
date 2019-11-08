@@ -72,7 +72,13 @@ class IntervalGettersTest extends TestCase
 
     public function testSecondsGetter()
     {
-        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
         $this->assertSame(10, $d->seconds);
+    }
+
+    public function testMicrosecondsGetter()
+    {
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
+        $this->assertSame(123, $d->microseconds);
     }
 }

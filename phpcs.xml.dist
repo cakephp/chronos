@@ -11,7 +11,6 @@
 
     <file>./src</file>
     <file>./tests</file>
-    <file>./benchmarks</file>
 
     <arg phpcs-only="true" value="p"/>
     <arg name="extensions" value="php"/>

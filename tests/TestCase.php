@@ -80,7 +80,7 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function assertDateTimeInterval(ChronosInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    protected function assertDateTimeInterval(ChronosInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
         $this->assertSame($years, $ci->years, 'ChronosInterval->years');
 
@@ -102,6 +102,10 @@ abstract class TestCase extends BaseTestCase
 
         if ($seconds !== null) {
             $this->assertSame($seconds, $ci->seconds, 'ChronosInterval->seconds');
+        }
+
+        if ($microseconds !== null) {
+            $this->assertSame($microseconds, $ci->microseconds, 'ChronosInterval->microseconds');
         }
     }
 

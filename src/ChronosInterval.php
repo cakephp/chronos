@@ -29,6 +29,7 @@ use InvalidArgumentException;
  * @property int $hours Total hours of the current interval.
  * @property int $minutes Total minutes of the current interval.
  * @property int $seconds Total seconds of the current interval.
+ * @property int $microseconds Total microseconds of the current interval.
  *
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
@@ -48,6 +49,8 @@ use InvalidArgumentException;
  * @method static \Cake\Chronos\ChronosInterval minute($minutes = 1) Alias for minutes
  * @method static \Cake\Chronos\ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static \Cake\Chronos\ChronosInterval second($seconds = 1) Alias for seconds
+ * @method static \Cake\Chronos\ChronosInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds.
+ * @method static \Cake\Chronos\ChronosInterval microsecond($microseconds = 1) Alias for microseconds
  */
 class ChronosInterval extends DateInterval
 {
@@ -64,12 +67,6 @@ class ChronosInterval extends DateInterval
     public const PERIOD_SECONDS = 'S';
 
     /**
-     * Before PHP 5.4.20/5.5.4 instead of `false` days will be set to -99999 when the interval instance
-     * was created by DateTime:diff().
-     */
-    public const PHP_DAYS_FALSE = -99999;
-
-    /**
      * Determine if the interval was created via DateTime:diff() or not.
      *
      * @param \DateInterval $interval The interval to check.
@@ -77,7 +74,7 @@ class ChronosInterval extends DateInterval
      */
     protected static function wasCreatedFromDiff(DateInterval $interval): bool
     {
-        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
+        return $interval->days !== false;
     }
 
     /**
@@ -90,6 +87,7 @@ class ChronosInterval extends DateInterval
      * @param int|null $hours The hours to use.
      * @param int|null $minutes The minutes to use.
      * @param int|null $seconds The seconds to use.
+     * @param int|null $microseconds The microseconds to use.
      */
     public function __construct(
         ?int $years = 1,
@@ -98,7 +96,8 @@ class ChronosInterval extends DateInterval
         ?int $days = null,
         ?int $hours = null,
         ?int $minutes = null,
-        ?int $seconds = null
+        ?int $seconds = null,
+        ?int $microseconds = null
     ) {
         $spec = static::PERIOD_PREFIX;
 
@@ -123,6 +122,10 @@ class ChronosInterval extends DateInterval
         }
 
         parent::__construct($spec);
+
+        if ($microseconds > 0) {
+            $this->f = $microseconds / 1000000;
+        }
     }
 
     /**
@@ -138,6 +141,7 @@ class ChronosInterval extends DateInterval
      * @param int|null $hours The hours to use.
      * @param int|null $minutes The minutes to use.
      * @param int|null $seconds The seconds to use.
+     * @param int|null $microseconds The microseconds to use.
      * @return static
      */
     public static function create(
@@ -147,9 +151,10 @@ class ChronosInterval extends DateInterval
         ?int $days = null,
         ?int $hours = null,
         ?int $minutes = null,
-        ?int $seconds = null
+        ?int $seconds = null,
+        ?int $microseconds = null
     ): self {
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
     }
 
     /**
@@ -201,6 +206,10 @@ class ChronosInterval extends DateInterval
             case 'seconds':
             case 'second':
                 return new static(null, null, null, null, null, null, $arg);
+
+            case 'microseconds':
+            case 'microsecond':
+                return new static(null, null, null, null, null, null, null, $arg);
         }
     }
 
@@ -222,6 +231,7 @@ class ChronosInterval extends DateInterval
         }
 
         $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
+        $instance->f = $di->f;
         $instance->invert = $di->invert;
         $instance->days = $di->days;
 
@@ -256,22 +266,16 @@ class ChronosInterval extends DateInterval
             case 'seconds':
                 return $this->s;
 
+            case 'microseconds':
+                return (int)($this->f * 1000000);
+
             case 'weeks':
                 return (int)floor($this->d / ChronosInterface::DAYS_PER_WEEK);
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
                 return $this->dayz % ChronosInterface::DAYS_PER_WEEK;
-            case 'days':
-                return $this->days;
-            case 'y':
-            case 'm':
-            case 'd':
-            case 'h':
-            case 'i':
-            case 's':
-            case 'invert':
-                return parent::__get($name);
+
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
@@ -315,6 +319,10 @@ class ChronosInterval extends DateInterval
 
             case 'seconds':
                 $this->s = $val;
+                break;
+
+            case 'microseconds':
+                $this->f = $val / 1000000;
                 break;
 
             case 'invert':
@@ -388,6 +396,11 @@ class ChronosInterval extends DateInterval
             case 'second':
                 $this->seconds = $arg;
                 break;
+
+            case 'microseconds':
+            case 'microsecond':
+                $this->microseconds = $arg;
+                break;
         }
 
         return $this;
@@ -412,6 +425,7 @@ class ChronosInterval extends DateInterval
             $this->hours = $this->hours + ($interval->h * $sign);
             $this->minutes = $this->minutes + ($interval->i * $sign);
             $this->seconds = $this->seconds + ($interval->s * $sign);
+            $this->microseconds = $this->microseconds + (int)($interval->f * 1000000 * $sign);
         }
 
         return $this;
