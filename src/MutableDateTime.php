@@ -99,14 +99,15 @@ class MutableDateTime extends DateTime implements ChronosInterface
         }
 
         $testNow = clone $testNow;
-        if ($relative) {
-            $testNow = $testNow->modify($time);
-        }
-
         $relativetime = static::isTimeExpression($time);
         if (!$relativetime && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
+
+        if ($relative) {
+            $testNow = $testNow->modify($time);
+        }
+
         $time = $testNow->format('Y-m-d H:i:s.u');
         parent::__construct($time, $tz);
     }

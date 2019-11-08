@@ -36,7 +36,7 @@ trait RelativeKeywordTrait
     private static function isTimeExpression($time)
     {
         // Just a time
-        if (is_string($time) && preg_match('/^[0-2]?[0-9]:[0-5][0-9](?::[0-5][0-9])?$/', $time)) {
+        if (is_string($time) && preg_match('/^[0-2]?[0-9]:[0-5][0-9](?::[0-5][0-9](?:\.[0-9]{1,6})?)?$/', $time)) {
             return true;
         }
 
@@ -61,5 +61,25 @@ trait RelativeKeywordTrait
         }
 
         return false;
+    }
+
+    /**
+     * Determines if there is no fixed date in the time string.
+     *
+     * @param \DateTimeInterface|string|null $time The time string to check
+     * @return bool true if doesn't contain a fixed date
+     */
+    private static function isRelativeOnly($time): bool
+    {
+        if ($time === null) {
+            return true;
+        }
+
+        if (!is_string($time)) {
+            return false;
+        }
+
+        // must not contain fixed date before relative keywords or time expression
+        return preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1;
     }
 }
