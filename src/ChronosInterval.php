@@ -50,7 +50,7 @@ use InvalidArgumentException;
  * @method static \Cake\Chronos\ChronosInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static \Cake\Chronos\ChronosInterval second($seconds = 1) Alias for seconds
  * @method static \Cake\Chronos\ChronosInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds.
- * @method static \Cake\Chronos\ChronosInterval microsecond($microseconds = 1) Alias for seconds
+ * @method static \Cake\Chronos\ChronosInterval microsecond($microseconds = 1) Alias for microseconds
  */
 class ChronosInterval extends DateInterval
 {
