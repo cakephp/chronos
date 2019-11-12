@@ -75,7 +75,7 @@ class CreateFromTimeTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testCreateFromTimeWithMicroecond($class)
+    public function testCreateFromTimeWithMicrosecond($class)
     {
         $d = $class::createFromTime(null, null, null, 123456);
         $this->assertSame(123456, $d->microsecond);
