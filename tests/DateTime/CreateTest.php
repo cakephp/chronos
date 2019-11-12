@@ -242,7 +242,7 @@ class CreateTest extends TestCase
      */
     public function testCreateWithDateTimeZone($class)
     {
-        $d = $class::create(2012, 1, 1, 0, 0, 0, new \DateTimeZone('Europe/London'));
+        $d = $class::create(2012, 1, 1, 0, 0, 0, 0, new \DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
@@ -253,7 +253,7 @@ class CreateTest extends TestCase
      */
     public function testCreateWithTimeZoneString($class)
     {
-        $d = $class::create(2012, 1, 1, 0, 0, 0, 'Europe/London');
+        $d = $class::create(2012, 1, 1, 0, 0, 0, 0, 'Europe/London');
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }

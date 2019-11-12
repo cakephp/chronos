@@ -26,7 +26,7 @@ class CreateFromDateTest extends TestCase
     public function testCreateFromDateWithDefaults($class)
     {
         $d = $class::createFromDate();
-        $this->assertSame($d->timestamp, $class::create(null, null, null, null, null, null)->timestamp);
+        $this->assertSame($d->timestamp, $class::create(null, null, null, null, null, null, null)->timestamp);
     }
 
     /**

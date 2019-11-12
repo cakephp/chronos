@@ -134,7 +134,7 @@ trait FactoryTrait
      * will be used.
      *
      * If $hour is null it will be set to its now() value and the default values
-     * for $minute and $second will be their now() values.
+     * for $minute, $second and $microsecond will be their now() values.
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
@@ -144,6 +144,7 @@ trait FactoryTrait
      * @param int|null $hour The hour to create an instance with.
      * @param int|null $minute The minute to create an instance with.
      * @param int|null $second The second to create an instance with.
+     * @param int|null $microsecond The microsecond to create an instance with.
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
@@ -154,24 +155,27 @@ trait FactoryTrait
         ?int $hour = null,
         ?int $minute = null,
         ?int $second = null,
+        ?int $microsecond = null,
         $tz = null
     ): ChronosInterface {
         $year = $year ?? (int)date('Y');
-        $month = $month ?? date('n');
-        $day = $day ?? date('j');
+        $month = $month ?? date('m');
+        $day = $day ?? date('d');
 
         if ($hour === null) {
-            $hour = date('G');
+            $hour = date('H');
             $minute = $minute ?? date('i');
             $second = $second ?? date('s');
+            $microsecond = $microsecond ?? date('u');
         } else {
             $minute = $minute ?? 0;
             $second = $second ?? 0;
+            $microsecond = $microsecond ?? 0;
         }
 
         $instance = static::createFromFormat(
-            'Y-n-j G:i:s',
-            sprintf('%s-%s-%s %s:%02s:%02s', 0, $month, $day, $hour, $minute, $second),
+            'Y-m-d H:i:s.u',
+            sprintf('%s-%s-%s %s:%02s:%02s.%06s', 0, $month, $day, $hour, $minute, $second, $microsecond),
             $tz
         );
 
@@ -193,7 +197,7 @@ trait FactoryTrait
         ?int $day = null,
         $tz = null
     ): ChronosInterface {
-        return static::create($year, $month, $day, null, null, null, $tz);
+        return static::create($year, $month, $day, null, null, null, null, $tz);
     }
 
     /**
@@ -202,6 +206,7 @@ trait FactoryTrait
      * @param int|null $hour The hour to create an instance with.
      * @param int|null $minute The minute to create an instance with.
      * @param int|null $second The second to create an instance with.
+     * @param int|null $microsecond The microsecond to create an instance with.
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
@@ -209,9 +214,10 @@ trait FactoryTrait
         ?int $hour = null,
         ?int $minute = null,
         ?int $second = null,
+        ?int $microsecond = null,
         $tz = null
     ): ChronosInterface {
-        return static::create(null, null, null, $hour, $minute, $second, $tz);
+        return static::create(null, null, null, $hour, $minute, $second, $microsecond, $tz);
     }
 
     /**

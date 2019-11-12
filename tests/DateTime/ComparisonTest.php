@@ -60,11 +60,12 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneTrue($class)
     {
-        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq($class::create(
+        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto')->eq($class::create(
             2000,
             1,
             1,
             9,
+            0,
             0,
             0,
             'America/Vancouver'
@@ -141,8 +142,8 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanWithTimezoneTrue($class)
     {
-        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
-        $dt2 = $class::create(2000, 1, 1, 8, 59, 59, 'America/Vancouver');
+        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $dt2 = $class::create(2000, 1, 1, 8, 59, 59, 0, 'America/Vancouver');
         $this->assertTrue($dt1->gt($dt2));
     }
 
@@ -152,8 +153,8 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanWithTimezoneFalse($class)
     {
-        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
-        $dt2 = $class::create(2000, 1, 1, 9, 0, 1, 'America/Vancouver');
+        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $dt2 = $class::create(2000, 1, 1, 9, 0, 1, 0, 'America/Vancouver');
         $this->assertFalse($dt1->gt($dt2));
     }
 

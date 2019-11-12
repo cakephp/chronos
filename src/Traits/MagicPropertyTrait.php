@@ -68,6 +68,7 @@ trait MagicPropertyTrait
             'minute' => 'i',
             'second' => 's',
             'micro' => 'u',
+            'microsecond' => 'u',
             'dayOfWeek' => 'N',
             'dayOfYear' => 'z',
             'weekOfYear' => 'W',
