@@ -40,15 +40,6 @@ class ComparisonTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testEqualToTrue($class)
-    {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 1)));
-    }
-
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
     public function testEqualToFalse($class)
     {
         $this->assertFalse($class::createFromDate(2000, 1, 1)->eq($class::createFromDate(2000, 1, 2)));
@@ -93,15 +84,6 @@ class ComparisonTest extends TestCase
     public function testNotEqualToTrue($class)
     {
         $this->assertTrue($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 2)));
-    }
-
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNotEqualToFalse($class)
-    {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->ne($class::createFromDate(2000, 1, 1)));
     }
 
     /**
@@ -165,15 +147,6 @@ class ComparisonTest extends TestCase
     public function testGreaterThanOrEqualTrue($class)
     {
         $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(1999, 12, 31)));
-    }
-
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanOrEqualTrueEqual($class)
-    {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->gte($class::createFromDate(2000, 1, 1)));
     }
 
     /**

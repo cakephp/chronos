@@ -134,8 +134,7 @@ trait FactoryTrait
      * will be used.
      *
      * If $hour is null it will be set to its now() value and the default values
-     * for $minute and $second will be their now() values. The default for milliseconds
-     * will be 0.
+     * for $minute, $second and $microsecond will be their now() values.
      * If $hour is not null then the default values for $minute, $second
      * and $microsecond will be 0.
      *
@@ -159,16 +158,16 @@ trait FactoryTrait
         ?int $microsecond = null,
         $tz = null
     ): ChronosInterface {
-        $now = time();
-        $year = $year ?? (int)date('Y', $now);
-        $month = $month ?? date('m', $now);
-        $day = $day ?? date('d', $now);
+        $now = static::now();
+        $year = $year ?? (int)$now->format('Y');
+        $month = $month ?? $now->format('m');
+        $day = $day ?? $now->format('d');
 
         if ($hour === null) {
-            $hour = date('H', $now);
-            $minute = $minute ?? date('i', $now);
-            $second = $second ?? date('s', $now);
-            $microsecond = $microsecond ?? 0;
+            $hour = $now->format('H');
+            $minute = $minute ?? $now->format('i');
+            $second = $second ?? $now->format('s');
+            $microsecond = $microsecond ?? $now->format('u');
         } else {
             $minute = $minute ?? 0;
             $second = $second ?? 0;
