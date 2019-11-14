@@ -19,12 +19,37 @@ use Cake\Chronos\Test\TestCase;
 class StringsTest extends TestCase
 {
     /**
+     * Setup
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->tz = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+    }
+
+    /**
+     * Teardown
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        date_default_timezone_set($this->tz);
+
+        unset($this->tz);
+    }
+
+    /**
      * @dataProvider dateClassProvider
      * @return void
      */
     public function testToString($class)
     {
-        $d = Date::now();
+        $d = $class::now();
         $this->assertSame(Date::now()->toDateString(), '' . $d);
     }
 
