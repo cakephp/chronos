@@ -47,3 +47,4 @@ repository = 'cakephp/chronos'
 source_path = 'docs/'
 
 is_prerelease = True
+hide_page_contents = ('search', '404', 'contents')

@@ -52,7 +52,7 @@ trait FactoryTrait
      * ChronosInterface::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param string|int|null $time The strtotime compatible string to parse
+     * @param \DateTimeInterface|string|int $time The strtotime compatible string to parse
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */

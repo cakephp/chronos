@@ -58,8 +58,8 @@
         "test": "phpunit",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "benchmark": "phpbench run tests/Benchmark --report=aggregate",
-        "phpstan": "phpstan analyse src/",
-        "phpstan-setup": "composer require --dev phpstan/phpstan:^0.11"
+        "bench": "phpbench run",
+        "phpstan": "phpstan analyze -c phpstan.neon -l 3 src/",
+        "phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan-shim:^0.11 && mv composer.backup composer.json"
     }
 }
