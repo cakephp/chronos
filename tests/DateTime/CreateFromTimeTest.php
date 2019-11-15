@@ -75,10 +75,21 @@ class CreateFromTimeTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testCreateFromTimeWithMicrosecond($class)
+    {
+        $d = $class::createFromTime(null, null, null, 123456);
+        $this->assertSame(123456, $d->microsecond);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testCreateFromTimeWithDateTimeZone($class)
     {
-        $d = $class::createFromTime(12, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertDateTime($d, $class::now()->year, $class::now()->month, $class::now()->day, 12, 0, 0);
+        $now = $class::now();
+        $d = $class::createFromTime(12, 0, 0, 0, new \DateTimeZone('Europe/London'));
+        $this->assertDateTime($d, $now->year, $now->month, $now->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
@@ -88,8 +99,9 @@ class CreateFromTimeTest extends TestCase
      */
     public function testCreateFromTimeWithTimeZoneString($class)
     {
-        $d = $class::createFromTime(12, 0, 0, 'Europe/London');
-        $this->assertDateTime($d, $class::now()->year, $class::now()->month, $class::now()->day, 12, 0, 0);
+        $now = $class::now();
+        $d = $class::createFromTime(12, 0, 0, 0, 'Europe/London');
+        $this->assertDateTime($d, $now->year, $now->month, $now->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

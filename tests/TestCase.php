@@ -61,7 +61,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    protected function assertDateTime($d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    protected function assertDateTime($d, $year, $month, $day, $hour = null, $minute = null, $second = null, $microsecond = null)
     {
         $this->assertSame($year, $d->year, 'Chronos->year');
         $this->assertSame($month, $d->month, 'Chronos->month');
@@ -77,6 +77,10 @@ abstract class TestCase extends BaseTestCase
 
         if ($second !== null) {
             $this->assertSame($second, $d->second, 'Chronos->second');
+        }
+
+        if ($microsecond !== null) {
+            $this->assertSame($microsecond, $d->microsecond, 'Chronos->microsecond');
         }
     }
 

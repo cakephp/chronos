@@ -94,7 +94,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testStartOrEndOfWeekFromWeekWithUTC($class)
     {
-        $d = $class::create(2016, 7, 27, 17, 13, 7, 'UTC');
+        $d = $class::create(2016, 7, 27, 17, 13, 7, 0, 'UTC');
         $this->assertDateTime($d->copy()->startOfWeek(), 2016, 7, 25, 0, 0, 0);
         $this->assertDateTime($d->copy()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
         $this->assertDateTime($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
@@ -105,7 +105,7 @@ class DayOfWeekModifiersTest extends TestCase
      */
     public function testStartOrEndOfWeekFromWeekWithOtherTimezone($class)
     {
-        $d = $class::create(2016, 7, 27, 17, 13, 7, 'America/New_York');
+        $d = $class::create(2016, 7, 27, 17, 13, 7, 0, 'America/New_York');
         $this->assertDateTime($d->startOfWeek(), 2016, 7, 25, 0, 0, 0);
         $this->assertDateTime($d->endOfWeek(), 2016, 7, 31, 23, 59, 59);
         $this->assertDateTime($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
