@@ -63,14 +63,13 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromTimestamp($class)
     {
-        $tz = date_default_timezone_get();
-        date_default_timezone_set('Europe/London');
-        $ts = 1454284800;
-        $date = $class::createFromTimestamp($ts);
-        date_default_timezone_set($tz);
+        $this->withTimezone('Europe/Berlin', function () use ($class) {
+            $ts = 1454284800;
+            $date = $class::createFromTimestamp($ts);
 
-        $this->assertEquals('Europe/London', $date->tzName);
-        $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+            $this->assertEquals('Europe/Berlin', $date->tzName);
+            $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+        });
     }
 
     /**

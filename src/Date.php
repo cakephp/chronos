@@ -97,7 +97,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
         $testNow = Chronos::getTestNow();
         if ($testNow === null || !static::isRelativeOnly($time)) {
             $time = $this->stripTime($time, $tz);
-            parent::__construct($time, new DateTimeZone(date_default_timezone_get()));
+            parent::__construct($time);
 
             return;
         }
@@ -111,7 +111,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
         }
 
         $time = $testNow->format('Y-m-d 00:00:00');
-        parent::__construct($time, new DateTimeZone(date_default_timezone_get()));
+        parent::__construct($time);
     }
 
     /**

@@ -115,4 +115,15 @@ abstract class TestCase extends BaseTestCase
         $func();
         Chronos::setTestNow();
     }
+
+    protected function withTimezone(string $tz, Closure $cb)
+    {
+        $restore = date_default_timezone_get();
+        date_default_timezone_set($tz);
+        try {
+            $cb();
+        } finally {
+            date_default_timezone_set($restore);
+        }
+    }
 }
