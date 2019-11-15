@@ -111,6 +111,14 @@ methods operate at the day resolution::
     // Outputs '2015-12-20'
     echo $today;
 
+Although ``Date`` uses a fixed time zone internally, you can specify which
+time zone to use for current time such as ``now()`` or ``today()``::
+
+    use Cake\Chronos\Date:
+
+    // Takes the current date from Asia/Tokyo time zone
+    $today = Date::today('Asia/Tokyo');
+
 Modifier Methods
 ----------------
 
@@ -265,19 +273,19 @@ Extracting Date Components
 
 Getting parts of a date object can be done by directly accessing properties::
 
-    $time = new Chronos('2015-12-31 23:59:58');
+    $time = new Chronos('2015-12-31 23:59:58.123');
     $time->year;    // 2015
     $time->month;   // 12
     $time->day;     // 31
     $time->hour     // 23
     $time->minute   // 59
     $time->second   // 58
+    $time->micro    // 123
 
 Other properties that can be accessed are:
 
 - timezone
 - timezoneName
-- micro
 - dayOfWeek
 - dayOfMonth
 - dayOfYear
