@@ -33,11 +33,11 @@ class ConstructTest extends TestCase
     {
         $c = $class::parse(null);
         $this->assertEquals('00:00:00', $c->format('H:i:s'));
-        $this->assertEquals('UTC', $c->tzName);
+        $this->assertEquals(date_default_timezone_get(), $c->tzName);
 
         $c = $class::parse('');
         $this->assertEquals('00:00:00', $c->format('H:i:s'));
-        $this->assertEquals('UTC', $c->tzName);
+        $this->assertEquals(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -50,11 +50,11 @@ class ConstructTest extends TestCase
 
         $c = $class::parse(null);
         $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals('UTC', $c->tzName);
+        $this->assertEquals(date_default_timezone_get(), $c->tzName);
 
         $c = $class::parse('');
         $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals('UTC', $c->tzName);
+        $this->assertEquals(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -63,10 +63,13 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromTimestamp($class)
     {
-        $ts = 1454284800;
-        $date = $class::createFromTimestamp($ts);
-        $this->assertEquals('UTC', $date->tzName);
-        $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+        $this->withTimezone('Europe/Berlin', function () use ($class) {
+            $ts = 1454284800;
+            $date = $class::createFromTimestamp($ts);
+
+            $this->assertEquals('Europe/Berlin', $date->tzName);
+            $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+        });
     }
 
     /**
@@ -132,20 +135,20 @@ class ConstructTest extends TestCase
      * @dataProvider dateClassProvider
      * @return void
      */
-    public function testUsesUTC($class)
+    public function testUsesDefaultTimezone($class)
     {
         $c = new $class('now');
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
      * @dataProvider dateClassProvider
      * @return void
      */
-    public function testParseUsesUTC($class)
+    public function testParseUsesDefaultTimezone($class)
     {
         $c = $class::parse('now');
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -157,7 +160,7 @@ class ConstructTest extends TestCase
         $timezone = 'Europe/London';
         $dtz = new \DateTimeZone($timezone);
         $c = new $class('now', $dtz);
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -166,11 +169,8 @@ class ConstructTest extends TestCase
      */
     public function testParseSettingTimezoneIgnored($class)
     {
-        $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $c = $class::parse('now', $dtz);
-
-        $this->assertSame('UTC', $c->tzName);
+        $c = $class::parse('now', new DateTimeZone('Europe/London'));
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -179,11 +179,8 @@ class ConstructTest extends TestCase
      */
     public function testSettingTimezoneWithStringIgnored($class)
     {
-        $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-
-        $c = new $class('now', $timezone);
-        $this->assertSame('UTC', $c->tzName);
+        $c = new $class('now', 'Asia/Tokyo');
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -192,10 +189,8 @@ class ConstructTest extends TestCase
      */
     public function testParseSettingTimezoneWithStringIgnored($class)
     {
-        $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $c = $class::parse('now', $timezone);
-        $this->assertSame('UTC', $c->tzName);
+        $c = $class::parse('now', 'Asia/Tokyo');
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -301,7 +296,7 @@ class ConstructTest extends TestCase
         $c = new $class('now', $londonTimezone);
         $london = new DateTimeImmutable('now', $londonTimezone);
         $this->assertEquals($london->format('Y-m-d'), $c->format('Y-m-d'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // now adjusted to London time
         $c = $class::today($londonTimezone);
@@ -310,17 +305,17 @@ class ConstructTest extends TestCase
         // London timezone is used instead of local timezone
         $c = new $class('2001-01-02 01:00:00', $londonTimezone);
         $this->assertEquals('2001-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when timezone is provided in time string
         $c = new $class('2001-01-01 23:00:00-400', $londonTimezone);
         $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when DateTimeInterface instance is provided
         $c = new $class(new DateTimeImmutable('2001-01-01 23:00:00-400'), $londonTimezone);
         $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -335,29 +330,29 @@ class ConstructTest extends TestCase
         // TestNow is adjusted to London time
         $c = new $class('now', $londonTimezone);
         $this->assertEquals('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = new $class('+2 days', $londonTimezone);
         $this->assertEquals('2010-01-04 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = $class::today($londonTimezone);
         $this->assertEquals('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertEquals(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = $class::tomorrow($londonTimezone);
         $this->assertEquals('2010-01-03 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertEquals(Chronos::tomorrow($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is ignored when specific date is provided
         $c = new $class('2001-01-05 01:00:00', $londonTimezone);
         $this->assertEquals('2001-01-05 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -367,7 +362,7 @@ class ConstructTest extends TestCase
      *
      * @dataProvider dateClassProvider
      */
-    public function testConstructWithLargeTimzoneChange($class)
+    public function testConstructWithLargeTimezoneChange($class)
     {
         $savedTz = date_default_timezone_get();
         date_default_timezone_set('Pacific/Kiritimati');
@@ -378,7 +373,7 @@ class ConstructTest extends TestCase
         $c = $class::today($samoaTimezone);
         $Samoa = new DateTimeImmutable('now', $samoaTimezone);
         $this->assertEquals($Samoa->format('Y-m-d'), $c->format('Y-m-d'));
-        $this->assertSame('UTC', $c->tzName);
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         date_default_timezone_set($savedTz);
     }

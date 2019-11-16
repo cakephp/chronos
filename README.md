@@ -118,10 +118,11 @@ $fixed = $date->toImmutable();
 
 # Calendar Dates
 
-PHP only offers datetime objects as part of the native extensions. Chronos
-adds a number of conveniences to the traditional DateTime object and introduces
-a `Date` object. `Date` instances offer compatibility with the `ChronosInterface`, but
-have their time & timezone frozen to `00:00:00 UTC`. This makes them ideal when working with
+PHP only offers datetime objects as part of the native extensions. Chronos adds
+a number of conveniences to the traditional DateTime object and introduces
+a `Date` object. `Date` instances offer compatibility with the
+`ChronosInterface`, but have their time frozen to `00:00:00` and the timezone
+set to the server default timezone. This makes them ideal when working with
 calendar dates as the time components will always match.
 
 ```php
@@ -135,12 +136,12 @@ echo $today->modify('+3 hours');
 // Outputs '2015-10-21'
 ```
 
-Like instances of `Chronos`, `Date` objects are also *immutable*. The `MutableDate` class provides
-a mutable variant of `Date`.
+Like instances of `Chronos`, `Date` objects are also *immutable*. The
+`MutableDate` class provides a mutable variant of `Date`.
 
 # Documentation
 
-A more descriptive documentation can be found at [book.cakephp.org/chronos/1.x/en/](https://book.cakephp.org/chronos/1.x/en/).
+A more descriptive documentation can be found at [book.cakephp.org/chronos/2/en/](https://book.cakephp.org/chronos/2/en/).
 
 # API Documentation
 
