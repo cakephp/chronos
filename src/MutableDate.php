@@ -30,10 +30,11 @@ use DateTimeZone;
  * @property-read int $hour
  * @property-read int $minute
  * @property-read int $second
+ * @property-read int $micro
+ * @property-read int $microsecond
  * @property-read int $timestamp seconds since the Unix Epoch
  * @property-read \DateTimeZone $timezone the current timezone
  * @property-read \DateTimeZone $tz alias of timezone
- * @property-read int $micro
  * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5
