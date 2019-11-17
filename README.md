@@ -37,6 +37,9 @@ since developers don't have to manually copy the instance every time they need a
 Another important feature it offers is the `Date` class, which is used for representing dates without time (calendar dates).
 Any time method called on this type of object is basically a no-op.
 
+There are other implementation changes, but one that users might not notice is ``Chronos`` considers Monday as
+the start of the week instead of Sunday.  This follows the ISO-8601 and current versions of PHP 5.6 and PHP 7.
+
 A minor but still noticeable difference is that `Chronos` has no external dependencies, it is completely standalone.
 
 Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
