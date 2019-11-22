@@ -546,7 +546,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYears($value);
+    public function subYears(int $value): self;
 
     /**
      * Remove a year from the instance.
@@ -556,7 +556,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYear($value = 1);
+    public function subYear(int $value = 1): self;
 
     /**
      * Add years with overflowing to the instance. Positive $value
@@ -573,7 +573,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYearsWithOverflow($value);
+    public function addYearsWithOverflow(int $value): self;
 
     /**
      * Add a year with overflow to the instance
@@ -583,7 +583,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYearWithOverflow($value = 1);
+    public function addYearWithOverflow(int $value = 1): self;
 
     /**
      * Remove years with overflow from the instance
@@ -593,7 +593,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYearsWithOverflow($value);
+    public function subYearsWithOverflow(int $value): self;
 
     /**
      * Remove a year with overflow from the instance
@@ -603,7 +603,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYearWithOverflow($value = 1);
+    public function subYearWithOverflow(int $value = 1): self;
 
     /**
      * Add months to the instance. Positive $value travels forward while
@@ -690,7 +690,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsWithOverflow($value);
+    public function subMonthsWithOverflow(int $value): self;
 
     /**
      * Remove a month with overflow from the instance.
@@ -700,7 +700,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthWithOverflow($value = 1);
+    public function subMonthWithOverflow(int $value = 1): self;
 
     /**
      * Add days to the instance. Positive $value travels forward while
@@ -725,7 +725,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDays($value);
+    public function subDays(int $value): self;
 
     /**
      * Remove a day from the instance
@@ -733,7 +733,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDay($value = 1);
+    public function subDay(int $value = 1): self;
 
     /**
      * Add weekdays to the instance. Positive $value travels forward while

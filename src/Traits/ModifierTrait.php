@@ -264,7 +264,7 @@ trait ModifierTrait
     public function addYears(int $value): ChronosInterface
     {
         $month = $this->month;
-        $date = $this->modify((int)$value . ' year');
+        $date = $this->modify($value . ' year');
 
         if ($date->month !== $month) {
             return $date->modify('last day of previous month');
@@ -294,7 +294,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYears($value)
+    public function subYears(int $value): ChronosInterface
     {
         return $this->addYears(-1 * $value);
     }
@@ -307,7 +307,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYear($value = 1)
+    public function subYear(int $value = 1): ChronosInterface
     {
         return $this->subYears($value);
     }
@@ -327,9 +327,9 @@ trait ModifierTrait
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYearsWithOverflow($value)
+    public function addYearsWithOverflow(int $value): ChronosInterface
     {
-        return $this->modify((int)$value . ' year');
+        return $this->modify($value . ' year');
     }
 
     /**
@@ -340,7 +340,7 @@ trait ModifierTrait
      * @param int $value The number of years to add.
      * @return static
      */
-    public function addYearWithOverflow($value = 1)
+    public function addYearWithOverflow(int $value = 1): ChronosInterface
     {
         return $this->addYearsWithOverflow($value);
     }
@@ -353,7 +353,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYearsWithOverflow($value)
+    public function subYearsWithOverflow(int $value): ChronosInterface
     {
         return $this->addYearsWithOverflow(-1 * $value);
     }
@@ -366,7 +366,7 @@ trait ModifierTrait
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYearWithOverflow($value = 1)
+    public function subYearWithOverflow(int $value = 1): ChronosInterface
     {
         return $this->subYearsWithOverflow($value);
     }
@@ -482,7 +482,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsWithOverflow($value)
+    public function subMonthsWithOverflow(int $value): ChronosInterface
     {
         return $this->addMonthsWithOverflow(-1 * $value);
     }
@@ -495,7 +495,7 @@ trait ModifierTrait
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthWithOverflow($value = 1)
+    public function subMonthWithOverflow(int $value = 1): ChronosInterface
     {
         return $this->subMonthsWithOverflow($value);
     }
