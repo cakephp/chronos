@@ -512,6 +512,17 @@ interface ChronosInterface extends DateTimeInterface
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
+     * If the new date does not exist, the last day of the month is used
+     * instead instead of overflowing into the next month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2015-01-03'))->addYears(1); // Results in 2016-01-03
+     *
+     *  (new Chronos('2012-02-29'))->addYears(1); // Results in 2013-02-28
+     * ```
+     *
      * @param int $value The number of years to add.
      * @return static
      */
@@ -520,30 +531,44 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Add a year to the instance
      *
+     * Has the same behavior as `addYears()`.
+     *
      * @param int $value The number of years to add.
      * @return static
      */
     public function addYear(int $value = 1): self;
 
     /**
-     * Remove a year from the instance
-     *
-     * @param int $value The number of years to remove.
-     * @return static
-     */
-    public function subYear(int $value = 1): self;
-
-    /**
      * Remove years from the instance.
      *
+     * Has the same behavior as `addYears()`.
+     *
      * @param int $value The number of years to remove.
      * @return static
      */
-    public function subYears(int $value): self;
+    public function subYears($value);
+
+    /**
+     * Remove a year from the instance.
+     *
+     * Has the same behavior as `addYears()`.
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYear($value = 1);
 
     /**
      * Add years with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
+     *
+     * If the new date does not exist, the days overflow into the next month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2012-02-29'))->addYearsWithOverflow(1); // Results in 2013-03-01
+     * ```
      *
      * @param int $value The number of years to add.
      * @return static
@@ -553,21 +578,17 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Add a year with overflow to the instance
      *
+     * Has the same behavior as `addYearsWithOverflow()`.
+     *
      * @param int $value The number of years to add.
      * @return static
      */
     public function addYearWithOverflow($value = 1);
 
     /**
-     * Remove a year with overflow from the instance
-     *
-     * @param int $value The number of years to remove.
-     * @return static
-     */
-    public function subYearWithOverflow($value = 1);
-
-    /**
      * Remove years with overflow from the instance
+     *
+     * Has the same behavior as `addYearsWithOverflow()`.
      *
      * @param int $value The number of years to remove.
      * @return static
@@ -575,12 +596,21 @@ interface ChronosInterface extends DateTimeInterface
     public function subYearsWithOverflow($value);
 
     /**
+     * Remove a year with overflow from the instance
+     *
+     * Has the same behavior as `addYearsWithOverflow()`.
+     *
+     * @param int $value The number of years to remove.
+     * @return static
+     */
+    public function subYearWithOverflow($value = 1);
+
+    /**
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * When adding or subtracting months, if the resulting time is a date
-     * that does not exist, the result of this operation will always be the
-     * last day of the intended month.
+     * If the new date does not exist, the last day of the month is used
+     * instead instead of overflowing into the next month.
      *
      * ### Example:
      *
@@ -596,19 +626,9 @@ interface ChronosInterface extends DateTimeInterface
     public function addMonths(int $value): self;
 
     /**
-     * Add a month to the instance
+     * Add a month to the instance.
      *
-     * When adding or subtracting months, if the resulting time is a date
-     * that does not exist, the result of this operation will always be the
-     * last day of the intended month.
-     *
-     * ### Example:
-     *
-     * ```
-     *  (new Chronos('2015-01-03'))->addMonth(); // Results in 2015-02-03
-     *
-     *  (new Chronos('2015-01-31'))->addMonth(); // Results in 2015-02-28
-     * ```
+     * Has the same behavior as `addMonths()`.
      *
      * @param int $value The number of months to add.
      * @return static
@@ -618,17 +638,7 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Remove a month from the instance
      *
-     * When adding or subtracting months, if the resulting time is a date
-     * that does not exist, the result of this operation will always be the
-     * last day of the intended month.
-     *
-     * ### Example:
-     *
-     * ```
-     *  (new Chronos('2015-03-01'))->subMonth(); // Results in 2015-02-01
-     *
-     *  (new Chronos('2015-03-31'))->subMonth(); // Results in 2015-02-28
-     * ```
+     * Has the same behavior as `addMonths()`.
      *
      * @param int $value The number of months to remove.
      * @return static
@@ -636,19 +646,9 @@ interface ChronosInterface extends DateTimeInterface
     public function subMonth(int $value = 1): self;
 
     /**
-     * Remove months from the instance
+     * Remove months from the instance.
      *
-     * When adding or subtracting months, if the resulting time is a date
-     * that does not exist, the result of this operation will always be the
-     * last day of the intended month.
-     *
-     * ### Example:
-     *
-     * ```
-     *  (new Chronos('2015-03-01'))->subMonths(1); // Results in 2015-02-01
-     *
-     *  (new Chronos('2015-03-31'))->subMonths(1); // Results in 2015-02-28
-     * ```
+     * Has the same behavior as `addMonths()`.
      *
      * @param int $value The number of months to remove.
      * @return static
@@ -659,13 +659,23 @@ interface ChronosInterface extends DateTimeInterface
      * Add months with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
+     * If the new date does not exist, the days overflow into the next month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2012-01-30'))->addMonthsWithOverflow(1); // Results in 2013-03-01
+     * ```
+     *
      * @param int $value The number of months to add.
      * @return static
      */
     public function addMonthsWithOverflow(int $value): self;
 
     /**
-     * Add a month with overflow to the instance
+     * Add a month with overflow to the instance.
+     *
+     * Has the same behavior as `addMonthsWithOverflow()`.
      *
      * @param int $value The number of months to add.
      * @return static
@@ -673,20 +683,24 @@ interface ChronosInterface extends DateTimeInterface
     public function addMonthWithOverflow(int $value = 1): self;
 
     /**
-     * Remove a month with overflow from the instance
+     * Remove months with overflow from the instance.
+     *
+     * Has the same behavior as `addMonthsWithOverflow()`.
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthWithOverflow(int $value = 1): self;
+    public function subMonthsWithOverflow($value);
 
     /**
-     * Remove months with overflow from the instance
+     * Remove a month with overflow from the instance.
+     *
+     * Has the same behavior as `addMonthsWithOverflow()`.
      *
      * @param int $value The number of months to remove.
      * @return static
      */
-    public function subMonthsWithOverflow(int $value): self;
+    public function subMonthWithOverflow($value = 1);
 
     /**
      * Add days to the instance. Positive $value travels forward while
@@ -706,20 +720,20 @@ interface ChronosInterface extends DateTimeInterface
     public function addDay(int $value = 1): self;
 
     /**
-     * Remove a day from the instance
-     *
-     * @param int $value The number of days to remove.
-     * @return static
-     */
-    public function subDay(int $value = 1): self;
-
-    /**
      * Remove days from the instance
      *
      * @param int $value The number of days to remove.
      * @return static
      */
-    public function subDays(int $value): self;
+    public function subDays($value);
+
+    /**
+     * Remove a day from the instance
+     *
+     * @param int $value The number of days to remove.
+     * @return static
+     */
+    public function subDay($value = 1);
 
     /**
      * Add weekdays to the instance. Positive $value travels forward while
