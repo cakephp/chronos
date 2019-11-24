@@ -59,6 +59,39 @@ class SubTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testSubYearNoOverflowPassingArg($class)
+    {
+        $dt = $class::createFromDate(2013, 2, 28)->subYear();
+        $this->assertSame(2, $dt->month);
+        $this->assertSame(28, $dt->day);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearsWithOverflowPassingArg($class)
+    {
+        $dt = $class::createFromDate(2014, 2, 29)->subYearsWithOverflow(2);
+        $this->assertSame(2, $dt->month);
+        $this->assertSame(28, $dt->day);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testSubYearWithOverflowPassingArg($class)
+    {
+        $dt = $class::createFromDate(2013, 2, 28)->subYearWithOverflow();
+        $this->assertSame(2, $dt->month);
+        $this->assertSame(28, $dt->day);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testSubMonthsPositive($class)
     {
         $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonths(1)->month);
