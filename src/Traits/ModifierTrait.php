@@ -155,9 +155,9 @@ trait ModifierTrait
     public function setTimeFromTimeString($time)
     {
         $time = explode(":", $time);
-        $hour = $time[0];
-        $minute = isset($time[1]) ? $time[1] : 0;
-        $second = isset($time[2]) ? $time[2] : 0;
+        $hour = (int)$time[0];
+        $minute = isset($time[1]) ? (int)$time[1] : 0;
+        $second = isset($time[2]) ? (int)$time[2] : 0;
 
         return $this->setTime($hour, $minute, $second);
     }

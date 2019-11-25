@@ -44,8 +44,8 @@ use DateTimeZone;
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * @property-read string $timezoneName
+ * @property-read string $tzName
  */
 class Chronos extends DateTimeImmutable implements ChronosInterface
 {
@@ -110,7 +110,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             $testNow = $testNow->modify($time);
         }
 
-        if ($tz !== $testNow->getTimezone()) {
+        $relativeTime = static::isTimeExpression($time);
+        if (!$relativeTime && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz === null ? date_default_timezone_get() : $tz);
         }
 
@@ -191,9 +192,9 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     public function __debugInfo()
     {
         $properties = [
+            'hasFixedNow' => static::hasTestNow(),
             'time' => $this->format('Y-m-d H:i:s.u'),
             'timezone' => $this->getTimezone()->getName(),
-            'hasFixedNow' => self::hasTestNow()
         ];
 
         return $properties;

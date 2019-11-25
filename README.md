@@ -39,6 +39,9 @@ Any time method called on this type of object is basically a no-op.
 
 A minor but still noticeable difference is that `Chronos` has no external dependencies, it is completely standalone.
 
+There are other implementation changes, but one that users might not notice is ``Chronos`` considers Monday as
+the start of the week instead of Sunday.  This follows the ISO-8601 and current versions of PHP 5.6 and PHP 7.
+
 Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
 overhead.
 
@@ -61,12 +64,12 @@ want to migrate, we could use the following to update files:
 
 ```
 # Replace imports
-find ./src -type f -exec sed -i '' 's/use Carbon\\CarbonInterval/use Cake\\Chronos\\ChronosInterval/g' {} \;
-find ./src -type f -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
+find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\CarbonInterval/use Cake\\Chronos\\ChronosInterval/g' {} \;
+find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
 
 # Replace typehints and extensions
-find ./src -type f -exec sed -i '' 's/CarbonInterval/ChronosInterval/g' {} \;
-find ./src -type f -exec sed -i '' 's/Carbon/Chronos/g' {} \;
+find ./src -type f -name '*.php' -exec sed -i '' 's/CarbonInterval/ChronosInterval/g' {} \;
+find ./src -type f -name '*.php' -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
 
 At this point your code should mostly work as it did before. The biggest
@@ -140,8 +143,8 @@ a mutable variant of `Date`.
 
 # Documentation
 
-A more descriptive documentation can be found at [book.cakephp.org/3.0/en/chronos.html](http://book.cakephp.org/3.0/en/chronos.html).
+A more descriptive documentation can be found at [book.cakephp.org/chronos/1.x/en/](https://book.cakephp.org/chronos/1.x/en/).
 
 # API Documentation
 
-API documentation can be found on [api.cakephp.org/chronos](http://api.cakephp.org/chronos).
+API documentation can be found on [api.cakephp.org/chronos](https://api.cakephp.org/chronos).

@@ -44,8 +44,8 @@ use DateTimeZone;
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * @property-read string $timezoneName
+ * @property-read string $tzName
  */
 class MutableDate extends DateTime implements ChronosInterface
 {
@@ -76,7 +76,7 @@ class MutableDate extends DateTime implements ChronosInterface
      * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param string|null $time Fixed or relative time
+     * @param string|null|\DateTimeInterface $time Fixed or relative time
      */
     public function __construct($time = 'now')
     {
@@ -133,8 +133,8 @@ class MutableDate extends DateTime implements ChronosInterface
     public function __debugInfo()
     {
         $properties = [
+            'hasFixedNow' => static::hasTestNow(),
             'date' => $this->format('Y-m-d'),
-            'hasFixedNow' => static::hasTestNow()
         ];
 
         return $properties;

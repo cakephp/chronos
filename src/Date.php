@@ -9,6 +9,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace Cake\Chronos;
 
 use DateTimeImmutable;
@@ -44,8 +45,8 @@ use DateTimeZone;
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string  $timezoneName
- * @property-read string  $tzName
+ * @property-read string $timezoneName
+ * @property-read string $tzName
  */
 class Date extends DateTimeImmutable implements ChronosInterface
 {
@@ -76,7 +77,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * timezone will always be UTC. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param string|null $time Fixed or relative time
+     * @param string|null|\DateTimeInterface $time Fixed or relative time
      */
     public function __construct($time = 'now')
     {
@@ -133,8 +134,8 @@ class Date extends DateTimeImmutable implements ChronosInterface
     public function __debugInfo()
     {
         $properties = [
-            'date' => $this->format('Y-m-d'),
             'hasFixedNow' => static::hasTestNow(),
+            'date' => $this->format('Y-m-d'),
         ];
 
         return $properties;
