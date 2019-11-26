@@ -250,6 +250,58 @@ trait FactoryTrait
     }
 
     /**
+     * Creates a ChronosInterface instance from an array of date and time values.
+     *
+     * Allowed values:
+     *  - year
+     *  - month
+     *  - day
+     *  - hour
+     *  - minute
+     *  - second
+     *  - microsecond
+     *  - meridian ('am or 'pm')
+     *  - timezone
+     *
+     * @param (int|string)[] $values Array of date and time values.
+     * @return static
+     */
+    public static function createFromArray($values): ChronosInterface
+    {
+        $values += ['hour' => 0, 'minute' => 0, 'second' => 0, 'microsecond' => 0];
+
+        $formatted = '';
+        if (
+            isset($values['year'], $values['month'], $values['day']) &&
+            (
+                is_numeric($values['year']) &&
+                is_numeric($values['month']) &&
+                is_numeric($values['day'])
+            )
+        ) {
+            $formatted .= sprintf('%d-%02d-%02d', $values['year'], $values['month'], $values['day']);
+        }
+
+        if (isset($values['meridian']) && (int)$values['hour'] === 12) {
+            $values['hour'] = 0;
+        }
+        if (isset($values['meridian'])) {
+            $values['hour'] = strtolower($values['meridian']) === 'am' ? $values['hour'] : $values['hour'] + 12;
+        }
+        $formatted .= sprintf(
+            '%s%02d:%02d:%02d.%06d',
+            empty($formatted) ? '' : ' ',
+            $values['hour'],
+            $values['minute'],
+            $values['second'],
+            $values['microsecond']
+        );
+        $tz = $values['timezone'] ?? null;
+
+        return static::parse($formatted, $tz);
+    }
+
+    /**
      * Create a ChronosInterface instance from a timestamp
      *
      * @param int $timestamp The timestamp to create an instance from.
