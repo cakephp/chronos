@@ -252,6 +252,11 @@ trait FactoryTrait
     /**
      * Creates a ChronosInterface instance from an array of date and time values.
      *
+     * The 'year', 'month' and 'day' values must all be set for a date. The time
+     * values all default to 0.
+     *
+     * The 'timezone' value can be any format supported by `\DateTimeZone`.
+     *
      * Allowed values:
      *  - year
      *  - month
@@ -260,7 +265,7 @@ trait FactoryTrait
      *  - minute
      *  - second
      *  - microsecond
-     *  - meridian ('am or 'pm')
+     *  - meridian ('am' or 'pm')
      *  - timezone
      *
      * @param (int|string)[] $values Array of date and time values.
@@ -279,7 +284,7 @@ trait FactoryTrait
                 is_numeric($values['day'])
             )
         ) {
-            $formatted .= sprintf('%d-%02d-%02d', $values['year'], $values['month'], $values['day']);
+            $formatted .= sprintf('%04d-%02d-%02d', $values['year'], $values['month'], $values['day']);
         }
 
         if (isset($values['meridian']) && (int)$values['hour'] === 12) {
