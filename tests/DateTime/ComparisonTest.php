@@ -41,7 +41,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToTrue($class)
     {
-        foreach (['eq', 'equalTo'] as $func) {
+        foreach (['eq', 'equals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 1)));
         }
     }
@@ -52,7 +52,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualToFalse($class)
     {
-        foreach (['eq', 'equalTo'] as $func) {
+        foreach (['eq', 'equals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 2)));
         }
     }
@@ -63,7 +63,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneTrue($class)
     {
-        foreach (['eq', 'equalTo'] as $func) {
+        foreach (['eq', 'equals'] as $func) {
             $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->{$func}($class::create(
                 2000,
                 1,
@@ -82,7 +82,7 @@ class ComparisonTest extends TestCase
      */
     public function testEqualWithTimezoneFalse($class)
     {
-        foreach (['eq', 'equalTo'] as $func) {
+        foreach (['eq', 'equals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->{$func}($class::createFromDate(
                 2000,
                 1,
@@ -98,7 +98,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToTrue($class)
     {
-        foreach (['ne', 'notEqualTo'] as $func) {
+        foreach (['ne', 'notEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 2)));
         }
     }
@@ -109,7 +109,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualToFalse($class)
     {
-        foreach (['ne', 'notEqualTo'] as $func) {
+        foreach (['ne', 'notEquals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 1)));
         }
     }
@@ -120,7 +120,7 @@ class ComparisonTest extends TestCase
      */
     public function testNotEqualWithTimezone($class)
     {
-        foreach (['ne', 'notEqualTo'] as $func) {
+        foreach (['ne', 'notEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->{$func}($class::createFromDate(
                 2000,
                 1,
@@ -184,7 +184,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualTrue($class)
     {
-        foreach (['gte', 'greaterThanOrEqualTo'] as $func) {
+        foreach (['gte', 'greaterThanOrEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(1999, 12, 31)));
         }
     }
@@ -195,7 +195,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualTrueEqual($class)
     {
-        foreach (['gte', 'greaterThanOrEqualTo'] as $func) {
+        foreach (['gte', 'greaterThanOrEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 1)));
         }
     }
@@ -206,7 +206,7 @@ class ComparisonTest extends TestCase
      */
     public function testGreaterThanOrEqualFalse($class)
     {
-        foreach (['gte', 'greaterThanOrEqualTo'] as $func) {
+        foreach (['gte', 'greaterThanOrEquals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 2)));
         }
     }
@@ -228,7 +228,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanFalse($class)
     {
-        foreach (['lte', 'lessThanOrEqualTo'] as $func) {
+        foreach (['lte', 'lessThanOrEquals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(1999, 12, 31)));
         }
     }
@@ -239,7 +239,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualTrue($class)
     {
-        foreach (['lte', 'lessThanOrEqualTo'] as $func) {
+        foreach (['lte', 'lessThanOrEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 2)));
         }
     }
@@ -250,7 +250,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualTrueEqual($class)
     {
-        foreach (['lte', 'lessThanOrEqualTo'] as $func) {
+        foreach (['lte', 'lessThanOrEquals'] as $func) {
             $this->assertTrue($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(2000, 1, 1)));
         }
     }
@@ -261,7 +261,7 @@ class ComparisonTest extends TestCase
      */
     public function testLessThanOrEqualFalse($class)
     {
-        foreach (['lte', 'lessThanOrEqualTo'] as $func) {
+        foreach (['lte', 'lessThanOrEquals'] as $func) {
             $this->assertFalse($class::createFromDate(2000, 1, 1)->{$func}($class::createFromDate(1999, 12, 31)));
         }
     }
