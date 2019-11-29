@@ -284,7 +284,7 @@ trait FactoryTrait
                 is_numeric($values['day'])
             )
         ) {
-            $formatted .= sprintf('%04d-%02d-%02d', $values['year'], $values['month'], $values['day']);
+            $formatted .= sprintf('%04d-%02d-%02d ', $values['year'], $values['month'], $values['day']);
         }
 
         if (isset($values['meridian']) && (int)$values['hour'] === 12) {
@@ -294,8 +294,7 @@ trait FactoryTrait
             $values['hour'] = strtolower($values['meridian']) === 'am' ? $values['hour'] : $values['hour'] + 12;
         }
         $formatted .= sprintf(
-            '%s%02d:%02d:%02d.%06d',
-            empty($formatted) ? '' : ' ',
+            '%02d:%02d:%02d.%06d',
             $values['hour'],
             $values['minute'],
             $values['second'],
