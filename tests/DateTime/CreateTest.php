@@ -251,4 +251,59 @@ class CreateTest extends TestCase
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromArray($class)
+    {
+        $values = [
+            'year' => 2012,
+            'month' => '1',
+            'day' => '1',
+            'hour' => 12,
+            'minute' => 13,
+            'second' => '14',
+            'microsecond' => 123456,
+            'meridian' => 'am',
+        ];
+        $d = $class::createFromArray($values);
+        $this->assertDateTime($d, 2012, 1, 1, 0, 13, 14, 123456);
+        $this->assertSame('America/Toronto', $d->tzName);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromArrayDateOnly($class)
+    {
+        $values = [
+            'year' => 2012,
+            'month' => '1',
+            'day' => '1',
+        ];
+        $d = $class::createFromArray($values);
+        $this->assertDateTime($d, 2012, 1, 1);
+        $this->assertSame('America/Toronto', $d->tzName);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromArrayTimeOnly($class)
+    {
+        $values = [
+            'hour' => 12,
+            'minute' => 13,
+            'second' => '14',
+            'microsecond' => 123456,
+            'meridian' => 'am',
+        ];
+        $d = $class::createFromArray($values);
+        $this->assertTime($d, 0, 13, 14, 123456);
+        $this->assertSame('America/Toronto', $d->tzName);
+    }
 }
