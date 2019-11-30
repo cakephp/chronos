@@ -244,7 +244,7 @@ trait FactoryTrait
      */
     public static function createFromArray($values)
     {
-        $values += ['hour' => 0, 'minute' => 0, 'second' => 0, 'microsecond' => 0];
+        $values += ['hour' => 0, 'minute' => 0, 'second' => 0, 'microsecond' => 0, 'timezone' => null];
 
         $formatted = '';
         if (
@@ -271,9 +271,8 @@ trait FactoryTrait
             $values['second'],
             $values['microsecond']
         );
-        $tz = $values['timezone'] ?? null;
 
-        return static::parse($formatted, $tz);
+        return static::parse($formatted, $values['timezone']);
     }
 
     /**
