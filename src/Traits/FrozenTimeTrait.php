@@ -77,11 +77,7 @@ trait FrozenTimeTrait
      */
     public function setTime($hours, $minutes, $seconds = null, $microseconds = null): ChronosInterface
     {
-        if (CHRONOS_SUPPORTS_MICROSECONDS) {
-            return parent::setTime(0, 0, 0, 0);
-        }
-
-        return parent::setTime(0, 0, 0);
+        return parent::setTime(0, 0, 0, 0);
     }
 
     /**

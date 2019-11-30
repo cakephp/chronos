@@ -271,7 +271,7 @@ trait FactoryTrait
      * @param (int|string)[] $values Array of date and time values.
      * @return static
      */
-    public static function createFromArray($values): ChronosInterface
+    public static function createFromArray(array $values): ChronosInterface
     {
         $values += ['hour' => 0, 'minute' => 0, 'second' => 0, 'microsecond' => 0];
 
