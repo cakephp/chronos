@@ -42,9 +42,6 @@ the start of the week instead of Sunday.  This follows the ISO-8601 and current 
 
 A minor but still noticeable difference is that `Chronos` has no external dependencies, it is completely standalone.
 
-There are other implementation changes, but one that users might not notice is ``Chronos`` considers Monday as
-the start of the week instead of Sunday.  This follows the ISO-8601 and current versions of PHP 5.6 and PHP 7.
-
 Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
 overhead.
 
