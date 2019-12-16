@@ -23,7 +23,8 @@ project = 'Chronos'
 
 # Other versions that display in the version picker menu.
 version_list = [
-    {'name': '1.x', 'number': '/chronos/1.x', 'title': '1.x', 'current': True},
+    {'name': '1.x', 'number': '/chronos/1', 'title': '1.x', 'current': True},
+    {'name': '2.x', 'number': '/chronos/2', 'title': '2.x'},
 ]
 
 # Languages available.
@@ -31,7 +32,7 @@ languages = ['en', 'fr', 'ja', 'pt']
 
 # The GitHub branch name for this version of the docs
 # for edit links to point at.
-branch = 'master'
+branch = '1.x'
 
 # Current version being built
 version = '1.x'
