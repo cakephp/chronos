@@ -23,8 +23,8 @@ project = 'Chronos'
 
 # Other versions that display in the version picker menu.
 version_list = [
-    {'name': '1.x', 'number': '/chronos/1.x', 'title': '1.x'},
-    {'name': '2.x', 'number': '/chronos/2.x', 'title': '2.x', 'current': True},
+    {'name': '1.x', 'number': '/chronos/1', 'title': '1.x'},
+    {'name': '2.x', 'number': '/chronos/2', 'title': '2.x', 'current': True},
 ]
 
 # Languages available.
