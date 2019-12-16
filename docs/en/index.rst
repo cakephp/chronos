@@ -16,7 +16,7 @@ To install Chronos, you should use ``composer``. From your
 application's ROOT directory (where composer.json file is located) run the
 following::
 
-    php composer.phar require cakephp/chronos "@stable"
+    php composer.phar require "cakephp/chronos:^2.0"
 
 Overview
 --------
