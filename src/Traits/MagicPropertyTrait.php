@@ -70,6 +70,7 @@ trait MagicPropertyTrait
             'micro' => 'u',
             'microsecond' => 'u',
             'dayOfWeek' => 'N',
+            'dayOfWeekName' => 'l',
             'dayOfYear' => 'z',
             'weekOfYear' => 'W',
             'daysInMonth' => 't',
