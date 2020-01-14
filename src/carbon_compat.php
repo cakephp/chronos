@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-define('CHRONOS_SUPPORTS_MICROSECONDS', version_compare(PHP_VERSION, '7.1.0', '>='));
 
 if (!class_exists('Carbon\Carbon')) {
     // Create class aliases for Carbon so applications
