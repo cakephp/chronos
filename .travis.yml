@@ -34,7 +34,7 @@ script:
   - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit; fi
   - if [[ $PHPCS == 1 ]]; then vendor/bin/phpcs src/ tests/; fi
   - if [[ $PHPSTAN == 1 ]]; then composer phpstan; fi
-  - if [[ $COVERAGE == 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
+  - if [[ $COVERAGE == 1 ]]; then vendor/bin/phpunit --coverage-clover=clover.xml; fi
 
 after_success:
   - if [[ $COVERAGE == 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
