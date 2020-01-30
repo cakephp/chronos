@@ -246,7 +246,7 @@ trait FormattingTrait
                 return [$year . '-04-01', $year . '-06-30'];
             case 3:
                 return [$year . '-07-01', $year . '-09-30'];
-            case 4:
+            default:
                 return [$year . '-10-01', $year . '-12-31'];
         }
     }

@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos;
 
+use BadMethodCallException;
 use DateInterval;
 use InvalidArgumentException;
 
@@ -211,6 +212,8 @@ class ChronosInterval extends DateInterval
             case 'microsecond':
                 return new static(null, null, null, null, null, null, null, $arg);
         }
+
+        throw new BadMethodCallException(sprintf('Cannot create interval with `%s` units', $name));
     }
 
     /**
