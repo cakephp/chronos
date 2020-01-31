@@ -19,7 +19,7 @@ use DateTimeInterface;
 /**
  * An extension to the DateTimeInterface for a friendlier API
  *
- * @method static modify(string $relative)
+ * @method \Cake\Chronos\ChronosInterface modify(string $relative)
  */
 interface ChronosInterface extends DateTimeInterface
 {
