@@ -60,6 +60,6 @@
         "cs-fix": "phpcbf",
         "benchmark": "phpbench run --report=chronos",
         "phpstan": "phpstan analyze -c phpstan.neon -l 3 src/",
-        "phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan-shim:^0.11 && mv composer.backup composer.json"
+        "phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 && mv composer.backup composer.json"
     }
 }

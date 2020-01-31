@@ -862,7 +862,7 @@ trait ModifierTrait
     public function startOfCentury(): ChronosInterface
     {
         $year = $this->startOfYear()
-            ->year(($this->year - 1) - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)
+            ->year($this->year - 1 - ($this->year - 1) % ChronosInterface::YEARS_PER_CENTURY + 1)
             ->year;
 
         return $this->modify("first day of january $year, midnight");

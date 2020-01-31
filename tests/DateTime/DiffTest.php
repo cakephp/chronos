@@ -750,7 +750,7 @@ class DiffTest extends TestCase
 
     public function diffForHumansProvider()
     {
-        $now = Chronos::now();
+        $now = Chronos::parse('2020-01-04 10:01:01');
 
         return [
             [$now, $now->addYears(11), '11 years before'],
