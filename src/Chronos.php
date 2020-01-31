@@ -96,6 +96,9 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         static::$_lastErrors = [];
         $testNow = static::getTestNow();
         if ($testNow === null) {
+            if ($time instanceof ChronosInterface) {
+              $time = $time->__toString();
+            }
             parent::__construct($time ?? 'now', $tz);
 
             return;
