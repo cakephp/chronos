@@ -25,6 +25,12 @@ matrix:
 
 before_install:
   - phpenv config-rm xdebug.ini
+  
+  - |
+      if [[ $CODECOVERAGE == 1 ]]; then
+        pecl channel-update pecl.php.net
+        pecl install pcov
+      fi  
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist
