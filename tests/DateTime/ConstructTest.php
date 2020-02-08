@@ -160,4 +160,35 @@ class ConstructTest extends TestCase
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromExistingInstance($class)
+    {
+        $existingClass = new $class();
+        self::assertInstanceOf($class, $existingClass);
+
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+        self::assertEquals((string)$existingClass, (string)$newClass);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testCreateFromDateTimeInterface($class)
+    {
+        $existingClass = new \DateTimeImmutable();
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+        self::assertEquals($existingClass->format('Y-m-d H:i:s'), $newClass->format('Y-m-d H:i:s'));
+
+        $existingClass = new \DateTime();
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+        self::assertEquals($existingClass->format('Y-m-d H:i:s'), $newClass->format('Y-m-d H:i:s'));
+    }
 }

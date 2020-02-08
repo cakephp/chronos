@@ -377,4 +377,35 @@ class ConstructTest extends TestCase
 
         date_default_timezone_set($savedTz);
     }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testCreateFromExistingInstance($class)
+    {
+        $existingClass = new $class();
+        self::assertInstanceOf($class, $existingClass);
+
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+
+        self::assertEquals((string)$existingClass, (string)$newClass);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testCreateFromDateTimeInterface($class)
+    {
+        $existingClass = new \DateTimeImmutable();
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+        self::assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+
+        $existingClass = new \DateTime();
+        $newClass = new $class($existingClass);
+        self::assertInstanceOf($class, $newClass);
+        self::assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+    }
 }
