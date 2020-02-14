@@ -183,12 +183,15 @@ class ConstructTest extends TestCase
     {
         $existingClass = new \DateTimeImmutable();
         $newClass = new $class($existingClass);
-        self::assertInstanceOf($class, $newClass);
-        self::assertEquals($existingClass->format('Y-m-d H:i:s'), $newClass->format('Y-m-d H:i:s'));
+        self::assertEquals($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
 
         $existingClass = new \DateTime();
         $newClass = new $class($existingClass);
-        self::assertInstanceOf($class, $newClass);
-        self::assertEquals($existingClass->format('Y-m-d H:i:s'), $newClass->format('Y-m-d H:i:s'));
+        self::assertEquals($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
+
+        $existingClass = new \DateTime('2019-01-15 00:15:22.139302');
+        $newClass = new $class($existingClass);
+        $this->assertDateTime($newClass, 2019, 01, 15, 0, 15, 22);
+        $this->assertSame(139302, $newClass->micro);
     }
 }

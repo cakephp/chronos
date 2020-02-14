@@ -88,7 +88,7 @@ class MutableDateTime extends DateTime implements ChronosInterface
         $testNow = Chronos::getTestNow();
         if ($testNow === null) {
             if ($time instanceof \DateTimeInterface) {
-                $time = $time->format(ChronosInterface::DEFAULT_TO_STRING_FORMAT);
+                $time = $time->format('Y-m-d H:i:s.u');
             }
             parent::__construct($time ?? 'now', $tz);
 
