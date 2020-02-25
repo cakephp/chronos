@@ -126,6 +126,16 @@ class GettersTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testDayOfWeekNameGetter($class)
+    {
+        $d = $class::create(2012, 5, 7, 7, 8, 9);
+        $this->assertSame('Monday', $d->dayOfWeekName);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testDayOfYearGetter($class)
     {
         $d = $class::createFromDate(2012, 5, 7);

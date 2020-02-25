@@ -47,6 +47,7 @@ use InvalidArgumentException;
  * @property-read \DateTimeZone $tz
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @property-read string $dayOfWeekName
  */
 trait MagicPropertyTrait
 {
@@ -79,6 +80,9 @@ trait MagicPropertyTrait
         switch (true) {
             case isset($formats[$name]):
                 return (int)$this->format($formats[$name]);
+
+            case $name === 'dayOfWeekName':
+                return $this->format('l');
 
             case $name === 'weekOfMonth':
                 return (int)ceil($this->day / ChronosInterface::DAYS_PER_WEEK);
