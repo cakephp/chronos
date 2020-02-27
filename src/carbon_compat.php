@@ -13,6 +13,8 @@ declare(strict_types=1);
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+// Check if the interface alias exists and don't redeclare it in case we are in
+// a preloaded context.
 if (!\class_exists('Carbon\Carbon') && !\interface_exists('Carbon\CarbonInterface', false)) {
     // Create class aliases for Carbon so applications
     // can upgrade more easily.
