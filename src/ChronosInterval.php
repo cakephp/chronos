@@ -31,10 +31,8 @@ use InvalidArgumentException;
  * @property int $minutes Total minutes of the current interval.
  * @property int $seconds Total seconds of the current interval.
  * @property int $microseconds Total microseconds of the current interval.
- *
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
- *
  * @method static \Cake\Chronos\ChronosInterval years($years = 1) Create instance specifying a number of years.
  * @method static \Cake\Chronos\ChronosInterval year($years = 1) Alias for years
  * @method static \Cake\Chronos\ChronosInterval months($months = 1) Create instance specifying a number of months.
