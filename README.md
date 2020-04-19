@@ -1,9 +1,10 @@
 # CakePHP Chronos
 
+[![Build Status](https://img.shields.io/travis/com/cakephp/chronos/master?style=flat-square)](https://travis-ci.com/cakephp/chronos)
+[![Latest Stable Version](https://img.shields.io/github/v/release/cakephp/chronos?sort=semver&style=flat-square)](https://packagist.org/packages/cakephp/chronos)
+[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/chronos?style=flat-square)](https://packagist.org/packages/cakephp/chronos/stats)
+[![Code Coverage](https://img.shields.io/coveralls/cakephp/chronos/master.svg?style=flat-square)](https://coveralls.io/r/cakephp/chronos?branch=master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/cakephp/chronos/master.svg?style=flat-square)](https://travis-ci.org/cakephp/chronos)
-[![Coverage Status](https://img.shields.io/codecov/c/github/cakephp/chronos.svg?style=flat-square)](https://codecov.io/github/cakephp/chronos)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/chronos.svg?style=flat-square)](https://packagist.org/packages/cakephp/chronos)
 
 Chronos aims to be a drop-in replacement for `nesbot/carbon`. It focuses on providing
 immutable date/datetime objects. Immutable objects help ensure that datetime objects
