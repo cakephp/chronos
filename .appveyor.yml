@@ -5,7 +5,7 @@ clone_folder: c:\projects\chronos
 
 branches:
   only:
-    - master
+    - 1.x
 
 environment:
   global:
