@@ -44,10 +44,7 @@
     "autoload-dev": {
         "psr-4": {
             "Cake\\Chronos\\Test\\": "tests/"
-        },
-        "files": [
-            "tests/TestCase.php"
-        ]
+        }
     },
     "scripts": {
         "check": [
