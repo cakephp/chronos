@@ -49,9 +49,9 @@ trait DifferenceTrait
      */
     public function diffInYears(?ChronosInterface $dt = null, bool $abs = true): int
     {
-        $dt = $dt ?? static::now($this->tz);
+        $diff = $this->diff($dt ?? static::now($this->tz), $abs);
 
-        return (int)$this->diff($dt, $abs)->format('%r%y');
+        return $diff->invert ? -$diff->y : $diff->y;
     }
 
     /**
@@ -63,11 +63,10 @@ trait DifferenceTrait
      */
     public function diffInMonths(?ChronosInterface $dt = null, bool $abs = true): int
     {
-        $dt = $dt ?? static::now($this->tz);
+        $diff = $this->diff($dt ?? static::now($this->tz), $abs);
+        $months = $diff->y * ChronosInterface::MONTHS_PER_YEAR + $diff->m;
 
-        return $this->diffInYears($dt, $abs)
-            * ChronosInterface::MONTHS_PER_YEAR
-            + (int)$this->diff($dt, $abs)->format('%r%m');
+        return $diff->invert ? -$months : $months;
     }
 
     /**
@@ -91,9 +90,9 @@ trait DifferenceTrait
      */
     public function diffInDays(?ChronosInterface $dt = null, bool $abs = true): int
     {
-        $dt = $dt ?? static::now($this->tz);
+        $diff = $this->diff($dt ?? static::now($this->tz), $abs);
 
-        return (int)$this->diff($dt, $abs)->format('%r%a');
+        return $diff->invert ? -$diff->days : $diff->days;
     }
 
     /**
