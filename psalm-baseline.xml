@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.9.5@0cfe565d0afbcd31eadcc281b9017b5692911661">
+  <file src="src/Chronos.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$time</code>
+    </InvalidScalarArgument>
+    <MissingImmutableAnnotation occurrences="1">
+      <code>DateTimeImmutable</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/Date.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$time</code>
+    </InvalidScalarArgument>
+    <MissingImmutableAnnotation occurrences="1">
+      <code>DateTimeImmutable</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/DifferenceFormatter.php">
+    <NoInterfaceProperties occurrences="1">
+      <code>$date-&gt;tz</code>
+    </NoInterfaceProperties>
+  </file>
+  <file src="src/MutableDate.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$time</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/MutableDateTime.php">
+    <InvalidScalarArgument occurrences="2">
+      <code>$time</code>
+      <code>$value</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Traits/FactoryTrait.php">
+    <InvalidArgument occurrences="1">
+      <code>$dt</code>
+    </InvalidArgument>
+    <InvalidScalarArgument occurrences="1">
+      <code>$values['timezone']</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Traits/FrozenTimeTrait.php">
+    <InvalidReturnType occurrences="1">
+      <code>static</code>
+    </InvalidReturnType>
+    <MissingImmutableAnnotation occurrences="6">
+      <code>public function setTime($hours, $minutes, $seconds = null, $microseconds = null): ChronosInterface</code>
+      <code>public function add($interval): ChronosInterface</code>
+      <code>public function sub($interval): ChronosInterface</code>
+      <code>public function setTimezone($value)</code>
+      <code>public function setTimestamp($value): ChronosInterface</code>
+      <code>public function modify($relative): ChronosInterface</code>
+    </MissingImmutableAnnotation>
+    <UndefinedClass occurrences="4">
+      <code>parent::add($interval)</code>
+      <code>parent::sub($interval)</code>
+      <code>parent::setTimestamp($value)</code>
+      <code>$new</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Traits/ModifierTrait.php">
+    <InvalidReturnType occurrences="1">
+      <code>static</code>
+    </InvalidReturnType>
+    <MissingImmutableAnnotation occurrences="1">
+      <code>public function setDate($year, $month, $day): ChronosInterface</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/Traits/TimezoneTrait.php">
+    <InvalidReturnType occurrences="1">
+      <code>static</code>
+    </InvalidReturnType>
+    <MissingImmutableAnnotation occurrences="1">
+      <code>public function setTimezone($value): ChronosInterface</code>
+    </MissingImmutableAnnotation>
+  </file>
+</files>

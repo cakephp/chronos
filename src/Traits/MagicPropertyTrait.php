@@ -97,7 +97,8 @@ trait MagicPropertyTrait
                 return $this->getOffset();
 
             case $name === 'offsetHours':
-                return $this->getOffset() / ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR;
+                return (int)($this->getOffset() /
+                    ChronosInterface::SECONDS_PER_MINUTE / ChronosInterface::MINUTES_PER_HOUR);
 
             case $name === 'dst':
                 return $this->format('I') === '1';

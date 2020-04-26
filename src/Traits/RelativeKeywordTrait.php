@@ -30,7 +30,7 @@ trait RelativeKeywordTrait
     /**
      * Determine if there is just a time in the time string
      *
-     * @param string $time The time string to check.
+     * @param int|string $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
     private static function isTimeExpression($time)
@@ -66,7 +66,7 @@ trait RelativeKeywordTrait
     /**
      * Determines if there is no fixed date in the time string.
      *
-     * @param \DateTimeInterface|string|null $time The time string to check
+     * @param \DateTimeInterface|int|string|null $time The time string to check
      * @return bool true if doesn't contain a fixed date
      */
     private static function isRelativeOnly($time): bool

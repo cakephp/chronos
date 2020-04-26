@@ -19,7 +19,7 @@ matrix:
     - php: 7.2
       env: PHPCS=1 DEFAULT=0
     - php: 7.2
-      env: PHPSTAN=1 DEFAULT=0
+      env: STATIC_ANALYZE=1 DEFAULT=0
     - php: 7.2
       env: COVERAGE=1 DEFAULT=0
 
@@ -36,12 +36,12 @@ before_install:
 
 install:
   - composer install --no-interaction --prefer-dist
-  - if [[ $PHPSTAN == 1 ]]; then composer phpstan-setup; fi
+  - if [[ $STATIC_ANALYZE == 1 ]]; then composer stan-setup; fi
 
 script:
   - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit --verbose; fi
   - if [[ $PHPCS == 1 ]]; then vendor/bin/phpcs src/ tests/; fi
-  - if [[ $PHPSTAN == 1 ]]; then composer phpstan; fi
+  - if [[ $STATIC_ANALYZE == 1 ]]; then composer stan; fi
   - if [[ $COVERAGE == 1 ]]; then vendor/bin/phpunit --verbose --coverage-clover=clover.xml; fi
 
 after_success:
