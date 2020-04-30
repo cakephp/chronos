@@ -19,7 +19,6 @@ use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
 use DatePeriod;
-use DateTimeImmutable;
 use DateTimeInterface;
 
 /**
@@ -139,11 +138,6 @@ trait DifferenceTrait
         $start = $this;
         $end = $dt ?? static::now($this->tz);
         $inverse = false;
-
-        if (defined('HHVM_VERSION')) {
-            $start = new DateTimeImmutable($this->toIso8601String());
-            $end = new DateTimeImmutable($end->toIso8601String());
-        }
 
         if ($end < $start) {
             $start = $end;
