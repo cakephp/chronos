@@ -46,8 +46,6 @@ A minor but still noticeable difference is that `Chronos` has no external depend
 Finally, Chronos is faster than Carbon as it has been optimized for the creation of hundreds of instances with minimal
 overhead.
 
-Chronos also strives for HHVM compatibility, this library can be used safely with HHVM 3.11.
-
 # Migrating from Carbon
 
 
