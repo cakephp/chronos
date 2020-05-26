@@ -38,7 +38,7 @@ trait FrozenTimeTrait
      */
     protected function stripTime($time, $tz): string
     {
-        if (is_int($time) || ctype_digit($time)) {
+        if (is_int($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
         }
 
