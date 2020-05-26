@@ -54,15 +54,36 @@ use InvalidArgumentException;
 class ChronosInterval extends DateInterval
 {
     /**
-     * Interval spec period designators
+     * @var string
      */
     public const PERIOD_PREFIX = 'P';
+    /**
+     * @var string
+     */
     public const PERIOD_YEARS = 'Y';
+    /**
+     * @var string
+     */
     public const PERIOD_MONTHS = 'M';
+    /**
+     * @var string
+     */
     public const PERIOD_DAYS = 'D';
+    /**
+     * @var string
+     */
     public const PERIOD_TIME_PREFIX = 'T';
+    /**
+     * @var string
+     */
     public const PERIOD_HOURS = 'H';
+    /**
+     * @var string
+     */
     public const PERIOD_MINUTES = 'M';
+    /**
+     * @var string
+     */
     public const PERIOD_SECONDS = 'S';
 
     /**

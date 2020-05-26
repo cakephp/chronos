@@ -24,27 +24,69 @@ use DateTimeInterface;
 interface ChronosInterface extends DateTimeInterface
 {
     /**
-     * The day constants
+     * @var int
      */
     public const MONDAY = 1;
+    /**
+     * @var int
+     */
     public const TUESDAY = 2;
+    /**
+     * @var int
+     */
     public const WEDNESDAY = 3;
+    /**
+     * @var int
+     */
     public const THURSDAY = 4;
+    /**
+     * @var int
+     */
     public const FRIDAY = 5;
+    /**
+     * @var int
+     */
     public const SATURDAY = 6;
+    /**
+     * @var int
+     */
     public const SUNDAY = 7;
 
     /**
-     * Number of X in Y
+     * @var int
      */
     public const YEARS_PER_CENTURY = 100;
+    /**
+     * @var int
+     */
     public const YEARS_PER_DECADE = 10;
+    /**
+     * @var int
+     */
     public const MONTHS_PER_YEAR = 12;
+    /**
+     * @var int
+     */
     public const MONTHS_PER_QUARTER = 3;
+    /**
+     * @var int
+     */
     public const WEEKS_PER_YEAR = 52;
+    /**
+     * @var int
+     */
     public const DAYS_PER_WEEK = 7;
+    /**
+     * @var int
+     */
     public const HOURS_PER_DAY = 24;
+    /**
+     * @var int
+     */
     public const MINUTES_PER_HOUR = 60;
+    /**
+     * @var int
+     */
     public const SECONDS_PER_MINUTE = 60;
 
     /**
