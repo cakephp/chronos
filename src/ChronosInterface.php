@@ -23,27 +23,69 @@ use DateTimeZone;
 interface ChronosInterface extends DateTimeInterface
 {
     /**
-     * The day constants
+     * @var int
      */
     const MONDAY = 1;
+    /**
+     * @var int
+     */
     const TUESDAY = 2;
+    /**
+     * @var int
+     */
     const WEDNESDAY = 3;
+    /**
+     * @var int
+     */
     const THURSDAY = 4;
+    /**
+     * @var int
+     */
     const FRIDAY = 5;
+    /**
+     * @var int
+     */
     const SATURDAY = 6;
+    /**
+     * @var int
+     */
     const SUNDAY = 7;
 
     /**
-     * Number of X in Y
+     * @var int
      */
     const YEARS_PER_CENTURY = 100;
+    /**
+     * @var int
+     */
     const YEARS_PER_DECADE = 10;
+    /**
+     * @var int
+     */
     const MONTHS_PER_YEAR = 12;
+    /**
+     * @var int
+     */
     const MONTHS_PER_QUARTER = 3;
+    /**
+     * @var int
+     */
     const WEEKS_PER_YEAR = 52;
+    /**
+     * @var int
+     */
     const DAYS_PER_WEEK = 7;
+    /**
+     * @var int
+     */
     const HOURS_PER_DAY = 24;
+    /**
+     * @var int
+     */
     const MINUTES_PER_HOUR = 60;
+    /**
+     * @var int
+     */
     const SECONDS_PER_MINUTE = 60;
 
     /**

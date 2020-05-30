@@ -66,20 +66,43 @@ use InvalidArgumentException;
 class ChronosInterval extends DateInterval
 {
     /**
-     * Interval spec period designators
+     * @var string
      */
     const PERIOD_PREFIX = 'P';
+    /**
+     * @var string
+     */
     const PERIOD_YEARS = 'Y';
+    /**
+     * @var string
+     */
     const PERIOD_MONTHS = 'M';
+    /**
+     * @var string
+     */
     const PERIOD_DAYS = 'D';
+    /**
+     * @var string
+     */
     const PERIOD_TIME_PREFIX = 'T';
+    /**
+     * @var string
+     */
     const PERIOD_HOURS = 'H';
+    /**
+     * @var string
+     */
     const PERIOD_MINUTES = 'M';
+    /**
+     * @var string
+     */
     const PERIOD_SECONDS = 'S';
 
     /**
      * Before PHP 5.4.20/5.5.4 instead of `false` days will be set to -99999 when the interval instance
      * was created by DateTime:diff().
+     *
+     * @var int
      */
     const PHP_DAYS_FALSE = -99999;
 
