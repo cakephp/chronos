@@ -18,6 +18,9 @@ namespace Cake\Chronos\Traits;
  */
 trait RelativeKeywordTrait
 {
+    /**
+     * @var string
+     */
     protected static $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
 
     /**
