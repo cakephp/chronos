@@ -248,7 +248,7 @@ class ChronosInterval extends DateInterval
     {
         if (static::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException(
-                "Can not instance a DateInterval object created from DateTime::diff()."
+                'Can not instance a DateInterval object created from DateTime::diff().'
             );
         }
 
