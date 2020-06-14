@@ -158,7 +158,7 @@ trait ModifierTrait
      */
     public function setTimeFromTimeString(string $time): ChronosInterface
     {
-        $time = explode(":", $time);
+        $time = explode(':', $time);
         $hour = $time[0];
         $minute = $time[1] ?? 0;
         $second = $time[2] ?? 0;

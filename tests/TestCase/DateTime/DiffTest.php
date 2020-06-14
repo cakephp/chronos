@@ -744,7 +744,7 @@ class DiffTest extends TestCase
             ->modify('-6 days')
             ->modify('-51 seconds');
         $interval = $class::fromNow($date);
-        $result = $interval->format("%y %m %d %H %i %s");
+        $result = $interval->format('%y %m %d %H %i %s');
         $this->assertEquals($result, '1 0 6 00 0 51');
     }
 

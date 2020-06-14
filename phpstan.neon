@@ -2,4 +2,7 @@ parameters:
     level: 5
     ignoreErrors:
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
+        - '#Access to private property \$days of parent class DateInterval#'
+        - '#Access to private property \$f of parent class DateInterval#'
+        - '#Access to private property \$invert of parent class DateInterval#'
         - '#Unsafe usage of new static().#'
