@@ -9,6 +9,7 @@ cache:
 php:
   - 7.2
   - 7.4
+  - 'nightly'
 
 env:
   global:
@@ -26,7 +27,10 @@ matrix:
   fast_finish: true
 
 before_install:
-  - phpenv config-rm xdebug.ini
+  - |
+      if [[ $TRAVIS_PHP_VERSION != 'nightly' ]]; then
+        phpenv config-rm xdebug.ini
+      fi
 
   - |
       if [[ $COVERAGE == 1 ]]; then
@@ -35,7 +39,7 @@ before_install:
       fi
 
 install:
-  - composer install --no-interaction --prefer-dist
+  - composer install --no-interaction --prefer-dist --ignore-platform-reqs
   - if [[ $PHPSTAN == 1 ]]; then composer phpstan-setup; fi
 
 script:
