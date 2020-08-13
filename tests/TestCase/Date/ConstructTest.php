@@ -385,12 +385,12 @@ class ConstructTest extends TestCase
     public function testCreateFromExistingInstance($class)
     {
         $existingClass = new $class();
-        self::assertInstanceOf($class, $existingClass);
+        $this->assertInstanceOf($class, $existingClass);
 
         $newClass = new $class($existingClass);
-        self::assertInstanceOf($class, $newClass);
+        $this->assertInstanceOf($class, $newClass);
 
-        self::assertEquals((string)$existingClass, (string)$newClass);
+        $this->assertEquals((string)$existingClass, (string)$newClass);
     }
 
     /**
@@ -401,12 +401,12 @@ class ConstructTest extends TestCase
     {
         $existingClass = new \DateTimeImmutable();
         $newClass = new $class($existingClass);
-        self::assertInstanceOf($class, $newClass);
-        self::assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+        $this->assertInstanceOf($class, $newClass);
+        $this->assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
 
         $existingClass = new \DateTime();
         $newClass = new $class($existingClass);
-        self::assertInstanceOf($class, $newClass);
-        self::assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+        $this->assertInstanceOf($class, $newClass);
+        $this->assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
     }
 }
