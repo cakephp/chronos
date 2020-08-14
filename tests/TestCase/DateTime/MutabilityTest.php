@@ -24,13 +24,13 @@ class MutabilityTest extends TestCase
     {
         $dt1 = MutableDateTime::createFromDate(2000, 1, 1);
         $dt2 = $dt1->addDay();
-        $this->assertEquals($dt1, $dt2);
+        $this->assertSame($dt1, $dt2);
     }
 
     public function testSet()
     {
         $dt1 = MutableDateTime::createFromDate(2000, 1, 1);
         $dt2 = $dt1->setDateTime(2001, 2, 2, 10, 20, 30);
-        $this->assertEquals($dt1, $dt2);
+        $this->assertSame($dt1, $dt2);
     }
 }

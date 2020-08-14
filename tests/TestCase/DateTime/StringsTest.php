@@ -236,10 +236,10 @@ class StringsTest extends TestCase
     public function testToUnixString($class)
     {
         $time = $class::parse('2014-04-20 08:00:00');
-        $this->assertEquals('1397995200', $time->toUnixString());
+        $this->assertSame('1397995200', $time->toUnixString());
 
         $time = $class::parse('2021-12-11 07:00:01');
-        $this->assertEquals('1639224001', $time->toUnixString());
+        $this->assertSame('1639224001', $time->toUnixString());
     }
 
     /**
@@ -268,7 +268,7 @@ class StringsTest extends TestCase
      */
     public function testToQuarter($date, $expected, $range = false)
     {
-        $this->assertEquals($expected, (new Chronos($date))->toQuarter($range));
+        $this->assertSame($expected, (new Chronos($date))->toQuarter($range));
     }
 
     /**
@@ -294,6 +294,6 @@ class StringsTest extends TestCase
      */
     public function testToWeek($date, $expected)
     {
-        $this->assertEquals($expected, (new Chronos($date))->toWeek());
+        $this->assertSame($expected, (new Chronos($date))->toWeek());
     }
 }

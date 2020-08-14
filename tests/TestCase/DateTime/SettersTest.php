@@ -121,13 +121,13 @@ class SettersTest extends TestCase
     public function testSetDateAfterStringCreation()
     {
         $d = new MutableDateTime('first day of this month');
-        $this->assertEquals(1, $d->day);
+        $this->assertSame(1, $d->day);
         $d->setDate($d->year, $d->month, 12);
-        $this->assertEquals(12, $d->day);
+        $this->assertSame(12, $d->day);
 
         $d = new Chronos('first day of this month');
-        $this->assertEquals(1, $d->day);
-        $this->assertEquals(12, $d->setDate($d->year, $d->month, 12)->day);
+        $this->assertSame(1, $d->day);
+        $this->assertSame(12, $d->setDate($d->year, $d->month, 12)->day);
     }
 
     public function testDateTimeSetter()

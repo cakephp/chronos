@@ -745,7 +745,7 @@ class DiffTest extends TestCase
             ->modify('-51 seconds');
         $interval = $class::fromNow($date);
         $result = $interval->format('%y %m %d %H %i %s');
-        $this->assertEquals($result, '1 0 6 00 0 51');
+        $this->assertSame($result, '1 0 6 00 0 51');
     }
 
     public function diffForHumansProvider()

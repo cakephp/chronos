@@ -27,11 +27,11 @@ class ComparisonTest extends TestCase
     public function testGetSetWeekendDays($class)
     {
         $expected = [ChronosInterface::SATURDAY, ChronosInterface::SUNDAY];
-        $this->assertEquals($expected, $class::getWeekendDays());
+        $this->assertSame($expected, $class::getWeekendDays());
 
         $replace = [ChronosInterface::SUNDAY];
         $class::setWeekendDays($replace);
-        $this->assertEquals($replace, $class::getWeekendDays());
+        $this->assertSame($replace, $class::getWeekendDays());
 
         $class::setWeekendDays($expected);
     }
@@ -466,7 +466,7 @@ class ComparisonTest extends TestCase
         $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
         $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
-        $this->assertEquals($dt1, $closest);
+        $this->assertSame($dt1, $closest);
     }
 
     /**
@@ -479,7 +479,7 @@ class ComparisonTest extends TestCase
         $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
         $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
-        $this->assertEquals($dt1, $closest);
+        $this->assertSame($dt1, $closest);
     }
 
     /**
@@ -492,7 +492,7 @@ class ComparisonTest extends TestCase
         $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
         $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
-        $this->assertEquals($dt2, $Farthest);
+        $this->assertSame($dt2, $Farthest);
     }
 
     /**
@@ -505,6 +505,6 @@ class ComparisonTest extends TestCase
         $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
         $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
-        $this->assertEquals($dt2, $Farthest);
+        $this->assertSame($dt2, $Farthest);
     }
 }

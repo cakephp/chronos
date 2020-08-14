@@ -46,7 +46,7 @@ class TestingAidsTest extends TestCase
         $class::setTestNow($notNow);
 
         $this->assertTrue($class::hasTestNow());
-        $this->assertEquals($notNow, $class::getTestNow());
+        $this->assertSame($notNow, $class::getTestNow());
     }
 
     /**
@@ -57,7 +57,7 @@ class TestingAidsTest extends TestCase
     {
         $class::setTestNow('2016-11-23');
         $this->assertTrue($class::hasTestNow());
-        $this->assertEquals($class::getTestNow(), $class::parse('2016-11-23'));
+        $this->assertSame((string)$class::getTestNow(), (string)$class::parse('2016-11-23'));
     }
 
     /**
@@ -69,10 +69,10 @@ class TestingAidsTest extends TestCase
         $notNow = $class::yesterday();
         $class::setTestNow($notNow);
 
-        $this->assertEquals($notNow, new $class());
-        $this->assertEquals($notNow, new $class(null));
-        $this->assertEquals($notNow, new $class(''));
-        $this->assertEquals($notNow, new $class('now'));
+        $this->assertSame((string)$notNow, (string)new $class());
+        $this->assertSame((string)$notNow, (string)new $class(null));
+        $this->assertSame((string)$notNow, (string)new $class(''));
+        $this->assertSame((string)$notNow, (string)new $class('now'));
     }
 
     /**
@@ -84,7 +84,7 @@ class TestingAidsTest extends TestCase
         $notNow = $class::yesterday();
         $class::setTestNow($notNow);
 
-        $this->assertEquals($notNow, $class::now());
+        $this->assertSame((string)$notNow, (string)$class::now());
     }
 
     /**
@@ -137,10 +137,10 @@ class TestingAidsTest extends TestCase
         $notNow = $class::yesterday();
         $class::setTestNow($notNow);
 
-        $this->assertEquals($notNow, $class::parse());
-        $this->assertEquals($notNow, $class::parse(null));
-        $this->assertEquals($notNow, $class::parse(''));
-        $this->assertEquals($notNow, $class::parse('now'));
+        $this->assertSame((string)$notNow, (string)$class::parse());
+        $this->assertSame((string)$notNow, (string)$class::parse(null));
+        $this->assertSame((string)$notNow, (string)$class::parse(''));
+        $this->assertSame((string)$notNow, (string)$class::parse('now'));
     }
 
     /**
@@ -271,9 +271,9 @@ class TestingAidsTest extends TestCase
         $class::setTestNow($c);
 
         $result = new $class('now', null);
-        $this->assertEquals(new DateTimeZone('America/Toronto'), $result->tz);
-        $this->assertEquals('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
-        $this->assertEquals(new DateTimeZone('Europe/Copenhagen'), $class::getTestNow()->tz);
+        $this->assertSame((new DateTimeZone('America/Toronto'))->getName(), $result->tz->getName());
+        $this->assertSame('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
+        $this->assertSame((new DateTimeZone('Europe/Copenhagen'))->getName(), $class::getTestNow()->tz->getName());
     }
 
     /**
@@ -287,9 +287,9 @@ class TestingAidsTest extends TestCase
         $c = new $class('2016-01-03 00:00:00', 'Europe/Copenhagen');
         $class::setTestNow($c);
 
-        $this->assertEquals($c, MutableDate::getTestNow());
-        $this->assertEquals($c, Date::getTestNow());
-        $this->assertEquals($c, Chronos::getTestNow());
-        $this->assertEquals($c, MutableDateTime::getTestNow());
+        $this->assertSame($c, MutableDate::getTestNow());
+        $this->assertSame($c, Date::getTestNow());
+        $this->assertSame($c, Chronos::getTestNow());
+        $this->assertSame($c, MutableDateTime::getTestNow());
     }
 }
