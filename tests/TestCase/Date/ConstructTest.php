@@ -409,4 +409,14 @@ class ConstructTest extends TestCase
         $this->assertInstanceOf($class, $newClass);
         $this->assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
     }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
+    public function testCreateFromFormat($class)
+    {
+        $date = $class::createFromFormat('Y-m-d', '2014-02-01');
+        $this->assertSame('2014-02-01 00:00:00', $date->format('Y-m-d H:i:s'));
+    }
 }
