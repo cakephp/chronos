@@ -28,12 +28,12 @@ class AddTest extends TestCase
         $date = $class::create(2001, 1, 1);
         $new = $date->add($interval);
 
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
     }
 
     /**
@@ -45,12 +45,12 @@ class AddTest extends TestCase
         $date = $class::create(2001, 1, 1);
         $new = $date->add($interval);
 
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
     }
 
     /**
@@ -62,12 +62,12 @@ class AddTest extends TestCase
         $date = $class::create(2001, 1, 1);
         $new = $date->sub($interval);
 
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
     }
 
     /**
@@ -79,12 +79,12 @@ class AddTest extends TestCase
         $date = $class::create(2001, 1, 1);
         $new = $date->sub($interval);
 
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
     }
 
     /**
@@ -92,8 +92,8 @@ class AddTest extends TestCase
      */
     public function testAddDay($class)
     {
-        $this->assertEquals(1, $class::create(1975, 5, 31)->addDays(1)->day);
-        $this->assertEquals(30, $class::create(1975, 5, 31)->addDays(-1)->day);
+        $this->assertSame(1, $class::create(1975, 5, 31)->addDays(1)->day);
+        $this->assertSame(30, $class::create(1975, 5, 31)->addDays(-1)->day);
     }
 
     /**
@@ -101,8 +101,8 @@ class AddTest extends TestCase
      */
     public function testAddMonth($class)
     {
-        $this->assertEquals(6, $class::create(1975, 5, 31)->addMonths(1)->month);
-        $this->assertEquals(4, $class::create(1975, 5, 31)->addMonths(-1)->month);
+        $this->assertSame(6, $class::create(1975, 5, 31)->addMonths(1)->month);
+        $this->assertSame(4, $class::create(1975, 5, 31)->addMonths(-1)->month);
     }
 
     /**
@@ -110,8 +110,8 @@ class AddTest extends TestCase
      */
     public function testAddYear($class)
     {
-        $this->assertEquals(1976, $class::create(1975, 5, 31)->addYears(1)->year);
-        $this->assertEquals(1974, $class::create(1975, 5, 31)->addYears(-1)->year);
+        $this->assertSame(1976, $class::create(1975, 5, 31)->addYears(1)->year);
+        $this->assertSame(1974, $class::create(1975, 5, 31)->addYears(-1)->year);
     }
 
     /**
@@ -119,7 +119,7 @@ class AddTest extends TestCase
      */
     public function testAddWeekdays($class)
     {
-        $this->assertEquals(2, $class::create(1975, 5, 31)->addWeekdays(1)->day);
-        $this->assertEquals(30, $class::create(1975, 5, 31)->addWeekdays(-1)->day);
+        $this->assertSame(2, $class::create(1975, 5, 31)->addWeekdays(1)->day);
+        $this->assertSame(30, $class::create(1975, 5, 31)->addWeekdays(-1)->day);
     }
 }

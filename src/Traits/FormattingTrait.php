@@ -233,7 +233,7 @@ trait FormattingTrait
      */
     public function toQuarter(bool $range = false)
     {
-        $quarter = ceil($this->format('m') / 3);
+        $quarter = (int)ceil($this->format('m') / 3);
         if ($range === false) {
             return $quarter;
         }

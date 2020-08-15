@@ -24,62 +24,62 @@ class DebugInfoTest extends TestCase
     public function testDateTime()
     {
         $expected = [
+            'hasFixedNow' => false,
             'time' => '2001-02-03 10:20:30.000000',
             'timezone' => 'America/Toronto',
-            'hasFixedNow' => false,
         ];
 
         $chronos = Chronos::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $chronos->__debugInfo());
+        $this->assertSame($expected, $chronos->__debugInfo());
 
         $mutable = MutableDateTime::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $mutable->__debugInfo());
+        $this->assertSame($expected, $mutable->__debugInfo());
     }
 
     public function testDate()
     {
         $expected = [
-            'date' => '2001-02-03',
             'hasFixedNow' => false,
+            'date' => '2001-02-03',
         ];
 
         $date = Date::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $date->__debugInfo());
+        $this->assertSame($expected, $date->__debugInfo());
 
         $mutable = MutableDate::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $mutable->__debugInfo());
+        $this->assertSame($expected, $mutable->__debugInfo());
     }
 
     public function testDateTimeWithNow()
     {
         $expected = [
+            'hasFixedNow' => true,
             'time' => '2001-02-03 10:20:30.000000',
             'timezone' => 'America/Toronto',
-            'hasFixedNow' => true,
         ];
 
         Chronos::setTestNow(Chronos::now());
         $chronos = Chronos::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $chronos->__debugInfo());
+        $this->assertSame($expected, $chronos->__debugInfo());
 
         MutableDateTime::setTestNow(Chronos::now());
         $mutable = MutableDateTime::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $mutable->__debugInfo());
+        $this->assertSame($expected, $mutable->__debugInfo());
     }
 
     public function testDateWithNow()
     {
         $expected = [
-            'date' => '2001-02-03',
             'hasFixedNow' => true,
+            'date' => '2001-02-03',
         ];
 
         Date::setTestNow(Chronos::now());
         $date = Date::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $date->__debugInfo());
+        $this->assertSame($expected, $date->__debugInfo());
 
         MutableDate::setTestNow(Chronos::now());
         $mutable = MutableDate::create(2001, 2, 3, 10, 20, 30);
-        $this->assertEquals($expected, $mutable->__debugInfo());
+        $this->assertSame($expected, $mutable->__debugInfo());
     }
 }
