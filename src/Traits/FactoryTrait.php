@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
+use Cake\Chronos\Date;
+use Cake\Chronos\MutableDate;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -243,7 +245,13 @@ trait FactoryTrait
             throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
         }
 
-        $dt = static::instance($dt);
+        if (!$dt instanceof static) {
+            $dt = static::instance($dt);
+        }
+        if ($dt instanceof Date || $dt instanceof MutableDate) {
+            $dt = $dt->setTime(0, 0, 0);
+        }
+
         static::$_lastErrors = $errors;
 
         return $dt;
