@@ -239,11 +239,11 @@ trait FactoryTrait
         }
 
         $errors = parent::getLastErrors();
-        if ($dt == false) {
+        if (!$dt) {
             throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
         }
 
-        $dt = static::instance($dt);
+        $dt = new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
         static::$_lastErrors = $errors;
 
         return $dt;

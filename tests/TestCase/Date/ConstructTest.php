@@ -416,7 +416,7 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromFormat($class)
     {
-        $date = $class::createFromFormat('Y-m-d', '2014-02-01');
-        $this->assertSame('2014-02-01 00:00:00', $date->format('Y-m-d H:i:s'));
+        $date = $class::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
+        $this->assertSame('2014-02-01 00:00:00 America/Toronto', $date->format('Y-m-d H:i:s e'));
     }
 }
