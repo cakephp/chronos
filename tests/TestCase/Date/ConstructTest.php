@@ -32,12 +32,12 @@ class ConstructTest extends TestCase
     public function testCreateFromEmpty($class)
     {
         $c = $class::parse(null);
-        $this->assertEquals('00:00:00', $c->format('H:i:s'));
-        $this->assertEquals(date_default_timezone_get(), $c->tzName);
+        $this->assertSame('00:00:00', $c->format('H:i:s'));
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         $c = $class::parse('');
-        $this->assertEquals('00:00:00', $c->format('H:i:s'));
-        $this->assertEquals(date_default_timezone_get(), $c->tzName);
+        $this->assertSame('00:00:00', $c->format('H:i:s'));
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -49,12 +49,12 @@ class ConstructTest extends TestCase
         $class::setTestNow($class::create(2001, 1, 1));
 
         $c = $class::parse(null);
-        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals(date_default_timezone_get(), $c->tzName);
+        $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         $c = $class::parse('');
-        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals(date_default_timezone_get(), $c->tzName);
+        $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
     /**
@@ -67,8 +67,8 @@ class ConstructTest extends TestCase
             $ts = 1454284800;
             $date = $class::createFromTimestamp($ts);
 
-            $this->assertEquals('Europe/Berlin', $date->tzName);
-            $this->assertEquals('2016-02-01', $date->format('Y-m-d'));
+            $this->assertSame('Europe/Berlin', $date->tzName);
+            $this->assertSame('2016-02-01', $date->format('Y-m-d'));
         });
     }
 
@@ -125,10 +125,10 @@ class ConstructTest extends TestCase
     public function testParseWithMicroSeconds($class)
     {
         $date = $class::parse('2016-12-08 18:06:46.510954');
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->second);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->micro);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->second);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->micro);
     }
 
     /**
@@ -224,10 +224,10 @@ class ConstructTest extends TestCase
     public function testConstructWithTimeParts($time)
     {
         $dt = new Date($time);
-        $this->assertEquals(8, $dt->month);
-        $this->assertEquals(0, $dt->hour);
-        $this->assertEquals(0, $dt->minute);
-        $this->assertEquals(0, $dt->second);
+        $this->assertSame(8, $dt->month);
+        $this->assertSame(0, $dt->hour);
+        $this->assertSame(0, $dt->minute);
+        $this->assertSame(0, $dt->second);
     }
 
     /**
@@ -237,10 +237,10 @@ class ConstructTest extends TestCase
     public function testConstructMutableWithTimeParts($time)
     {
         $dt = new MutableDate($time);
-        $this->assertEquals(8, $dt->month);
-        $this->assertEquals(0, $dt->hour);
-        $this->assertEquals(0, $dt->minute);
-        $this->assertEquals(0, $dt->second);
+        $this->assertSame(8, $dt->month);
+        $this->assertSame(0, $dt->hour);
+        $this->assertSame(0, $dt->minute);
+        $this->assertSame(0, $dt->second);
     }
 
     /**
@@ -276,13 +276,13 @@ class ConstructTest extends TestCase
     public function testConstructWithRelative($class)
     {
         $c = new $class('+7 days');
-        $this->assertEquals('00:00:00', $c->format('H:i:s'));
+        $this->assertSame('00:00:00', $c->format('H:i:s'));
 
         $c = new $class('+10 minutes');
-        $this->assertEquals('00:00:00', $c->format('H:i:s'));
+        $this->assertSame('00:00:00', $c->format('H:i:s'));
 
         $c = new $class('2001-01-01 +7 days');
-        $this->assertEquals('2001-01-08', $c->format('Y-m-d'));
+        $this->assertSame('2001-01-08', $c->format('Y-m-d'));
     }
 
     /**
@@ -296,26 +296,26 @@ class ConstructTest extends TestCase
         // This test could have different results depending on when now is
         $c = new $class('now', $londonTimezone);
         $london = new DateTimeImmutable('now', $londonTimezone);
-        $this->assertEquals($london->format('Y-m-d'), $c->format('Y-m-d'));
+        $this->assertSame($london->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // now adjusted to London time
         $c = $class::today($londonTimezone);
-        $this->assertEquals(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
+        $this->assertSame(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
 
         // London timezone is used instead of local timezone
         $c = new $class('2001-01-02 01:00:00', $londonTimezone);
-        $this->assertEquals('2001-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2001-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when timezone is provided in time string
         $c = new $class('2001-01-01 23:00:00-400', $londonTimezone);
-        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when DateTimeInterface instance is provided
         $c = new $class(new DateTimeImmutable('2001-01-01 23:00:00-400'), $londonTimezone);
-        $this->assertEquals('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
@@ -330,29 +330,29 @@ class ConstructTest extends TestCase
 
         // TestNow is adjusted to London time
         $c = new $class('now', $londonTimezone);
-        $this->assertEquals('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = new $class('+2 days', $londonTimezone);
-        $this->assertEquals('2010-01-04 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2010-01-04 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = $class::today($londonTimezone);
-        $this->assertEquals('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
+        $this->assertSame('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
         $c = $class::tomorrow($londonTimezone);
-        $this->assertEquals('2010-01-03 00:00:00', $c->format('Y-m-d H:i:s'));
-        $this->assertEquals(Chronos::tomorrow($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
+        $this->assertSame('2010-01-03 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame(Chronos::tomorrow($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is ignored when specific date is provided
         $c = new $class('2001-01-05 01:00:00', $londonTimezone);
-        $this->assertEquals('2001-01-05 00:00:00', $c->format('Y-m-d H:i:s'));
+        $this->assertSame('2001-01-05 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
@@ -373,7 +373,7 @@ class ConstructTest extends TestCase
         // Pacific/Samoa -11:00 is used intead of local timezone +14:00
         $c = $class::today($samoaTimezone);
         $Samoa = new DateTimeImmutable('now', $samoaTimezone);
-        $this->assertEquals($Samoa->format('Y-m-d'), $c->format('Y-m-d'));
+        $this->assertSame($Samoa->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         date_default_timezone_set($savedTz);
@@ -390,7 +390,7 @@ class ConstructTest extends TestCase
         $newClass = new $class($existingClass);
         $this->assertInstanceOf($class, $newClass);
 
-        $this->assertEquals((string)$existingClass, (string)$newClass);
+        $this->assertSame((string)$existingClass, (string)$newClass);
     }
 
     /**
@@ -402,12 +402,12 @@ class ConstructTest extends TestCase
         $existingClass = new \DateTimeImmutable();
         $newClass = new $class($existingClass);
         $this->assertInstanceOf($class, $newClass);
-        $this->assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+        $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
 
         $existingClass = new \DateTime();
         $newClass = new $class($existingClass);
         $this->assertInstanceOf($class, $newClass);
-        $this->assertEquals($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
+        $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -416,7 +416,7 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromFormat($class)
     {
-        $date = $class::createFromFormat('Y-m-d', '2014-02-01');
-        $this->assertSame('2014-02-01 00:00:00', $date->format('Y-m-d H:i:s'));
+        $date = $class::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
+        $this->assertSame('2014-02-01 00:00:00 America/Toronto', $date->format('Y-m-d H:i:s e'));
     }
 }

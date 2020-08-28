@@ -42,12 +42,12 @@ class TimeMutateTest extends TestCase
         $date = new Date();
         $new = $date->modify($value);
 
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
     }
 
     /**
@@ -77,14 +77,14 @@ class TimeMutateTest extends TestCase
     {
         $date = new Date();
         $new = $date->{$method}($value);
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $new->format('u'));
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
-        $this->assertEquals(0, $date->format('u'));
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame('000000', $new->format('u'));
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
+        $this->assertSame('000000', $date->format('u'));
     }
 
     /**
@@ -94,14 +94,14 @@ class TimeMutateTest extends TestCase
     {
         $date = new Date();
         $new = $date->setTime(1, 2, 3, 4);
-        $this->assertEquals(0, $new->hour);
-        $this->assertEquals(0, $new->minute);
-        $this->assertEquals(0, $new->second);
-        $this->assertEquals(0, $new->format('u'));
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
-        $this->assertEquals(0, $date->format('u'));
+        $this->assertSame(0, $new->hour);
+        $this->assertSame(0, $new->minute);
+        $this->assertSame(0, $new->second);
+        $this->assertSame('000000', $new->format('u'));
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
+        $this->assertSame('000000', $date->format('u'));
     }
 
     /**
@@ -113,72 +113,72 @@ class TimeMutateTest extends TestCase
     {
         $date = new Date();
         $date->setTimestamp(strtotime('+2 hours +2 minutes'));
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
 
         $date = new Date();
         $date->timestamp(strtotime('+2 hours +2 minutes'));
-        $this->assertEquals(0, $date->hour);
-        $this->assertEquals(0, $date->minute);
-        $this->assertEquals(0, $date->second);
+        $this->assertSame(0, $date->hour);
+        $this->assertSame(0, $date->minute);
+        $this->assertSame(0, $date->second);
     }
 
     public function testStartOfDay()
     {
         $date = new Date();
-        $this->assertEquals('00:00:00', $date->startOfDay()->format('H:i:s'));
+        $this->assertSame('00:00:00', $date->startOfDay()->format('H:i:s'));
     }
 
     public function testEndOfDay()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->endOfDay();
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2001-01-01', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2001-01-01', $new->format('Y-m-d'));
     }
 
     public function testEndOfMonth()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->endOfMonth();
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2001-01-31', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2001-01-31', $new->format('Y-m-d'));
     }
 
     public function testEndOfYear()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->endOfYear();
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2001-12-31', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2001-12-31', $new->format('Y-m-d'));
     }
 
     public function testEndOfDecade()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->endOfDecade();
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2009-12-31', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2009-12-31', $new->format('Y-m-d'));
     }
 
     public function testEndOfCentury()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->endOfCentury();
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2100-12-31', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2100-12-31', $new->format('Y-m-d'));
     }
 
     public function testNextAndPrev()
     {
         $date = Date::create(2001, 1, 1);
         $new = $date->next(3);
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2001-01-03', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2001-01-03', $new->format('Y-m-d'));
 
         $new = $date->previous(1);
-        $this->assertEquals('00:00:00', $new->format('H:i:s'));
-        $this->assertEquals('2000-12-25', $new->format('Y-m-d'));
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2000-12-25', $new->format('Y-m-d'));
     }
 }
