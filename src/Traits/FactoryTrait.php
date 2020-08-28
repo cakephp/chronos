@@ -245,11 +245,12 @@ trait FactoryTrait
             throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
         }
 
-        $dt = new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
-        if (PHP_MAJOR_VERSION >= 8 && ($dt instanceof Date || $dt instanceof MutableDate)) {
-            $dt = $dt->setTime(0, 0, 0);
+        $format = 'Y-m-d H:i:s.u';
+        if ($dt instanceof Date || $dt instanceof MutableDate) {
+            $format = 'Y-m-d';
         }
 
+        $dt = new static($dt->format($format), $dt->getTimezone());
         static::$_lastErrors = $errors;
 
         return $dt;
