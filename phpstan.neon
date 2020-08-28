@@ -1,5 +1,8 @@
 parameters:
-    level: 5
+    level: 6
+    paths:
+        - src
+    checkMissingIterableValueType: false
     ignoreErrors:
         - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
         - '#Unsafe usage of new static\(\).#'
