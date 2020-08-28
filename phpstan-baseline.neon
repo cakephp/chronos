@@ -1,0 +1,92 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/ChronosInterval.php
+
+		-
+			message: "#^Access to an undefined property Cake\\\\Chronos\\\\ChronosInterface\\:\\:\\$tz\\.$#"
+			count: 1
+			path: src/DifferenceFormatter.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/Chronos.php
+
+		-
+			message: "#^Instanceof between static\\(Cake\\\\Chronos\\\\Chronos\\) and Cake\\\\Chronos\\\\Date will always evaluate to false\\.$#"
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: "#^Instanceof between static\\(Cake\\\\Chronos\\\\Chronos\\) and Cake\\\\Chronos\\\\MutableDate will always evaluate to false\\.$#"
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/Date.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and Cake\\\\Chronos\\\\MutableDate will always evaluate to false\\.$#"
+			count: 1
+			path: src/Date.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: src/Date.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/MutableDate.php
+
+		-
+			message: "#^Instanceof between static\\(Cake\\\\Chronos\\\\MutableDate\\) and Cake\\\\Chronos\\\\Date will always evaluate to false\\.$#"
+			count: 1
+			path: src/MutableDate.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: src/MutableDate.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/MutableDateTime.php
+
+		-
+			message: "#^Instanceof between static\\(Cake\\\\Chronos\\\\MutableDateTime\\) and Cake\\\\Chronos\\\\Date will always evaluate to false\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
+
+		-
+			message: "#^Instanceof between static\\(Cake\\\\Chronos\\\\MutableDateTime\\) and Cake\\\\Chronos\\\\MutableDate will always evaluate to false\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
+
