@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
+use Cake\Chronos\Date;
+use Cake\Chronos\MutableDate;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -244,6 +246,10 @@ trait FactoryTrait
         }
 
         $dt = new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
+        if (PHP_MAJOR_VERSION >= 8 && ($dt instanceof Date || $dt instanceof MutableDate)) {
+            $dt = $dt->setTime(0, 0, 0);
+        }
+
         static::$_lastErrors = $errors;
 
         return $dt;
