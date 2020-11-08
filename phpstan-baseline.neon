@@ -1,0 +1,32 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 10
+			path: src/ChronosInterval.php
+
+		-
+			message: "#^Access to an undefined property Cake\\\\Chronos\\\\ChronosInterface\\:\\:\\$tz\\.$#"
+			count: 1
+			path: src/DifferenceFormatter.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 11
+			path: src/Chronos.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 11
+			path: src/Date.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 11
+			path: src/MutableDate.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 11
+			path: src/MutableDateTime.php
+
