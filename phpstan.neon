@@ -1,5 +1,12 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
-    level: 5
-    ignoreErrors:
-        - '#Access to an undefined property Cake\\Chronos\\ChronosInterface::\$tz#'
-        - '#Unsafe usage of new static\(\).#'
+	level: 6
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	treatPhpDocTypesAsCertain: false
+	bootstrapFiles:
+		- tests/bootstrap.php
+	paths:
+		- src/
