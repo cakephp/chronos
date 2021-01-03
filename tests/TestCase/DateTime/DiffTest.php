@@ -30,6 +30,25 @@ class DiffTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testDiffIgnoreTimezone($class)
+    {
+        $source = $class::createFromDate(2019, 06, 01, 'Asia/Tokyo');
+        $target = $class::createFromDate(2019, 10, 01, 'Asia/Tokyo');
+        $this->assertSame(4, $source->diffIgnoreTimezone($target)->m);
+
+        $source = $class::createFromDate(2019, 06, 01, 'UTC');
+        $target = $class::createFromDate(2019, 10, 01, 'UTC');
+        $this->assertSame(4, $source->diffIgnoreTimezone($target)->m);
+
+        $source = $class::createFromDate(2019, 06, 01, 'UTC');
+        $target = $class::createFromDate(2019, 10, 01, 'Asia/Tokyo');
+        $this->assertSame(4, $source->diffIgnoreTimezone($target)->m);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testDiffInYearsPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
