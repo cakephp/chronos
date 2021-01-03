@@ -51,11 +51,13 @@
             "@cs-check",
             "@phpstan"
         ],
-        "test": "phpunit",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "benchmark": "phpbench run --report=chronos",
-        "phpstan": "phpstan analyze",
-        "phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 && mv composer.backup composer.json"
+        "cs-check": "phpcs --colors --parallel=16 -p src/ tests/",
+        "cs-fix": "phpcbf --colors --parallel=16 -p src/ tests/",
+        "phpstan": "phpstan.phar analyse",
+        "stan": [
+            "@phpstan"
+        ],
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12.54 && mv composer.backup composer.json",
+        "test": "phpunit"
     }
 }

@@ -1,0 +1,112 @@
+name: CakePHP CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  testsuite:
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['7.2', '7.4', '8.0']
+        prefer-lowest: ['']
+        include:
+          - php-version: '7.2'
+            prefer-lowest: 'prefer-lowest'
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, intl
+        coverage: pcov
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Get date part for cache key
+      id: key-date
+      run: echo "::set-output name=date::$(date +'%Y-%m')"
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ steps.key-date.outputs.date }}-${{ hashFiles('composer.json') }}-${{ matrix.prefer-lowest }}
+
+    - name: Composer Install
+      run: |
+        if [[ ${{ matrix.php-version }} == '8.0' ]]; then
+          composer install --ignore-platform-reqs
+        elif ${{ matrix.prefer-lowest == 'prefer-lowest' }}; then
+          composer update --prefer-lowest --prefer-stable
+        else
+          composer update
+        fi
+
+    - name: Configure PHPUnit matcher
+      if: matrix.php-version == '7.4'
+      uses: mheap/phpunit-matcher-action@master
+
+    - name: Run PHPUnit
+      run: |
+        if [[ ${{ matrix.php-version }} == '7.4' ]]; then
+          export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+        else
+          vendor/bin/phpunit
+        fi
+
+    - name: Submit code coverage
+      if: success() && matrix.php-version == '7.4'
+      uses: codecov/codecov-action@v1
+
+  cs-stan:
+    name: Coding Standard & Static Analysis
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.2'
+        extensions: mbstring, intl
+        coverage: none
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Get date part for cache key
+      id: key-date
+      run: echo "::set-output name=date::$(date +'%Y-%m')"
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ steps.key-date.outputs.date }}-${{ hashFiles('composer.json') }}-${{ matrix.prefer-lowest }}
+
+    - name: composer install
+      run: composer stan-setup
+
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs --report=checkstyle src/ tests/
+
+    - name: Run phpstan
+      run: vendor/bin/phpstan.phar analyse --error-format=github
