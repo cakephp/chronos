@@ -19,7 +19,9 @@ use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
 use DatePeriod;
+use DateTime;
 use DateTimeInterface;
+use DateTimeZone;
 
 /**
  * Provides methods for getting differences between datetime objects.
@@ -38,6 +40,31 @@ trait DifferenceTrait
      * @var \Cake\Chronos\DifferenceFormatterInterface
      */
     protected static $diffFormatter;
+
+    /**
+     * Peforms a `diff()` without adjusting for timezone.
+     *
+     * The normal `diff()` will convert all times to UTC before comparing which can
+     * result in day and month calculations to be different than in the original timezone.
+     *
+     * @param \Cake\Chronos\ChronosInterface $dt The target instance
+     * @param bool $abs Get the absolute difference
+     * @return false|\DateInterval
+     */
+    public function diffIgnoreTimezone(ChronosInterface $dt, bool $abs = true)
+    {
+        $utcTz = new DateTimeZone('UTC');
+
+        $source = $this;
+        if ($this->getTimezone()->getName() !== 'UTC') {
+            $source = new DateTime($this->format('Y-m-d H:i:s.u'), $utcTz);
+        }
+        if ($dt->getTimezone()->getName() !== 'UTC') {
+            $dt = new DateTime($dt->format('Y-m-d H:i:s.u'), $utcTz);
+        }
+
+        return $source->diff($dt, $abs);
+    }
 
     /**
      * Get the difference in years
