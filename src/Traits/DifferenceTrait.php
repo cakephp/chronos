@@ -42,31 +42,6 @@ trait DifferenceTrait
     protected static $diffFormatter;
 
     /**
-     * Peforms a `diff()` without adjusting for timezone.
-     *
-     * The normal `diff()` will convert all times to UTC before comparing which can
-     * result in day and month calculations to be different than in the original timezone.
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The target instance
-     * @param bool $abs Get the absolute difference
-     * @return false|\DateInterval
-     */
-    public function diffIgnoreTimezone(ChronosInterface $dt, bool $abs = true)
-    {
-        $utcTz = new DateTimeZone('UTC');
-
-        $source = $this;
-        if ($this->getTimezone()->getName() !== 'UTC') {
-            $source = new DateTime($this->format('Y-m-d H:i:s.u'), $utcTz);
-        }
-        if ($dt->getTimezone()->getName() !== 'UTC') {
-            $dt = new DateTime($dt->format('Y-m-d H:i:s.u'), $utcTz);
-        }
-
-        return $source->diff($dt, $abs);
-    }
-
-    /**
      * Get the difference in years
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
@@ -89,6 +64,37 @@ trait DifferenceTrait
      */
     public function diffInMonths(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        $diff = $this->diff($dt ?? static::now($this->tz), $abs);
+        $months = $diff->y * ChronosInterface::MONTHS_PER_YEAR + $diff->m;
+
+        return $diff->invert ? -$months : $months;
+    }
+
+    /**
+     * Get the difference in months without converting times to UTC which can cause
+     * a the month to change.
+     *
+     * For example, if comparing `2019-06-01 Asia/Tokyo` and `2019-10-01 Asia/Tokyo`,
+     * the result would be 4 months instead of 3 when using normal `DateTime::diff()`.
+     *
+     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
+     * @param bool $abs Get the absolute of the difference
+     * @return int
+     */
+    public function diffInMonthsIgnoreTimezone(?ChronosInterface $dt = null, bool $abs = true): int
+    {
+        $utcTz = new DateTimeZone('UTC');
+
+        $source = $this;
+        if ($this->getTimezone()->getName() !== 'UTC') {
+            $source = new DateTime($this->format('Y-m-d H:i:s.u'), $utcTz);
+        }
+
+        $dt = $dt ?? static::now($this->tz);
+        if ($dt->getTimezone()->getName() !== 'UTC') {
+            $dt = new DateTime($dt->format('Y-m-d H:i:s.u'), $utcTz);
+        }
+
         $diff = $this->diff($dt ?? static::now($this->tz), $abs);
         $months = $diff->y * ChronosInterface::MONTHS_PER_YEAR + $diff->m;
 
