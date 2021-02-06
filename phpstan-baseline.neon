@@ -12,21 +12,21 @@ parameters:
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 11
+			count: 13
 			path: src/Chronos.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 11
+			count: 13
 			path: src/Date.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 11
+			count: 13
 			path: src/MutableDate.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 11
+			count: 13
 			path: src/MutableDateTime.php
 
