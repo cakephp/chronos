@@ -84,11 +84,17 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param \DateTime|\DateTimeImmutable|string|int|null $time Fixed or relative time
+     * @param \DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $tz The timezone for the instance
      */
     public function __construct($time = 'now', $tz = null)
     {
+        if (is_int($time)) {
+            parent::__construct('@' . $time);
+
+            return;
+        }
+
         if ($tz !== null) {
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
         }
