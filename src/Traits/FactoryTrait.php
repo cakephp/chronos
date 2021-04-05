@@ -324,7 +324,7 @@ trait FactoryTrait
      */
     public static function createFromTimestampUTC(int $timestamp): ChronosInterface
     {
-        return new static('@' . $timestamp);
+        return new static($timestamp);
     }
 
     /**

@@ -65,8 +65,12 @@ class ConstructTest extends TestCase
     {
         $this->withTimezone('Europe/Berlin', function () use ($class) {
             $ts = 1454284800;
-            $date = $class::createFromTimestamp($ts);
 
+            $date = $class::createFromTimestamp($ts);
+            $this->assertSame('Europe/Berlin', $date->tzName);
+            $this->assertSame('2016-02-01', $date->format('Y-m-d'));
+
+            $date = new $class($ts);
             $this->assertSame('Europe/Berlin', $date->tzName);
             $this->assertSame('2016-02-01', $date->format('Y-m-d'));
         });

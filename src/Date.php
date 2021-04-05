@@ -86,7 +86,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * timezone will always be the server local time. Normalizing the timezone allows for
      * subtraction/addition to have deterministic results.
      *
-     * @param \DateTime|\DateTimeImmutable|string|int|null $time Fixed or relative time
+     * @param \DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $tz The timezone in which the date is taken
      */
     public function __construct($time = 'now', $tz = null)
