@@ -18,6 +18,7 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Test\TestCase\TestCase;
 use Closure;
+use DateTimeZone;
 
 class DiffTest extends TestCase
 {
@@ -134,19 +135,17 @@ class DiffTest extends TestCase
      */
     public function testDiffInMonthsIgnoreTimezone($class)
     {
-        $start = $class::createFromDate(2019, 06, 01, 'Asia/Tokyo');
-        foreach ([1, 2, 3, 4, 5] as $monthOffset) {
-            $end = $class::createFromDate(2019, 6 + $monthOffset, 01, 'Asia/Tokyo');
-            $this->assertSame($monthOffset, $start->diffInMonthsIgnoreTimezone($end));
+        $tokyoStart = new $class('2019-06-01', new DateTimeZone('Asia/Tokyo'));
+        $utcStart = new $class('2019-06-01', new DateTimeZone('UTC'));
+        foreach (range(1, 6) as $monthOffset) {
+            $end = new $class(sprintf('2019-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
+            $this->assertSame($monthOffset, $tokyoStart->diffInMonthsIgnoreTimezone($end));
+            $this->assertSame($monthOffset, $utcStart->diffInMonthsIgnoreTimezone($end));
+
+            $end = new $class(sprintf('2020-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
+            $this->assertSame($monthOffset + 12, $tokyoStart->diffInMonthsIgnoreTimezone($end));
+            $this->assertSame($monthOffset + 12, $utcStart->diffInMonthsIgnoreTimezone($end));
         }
-
-        $start = $class::createFromDate(2019, 06, 01, 'UTC');
-        $end = $class::createFromDate(2019, 10, 01, 'UTC');
-        $this->assertSame(4, $start->diffInMonthsIgnoreTimezone($end));
-
-        $start = $class::createFromDate(2019, 06, 01, 'UTC');
-        $end = $class::createFromDate(2019, 10, 01, 'Asia/Tokyo');
-        $this->assertSame(4, $start->diffInMonthsIgnoreTimezone($end));
 
         $this->wrapWithTestNow(function () use ($class) {
             $this->assertSame(1, $class::now()->subMonth()->startOfMonth()->diffInMonthsIgnoreTimezone());
