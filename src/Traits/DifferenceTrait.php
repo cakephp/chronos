@@ -89,7 +89,7 @@ trait DifferenceTrait
         $dt = $dt ?? static::now($this->tz);
         $dt = new static($dt->format('Y-m-d H:i:s.u'), $utcTz);
 
-        return $this->diffInMonths($dt, $abs);
+        return $source->diffInMonths($dt, $abs);
     }
 
     /**
