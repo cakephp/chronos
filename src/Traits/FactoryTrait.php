@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\ChronosInterface;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -37,7 +36,7 @@ trait FactoryTrait
      * @param \DateTimeInterface $dt The datetime instance to convert.
      * @return static
      */
-    public static function instance(DateTimeInterface $dt): ChronosInterface
+    public static function instance(DateTimeInterface $dt): static
     {
         if ($dt instanceof static) {
             return clone $dt;
@@ -56,7 +55,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
-    public static function parse($time = 'now', $tz = null): ChronosInterface
+    public static function parse($time = 'now', $tz = null): static
     {
         return new static($time, $tz);
     }
@@ -67,7 +66,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
-    public static function now($tz = null): ChronosInterface
+    public static function now($tz = null): static
     {
         return new static('now', $tz);
     }
@@ -78,7 +77,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The timezone to use.
      * @return static
      */
-    public static function today($tz = null): ChronosInterface
+    public static function today($tz = null): static
     {
         return new static('midnight', $tz);
     }
@@ -89,7 +88,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function tomorrow($tz = null): ChronosInterface
+    public static function tomorrow($tz = null): static
     {
         return new static('tomorrow, midnight', $tz);
     }
@@ -100,7 +99,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function yesterday($tz = null): ChronosInterface
+    public static function yesterday($tz = null): static
     {
         return new static('yesterday, midnight', $tz);
     }
@@ -108,9 +107,9 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for the greatest supported date.
      *
-     * @return \Cake\Chronos\ChronosInterface
+     * @return static
      */
-    public static function maxValue(): ChronosInterface
+    public static function maxValue(): static
     {
         return static::createFromTimestampUTC(PHP_INT_MAX);
     }
@@ -118,9 +117,9 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance for the lowest supported date.
      *
-     * @return \Cake\Chronos\ChronosInterface
+     * @return static
      */
-    public static function minValue(): ChronosInterface
+    public static function minValue(): static
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
@@ -157,7 +156,7 @@ trait FactoryTrait
         ?int $second = null,
         ?int $microsecond = null,
         $tz = null
-    ): ChronosInterface {
+    ): static {
         $now = static::now();
         $year = $year ?? (int)$now->format('Y');
         $month = $month ?? $now->format('m');
@@ -197,7 +196,7 @@ trait FactoryTrait
         ?int $month = null,
         ?int $day = null,
         $tz = null
-    ): ChronosInterface {
+    ): static {
         return static::create($year, $month, $day, null, null, null, null, $tz);
     }
 
@@ -217,7 +216,7 @@ trait FactoryTrait
         ?int $second = null,
         ?int $microsecond = null,
         $tz = null
-    ): ChronosInterface {
+    ): static {
         return static::create(null, null, null, $hour, $minute, $second, $microsecond, $tz);
     }
 
@@ -230,7 +229,7 @@ trait FactoryTrait
      * @return static
      * @throws \InvalidArgumentException
      */
-    public static function createFromFormat($format, $time, $tz = null): ChronosInterface
+    public static function createFromFormat($format, $time, $tz = null): static
     {
         if ($tz !== null) {
             $dt = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
@@ -271,7 +270,7 @@ trait FactoryTrait
      * @param (int|string)[] $values Array of date and time values.
      * @return static
      */
-    public static function createFromArray(array $values): ChronosInterface
+    public static function createFromArray(array $values): static
     {
         $values += ['hour' => 0, 'minute' => 0, 'second' => 0, 'microsecond' => 0, 'timezone' => null];
 
@@ -311,7 +310,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromTimestamp(int $timestamp, $tz = null): ChronosInterface
+    public static function createFromTimestamp(int $timestamp, $tz = null): static
     {
         return static::now($tz)->setTimestamp($timestamp);
     }
@@ -322,7 +321,7 @@ trait FactoryTrait
      * @param int $timestamp The UTC timestamp to create an instance from.
      * @return static
      */
-    public static function createFromTimestampUTC(int $timestamp): ChronosInterface
+    public static function createFromTimestampUTC(int $timestamp): static
     {
         return new static($timestamp);
     }
