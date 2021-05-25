@@ -212,9 +212,9 @@ trait ComparisonTrait
      *
      * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
-     * @return \Cake\Chronos\ChronosInterface
+     * @return self
      */
-    public function closest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface
+    public function closest(ChronosInterface $dt1, ChronosInterface $dt2): self
     {
         return $this->diffInSeconds($dt1) < $this->diffInSeconds($dt2) ? $dt1 : $dt2;
     }
@@ -224,9 +224,9 @@ trait ComparisonTrait
      *
      * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
      * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
-     * @return \Cake\Chronos\ChronosInterface
+     * @return self
      */
-    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface
+    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2): self
     {
         return $this->diffInSeconds($dt1) > $this->diffInSeconds($dt2) ? $dt1 : $dt2;
     }
@@ -235,9 +235,9 @@ trait ComparisonTrait
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return \Cake\Chronos\ChronosInterface
+     * @return self
      */
-    public function min(?ChronosInterface $dt = null): ChronosInterface
+    public function min(?ChronosInterface $dt = null): self
     {
         $dt = $dt ?? static::now($this->tz);
 
@@ -248,9 +248,9 @@ trait ComparisonTrait
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
-     * @return \Cake\Chronos\ChronosInterface
+     * @return self
      */
-    public function max(?ChronosInterface $dt = null): ChronosInterface
+    public function max(?ChronosInterface $dt = null): self
     {
         $dt = $dt ?? static::now($this->tz);
 

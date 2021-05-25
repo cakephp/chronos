@@ -67,7 +67,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * There is a single test now for all date/time classes provided by Chronos.
      * This aims to emulate stubbing out 'now' which is a single global fact.
      *
-     * @var \Cake\Chronos\ChronosInterface|null
+     * @var static|null
      */
     protected static $testNow;
 
@@ -145,9 +145,9 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     /**
      * Get a copy of the instance
      *
-     * @return static
+     * @return self
      */
-    public function copy(): ChronosInterface
+    public function copy(): self
     {
         return clone $this;
     }
@@ -167,7 +167,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
+     * @param static|string|null $testNow The instance to use for all future instances.
      * @return void
      */
     public static function setTestNow($testNow = null): void
@@ -179,9 +179,9 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * Get the ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return \Cake\Chronos\ChronosInterface|null The current instance used for testing
+     * @return static|null The current instance used for testing
      */
-    public static function getTestNow(): ?ChronosInterface
+    public static function getTestNow(): ?static
     {
         return static::$testNow;
     }
