@@ -15,10 +15,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2', '7.4', '8.0', '8.1']
+        php-version: ['8.0', '8.1']
         prefer-lowest: ['']
         include:
-          - php-version: '7.2'
+          - php-version: '8.0'
             prefer-lowest: 'prefer-lowest'
 
     steps:
@@ -56,19 +56,19 @@ jobs:
         fi
 
     - name: Setup problem matchers for PHPUnit
-      if: matrix.php-version == '7.4'
+      if: matrix.php-version == '8.0'
       run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
     - name: Run PHPUnit
       run: |
-        if [[ ${{ matrix.php-version }} == '7.4' ]]; then
+        if [[ ${{ matrix.php-version }} == '8.0' ]]; then
           export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
         else
           vendor/bin/phpunit
         fi
 
     - name: Submit code coverage
-      if: matrix.php-version == '7.4'
+      if: matrix.php-version == '8.0'
       uses: codecov/codecov-action@v1
 
   cs-stan:
@@ -81,7 +81,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.2'
+        php-version: '8.0'
         extensions: mbstring, intl
         tools: cs2pr
         coverage: none
