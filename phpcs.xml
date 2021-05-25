@@ -12,8 +12,5 @@
     <file>./src</file>
     <file>./tests</file>
 
-    <arg phpcs-only="true" value="p"/>
     <arg name="extensions" value="php"/>
-
-    <config name="colors" value="1"/>
 </ruleset>
