@@ -80,6 +80,7 @@ jobs:
       with:
         php-version: '7.2'
         extensions: mbstring, intl
+        tools: cs2pr
         coverage: none
 
     - name: Get composer cache directory
@@ -100,7 +101,8 @@ jobs:
       run: composer stan-setup
 
     - name: Run PHP CodeSniffer
-      run: vendor/bin/phpcs --report=checkstyle src/ tests/
+      run: vendor/bin/phpcs --report=checkstyle src/ tests/ | cs2pr
 
     - name: Run phpstan
+      if: success() || failure()
       run: vendor/bin/phpstan.phar analyse --error-format=github
