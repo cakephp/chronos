@@ -339,7 +339,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function equals(ChronosInterface $dt);
+    public function equals(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is not equal to another
@@ -356,7 +356,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function notEquals(ChronosInterface $dt);
+    public function notEquals(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is greater (after) than another
@@ -373,7 +373,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function greaterThan(ChronosInterface $dt);
+    public function greaterThan(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is greater (after) than or equal to another
@@ -390,7 +390,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosInterface $dt);
+    public function greaterThanOrEquals(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is less (before) than another
@@ -407,7 +407,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lessThan(ChronosInterface $dt);
+    public function lessThan(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is less (before) or equal to another
@@ -424,7 +424,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(ChronosInterface $dt);
+    public function lessThanOrEquals(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is between two others

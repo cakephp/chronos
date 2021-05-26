@@ -69,7 +69,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function equals(ChronosInterface $dt)
+    public function equals(ChronosInterface $dt): bool
     {
         return $this->eq($dt);
     }
@@ -91,7 +91,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function notEquals(ChronosInterface $dt)
+    public function notEquals(ChronosInterface $dt): bool
     {
         return $this->ne($dt);
     }
@@ -113,7 +113,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function greaterThan(ChronosInterface $dt)
+    public function greaterThan(ChronosInterface $dt): bool
     {
         return $this->gt($dt);
     }
@@ -135,7 +135,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosInterface $dt)
+    public function greaterThanOrEquals(ChronosInterface $dt): bool
     {
         return $this->gte($dt);
     }
@@ -157,7 +157,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lessThan(ChronosInterface $dt)
+    public function lessThan(ChronosInterface $dt): bool
     {
         return $this->lt($dt);
     }
@@ -179,7 +179,7 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(ChronosInterface $dt)
+    public function lessThanOrEquals(ChronosInterface $dt): bool
     {
         return $this->lte($dt);
     }
