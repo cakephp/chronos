@@ -230,6 +230,7 @@ trait FactoryTrait
      * @return static
      * @throws \InvalidArgumentException
      */
+    #[ReturnTypeWillChange]
     public static function createFromFormat($format, $time, $tz = null): ChronosInterface
     {
         if ($tz !== null) {
