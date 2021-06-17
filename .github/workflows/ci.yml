@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - 2.next
   pull_request:
     branches:
       - '*'
