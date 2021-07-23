@@ -73,7 +73,7 @@ find ./src -type f -name '*.php' -exec sed -i '' 's/CarbonImmutable/Chronos/g' {
 find ./src -type f -name '*.php' -exec sed -i '' 's/Carbon/Chronos/g' {} \;
 ```
 
-At this point your code should mostly work as it did before. The biggest
+At this point your code should ***mostly*** work as it did before. The biggest
 difference is that Chronos instances are immutable.
 
 ## Immutable Object Changes
