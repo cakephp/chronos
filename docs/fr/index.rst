@@ -7,17 +7,17 @@ Chronos fournit une collection d'extensions sans aucune dépendance pour l'objet
 * Des objets ``Date`` pour représenter les dates du calendrier.
 * Des objets immutables pour les dates et les datetimes.
 * Un système de traduction intégrable. Seules les traductions anglaises sont
-  inclues dans la librairie. Cependant, ``cakephp/i18n`` peut être utilisé
+  incluses dans la librairie. Cependant, ``cakephp/i18n`` peut être utilisé
   pour un support complet d'autres langues.
 
 Installation
 ------------
 
-Pour installer Chronos, vous devez utiliser ``composer``. A partir du répertoire
-ROOT de votre application (où le fichier composer.json se trouve) exécutez ce
-qui suit::
+Pour installer Chronos, vous devez utiliser ``composer``. À partir du répertoire
+ROOT de votre application (celui où se trouve le fichier composer.json),
+exécutez ce qui suit::
 
-    php composer.phar require cakephp/chronos "@stable"
+    php composer.phar require "cakephp/chronos:^2.0"
 
 Vue d'Ensemble
 --------------
@@ -26,9 +26,9 @@ Chronos fournit un certain nombre d'extensions pour les objets DateTime fournis
 par PHP. Chronos fournit 5 classes qui gèrent les variantes mutables et
 immutables de date/time et les extensions de ``DateInterval``.
 
-* ``Cake\Chronos\Chronos`` est un objet de *date et time* immutable.
+* ``Cake\Chronos\Chronos`` est un objet de *date et heure* immutable.
 * ``Cake\Chronos\Date`` est un objet de *date* immutable.
-* ``Cake\Chronos\MutableDateTime`` est un objet de *date et time* mutable.
+* ``Cake\Chronos\MutableDateTime`` est un objet de *date et heure* mutable.
 * ``Cake\Chronos\MutableDate`` est un objet de *date* mutable.
 * ``Cake\Chronos\ChronosInterval`` est une extension pour l'objet
   ``DateInterval``.
@@ -41,8 +41,8 @@ Créer des Instances
 -------------------
 
 Il y a plusieurs façons d'obtenir une instance de Chronos ou de Date. Il y a
-un certain nombre de méthodes factory qui fonctionnent avec des ensembles
-ayant des arguments différents::
+un certain nombre de méthodes factory qui fonctionnent avec différents ensembles
+d'arguments::
 
     use Cake\Chronos\Chronos;
 
@@ -54,10 +54,10 @@ ayant des arguments différents::
     // Parse les expressions relatives
     $date = Chronos::parse('+2 days, +3 hours');
 
-    // Les valeurs d'entier de Date et time.
+    // Des entiers indiquant la date et l'heure.
     $date = Chronos::create(2015, 12, 25, 4, 32, 58);
 
-    // Les valeurs d'entier pour Date ou time.
+    // Des entiers indiquant la date ou l'heure.
     $date = Chronos::createFromDate(2015, 12, 25);
     $date = Chronos::createFromTime(11, 45, 10);
 
@@ -100,7 +100,7 @@ Objets Date
 PHP fournit seulement un unique objet DateTime. Représenter les dates de
 calendrier peut être un peu gênant avec cette classe puisqu'elle inclut les
 timezones, et les composants de time qui n'appartiennent pas vraiment
-dans le concept d'un 'jour'. Chronos fournit un objet ``Date`` qui vous permet
+au concept d'un 'jour'. Chronos fournit un objet ``Date`` qui vous permet
 de représenter les dates. Les time et timezone pour ces objets sont toujours
 fixés à ``00:00:00 UTC`` et toutes les méthodes de formatage/différence
 fonctionnent au niveau du jour::
@@ -109,11 +109,21 @@ fonctionnent au niveau du jour::
 
     $today = Date::today();
 
-    // Changements selon le time/timezone sont ignorés.
+    // Les changements selon le time/timezone sont ignorés.
     $today->modify('+1 hours');
 
     // Affiche '2015-12-20'
     echo $today;
+
+Bien que ``Date`` utilise en interne un fuseau horaire fixe, vous pouvez
+spécifier le fuseau à utiliser pour l'heure courante telle que ``now()`` ou
+``today()``::
+
+    use Cake\Chronos\Date:
+
+    // Prend l'heure courante pour le fuseau horaire de Tokyo
+    $today = Date::today('Asia/Tokyo');
+
 
 Méthodes de Modification
 ------------------------
@@ -156,18 +166,34 @@ Ou de sauter à un jour spécifique de la semaine::
     $time->next(ChronosInterface::TUESDAY);
     $time->previous(ChronosInterface::MONDAY);
 
+Quand vous modifiez des dates/heures au-delà d'un passage à l'heure d'été ou à
+l'heure d'hiver, vous opérations peuvent gagner/perdre une heure de plus, de
+sorte que les heures seront incorrectes. Vous pouvez éviter ce problème en
+définissant d'abord le timezone à ``UTC``, ce qui change l'heure::
+
+    // Une heure de plus de gagnée.
+    $time = new Chronos('2014-03-30 00:00:00', 'Europe/London');
+    debug($time->modify('+24 hours')); // 2014-03-31 01:00:00
+
+    // Passez d'abord à UTC, et modifiez ensuite
+    $time = $time->setTimezone('UTC')
+        ->modify('+24 hours');
+
+Une fois que vous avez modifié l'heure, vous pouvez repasser au timezone
+d'origine pour obtenir l'heure locale.
+
 Méthodes de Comparaison
 -----------------------
 
 Une fois que vous avez 2 instances d'objets date/time de Chronos, vous pouvez
 les comparer de plusieurs façons::
 
-    // Suite complète de comparateurs existante
+    // Il exste une suite complète de comparateurs
     // ne, gt, lt, lte.
     $first->eq($second);
     $first->gte($second);
 
-    // Regardez si l'objet courant est entre deux autres.
+    // Regarder si l'objet courant est entre deux autres.
     $now->between($start, $end);
 
     // Trouver l'argument le plus proche ou le plus éloigné.
@@ -257,19 +283,19 @@ Extraire des Fragments de Date
 Il est possible de récupérer des parties d'un objet date en accédant directement
 à ses propriétés::
 
-    $time = new Chronos('2015-12-31 23:59:58');
+    $time = new Chronos('2015-12-31 23:59:58.123');
     $time->year;    // 2015
     $time->month;   // 12
     $time->day;     // 31
     $time->hour     // 23
     $time->minute   // 59
     $time->second   // 58
+    $time->micro    // 123
 
 Les autres propriétés accessibles sont:
 
 - timezone
 - timezoneName
-- micro
 - dayOfWeek
 - dayOfMonth
 - dayOfYear
