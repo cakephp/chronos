@@ -167,6 +167,20 @@ class FluidSettersTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testFluidMicroecondSetter($class)
+    {
+        $d = $class::now();
+        $second = $d->second;
+        $d = $d->microsecond(2);
+        $this->assertTrue($d instanceof $class);
+        $this->assertSame(2, $d->microsecond);
+        $this->assertSame($second, $d->second);
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testFluidSetTime($class)
     {
         $d = $class::createFromDate(2000, 1, 1);

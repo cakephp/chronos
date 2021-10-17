@@ -246,6 +246,17 @@ trait ModifierTrait
     }
 
     /**
+     * Set the instance's microsecond
+     *
+     * @param int $value The microsecond value.
+     * @return static
+     */
+    public function microsecond(int $value): ChronosInterface
+    {
+        return $this->setTime($this->hour, $this->minute, $this->second, $value);
+    }
+
+    /**
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
