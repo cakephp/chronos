@@ -1,14 +1,9 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 10
-			path: src/ChronosInterval.php
-
-		-
-			message: "#^Access to an undefined property Cake\\\\Chronos\\\\ChronosInterface\\:\\:\\$tz\\.$#"
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\Chronos\\:\\:isTimeExpression\\(\\) through static\\:\\:\\.$#"
 			count: 1
-			path: src/DifferenceFormatter.php
+			path: src/Chronos.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
@@ -17,13 +12,38 @@ parameters:
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 13
+			count: 10
+			path: src/ChronosInterval.php
+
+		-
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\Date\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
+			count: 1
 			path: src/Date.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 13
+			path: src/Date.php
+
+		-
+			message: "#^Access to an undefined property Cake\\\\Chronos\\\\ChronosInterface\\:\\:\\$tz\\.$#"
+			count: 1
+			path: src/DifferenceFormatter.php
+
+		-
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\MutableDate\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
+			count: 1
 			path: src/MutableDate.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 13
+			path: src/MutableDate.php
+
+		-
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\MutableDateTime\\:\\:isTimeExpression\\(\\) through static\\:\\:\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
