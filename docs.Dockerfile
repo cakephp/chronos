@@ -25,5 +25,3 @@ COPY --from=builder /data/docs-builder/nginx.conf /etc/nginx/conf.d/default.conf
 # Move docs into place.
 RUN cp -R /data/website/html/* /usr/share/nginx/html \
   && rm -rf /data/website
-
-CMD ["/data/run.sh"]
