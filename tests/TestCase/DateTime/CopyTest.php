@@ -15,14 +15,14 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
-use Cake\Chronos\MutableDateTime;
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class CopyTest extends TestCase
 {
     public function testCopy()
     {
-        $dating = MutableDateTime::now();
+        $dating = Chronos::now();
         $dating2 = $dating->copy();
         $this->assertNotSame($dating, $dating2);
     }

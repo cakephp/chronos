@@ -1393,11 +1393,4 @@ interface ChronosInterface extends DateTimeInterface
      * @return bool
      */
     public function isWithinNext($timeInterval): bool;
-
-    /**
-     * Check if instance of ChronosInterface is mutable.
-     *
-     * @return bool
-     */
-    public function isMutable(): bool;
 }

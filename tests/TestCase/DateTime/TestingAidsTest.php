@@ -17,8 +17,6 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
-use Cake\Chronos\MutableDate;
-use Cake\Chronos\MutableDateTime;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 
@@ -96,7 +94,7 @@ class TestingAidsTest extends TestCase
     public function testNowNoMutateDateTime($class)
     {
         $value = '2018-06-21 10:11:12';
-        $notNow = new MutableDateTime($value);
+        $notNow = new Chronos($value);
         $class::setTestNow($notNow);
 
         $instance = new $class('-10 minutes');
@@ -115,7 +113,7 @@ class TestingAidsTest extends TestCase
     public function testNowNoMutateDate($class)
     {
         $value = '2018-06-21 10:11:12';
-        $notNow = new MutableDateTime($value);
+        $notNow = new Chronos($value);
         $class::setTestNow($notNow);
 
         $instance = new $class('-1 day');
@@ -287,9 +285,7 @@ class TestingAidsTest extends TestCase
         $c = new $class('2016-01-03 00:00:00', 'Europe/Copenhagen');
         $class::setTestNow($c);
 
-        $this->assertSame($c, MutableDate::getTestNow());
         $this->assertSame($c, Date::getTestNow());
         $this->assertSame($c, Chronos::getTestNow());
-        $this->assertSame($c, MutableDateTime::getTestNow());
     }
 }
