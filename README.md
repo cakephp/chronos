@@ -150,3 +150,4 @@ A more descriptive documentation can be found at [book.cakephp.org/chronos/2/en/
 # API Documentation
 
 API documentation can be found on [api.cakephp.org/chronos](https://api.cakephp.org/chronos).
+
