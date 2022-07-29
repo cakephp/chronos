@@ -22,18 +22,16 @@ Overview
 --------
 
 Chronos provides a number of extensions to the DateTime objects provided by PHP.
-Chronos provides 5 classes that cover mutable and immutable date/time variants
-and extensions to ``DateInterval``.
+Chronos provides extensions to PHP's immutable datetime and dateinterval
+objects.
 
 * ``Cake\Chronos\Chronos`` is an immutable *date and time* object.
 * ``Cake\Chronos\Date`` is a immutable *date* object.
-* ``Cake\Chronos\MutableDateTime`` is a mutable *date and time* object.
-* ``Cake\Chronos\MutableDate`` is a mutable *date* object.
 * ``Cake\Chronos\ChronosInterval`` is an extension to the ``DateInterval``
   object.
 
 Lastly, if you want to typehint against Chronos-provided date/time objects you
-should use ``Cake\Chronos\ChronosInterface``. All of the date and time objects
+should use ``Cake\Chronos\ChronosInterface``. Both the date and time objects
 implement this interface.
 
 Creating Instances
@@ -66,14 +64,12 @@ Working with Immutable Objects
 ------------------------------
 
 If you've used PHP's ``DateTime`` objects, you're comfortable with *mutable*
-objects. Chronos offers mutable objects, but it also provides *immutable*
-objects. Immutable objects create copies of objects each time an object is
-modified. Because modifier methods around datetimes are not always transparent,
-data can be modified accidentally or without the developer knowing.
-Immutable objects prevent accidental changes to
-data, and make code free of order-based dependency issues. Immutability
-does mean that you will need to remember to replace variables when using
-modifiers::
+objects. However, Chronos offers provides *immutable* objects. Immutable objects create
+copies of an object each time a change is made. Because modifier methods
+around datetimes are not always easy to identify, data can be modified accidentally
+or without the developer knowing. Immutable objects prevent accidental changes
+to data, and make code free of order-based dependency issues. Immutability does
+mean that you will need to remember to replace variables when using modifiers::
 
     // This code doesn't work with immutable objects
     $time->addDay(1);
@@ -86,10 +82,7 @@ modifiers::
     return $time;
 
 By capturing the return value of each modification your code will work as
-expected. If you ever have an immutable object, and want to create a mutable
-one, you can use ``toMutable()``::
-
-    $inplace = $time->toMutable();
+expected.
 
 Date Objects
 ------------
@@ -301,9 +294,7 @@ you fix the current time for each class. As part of your test suite's bootstrap
 process you can include the following::
 
     Chronos::setTestNow(Chronos::now());
-    MutableDateTime::setTestNow(MutableDateTime::now());
     Date::setTestNow(Date::now());
-    MutableDate::setTestNow(MutableDate::now());
 
 This will fix the current time of all objects to be the point at which the test
 suite started.
