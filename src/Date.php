@@ -116,16 +116,6 @@ class Date extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
-     * Create a new mutable instance from current immutable instance.
-     *
-     * @return \Cake\Chronos\MutableDate
-     */
-    public function toMutable(): MutableDate
-    {
-        return MutableDate::instance($this);
-    }
-
-    /**
      * Return properties for debugging.
      *
      * @return array

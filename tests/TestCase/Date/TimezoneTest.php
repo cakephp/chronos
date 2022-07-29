@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\Date;
 
 use Cake\Chronos\Date;
-use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 
@@ -40,19 +39,5 @@ class TimezoneTest extends TestCase
         $new = $date->{$method}($tz);
         $this->assertSame($new, $date);
         $this->assertNotSame($tz, $new->timezone);
-    }
-
-    /**
-     * Test that all the timezone methods do nothing.
-     *
-     * @dataProvider methodNameProvider
-     */
-    public function testNoopOnTimezoneChangeMutableDate($method)
-    {
-        $tz = new DateTimeZone('Pacific/Honolulu');
-        $date = new MutableDate('2015-01-01');
-        $new = $date->{$method}($tz);
-        $this->assertSame($new, $date);
-        $this->assertNotSame($tz, $date->timezone);
     }
 }

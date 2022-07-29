@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
-use DateTime;
 
 /**
  * Provides various comparison operator methods for datetime objects.
@@ -551,15 +550,5 @@ trait ComparisonTrait
         $thisTime = $this->format('U');
 
         return $thisTime <= $interval->format('U') && $thisTime >= $now->format('U');
-    }
-
-    /**
-     * Check if instance of ChronosInterface is mutable.
-     *
-     * @return bool
-     */
-    public function isMutable(): bool
-    {
-        return $this instanceof DateTime;
     }
 }

@@ -30,23 +30,3 @@ parameters:
 			count: 1
 			path: src/DifferenceFormatter.php
 
-		-
-			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\MutableDate\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
-			count: 1
-			path: src/MutableDate.php
-
-		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 13
-			path: src/MutableDate.php
-
-		-
-			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\MutableDateTime\\:\\:isTimeExpression\\(\\) through static\\:\\:\\.$#"
-			count: 1
-			path: src/MutableDateTime.php
-
-		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 13
-			path: src/MutableDateTime.php
-

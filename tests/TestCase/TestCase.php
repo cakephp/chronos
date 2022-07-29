@@ -17,8 +17,6 @@ namespace Cake\Chronos\Test\TestCase;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
-use Cake\Chronos\MutableDate;
-use Cake\Chronos\MutableDateTime;
 use Closure;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -37,16 +35,13 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         date_default_timezone_set($this->saveTz);
-        MutableDateTime::setTestNow(null);
         Chronos::setTestNow(null);
-        MutableDate::setTestNow(null);
         Date::setTestNow(null);
     }
 
     public function classNameProvider()
     {
         return [
-            'mutable' => [MutableDateTime::class],
             'immutable' => [Chronos::class],
         ];
     }
@@ -54,7 +49,6 @@ abstract class TestCase extends BaseTestCase
     public function dateClassProvider()
     {
         return [
-            'mutable' => [MutableDate::class],
             'immutable' => [Date::class],
         ];
     }
