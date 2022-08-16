@@ -308,25 +308,20 @@ trait DifferenceTrait
      */
     public function diffForHumans(?ChronosInterface $other = null, bool $absolute = false): string
     {
-        return static::diffFormatter()->diffForHumans($this, $other, $absolute);
+        return static::getDiffFormatter()->diffForHumans($this, $other, $absolute);
     }
 
     /**
-     * Get the difference formatter instance or overwrite the current one.
+     * Get the difference formatter instance.
      *
-     * @param \Cake\Chronos\DifferenceFormatterInterface|null $formatter The formatter instance when setting.
      * @return \Cake\Chronos\DifferenceFormatterInterface The formatter instance.
      */
-    public static function diffFormatter(?DifferenceFormatterInterface $formatter = null): DifferenceFormatterInterface
+    public static function getDiffFormatter(): DifferenceFormatterInterface
     {
-        if ($formatter === null) {
-            if (static::$diffFormatter === null) {
-                static::$diffFormatter = new DifferenceFormatter();
-            }
-
-            return static::$diffFormatter;
+        if (static::$diffFormatter === null) {
+            static::$diffFormatter = new DifferenceFormatter();
         }
 
-        return static::$diffFormatter = $formatter;
+        return static::$diffFormatter;
     }
 }
