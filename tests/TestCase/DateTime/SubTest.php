@@ -148,6 +148,7 @@ class SubTest extends TestCase
      */
     public function testSubDaysNegative($class)
     {
+        var_dump($class::createFromDate(1975, 5, 1)->subDays(-1));
         $this->assertSame(2, $class::createFromDate(1975, 5, 1)->subDays(-1)->day);
     }
 
