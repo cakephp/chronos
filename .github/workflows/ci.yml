@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2', '7.4', '8.0', '8.1', '8.2']
+        php-version: ['7.4', '8.0', '8.1', '8.2']
         prefer-lowest: ['']
         include:
           - php-version: '7.2'
@@ -66,7 +66,6 @@ jobs:
         else
           vendor/bin/phpunit
         fi
-      continue-on-error: ${{ matrix.php-version == '8.1' }}
 
     - name: Submit code coverage
       if: matrix.php-version == '7.4'
@@ -82,7 +81,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.2'
+        php-version: '8.1'
         extensions: mbstring, intl
         tools: cs2pr
         coverage: none

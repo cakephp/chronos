@@ -7,7 +7,7 @@
         "time",
         "DateTime"
     ],
-    "homepage": "http://cakephp.org",
+    "homepage": "https://cakephp.org",
     "license": "MIT",
     "authors": [
         {
@@ -17,12 +17,11 @@
         },
         {
             "name": "The CakePHP Team",
-            "homepage": "http://cakephp.org"
+            "homepage": "https://cakephp.org"
         }
     ],
     "support": {
         "issues": "https://github.com/cakephp/chronos/issues",
-        "irc": "irc://irc.freenode.org/cakephp",
         "source": "https://github.com/cakephp/chronos"
     },
     "require": {
@@ -57,7 +56,7 @@
         "stan": [
             "@phpstan"
         ],
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:~1.4.0 && mv composer.backup composer.json",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:~1.8.0 && mv composer.backup composer.json",
         "test": "phpunit"
     },
     "config": {
