@@ -15,6 +15,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use DateTimeInterface;
+
 /**
  * Provides methods for testing if strings contain relative keywords.
  */
@@ -25,15 +27,16 @@ trait RelativeKeywordTrait
      *
      * @var string
      */
-    protected static $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
+    // phpcs:disable Generic.Files.LineLength.TooLong
+    protected static string $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
 
     /**
      * Determine if there is just a time in the time string
      *
-     * @param string $time The time string to check.
+     * @param string|null $time The time string to check.
      * @return bool true if there is a keyword, otherwise false
      */
-    private static function isTimeExpression($time)
+    private static function isTimeExpression(?string $time): bool
     {
         // Just a time
         if (is_string($time) && preg_match('/^[0-2]?[0-9]:[0-5][0-9](?::[0-5][0-9](?:\.[0-9]{1,6})?)?$/', $time)) {
@@ -69,7 +72,7 @@ trait RelativeKeywordTrait
      * @param \DateTimeInterface|string|null $time The time string to check
      * @return bool true if doesn't contain a fixed date
      */
-    private static function isRelativeOnly($time): bool
+    private static function isRelativeOnly(DateTimeInterface|string|null $time): bool
     {
         if ($time === null) {
             return true;

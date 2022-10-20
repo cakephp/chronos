@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 
 /**
@@ -69,14 +70,14 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      *
      * @var \Cake\Chronos\ChronosInterface|null
      */
-    protected static $testNow;
+    protected static ?ChronosInterface $testNow = null;
 
     /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
      */
-    protected static $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
+    protected static string $toStringFormat = ChronosInterface::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * Create a new Chronos instance.
@@ -87,7 +88,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * @param \DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $tz The timezone for the instance
      */
-    public function __construct($time = 'now', $tz = null)
+    public function __construct(DateTimeInterface|string|int|null $time = 'now', DateTimeZone|string|null $tz = null)
     {
         if (is_int($time)) {
             parent::__construct('@' . $time);
@@ -99,7 +100,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
         }
 
-        if ($time instanceof \DateTimeInterface) {
+        if ($time instanceof DateTimeInterface) {
             $time = $time->format('Y-m-d H:i:s.u');
         }
 
@@ -137,7 +138,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      *
      * @return static
      */
-    public function copy(): ChronosInterface
+    public function copy(): static
     {
         return clone $this;
     }
@@ -160,7 +161,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
      * @return void
      */
-    public static function setTestNow($testNow = null): void
+    public static function setTestNow(ChronosInterface|string|null $testNow = null): void
     {
         static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
     }

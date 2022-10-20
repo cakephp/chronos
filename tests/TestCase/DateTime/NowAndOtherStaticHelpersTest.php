@@ -16,6 +16,8 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTime;
+use DateTimeZone;
 
 class NowAndOtherStaticHelpersTest extends TestCase
 {
@@ -57,7 +59,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
     public function testTodayWithTimezone($class)
     {
         $dt = $class::today('Europe/London');
-        $dt2 = new \DateTime('now', new \DateTimeZone('Europe/London'));
+        $dt2 = new DateTime('now', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
@@ -68,7 +70,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
     public function testTomorrow($class)
     {
         $dt = $class::tomorrow();
-        $dt2 = new \DateTime('tomorrow');
+        $dt2 = new DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
@@ -79,7 +81,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
     public function testTomorrowWithTimezone($class)
     {
         $dt = $class::tomorrow('Europe/London');
-        $dt2 = new \DateTime('tomorrow', new \DateTimeZone('Europe/London'));
+        $dt2 = new DateTime('tomorrow', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
@@ -90,7 +92,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
     public function testYesterday($class)
     {
         $dt = $class::yesterday();
-        $dt2 = new \DateTime('yesterday');
+        $dt2 = new DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
@@ -101,7 +103,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
     public function testYesterdayWithTimezone($class)
     {
         $dt = $class::yesterday('Europe/London');
-        $dt2 = new \DateTime('yesterday', new \DateTimeZone('Europe/London'));
+        $dt2 = new DateTime('yesterday', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 

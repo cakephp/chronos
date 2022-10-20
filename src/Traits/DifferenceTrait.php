@@ -18,7 +18,10 @@ use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
+use DateInterval;
 use DatePeriod;
+use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 
@@ -38,7 +41,7 @@ trait DifferenceTrait
      *
      * @var \Cake\Chronos\DifferenceFormatterInterface|null
      */
-    protected static $diffFormatter;
+    protected static ?DifferenceFormatterInterface $diffFormatter = null;
 
     /**
      * Get the difference in years
@@ -276,7 +279,7 @@ trait DifferenceTrait
      * @param \DateTime|\DateTimeImmutable $datetime The date to get the remaining time from.
      * @return \DateInterval|bool The DateInterval object representing the difference between the two dates or FALSE on failure.
      */
-    public static function fromNow($datetime)
+    public static function fromNow(DateTime|DateTimeImmutable $datetime): DateInterval|bool
     {
         $timeNow = new static();
 

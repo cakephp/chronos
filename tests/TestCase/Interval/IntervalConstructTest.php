@@ -19,6 +19,7 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
+use InvalidArgumentException;
 
 class IntervalConstructTest extends TestCase
 {
@@ -254,7 +255,7 @@ class IntervalConstructTest extends TestCase
 
     public function testInstanceWithDaysThrowsException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $ci = ChronosInterval::instance(Chronos::now()->diff(Chronos::now()->addWeeks(3)));
     }

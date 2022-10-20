@@ -267,7 +267,7 @@ class ChronosInterval extends DateInterval
      * @throws \InvalidArgumentException
      * @return int
      */
-    public function __get(string $name)
+    public function __get(string $name): int
     {
         switch ($name) {
             case 'years':
@@ -307,11 +307,11 @@ class ChronosInterval extends DateInterval
      * Set a part of the ChronosInterval object
      *
      * @param string $name The property to augment.
-     * @param int $val The value to change.
+     * @param int|false $val The value to change.
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function __set(string $name, $val): void
+    public function __set(string $name, int|false $val): void
     {
         switch ($name) {
             case 'years':

@@ -23,7 +23,7 @@ class Translator
      *
      * @var array
      */
-    public static $strings = [
+    public static array $strings = [
         'year' => '1 year',
         'year_plural' => '{count} years',
         'month' => '1 month',

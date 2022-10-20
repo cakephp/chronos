@@ -13,9 +13,11 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\ChronosInterface;
+use DateInterval;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use ReturnTypeWillChange;
 
 /**
@@ -37,7 +39,7 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|null $tz The timezone in which the date is taken
      * @return string The date component of $time.
      */
-    protected function stripTime($time, $tz): string
+    protected function stripTime(DateTime|DateTimeImmutable|string|int|null $time, ?DateTimeZone $tz): string
     {
         if (is_int($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
@@ -77,7 +79,7 @@ trait FrozenTimeTrait
      * @return static A modified Date instance.
      */
     #[ReturnTypeWillChange]
-    public function setTime($hours, $minutes, $seconds = null, $microseconds = null): ChronosInterface
+    public function setTime(int $hours, int $minutes, ?int $seconds = null, ?int $microseconds = null): static
     {
         return parent::setTime(0, 0, 0, 0);
     }
@@ -91,7 +93,7 @@ trait FrozenTimeTrait
      * @return static A modified Date instance
      */
     #[ReturnTypeWillChange]
-    public function add($interval): ChronosInterface
+    public function add(DateInterval $interval): static
     {
         return parent::add($interval)->setTime(0, 0, 0);
     }
@@ -105,7 +107,7 @@ trait FrozenTimeTrait
      * @return static A modified Date instance
      */
     #[ReturnTypeWillChange]
-    public function sub($interval): ChronosInterface
+    public function sub(DateInterval $interval): static
     {
         return parent::sub($interval)->setTime(0, 0, 0);
     }
@@ -116,9 +118,9 @@ trait FrozenTimeTrait
      * Timezones have no effect on calendar dates.
      *
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return $this
+     * @return static
      */
-    public function timezone($value)
+    public function timezone(DateTimeZone|string $value): static
     {
         return $this;
     }
@@ -129,9 +131,9 @@ trait FrozenTimeTrait
      * Timezones have no effect on calendar dates.
      *
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return $this
+     * @return static
      */
-    public function tz($value)
+    public function tz(DateTimeZone|string $value): static
     {
         return $this;
     }
@@ -142,10 +144,10 @@ trait FrozenTimeTrait
      * Timezones have no effect on calendar dates.
      *
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return $this
+     * @return static
      */
     #[ReturnTypeWillChange]
-    public function setTimezone($value)
+    public function setTimezone(DateTimeZone|string $value): static
     {
         return $this;
     }
@@ -160,7 +162,7 @@ trait FrozenTimeTrait
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function setTimestamp($value): ChronosInterface
+    public function setTimestamp(int $value): static
     {
         return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
@@ -175,7 +177,7 @@ trait FrozenTimeTrait
      * @return static A new date with the applied date changes.
      */
     #[ReturnTypeWillChange]
-    public function modify($relative): ChronosInterface
+    public function modify(string $relative): static
     {
         if (preg_match('/hour|minute|second/', $relative)) {
             return $this;

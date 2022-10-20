@@ -17,12 +17,13 @@ namespace Cake\Chronos\Test\TestCase\Interval;
 
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Test\TestCase\TestCase;
+use InvalidArgumentException;
 
 class IntervalGettersTest extends TestCase
 {
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         ChronosInterval::year()->sdfsdfss;
     }

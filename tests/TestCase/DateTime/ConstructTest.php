@@ -16,6 +16,9 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 
 class ConstructTest extends TestCase
 {
@@ -117,8 +120,8 @@ class ConstructTest extends TestCase
     public function testSettingTimezone($class)
     {
         $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = new $class('now', $dtz);
@@ -133,8 +136,8 @@ class ConstructTest extends TestCase
     public function testParseSettingTimezone($class)
     {
         $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = $class::parse('now', $dtz);
@@ -149,8 +152,8 @@ class ConstructTest extends TestCase
     public function testSettingTimezoneWithString($class)
     {
         $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = new $class('now', $timezone);
@@ -165,8 +168,8 @@ class ConstructTest extends TestCase
     public function testParseSettingTimezoneWithString($class)
     {
         $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
         $c = $class::parse('now', $timezone);
@@ -194,15 +197,15 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromDateTimeInterface($class)
     {
-        $existingClass = new \DateTimeImmutable();
+        $existingClass = new DateTimeImmutable();
         $newClass = new $class($existingClass);
         $this->assertSame($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
 
-        $existingClass = new \DateTime();
+        $existingClass = new DateTime();
         $newClass = new $class($existingClass);
         $this->assertSame($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
 
-        $existingClass = new \DateTime('2019-01-15 00:15:22.139302');
+        $existingClass = new DateTime('2019-01-15 00:15:22.139302');
         $newClass = new $class($existingClass);
         $this->assertDateTime($newClass, 2019, 01, 15, 0, 15, 22);
         $this->assertSame(139302, $newClass->micro);

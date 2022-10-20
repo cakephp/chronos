@@ -17,6 +17,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Test\TestCase\TestCase;
+use InvalidArgumentException;
 
 class GettersTest extends TestCase
 {
@@ -26,7 +27,7 @@ class GettersTest extends TestCase
      */
     public function testGettersThrowExceptionOnUnknownGetter($class)
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
@@ -492,7 +493,7 @@ class GettersTest extends TestCase
      */
     public function testInvalidGetter($class)
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $d = $class::now();
         $bb = $d->doesNotExit;

@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
+use DateTimeZone;
 use InvalidArgumentException;
 
 /**
@@ -55,10 +56,10 @@ trait MagicPropertyTrait
      * Get a part of the ChronosInterface object
      *
      * @param string $name The property name to read.
-     * @return string|int|bool|\DateTimeZone The property value.
+     * @return \DateTimeZone|string|float|int|bool The property value.
      * @throws \InvalidArgumentException
      */
-    public function __get(string $name)
+    public function __get(string $name): string|float|int|bool|DateTimeZone
     {
         static $formats = [
             'year' => 'Y',

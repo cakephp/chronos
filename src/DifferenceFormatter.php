@@ -27,7 +27,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
      *
      * @var \Cake\Chronos\Translator
      */
-    protected $translate;
+    protected Translator $translate;
 
     /**
      * Constructor.
