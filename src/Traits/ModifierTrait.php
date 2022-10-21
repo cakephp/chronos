@@ -277,7 +277,7 @@ trait ModifierTrait
     public function addYears(int $value): ChronosInterface
     {
         $month = $this->month;
-        $date = $this->modify($value . ' year');
+        $date = $this->modify($value . ' years');
 
         if ($date->month !== $month) {
             return $date->modify('last day of previous month');
@@ -309,7 +309,7 @@ trait ModifierTrait
      */
     public function subYears(int $value): ChronosInterface
     {
-        return $this->addYears(-1 * $value);
+        return $this->addYears(-$value);
     }
 
     /**
@@ -322,7 +322,7 @@ trait ModifierTrait
      */
     public function subYear(int $value = 1): ChronosInterface
     {
-        return $this->subYears($value);
+        return $this->addYears(-$value);
     }
 
     /**
@@ -406,7 +406,7 @@ trait ModifierTrait
     public function addMonths(int $value): ChronosInterface
     {
         $day = $this->day;
-        $date = $this->modify($value . ' month');
+        $date = $this->modify($value . ' months');
 
         if ($date->day !== $day) {
             return $date->modify('last day of previous month');
@@ -438,7 +438,7 @@ trait ModifierTrait
      */
     public function subMonth(int $value = 1): ChronosInterface
     {
-        return $this->subMonths($value);
+        return $this->addMonths(-$value);
     }
 
     /**
@@ -451,7 +451,7 @@ trait ModifierTrait
      */
     public function subMonths(int $value): ChronosInterface
     {
-        return $this->addMonths(-1 * $value);
+        return $this->addMonths(-$value);
     }
 
     /**
@@ -471,7 +471,7 @@ trait ModifierTrait
      */
     public function addMonthsWithOverflow(int $value): ChronosInterface
     {
-        return $this->modify($value . ' month');
+        return $this->modify($value . ' months');
     }
 
     /**
@@ -484,7 +484,7 @@ trait ModifierTrait
      */
     public function addMonthWithOverflow(int $value = 1): ChronosInterface
     {
-        return $this->modify($value . ' month');
+        return $this->modify($value . ' months');
     }
 
     /**
@@ -522,7 +522,7 @@ trait ModifierTrait
      */
     public function addDays(int $value): ChronosInterface
     {
-        return $this->modify("$value day");
+        return $this->modify("$value days");
     }
 
     /**
@@ -533,7 +533,7 @@ trait ModifierTrait
      */
     public function addDay(int $value = 1): ChronosInterface
     {
-        return $this->modify("$value day");
+        return $this->modify("$value days");
     }
 
     /**
@@ -544,7 +544,7 @@ trait ModifierTrait
      */
     public function subDay(int $value = 1): ChronosInterface
     {
-        return $this->modify("-$value day");
+        return $this->addDays(-$value);
     }
 
     /**
@@ -555,7 +555,7 @@ trait ModifierTrait
      */
     public function subDays(int $value): ChronosInterface
     {
-        return $this->modify("-$value day");
+        return $this->addDays(-$value);
     }
 
     /**
@@ -567,7 +567,7 @@ trait ModifierTrait
      */
     public function addWeekdays(int $value): ChronosInterface
     {
-        return $this->modify((int)$value . ' weekdays ' . $this->format('H:i:s'));
+        return $this->modify($value . ' weekdays, ' . $this->format('H:i:s'));
     }
 
     /**
@@ -589,7 +589,7 @@ trait ModifierTrait
      */
     public function subWeekdays(int $value): ChronosInterface
     {
-        return $this->modify("$value weekdays ago, " . $this->format('H:i:s'));
+        return $this->addWeekdays(-$value);
     }
 
     /**
@@ -600,7 +600,7 @@ trait ModifierTrait
      */
     public function subWeekday(int $value = 1): ChronosInterface
     {
-        return $this->subWeekdays($value);
+        return $this->addWeekdays(-$value);
     }
 
     /**
@@ -634,7 +634,7 @@ trait ModifierTrait
      */
     public function subWeek(int $value = 1): ChronosInterface
     {
-        return $this->modify("-$value week");
+        return $this->addWeeks(-$value);
     }
 
     /**
@@ -645,7 +645,7 @@ trait ModifierTrait
      */
     public function subWeeks(int $value): ChronosInterface
     {
-        return $this->modify("-$value week");
+        return $this->addWeeks(-$value);
     }
 
     /**
@@ -679,7 +679,7 @@ trait ModifierTrait
      */
     public function subHour(int $value = 1): ChronosInterface
     {
-        return $this->modify("-$value hour");
+        return $this->addHours(-$value);
     }
 
     /**
@@ -690,7 +690,7 @@ trait ModifierTrait
      */
     public function subHours(int $value): ChronosInterface
     {
-        return $this->modify("-$value hour");
+        return $this->addHours(-$value);
     }
 
     /**
@@ -724,7 +724,7 @@ trait ModifierTrait
      */
     public function subMinute(int $value = 1): ChronosInterface
     {
-        return $this->modify("-$value minute");
+        return $this->addMinutes(-$value);
     }
 
     /**
@@ -735,7 +735,7 @@ trait ModifierTrait
      */
     public function subMinutes(int $value): ChronosInterface
     {
-        return $this->modify("-$value minute");
+        return $this->addMinutes(-$value);
     }
 
     /**
@@ -769,7 +769,7 @@ trait ModifierTrait
      */
     public function subSecond(int $value = 1): ChronosInterface
     {
-        return $this->modify("-$value second");
+        return $this->addSeconds(-$value);
     }
 
     /**
@@ -780,7 +780,7 @@ trait ModifierTrait
      */
     public function subSeconds(int $value): ChronosInterface
     {
-        return $this->modify("-$value second");
+        return $this->addSeconds(-$value);
     }
 
     /**
