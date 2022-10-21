@@ -17,6 +17,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTime;
 
 class StringsTest extends TestCase
 {
@@ -130,7 +131,7 @@ class StringsTest extends TestCase
     public function testToCOOKIEString($class)
     {
         $d = $class::create(1975, 12, 25, 14, 15, 16);
-        if (\DateTime::COOKIE === 'l, d-M-y H:i:s T') {
+        if (DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
         } else {
             $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';

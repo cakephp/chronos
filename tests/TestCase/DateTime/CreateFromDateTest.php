@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTimeZone;
 
 class CreateFromDateTest extends TestCase
 {
@@ -86,7 +87,7 @@ class CreateFromDateTest extends TestCase
      */
     public function testCreateFromDateWithDateTimeZone($class)
     {
-        $d = $class::createFromDate(1975, 5, 21, new \DateTimeZone('Europe/London'));
+        $d = $class::createFromDate(1975, 5, 21, new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }

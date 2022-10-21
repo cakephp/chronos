@@ -40,7 +40,7 @@ trait FormattingTrait
      * @param string $format The format to use in future __toString() calls.
      * @return void
      */
-    public static function setToStringFormat($format): void
+    public static function setToStringFormat(string $format): void
     {
         static::$toStringFormat = $format;
     }
@@ -235,9 +235,9 @@ trait FormattingTrait
      * Returns the quarter
      *
      * @param bool $range Range.
-     * @return int|array 1, 2, 3, or 4 quarter of year or array if $range true
+     * @return array|int 1, 2, 3, or 4 quarter of year or array if $range true
      */
-    public function toQuarter(bool $range = false)
+    public function toQuarter(bool $range = false): int|array
     {
         $quarter = (int)ceil($this->format('m') / 3);
         if ($range === false) {

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 
 /**
@@ -67,7 +68,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      *
      * @var string
      */
-    protected static $toStringFormat = 'Y-m-d';
+    protected static string $toStringFormat = 'Y-m-d';
 
     /**
      * Create a new Immutable Date instance.
@@ -89,7 +90,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * @param \DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $tz The timezone in which the date is taken
      */
-    public function __construct($time = 'now', $tz = null)
+    public function __construct(DateTimeInterface|string|int|null $time = 'now', DateTimeZone|string|null $tz = null)
     {
         if ($tz !== null) {
             $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);

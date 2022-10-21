@@ -16,6 +16,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\Test\TestCase\TestCase;
 use Closure;
 use DateTimeZone;
@@ -865,7 +866,7 @@ class DiffTest extends TestCase
 
     public function testDiffFormatterSetter()
     {
-        $formatter = new \Cake\Chronos\DifferenceFormatter();
+        $formatter = new DifferenceFormatter();
         $result = Chronos::diffFormatter($formatter);
         $this->assertSame($result, $formatter, 'Should return parameter');
 

@@ -16,6 +16,8 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTime;
+use DateTimeZone;
 
 class InstanceTest extends TestCase
 {
@@ -25,7 +27,7 @@ class InstanceTest extends TestCase
      */
     public function testInstanceFromDateTime($class)
     {
-        $dating = $class::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $dating = $class::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
         $this->assertDateTime($dating, 1975, 5, 21, 22, 32, 11);
     }
 
@@ -35,10 +37,10 @@ class InstanceTest extends TestCase
      */
     public function testInstanceFromDateTimeKeepsTimezoneName($class)
     {
-        $dating = $class::instance(\DateTime::createFromFormat(
+        $dating = $class::instance(DateTime::createFromFormat(
             'Y-m-d H:i:s',
             '1975-05-21 22:32:11'
-        )->setTimezone(new \DateTimeZone('America/Vancouver')));
+        )->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
@@ -49,7 +51,7 @@ class InstanceTest extends TestCase
     public function testInstanceFromDateTimeKeepsMicros($class)
     {
         $micro = 254687;
-        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
+        $datetime = DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
         $carbon = $class::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }

@@ -31,7 +31,7 @@ trait TestingAidTrait
      * @param \Cake\Chronos\ChronosInterface|string|null $testNow The instance to use for all future instances.
      * @return void
      */
-    public static function setTestNow($testNow = null): void
+    public static function setTestNow(ChronosInterface|string|null $testNow = null): void
     {
         Chronos::setTestNow($testNow);
     }

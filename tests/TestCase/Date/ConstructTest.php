@@ -16,6 +16,7 @@ namespace Cake\Chronos\Test\TestCase\Date;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 
@@ -161,7 +162,7 @@ class ConstructTest extends TestCase
     public function testSettingTimezoneIgnored($class)
     {
         $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
+        $dtz = new DateTimeZone($timezone);
         $c = new $class('now', $dtz);
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
@@ -389,12 +390,12 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromDateTimeInterface($class)
     {
-        $existingClass = new \DateTimeImmutable();
+        $existingClass = new DateTimeImmutable();
         $newClass = new $class($existingClass);
         $this->assertInstanceOf($class, $newClass);
         $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
 
-        $existingClass = new \DateTime();
+        $existingClass = new DateTime();
         $newClass = new $class($existingClass);
         $this->assertInstanceOf($class, $newClass);
         $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));

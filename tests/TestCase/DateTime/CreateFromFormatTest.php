@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTimeZone;
 
 class CreateFromFormatTest extends TestCase
 {
@@ -47,7 +48,7 @@ class CreateFromFormatTest extends TestCase
      */
     public function testCreateFromFormatWithTimezone($class)
     {
-        $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new \DateTimeZone('Europe/London'));
+        $d = $class::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
