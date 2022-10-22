@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.x-dev@">
+  <file src="src/Chronos.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>date_default_timezone_get</code>
+    </ImpureFunctionCall>
+    <ImpureMethodCall occurrences="5">
+      <code>format</code>
+      <code>format</code>
+      <code>getTimezone</code>
+      <code>hasTestNow</code>
+      <code>setTimezone</code>
+    </ImpureMethodCall>
+  </file>
+  <file src="src/Date.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>date_default_timezone_get</code>
+    </ImpureFunctionCall>
+    <ImpureMethodCall occurrences="4">
+      <code>format</code>
+      <code>getTimezone</code>
+      <code>hasTestNow</code>
+      <code>setTimezone</code>
+    </ImpureMethodCall>
+  </file>
+  <file src="src/Traits/FrozenTimeTrait.php">
+    <MissingImmutableAnnotation occurrences="6">
+      <code>public function add(DateInterval $interval): static</code>
+      <code>public function modify(string $relative): static</code>
+      <code>public function setTime(int $hours, int $minutes, ?int $seconds = null, ?int $microseconds = null): static</code>
+      <code>public function setTimestamp(int $value): static</code>
+      <code>public function setTimezone(DateTimeZone|string $value): static</code>
+      <code>public function sub(DateInterval $interval): static</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/Traits/ModifierTrait.php">
+    <MissingImmutableAnnotation occurrences="1">
+      <code>public function setDate(int $year, int $month, int $day): static</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/Traits/TimezoneTrait.php">
+    <MissingImmutableAnnotation occurrences="1">
+      <code>public function setTimezone(DateTimeZone|string $value): static</code>
+    </MissingImmutableAnnotation>
+  </file>
+</files>

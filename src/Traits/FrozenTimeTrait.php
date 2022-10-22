@@ -18,7 +18,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
-use ReturnTypeWillChange;
 
 /**
  * A trait for freezing the time aspect of a DateTime.
@@ -78,7 +77,6 @@ trait FrozenTimeTrait
      * @param int $microseconds The microseconds to set (ignored)
      * @return static A modified Date instance.
      */
-    #[ReturnTypeWillChange]
     public function setTime(int $hours, int $minutes, ?int $seconds = null, ?int $microseconds = null): static
     {
         return parent::setTime(0, 0, 0, 0);
@@ -92,7 +90,6 @@ trait FrozenTimeTrait
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    #[ReturnTypeWillChange]
     public function add(DateInterval $interval): static
     {
         return parent::add($interval)->setTime(0, 0, 0);
@@ -106,7 +103,6 @@ trait FrozenTimeTrait
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    #[ReturnTypeWillChange]
     public function sub(DateInterval $interval): static
     {
         return parent::sub($interval)->setTime(0, 0, 0);
@@ -146,7 +142,6 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    #[ReturnTypeWillChange]
     public function setTimezone(DateTimeZone|string $value): static
     {
         return $this;
@@ -161,7 +156,6 @@ trait FrozenTimeTrait
      * @param int $value The timestamp value to set.
      * @return static
      */
-    #[ReturnTypeWillChange]
     public function setTimestamp(int $value): static
     {
         return parent::setTimestamp($value)->setTime(0, 0, 0);
@@ -176,7 +170,6 @@ trait FrozenTimeTrait
      * @param string $relative The relative change to make.
      * @return static A new date with the applied date changes.
      */
-    #[ReturnTypeWillChange]
     public function modify(string $relative): static
     {
         if (preg_match('/hour|minute|second/', $relative)) {

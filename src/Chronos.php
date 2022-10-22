@@ -50,6 +50,8 @@ use DateTimeZone;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @psalm-immutable
+ * @psalm-consistent-constructor
  */
 class Chronos extends DateTimeImmutable implements ChronosInterface
 {
@@ -120,7 +122,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         $testNow = clone $testNow;
-        $relativetime = static::isTimeExpression($time);
+        $relativetime = self::isTimeExpression($time);
         if (!$relativetime && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }

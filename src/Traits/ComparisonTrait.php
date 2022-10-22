@@ -273,7 +273,7 @@ trait ComparisonTrait
      */
     public function isWeekend(): bool
     {
-        return in_array($this->dayOfWeek, self::$weekendDays, true);
+        return in_array($this->dayOfWeek, static::$weekendDays, true);
     }
 
     /**

@@ -55,7 +55,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
     ): string {
         $isNow = $other === null;
         if ($isNow) {
-            $other = $date->now($date->tz);
+            $other = $date->now($date->getTimezone());
         }
         $diffInterval = $date->diff($other);
 

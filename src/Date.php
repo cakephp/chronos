@@ -51,6 +51,8 @@ use DateTimeZone;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @psalm-immutable
+ * @psalm-consistent-constructor
  */
 class Date extends DateTimeImmutable implements ChronosInterface
 {
@@ -97,7 +99,7 @@ class Date extends DateTimeImmutable implements ChronosInterface
         }
 
         $testNow = Chronos::getTestNow();
-        if ($testNow === null || !static::isRelativeOnly($time)) {
+        if ($testNow === null || !self::isRelativeOnly($time)) {
             $time = $this->stripTime($time, $tz);
             parent::__construct($time);
 

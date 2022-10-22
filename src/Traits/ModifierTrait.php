@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
-use ReturnTypeWillChange;
 
 /**
  * Provides a suite of modifier methods.
@@ -110,7 +109,6 @@ trait ModifierTrait
      * @param int $day The day to set.
      * @return static
      */
-    #[ReturnTypeWillChange]
     public function setDate(int $year, int $month, int $day): static
     {
         return $this->modify('+0 day')->setDateParent($year, $month, $day);
