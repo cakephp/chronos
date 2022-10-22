@@ -50,6 +50,7 @@ use InvalidArgumentException;
  * @method static \Cake\Chronos\ChronosInterval second($seconds = 1) Alias for seconds
  * @method static \Cake\Chronos\ChronosInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds.
  * @method static \Cake\Chronos\ChronosInterval microsecond($microseconds = 1) Alias for microseconds
+ * @psalm-consistent-constructor
  */
 class ChronosInterval extends DateInterval
 {
@@ -173,7 +174,7 @@ class ChronosInterval extends DateInterval
         ?int $minutes = null,
         ?int $seconds = null,
         ?int $microseconds = null
-    ): self {
+    ): static {
         return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
     }
 
@@ -193,7 +194,7 @@ class ChronosInterval extends DateInterval
      * @param array $args Contains the value to use.
      * @return static
      */
-    public static function __callStatic(string $name, array $args): self
+    public static function __callStatic(string $name, array $args): static
     {
         $arg = count($args) === 0 ? 1 : $args[0];
 
@@ -244,7 +245,7 @@ class ChronosInterval extends DateInterval
      * @throws \InvalidArgumentException
      * @return static
      */
-    public static function instance(DateInterval $di): self
+    public static function instance(DateInterval $di): static
     {
         if (static::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException(
