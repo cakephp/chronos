@@ -51,6 +51,7 @@ use DateTimeZone;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @psalm-immutable
  */
 class Date extends DateTimeImmutable implements ChronosInterface
 {

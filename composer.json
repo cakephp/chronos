@@ -25,10 +25,10 @@
         "source": "https://github.com/cakephp/chronos"
     },
     "require": {
-        "php": ">=7.2"
+        "php": ">=8.1"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "5.x-dev",
+        "cakephp/cakephp-codesniffer": "^5.0",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {

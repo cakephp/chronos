@@ -17,7 +17,6 @@ namespace Cake\Chronos\Traits;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use ReturnTypeWillChange;
 
 /**
  * Provides a number of datetime related factory methods.
@@ -232,7 +231,6 @@ trait FactoryTrait
      * @return static
      * @throws \InvalidArgumentException
      */
-    #[ReturnTypeWillChange]
     public static function createFromFormat(string $format, string $time, DateTimeZone|string|null $tz = null): static
     {
         if ($tz !== null) {

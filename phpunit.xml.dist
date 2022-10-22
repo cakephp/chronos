@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="tests/bootstrap.php" colors="true">
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+>
     <testsuites>
         <testsuite name="Chronos Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>
