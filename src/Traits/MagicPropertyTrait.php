@@ -104,7 +104,7 @@ trait MagicPropertyTrait
                 return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->offset === $this->copy()->setTimezone(date_default_timezone_get())->offset;
+                return $this->offset === $this->setTimezone(date_default_timezone_get())->offset;
 
             case $name === 'utc':
                 return $this->offset === 0;

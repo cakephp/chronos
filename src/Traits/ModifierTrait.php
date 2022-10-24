@@ -21,10 +21,6 @@ use Cake\Chronos\ChronosInterface;
  *
  * These methods let you modify the various aspects
  * of a DateTime with a series of fluent methods.
- *
- * This trait expects that the implementing class
- * also implements a copy() method. This method can be obtained
- * using the CopyTrait.
  */
 trait ModifierTrait
 {
@@ -1012,7 +1008,7 @@ trait ModifierTrait
      */
     public function nthOfMonth(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->copy()->firstOfMonth();
+        $dt = $this->firstOfMonth();
         $check = $dt->format('Y-m');
         $dt = $dt->modify("+$nth " . static::$days[$dayOfWeek]);
 
@@ -1065,7 +1061,7 @@ trait ModifierTrait
      */
     public function nthOfQuarter(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->copy()->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER);
+        $dt = $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER);
         $lastMonth = $dt->month;
         $year = $dt->year;
         $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
@@ -1117,7 +1113,7 @@ trait ModifierTrait
      */
     public function nthOfYear(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->copy()->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
+        $dt = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
 
         return $this->year === $dt->year ? $dt : false;
     }

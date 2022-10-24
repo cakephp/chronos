@@ -260,7 +260,7 @@ trait DifferenceTrait
      */
     public function secondsSinceMidnight(): int
     {
-        return $this->diffInSeconds($this->copy()->startOfDay());
+        return $this->diffInSeconds($this->startOfDay());
     }
 
     /**
@@ -270,7 +270,7 @@ trait DifferenceTrait
      */
     public function secondsUntilEndOfDay(): int
     {
-        return $this->diffInSeconds($this->copy()->endOfDay());
+        return $this->diffInSeconds($this->endOfDay());
     }
 
     /**

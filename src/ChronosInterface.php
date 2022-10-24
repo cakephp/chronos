@@ -106,13 +106,6 @@ interface ChronosInterface extends DateTimeInterface
     public static function now(DateTimeZone|string|null $tz): static;
 
     /**
-     * Get a copy of the instance
-     *
-     * @return static
-     */
-    public function copy(): static;
-
-    /**
      * Set the instance's year
      *
      * @param int $value The year value.

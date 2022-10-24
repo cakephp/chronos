@@ -21,8 +21,6 @@ use Cake\Chronos\ChronosInterface;
  */
 trait ComparisonTrait
 {
-    use CopyTrait;
-
     /**
      * Days of weekend
      *
@@ -530,7 +528,7 @@ trait ComparisonTrait
     public function wasWithinLast(string|int $timeInterval): bool
     {
         $now = new static();
-        $interval = $now->copy()->modify('-' . $timeInterval);
+        $interval = $now->modify('-' . $timeInterval);
         $thisTime = $this->format('U');
 
         return $thisTime >= $interval->format('U') && $thisTime <= $now->format('U');
@@ -546,7 +544,7 @@ trait ComparisonTrait
     public function isWithinNext(string|int $timeInterval): bool
     {
         $now = new static();
-        $interval = $now->copy()->modify('+' . $timeInterval);
+        $interval = $now->modify('+' . $timeInterval);
         $thisTime = $this->format('U');
 
         return $thisTime <= $interval->format('U') && $thisTime >= $now->format('U');
