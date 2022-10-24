@@ -136,16 +136,6 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
-     * Get a copy of the instance
-     *
-     * @return static
-     */
-    public function copy(): static
-    {
-        return clone $this;
-    }
-
-    /**
      * Set a ChronosInterface instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
