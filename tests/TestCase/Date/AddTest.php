@@ -108,7 +108,7 @@ class AddTest extends TestCase
     /**
      * @dataProvider dateClassProvider
      */
-    public function testAddYear($class)
+    public function testAddYears($class)
     {
         $this->assertSame(1976, $class::create(1975, 5, 31)->addYears(1)->year);
         $this->assertSame(1974, $class::create(1975, 5, 31)->addYears(-1)->year);
