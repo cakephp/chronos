@@ -100,10 +100,10 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get a ChronosInterface instance for the current date and time
      *
-     * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
+     * @param \DateTimeZone|string|null $timezone The DateTimeZone object or timezone name.
      * @return static
      */
-    public static function now(DateTimeZone|string|null $tz): static;
+    public static function now(DateTimeZone|string|null $timezone): static;
 
     /**
      * Set the instance's year
@@ -305,94 +305,94 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Determines if the instance is equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function equals(ChronosInterface $dt): bool;
+    public function equals(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function notEquals(ChronosInterface $dt): bool;
+    public function notEquals(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function greaterThan(ChronosInterface $dt): bool;
+    public function greaterThan(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosInterface $dt): bool;
+    public function greaterThanOrEquals(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function lessThan(ChronosInterface $dt): bool;
+    public function lessThan(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(ChronosInterface $dt): bool;
+    public function lessThanOrEquals(ChronosInterface $dateTime): bool;
 
     /**
      * Determines if the instance is between two others
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
      * @return bool
      */
-    public function between(ChronosInterface $dt1, ChronosInterface $dt2, bool $equal = true): bool;
+    public function between(ChronosInterface $dateTime1, ChronosInterface $dateTime2, bool $equal = true): bool;
 
     /**
      * Get the closest date from the instance.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @return self
      */
-    public function closest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface;
+    public function closest(ChronosInterface $dateTime1, ChronosInterface $dateTime2): ChronosInterface;
 
     /**
      * Get the farthest date from the instance.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @return self
      */
-    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface;
+    public function farthest(ChronosInterface $dateTime1, ChronosInterface $dateTime2): ChronosInterface;
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with.
      * @return self
      */
-    public function min(?ChronosInterface $dt = null): ChronosInterface;
+    public function min(?ChronosInterface $dateTime = null): ChronosInterface;
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with.
      * @return self
      */
-    public function max(?ChronosInterface $dt = null): ChronosInterface;
+    public function max(?ChronosInterface $dateTime = null): ChronosInterface;
 
     /**
      * Determines if the instance is a weekday
@@ -453,10 +453,10 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to check against.
      * @return bool
      */
-    public function isSameDay(ChronosInterface $dt): bool;
+    public function isSameDay(ChronosInterface $dateTime): bool;
 
     /**
      * Checks if this day is a Sunday.
@@ -772,119 +772,127 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference in years
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInYears(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInYears(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in months
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMonths(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInMonths(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in weeks
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeeks(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInWeeks(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in days
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInDays(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInDays(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in days using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInDaysFiltered(callable $callback, ?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInDaysFiltered(
+        callable $callback,
+        ?ChronosInterface $dateTime = null,
+        bool $absolute = true
+    ): int;
 
     /**
      * Get the difference in hours using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInHoursFiltered(callable $callback, ?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInHoursFiltered(
+        callable $callback,
+        ?ChronosInterface $dateTime = null,
+        bool $absolute = true
+    ): int;
 
     /**
      * Get the difference by the given interval using a filter callable
      *
      * @param \Cake\Chronos\ChronosInterval $ci An interval to traverse by
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
         ChronosInterval $ci,
         callable $callback,
-        ?ChronosInterface $dt = null,
-        bool $abs = true
+        ?ChronosInterface $dateTime = null,
+        bool $absolute = true
     ): int;
 
     /**
      * Get the difference in weekdays
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekdays(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInWeekdays(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekendDays(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInWeekendDays(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in hours
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInHours(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInHours(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in minutes
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMinutes(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInMinutes(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * Get the difference in seconds
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
-     * @param bool $abs Get the absolute of the difference
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
+     * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInSeconds(?ChronosInterface $dt = null, bool $abs = true): int;
+    public function diffInSeconds(?ChronosInterface $dateTime = null, bool $absolute = true): int;
 
     /**
      * The number of seconds since midnight.
@@ -1111,18 +1119,18 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return static
      */
-    public function average(?ChronosInterface $dt = null): static;
+    public function average(?ChronosInterface $dateTime = null): static;
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function isBirthday(ChronosInterface $dt): bool;
+    public function isBirthday(ChronosInterface $dateTime): bool;
 
     /**
      * Returns true this instance happened within the specified interval

@@ -35,10 +35,10 @@ trait FrozenTimeTrait
      *
      * @param \DateTime|\DateTimeImmutable|string|int|null $time The input time. Integer values will be assumed
      *   to be in UTC. The 'now' and '' values will use the current local time.
-     * @param \DateTimeZone|null $tz The timezone in which the date is taken
+     * @param \DateTimeZone|null $timezone The timezone in which the date is taken
      * @return string The date component of $time.
      */
-    protected function stripTime(DateTime|DateTimeImmutable|string|int|null $time, ?DateTimeZone $tz): string
+    protected function stripTime(DateTime|DateTimeImmutable|string|int|null $time, ?DateTimeZone $timezone): string
     {
         if (is_int($time)) {
             return gmdate('Y-m-d 00:00:00', $time);
@@ -49,7 +49,7 @@ trait FrozenTimeTrait
         }
 
         if (!($time instanceof DateTimeInterface)) {
-            $time = new DateTimeImmutable($time ?? 'now', $tz);
+            $time = new DateTimeImmutable($time ?? 'now', $timezone);
         }
 
         return $time->format('Y-m-d 00:00:00');

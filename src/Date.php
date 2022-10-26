@@ -90,25 +90,27 @@ class Date extends DateTimeImmutable implements ChronosInterface
      * subtraction/addition to have deterministic results.
      *
      * @param \DateTimeInterface|string|int|null $time Fixed or relative time
-     * @param \DateTimeZone|string|null $tz The timezone in which the date is taken
+     * @param \DateTimeZone|string|null $timezone The timezone in which the date is taken
      */
-    public function __construct(DateTimeInterface|string|int|null $time = 'now', DateTimeZone|string|null $tz = null)
-    {
-        if ($tz !== null) {
-            $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
+    public function __construct(
+        DateTimeInterface|string|int|null $time = 'now',
+        DateTimeZone|string|null $timezone = null
+    ) {
+        if ($timezone !== null) {
+            $timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
         }
 
         $testNow = Chronos::getTestNow();
         if ($testNow === null || !self::isRelativeOnly($time)) {
-            $time = $this->stripTime($time, $tz);
+            $time = $this->stripTime($time, $timezone);
             parent::__construct($time);
 
             return;
         }
 
         $testNow = clone $testNow;
-        if ($tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
+        if ($timezone !== $testNow->getTimezone()) {
+            $testNow = $testNow->setTimezone($timezone ?? date_default_timezone_get());
         }
         if (!empty($time)) {
             $testNow = $testNow->modify($time);

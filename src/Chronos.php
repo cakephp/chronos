@@ -88,18 +88,20 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      * for more on the possibility of this constructor returning a test instance.
      *
      * @param \DateTimeInterface|string|int|null $time Fixed or relative time
-     * @param \DateTimeZone|string|null $tz The timezone for the instance
+     * @param \DateTimeZone|string|null $timezone The timezone for the instance
      */
-    public function __construct(DateTimeInterface|string|int|null $time = 'now', DateTimeZone|string|null $tz = null)
-    {
+    public function __construct(
+        DateTimeInterface|string|int|null $time = 'now',
+        DateTimeZone|string|null $timezone = null
+    ) {
         if (is_int($time)) {
             parent::__construct('@' . $time);
 
             return;
         }
 
-        if ($tz !== null) {
-            $tz = $tz instanceof DateTimeZone ? $tz : new DateTimeZone($tz);
+        if ($timezone !== null) {
+            $timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
         }
 
         if ($time instanceof DateTimeInterface) {
@@ -109,22 +111,22 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         static::$_lastErrors = [];
         $testNow = static::getTestNow();
         if ($testNow === null) {
-            parent::__construct($time ?? 'now', $tz);
+            parent::__construct($time ?? 'now', $timezone);
 
             return;
         }
 
         $relative = static::hasRelativeKeywords($time);
         if (!empty($time) && $time !== 'now' && !$relative) {
-            parent::__construct($time, $tz);
+            parent::__construct($time, $timezone);
 
             return;
         }
 
         $testNow = clone $testNow;
         $relativetime = self::isTimeExpression($time);
-        if (!$relativetime && $tz !== $testNow->getTimezone()) {
-            $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
+        if (!$relativetime && $timezone !== $testNow->getTimezone()) {
+            $testNow = $testNow->setTimezone($timezone ?? date_default_timezone_get());
         }
 
         if ($relative) {
@@ -132,7 +134,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         }
 
         $time = $testNow->format('Y-m-d H:i:s.u');
-        parent::__construct($time, $tz);
+        parent::__construct($time, $timezone);
     }
 
     /**
