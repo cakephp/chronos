@@ -125,7 +125,7 @@ class NowAndOtherStaticHelpersTest extends TestCase
         date_default_timezone_set('Europe/Amsterdam');
 
         $this->assertLessThanOrEqual(-2147483647, $class::minValue()->getTimestamp());
-        $this->assertTrue($class::now()->gt($class::minValue()));
+        $this->assertTrue($class::now()->greaterThan($class::minValue()));
     }
 
     /**
@@ -146,6 +146,6 @@ class NowAndOtherStaticHelpersTest extends TestCase
         date_default_timezone_set('Europe/Amsterdam');
 
         $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
-        $this->assertTrue($class::now()->lt($class::maxValue()));
+        $this->assertTrue($class::now()->lessThan($class::maxValue()));
     }
 }
