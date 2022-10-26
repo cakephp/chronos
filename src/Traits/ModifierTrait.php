@@ -281,19 +281,6 @@ trait ModifierTrait
     }
 
     /**
-     * Add a year to the instance.
-     *
-     * Has the same behavior as `addYears()`.
-     *
-     * @param int $value The number of years to add.
-     * @return static
-     */
-    public function addYear(int $value = 1): static
-    {
-        return $this->addYears($value);
-    }
-
-    /**
      * Remove years from the instance.
      *
      * Has the same behavior as `addYears()`.
@@ -302,19 +289,6 @@ trait ModifierTrait
      * @return static
      */
     public function subYears(int $value): static
-    {
-        return $this->addYears(-$value);
-    }
-
-    /**
-     * Remove a year from the instance
-     *
-     * Has the same behavior as `addYears()`.
-     *
-     * @param int $value The number of years to remove.
-     * @return static
-     */
-    public function subYear(int $value = 1): static
     {
         return $this->addYears(-$value);
     }
@@ -340,19 +314,6 @@ trait ModifierTrait
     }
 
     /**
-     * Add a year with overflow to the instance.
-     *
-     * Has the same behavior as `addYearsWithOverflow()`.
-     *
-     * @param int $value The number of years to add.
-     * @return static
-     */
-    public function addYearWithOverflow(int $value = 1): static
-    {
-        return $this->addYearsWithOverflow($value);
-    }
-
-    /**
      * Remove years with overflow from the instance
      *
      * Has the same behavior as `addYeasrWithOverflow()`.
@@ -363,19 +324,6 @@ trait ModifierTrait
     public function subYearsWithOverflow(int $value): static
     {
         return $this->addYearsWithOverflow(-1 * $value);
-    }
-
-    /**
-     * Remove a year with overflow from the instance.
-     *
-     * Has the same behavior as `addYearsWithOverflow()`.
-     *
-     * @param int $value The number of years to remove.
-     * @return static
-     */
-    public function subYearWithOverflow(int $value = 1): static
-    {
-        return $this->subYearsWithOverflow($value);
     }
 
     /**
@@ -407,32 +355,6 @@ trait ModifierTrait
         }
 
         return $date;
-    }
-
-    /**
-     * Add a month to the instance
-     *
-     * Has the same behavior as `addMonths()`.
-     *
-     * @param int $value The number of months to add.
-     * @return static
-     */
-    public function addMonth(int $value = 1): static
-    {
-        return $this->addMonths($value);
-    }
-
-    /**
-     * Remove a month from the instance
-     *
-     * Has the same behavior as `addMonths()`.
-     *
-     * @param int $value The number of months to remove.
-     * @return static
-     */
-    public function subMonth(int $value = 1): static
-    {
-        return $this->addMonths(-$value);
     }
 
     /**
@@ -469,19 +391,6 @@ trait ModifierTrait
     }
 
     /**
-     * Add a month with overflow to the instance.
-     *
-     * Has the same behavior as `addMonthsWithOverflow()`.
-     *
-     * @param int $value The number of months to add.
-     * @return static
-     */
-    public function addMonthWithOverflow(int $value = 1): static
-    {
-        return $this->modify($value . ' months');
-    }
-
-    /**
      * Remove months with overflow from the instance.
      *
      * Has the same behavior as `addMonthsWithOverflow()`.
@@ -495,19 +404,6 @@ trait ModifierTrait
     }
 
     /**
-     * Remove a month with overflow from the instance.
-     *
-     * Has the same behavior as `addMonthsWithOverflow()`.
-     *
-     * @param int $value The number of months to remove.
-     * @return static
-     */
-    public function subMonthWithOverflow(int $value = 1): static
-    {
-        return $this->subMonthsWithOverflow($value);
-    }
-
-    /**
      * Add days to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
@@ -517,28 +413,6 @@ trait ModifierTrait
     public function addDays(int $value): static
     {
         return $this->modify("$value days");
-    }
-
-    /**
-     * Add a day to the instance
-     *
-     * @param int $value The number of days to add.
-     * @return static
-     */
-    public function addDay(int $value = 1): static
-    {
-        return $this->modify("$value days");
-    }
-
-    /**
-     * Remove a day from the instance
-     *
-     * @param int $value The number of days to remove.
-     * @return static
-     */
-    public function subDay(int $value = 1): static
-    {
-        return $this->addDays(-$value);
     }
 
     /**
@@ -565,34 +439,12 @@ trait ModifierTrait
     }
 
     /**
-     * Add a weekday to the instance
-     *
-     * @param int $value The number of weekdays to add.
-     * @return static
-     */
-    public function addWeekday(int $value = 1): static
-    {
-        return $this->addWeekdays($value);
-    }
-
-    /**
      * Remove weekdays from the instance
      *
      * @param int $value The number of weekdays to remove.
      * @return static
      */
     public function subWeekdays(int $value): static
-    {
-        return $this->addWeekdays(-$value);
-    }
-
-    /**
-     * Remove a weekday from the instance
-     *
-     * @param int $value The number of weekdays to remove.
-     * @return static
-     */
-    public function subWeekday(int $value = 1): static
     {
         return $this->addWeekdays(-$value);
     }
@@ -607,28 +459,6 @@ trait ModifierTrait
     public function addWeeks(int $value): static
     {
         return $this->modify("$value week");
-    }
-
-    /**
-     * Add a week to the instance
-     *
-     * @param int $value The number of weeks to add.
-     * @return static
-     */
-    public function addWeek(int $value = 1): static
-    {
-        return $this->modify("$value week");
-    }
-
-    /**
-     * Remove a week from the instance
-     *
-     * @param int $value The number of weeks to remove.
-     * @return static
-     */
-    public function subWeek(int $value = 1): static
-    {
-        return $this->addWeeks(-$value);
     }
 
     /**
@@ -655,28 +485,6 @@ trait ModifierTrait
     }
 
     /**
-     * Add an hour to the instance
-     *
-     * @param int $value The number of hours to add.
-     * @return static
-     */
-    public function addHour(int $value = 1): static
-    {
-        return $this->modify("$value hour");
-    }
-
-    /**
-     * Remove an hour from the instance
-     *
-     * @param int $value The number of hours to remove.
-     * @return static
-     */
-    public function subHour(int $value = 1): static
-    {
-        return $this->addHours(-$value);
-    }
-
-    /**
      * Remove hours from the instance
      *
      * @param int $value The number of hours to remove.
@@ -700,28 +508,6 @@ trait ModifierTrait
     }
 
     /**
-     * Add a minute to the instance
-     *
-     * @param int $value The number of minutes to add.
-     * @return static
-     */
-    public function addMinute(int $value = 1): static
-    {
-        return $this->modify("$value minute");
-    }
-
-    /**
-     * Remove a minute from the instance
-     *
-     * @param int $value The number of minutes to remove.
-     * @return static
-     */
-    public function subMinute(int $value = 1): static
-    {
-        return $this->addMinutes(-$value);
-    }
-
-    /**
      * Remove minutes from the instance
      *
      * @param int $value The number of minutes to remove.
@@ -742,28 +528,6 @@ trait ModifierTrait
     public function addSeconds(int $value): static
     {
         return $this->modify("$value second");
-    }
-
-    /**
-     * Add a second to the instance
-     *
-     * @param int $value The number of seconds to add.
-     * @return static
-     */
-    public function addSecond(int $value = 1): static
-    {
-        return $this->modify("$value second");
-    }
-
-    /**
-     * Remove a second from the instance
-     *
-     * @param int $value The number of seconds to remove.
-     * @return static
-     */
-    public function subSecond(int $value = 1): static
-    {
-        return $this->addSeconds(-$value);
     }
 
     /**

@@ -52,7 +52,7 @@ class SubTest extends TestCase
      */
     public function testSubYear($class)
     {
-        $this->assertSame(1974, $class::createFromDate(1975)->subYear()->year);
+        $this->assertSame(1974, $class::createFromDate(1975)->subYears(1)->year);
     }
 
     /**
@@ -61,7 +61,7 @@ class SubTest extends TestCase
      */
     public function testSubYearNoOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2013, 2, 28)->subYear();
+        $dt = $class::createFromDate(2013, 2, 28)->subYears(1);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
@@ -83,7 +83,7 @@ class SubTest extends TestCase
      */
     public function testSubYearWithOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2013, 2, 28)->subYearWithOverflow();
+        $dt = $class::createFromDate(2013, 2, 28)->subYearsWithOverflow(1);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
@@ -121,7 +121,7 @@ class SubTest extends TestCase
      */
     public function testSubMonth($class)
     {
-        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonth()->month);
+        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonths(1)->month);
     }
 
     /**
@@ -157,7 +157,7 @@ class SubTest extends TestCase
      */
     public function testSubDay($class)
     {
-        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDay()->day);
+        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDays(1)->day);
     }
 
     /**
@@ -166,7 +166,7 @@ class SubTest extends TestCase
      */
     public function testSubWeekdayDuringWeekend($class)
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekday()->day);
+        $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekdays(1)->day);
     }
 
     /**
@@ -208,7 +208,7 @@ class SubTest extends TestCase
      */
     public function testSubWeekday($class)
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekday()->day);
+        $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekdays(1)->day);
     }
 
     /**
@@ -244,7 +244,7 @@ class SubTest extends TestCase
      */
     public function testSubWeek($class)
     {
-        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeek()->day);
+        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeeks(1)->day);
     }
 
     /**
@@ -280,7 +280,7 @@ class SubTest extends TestCase
      */
     public function testSubHour($class)
     {
-        $this->assertSame(23, $class::createFromTime(0)->subHour()->hour);
+        $this->assertSame(23, $class::createFromTime(0)->subHours(1)->hour);
     }
 
     /**
@@ -316,7 +316,7 @@ class SubTest extends TestCase
      */
     public function testSubMinute($class)
     {
-        $this->assertSame(59, $class::createFromTime(0, 0)->subMinute()->minute);
+        $this->assertSame(59, $class::createFromTime(0, 0)->subMinutes(1)->minute);
     }
 
     /**
@@ -352,7 +352,7 @@ class SubTest extends TestCase
      */
     public function testSubSecond($class)
     {
-        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSecond()->second);
+        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSeconds(1)->second);
     }
 
     /***** Test non plural methods with non default args *****/
@@ -363,7 +363,7 @@ class SubTest extends TestCase
      */
     public function testSubYearPassingArg($class)
     {
-        $this->assertSame(1973, $class::createFromDate(1975)->subYear(2)->year);
+        $this->assertSame(1973, $class::createFromDate(1975)->subYears(2)->year);
     }
 
     /**
@@ -372,7 +372,7 @@ class SubTest extends TestCase
      */
     public function testSubMonthPassingArg($class)
     {
-        $this->assertSame(3, $class::createFromDate(1975, 5, 1)->subMonth(2)->month);
+        $this->assertSame(3, $class::createFromDate(1975, 5, 1)->subMonths(2)->month);
     }
 
     /**
@@ -403,7 +403,7 @@ class SubTest extends TestCase
      */
     public function testSubMonthWithOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2011, 3, 30)->subMonthWithOverflow();
+        $dt = $class::createFromDate(2011, 3, 30)->subMonthsWithOverflow(1);
         $this->assertSame(3, $dt->month);
         $this->assertSame(2, $dt->day);
     }
@@ -414,7 +414,7 @@ class SubTest extends TestCase
      */
     public function testSubDayPassingArg($class)
     {
-        $this->assertSame(8, $class::createFromDate(1975, 5, 10)->subDay(2)->day);
+        $this->assertSame(8, $class::createFromDate(1975, 5, 10)->subDays(2)->day);
     }
 
     /**
@@ -423,7 +423,7 @@ class SubTest extends TestCase
      */
     public function testSubHourPassingArg($class)
     {
-        $this->assertSame(22, $class::createFromTime(0)->subHour(2)->hour);
+        $this->assertSame(22, $class::createFromTime(0)->subHours(2)->hour);
     }
 
     /**
@@ -432,7 +432,7 @@ class SubTest extends TestCase
      */
     public function testSubMinutePassingArg($class)
     {
-        $this->assertSame(58, $class::createFromTime(0)->subMinute(2)->minute);
+        $this->assertSame(58, $class::createFromTime(0)->subMinutes(2)->minute);
     }
 
     /**
@@ -441,6 +441,6 @@ class SubTest extends TestCase
      */
     public function testSubSecondPassingArg($class)
     {
-        $this->assertSame(58, $class::createFromTime(0)->subSecond(2)->second);
+        $this->assertSame(58, $class::createFromTime(0)->subSeconds(2)->second);
     }
 }

@@ -46,6 +46,6 @@ class IsTest extends TestCase
      */
     public function testIsTodayFalseWithYesterday($class)
     {
-        $this->assertFalse($class::now()->subDay()->endOfDay()->isToday());
+        $this->assertFalse($class::now()->subDays(1)->endOfDay()->isToday());
     }
 }
