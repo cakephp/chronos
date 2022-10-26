@@ -22,21 +22,14 @@ use DateTimeZone;
  */
 class TimezoneTest extends TestCase
 {
-    public static function methodNameProvider()
-    {
-        return [['tz'], ['timezone'], ['setTimezone']];
-    }
-
     /**
      * Test that all the timezone methods do nothing.
-     *
-     * @dataProvider methodNameProvider
      */
-    public function testNoopOnTimezoneChange($method)
+    public function testNoopOnTimezoneChange()
     {
         $tz = new DateTimeZone('Pacific/Honolulu');
         $date = new Date('2015-01-01');
-        $new = $date->{$method}($tz);
+        $new = $date->setTimezone($tz);
         $this->assertSame($new, $date);
         $this->assertNotSame($tz, $new->timezone);
     }

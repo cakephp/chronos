@@ -183,22 +183,6 @@ interface ChronosInterface extends DateTimeInterface
     public function timestamp(int $value): static;
 
     /**
-     * Alias for setTimezone()
-     *
-     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function timezone(DateTimeZone|string $value): static;
-
-    /**
-     * Alias for setTimezone()
-     *
-     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function tz(DateTimeZone|string $value): static;
-
-    /**
      * Set the instance's timezone from a string or object
      *
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
@@ -323,26 +307,8 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
-     * @see equals
-     */
-    public function eq(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
      */
     public function equals(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is not equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     * @see notEquals
-     */
-    public function ne(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is not equal to another
@@ -357,26 +323,8 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
-     * @see greaterThan
-     */
-    public function gt(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is greater (after) than another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
      */
     public function greaterThan(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is greater (after) than or equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     * @see greaterThanOrEquals
-     */
-    public function gte(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is greater (after) than or equal to another
@@ -391,26 +339,8 @@ interface ChronosInterface extends DateTimeInterface
      *
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
-     * @see lessThan
-     */
-    public function lt(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is less (before) than another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
      */
     public function lessThan(ChronosInterface $dt): bool;
-
-    /**
-     * Determines if the instance is less (before) or equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     * @see lessThanOrEquals
-     */
-    public function lte(ChronosInterface $dt): bool;
 
     /**
      * Determines if the instance is less (before) or equal to another

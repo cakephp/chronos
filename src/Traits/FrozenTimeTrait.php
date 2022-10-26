@@ -116,32 +116,6 @@ trait FrozenTimeTrait
      * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
      * @return static
      */
-    public function timezone(DateTimeZone|string $value): static
-    {
-        return $this;
-    }
-
-    /**
-     * No-op method.
-     *
-     * Timezones have no effect on calendar dates.
-     *
-     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function tz(DateTimeZone|string $value): static
-    {
-        return $this;
-    }
-
-    /**
-     * No-op method.
-     *
-     * Timezones have no effect on calendar dates.
-     *
-     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
     public function setTimezone(DateTimeZone|string $value): static
     {
         return $this;

@@ -55,31 +55,9 @@ trait ComparisonTrait
      * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
      * @return bool
      */
-    public function eq(ChronosInterface $dt): bool
-    {
-        return $this == $dt;
-    }
-
-    /**
-     * Determines if the instance is equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
     public function equals(ChronosInterface $dt): bool
     {
-        return $this->eq($dt);
-    }
-
-    /**
-     * Determines if the instance is not equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
-    public function ne(ChronosInterface $dt): bool
-    {
-        return !$this->eq($dt);
+        return $this == $dt;
     }
 
     /**
@@ -90,18 +68,7 @@ trait ComparisonTrait
      */
     public function notEquals(ChronosInterface $dt): bool
     {
-        return $this->ne($dt);
-    }
-
-    /**
-     * Determines if the instance is greater (after) than another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
-    public function gt(ChronosInterface $dt): bool
-    {
-        return $this > $dt;
+        return !$this->equals($dt);
     }
 
     /**
@@ -112,18 +79,7 @@ trait ComparisonTrait
      */
     public function greaterThan(ChronosInterface $dt): bool
     {
-        return $this->gt($dt);
-    }
-
-    /**
-     * Determines if the instance is greater (after) than or equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
-    public function gte(ChronosInterface $dt): bool
-    {
-        return $this >= $dt;
+        return $this > $dt;
     }
 
     /**
@@ -134,18 +90,7 @@ trait ComparisonTrait
      */
     public function greaterThanOrEquals(ChronosInterface $dt): bool
     {
-        return $this->gte($dt);
-    }
-
-    /**
-     * Determines if the instance is less (before) than another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
-    public function lt(ChronosInterface $dt): bool
-    {
-        return $this < $dt;
+        return $this >= $dt;
     }
 
     /**
@@ -156,18 +101,7 @@ trait ComparisonTrait
      */
     public function lessThan(ChronosInterface $dt): bool
     {
-        return $this->lt($dt);
-    }
-
-    /**
-     * Determines if the instance is less (before) or equal to another
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
-     * @return bool
-     */
-    public function lte(ChronosInterface $dt): bool
-    {
-        return $this <= $dt;
+        return $this < $dt;
     }
 
     /**
@@ -178,7 +112,7 @@ trait ComparisonTrait
      */
     public function lessThanOrEquals(ChronosInterface $dt): bool
     {
-        return $this->lte($dt);
+        return $this <= $dt;
     }
 
     /**
@@ -191,17 +125,17 @@ trait ComparisonTrait
      */
     public function between(ChronosInterface $dt1, ChronosInterface $dt2, bool $equal = true): bool
     {
-        if ($dt1->gt($dt2)) {
+        if ($dt1->greaterThan($dt2)) {
             $temp = $dt1;
             $dt1 = $dt2;
             $dt2 = $temp;
         }
 
         if ($equal) {
-            return $this->gte($dt1) && $this->lte($dt2);
+            return $this->greaterThanOrEquals($dt1) && $this->lessThanOrEquals($dt2);
         }
 
-        return $this->gt($dt1) && $this->lt($dt2);
+        return $this->greaterThan($dt1) && $this->lessThan($dt2);
     }
 
     /**
@@ -238,7 +172,7 @@ trait ComparisonTrait
     {
         $dt = $dt ?? static::now($this->tz);
 
-        return $this->lt($dt) ? $this : $dt;
+        return $this->lessThan($dt) ? $this : $dt;
     }
 
     /**
@@ -251,7 +185,7 @@ trait ComparisonTrait
     {
         $dt = $dt ?? static::now($this->tz);
 
-        return $this->gt($dt) ? $this : $dt;
+        return $this->greaterThan($dt) ? $this : $dt;
     }
 
     /**
@@ -371,7 +305,7 @@ trait ComparisonTrait
      */
     public function isFuture(): bool
     {
-        return $this->gt(static::now($this->tz));
+        return $this->greaterThan(static::now($this->tz));
     }
 
     /**
@@ -381,7 +315,7 @@ trait ComparisonTrait
      */
     public function isPast(): bool
     {
-        return $this->lt(static::now($this->tz));
+        return $this->lessThan(static::now($this->tz));
     }
 
     /**

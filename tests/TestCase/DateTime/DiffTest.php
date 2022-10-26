@@ -746,7 +746,7 @@ class DiffTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
-    public function testDiffInSecondsWithTimezonesAndVsDefault($class)
+    public function testDiffInSecondsWithTimezonesAndVsDefaulessThan($class)
     {
         $vanNow = $class::now('America/Vancouver');
         $hereNow = $vanNow->setTimezone($class::now()->tz);
