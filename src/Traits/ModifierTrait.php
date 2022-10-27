@@ -665,12 +665,12 @@ trait ModifierTrait
      */
     public function startOfWeek(): static
     {
-        $dt = $this;
-        if ($dt->dayOfWeek !== static::$weekStartsAt) {
-            $dt = $dt->previous(static::$weekStartsAt);
+        $dateTime = $this;
+        if ($dateTime->dayOfWeek !== static::$weekStartsAt) {
+            $dateTime = $dateTime->previous(static::$weekStartsAt);
         }
 
-        return $dt->startOfDay();
+        return $dateTime->startOfDay();
     }
 
     /**
@@ -680,12 +680,12 @@ trait ModifierTrait
      */
     public function endOfWeek(): static
     {
-        $dt = $this;
-        if ($dt->dayOfWeek !== static::$weekEndsAt) {
-            $dt = $dt->next(static::$weekEndsAt);
+        $dateTime = $this;
+        if ($dateTime->dayOfWeek !== static::$weekEndsAt) {
+            $dateTime = $dateTime->next(static::$weekEndsAt);
         }
 
-        return $dt->endOfDay();
+        return $dateTime->endOfDay();
     }
 
     /**
@@ -772,11 +772,11 @@ trait ModifierTrait
      */
     public function nthOfMonth(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->firstOfMonth();
-        $check = $dt->format('Y-m');
-        $dt = $dt->modify("+$nth " . static::$days[$dayOfWeek]);
+        $dateTime = $this->firstOfMonth();
+        $check = $dateTime->format('Y-m');
+        $dateTime = $dateTime->modify("+$nth " . static::$days[$dayOfWeek]);
 
-        return $dt->format('Y-m') === $check ? $dt : false;
+        return $dateTime->format('Y-m') === $check ? $dateTime : false;
     }
 
     /**
@@ -825,12 +825,12 @@ trait ModifierTrait
      */
     public function nthOfQuarter(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER);
-        $lastMonth = $dt->month;
-        $year = $dt->year;
-        $dt = $dt->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
+        $dateTime = $this->day(1)->month($this->quarter * ChronosInterface::MONTHS_PER_QUARTER);
+        $lastMonth = $dateTime->month;
+        $year = $dateTime->year;
+        $dateTime = $dateTime->firstOfQuarter()->modify("+$nth" . static::$days[$dayOfWeek]);
 
-        return $lastMonth < $dt->month || $year !== $dt->year ? false : $dt;
+        return $lastMonth < $dateTime->month || $year !== $dateTime->year ? false : $dateTime;
     }
 
     /**
@@ -877,21 +877,21 @@ trait ModifierTrait
      */
     public function nthOfYear(int $nth, int $dayOfWeek): mixed
     {
-        $dt = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
+        $dateTime = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
 
-        return $this->year === $dt->year ? $dt : false;
+        return $this->year === $dateTime->year ? $dateTime : false;
     }
 
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with.
      * @return static
      */
-    public function average(?ChronosInterface $dt = null): static
+    public function average(?ChronosInterface $dateTime = null): static
     {
-        $dt = $dt ?? static::now($this->tz);
+        $dateTime = $dateTime ?? static::now($this->tz);
 
-        return $this->addSeconds((int)($this->diffInSeconds($dt, false) / 2));
+        return $this->addSeconds((int)($this->diffInSeconds($dateTime, false) / 2));
     }
 }

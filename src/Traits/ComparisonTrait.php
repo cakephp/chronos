@@ -52,140 +52,140 @@ trait ComparisonTrait
     /**
      * Determines if the instance is equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function equals(ChronosInterface $dt): bool
+    public function equals(ChronosInterface $dateTime): bool
     {
-        return $this == $dt;
+        return $this == $dateTime;
     }
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function notEquals(ChronosInterface $dt): bool
+    public function notEquals(ChronosInterface $dateTime): bool
     {
-        return !$this->equals($dt);
+        return !$this->equals($dateTime);
     }
 
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function greaterThan(ChronosInterface $dt): bool
+    public function greaterThan(ChronosInterface $dateTime): bool
     {
-        return $this > $dt;
+        return $this > $dateTime;
     }
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosInterface $dt): bool
+    public function greaterThanOrEquals(ChronosInterface $dateTime): bool
     {
-        return $this >= $dt;
+        return $this >= $dateTime;
     }
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function lessThan(ChronosInterface $dt): bool
+    public function lessThan(ChronosInterface $dateTime): bool
     {
-        return $this < $dt;
+        return $this < $dateTime;
     }
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(ChronosInterface $dt): bool
+    public function lessThanOrEquals(ChronosInterface $dateTime): bool
     {
-        return $this <= $dt;
+        return $this <= $dateTime;
     }
 
     /**
      * Determines if the instance is between two others
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
      * @return bool
      */
-    public function between(ChronosInterface $dt1, ChronosInterface $dt2, bool $equal = true): bool
+    public function between(ChronosInterface $dateTime1, ChronosInterface $dateTime2, bool $equal = true): bool
     {
-        if ($dt1->greaterThan($dt2)) {
-            $temp = $dt1;
-            $dt1 = $dt2;
-            $dt2 = $temp;
+        if ($dateTime1->greaterThan($dateTime2)) {
+            $temp = $dateTime1;
+            $dateTime1 = $dateTime2;
+            $dateTime2 = $temp;
         }
 
         if ($equal) {
-            return $this->greaterThanOrEquals($dt1) && $this->lessThanOrEquals($dt2);
+            return $this->greaterThanOrEquals($dateTime1) && $this->lessThanOrEquals($dateTime2);
         }
 
-        return $this->greaterThan($dt1) && $this->lessThan($dt2);
+        return $this->greaterThan($dateTime1) && $this->lessThan($dateTime2);
     }
 
     /**
      * Get the closest date from the instance.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @return \Cake\Chronos\ChronosInterface
      */
-    public function closest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface
+    public function closest(ChronosInterface $dateTime1, ChronosInterface $dateTime2): ChronosInterface
     {
-        return $this->diffInSeconds($dt1) < $this->diffInSeconds($dt2) ? $dt1 : $dt2;
+        return $this->diffInSeconds($dateTime1) < $this->diffInSeconds($dateTime2) ? $dateTime1 : $dateTime2;
     }
 
     /**
      * Get the farthest date from the instance.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
-     * @param \Cake\Chronos\ChronosInterface $dt2 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface $dateTime2 The instance to compare with.
      * @return \Cake\Chronos\ChronosInterface
      */
-    public function farthest(ChronosInterface $dt1, ChronosInterface $dt2): ChronosInterface
+    public function farthest(ChronosInterface $dateTime1, ChronosInterface $dateTime2): ChronosInterface
     {
-        return $this->diffInSeconds($dt1) > $this->diffInSeconds($dt2) ? $dt1 : $dt2;
+        return $this->diffInSeconds($dateTime1) > $this->diffInSeconds($dateTime2) ? $dateTime1 : $dateTime2;
     }
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with.
      * @return \Cake\Chronos\ChronosInterface
      */
-    public function min(?ChronosInterface $dt = null): ChronosInterface
+    public function min(?ChronosInterface $dateTime = null): ChronosInterface
     {
-        $dt = $dt ?? static::now($this->tz);
+        $dateTime = $dateTime ?? static::now($this->tz);
 
-        return $this->lessThan($dt) ? $this : $dt;
+        return $this->lessThan($dateTime) ? $this : $dateTime;
     }
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with.
      * @return \Cake\Chronos\ChronosInterface
      */
-    public function max(?ChronosInterface $dt = null): ChronosInterface
+    public function max(?ChronosInterface $dateTime = null): ChronosInterface
     {
-        $dt = $dt ?? static::now($this->tz);
+        $dateTime = $dateTime ?? static::now($this->tz);
 
-        return $this->greaterThan($dt) ? $this : $dt;
+        return $this->greaterThan($dateTime) ? $this : $dateTime;
     }
 
     /**
@@ -331,12 +331,12 @@ trait ComparisonTrait
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
+     * @param \Cake\Chronos\ChronosInterface $dateTime The instance to check against.
      * @return bool
      */
-    public function isSameDay(ChronosInterface $dt): bool
+    public function isSameDay(ChronosInterface $dateTime): bool
     {
-        return $this->toDateString() === $dt->toDateString();
+        return $this->toDateString() === $dateTime->toDateString();
     }
 
     /**
@@ -442,14 +442,14 @@ trait ComparisonTrait
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Cake\Chronos\ChronosInterface|null $dt The instance to compare with or null to use current day.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to compare with or null to use current day.
      * @return bool
      */
-    public function isBirthday(?ChronosInterface $dt = null): bool
+    public function isBirthday(?ChronosInterface $dateTime = null): bool
     {
-        $dt = $dt ?? static::now($this->tz);
+        $dateTime = $dateTime ?? static::now($this->tz);
 
-        return $this->format('md') === $dt->format('md');
+        return $this->format('md') === $dateTime->format('md');
     }
 
     /**
