@@ -763,11 +763,11 @@ interface ChronosInterface extends DateTimeInterface
      * 1 hour after
      * 5 months after
      *
-     * @param \Cake\Chronos\ChronosInterface|null $other The datetime to compare with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime The datetime to compare with.
      * @param bool $absolute Removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForHumans(?ChronosInterface $other = null, bool $absolute = false): string;
+    public function diffForHumans(?ChronosInterface $dateTime = null, bool $absolute = false): string;
 
     /**
      * Get the difference in years
@@ -836,14 +836,14 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param \Cake\Chronos\ChronosInterval $ci An interval to traverse by
+     * @param \Cake\Chronos\ChronosInterval $interval An interval to traverse by
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
-        ChronosInterval $ci,
+        ChronosInterval $interval,
         callable $callback,
         ?ChronosInterface $dateTime = null,
         bool $absolute = true

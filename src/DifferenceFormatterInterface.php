@@ -21,15 +21,15 @@ interface DifferenceFormatterInterface
     /**
      * Get the difference in a human readable format.
      *
-     * @param \Cake\Chronos\ChronosInterface $date The datetime to start with.
-     * @param \Cake\Chronos\ChronosInterface|null $other The datetime to compare against.
+     * @param \Cake\Chronos\ChronosInterface $dateTime1 The datetime to start with.
+     * @param \Cake\Chronos\ChronosInterface|null $dateTime2 The datetime to compare against.
      * @param bool $absolute Removes time difference modifiers ago, after, etc.
      * @return string The difference between the two days in a human readable format.
      * @see \Cake\Chronos\ChronosInterface::diffForHumans
      */
     public function diffForHumans(
-        ChronosInterface $date,
-        ?ChronosInterface $other = null,
+        ChronosInterface $dateTime1,
+        ?ChronosInterface $dateTime2 = null,
         bool $absolute = false
     ): string;
 }
