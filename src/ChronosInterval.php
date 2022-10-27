@@ -241,22 +241,22 @@ class ChronosInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param \DateInterval $di The DateInterval instance to copy.
+     * @param \DateInterval $interval The DateInterval instance to copy.
      * @throws \InvalidArgumentException
      * @return static
      */
-    public static function instance(DateInterval $di): static
+    public static function instance(DateInterval $interval): static
     {
-        if (static::wasCreatedFromDiff($di)) {
+        if (static::wasCreatedFromDiff($interval)) {
             throw new InvalidArgumentException(
                 'Can not instance a DateInterval object created from DateTime::diff().'
             );
         }
 
-        $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
-        $instance->f = $di->f;
-        $instance->invert = $di->invert;
-        $instance->days = $di->days;
+        $instance = new static($interval->y, $interval->m, 0, $interval->d, $interval->h, $interval->i, $interval->s);
+        $instance->f = $interval->f;
+        $instance->invert = $interval->invert;
+        $instance->days = $interval->days;
 
         return $instance;
     }
