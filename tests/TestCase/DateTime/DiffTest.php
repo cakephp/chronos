@@ -19,6 +19,7 @@ use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\Test\TestCase\TestCase;
 use Closure;
+use DateInterval;
 use DateTimeZone;
 
 class DiffTest extends TestCase
@@ -324,81 +325,117 @@ class DiffTest extends TestCase
         }, $dt2));
     }
 
+    protected function dateIntervalProvider(): array
+    {
+        return [[DateInterval::class], [ChronosInterval::class]];
+    }
+
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredUsingMinutesPositiveWithMutated($class)
     {
-        $dt = $class::createFromDate(2000, 1, 1)->startOfDay();
-        $this->assertSame(60, $dt->diffFiltered(ChronosInterval::minute(), function ($date) {
+        $dt = Chronos::createFromDate(2000, 1, 1)->startOfDay();
+        if ($class === ChronosInterval::class) {
+            $interval = $class::minutes(1);
+        } else {
+            $interval = new $class('PT1M');
+        }
+        $this->assertSame(60, $dt->diffFiltered($interval, function ($date) {
             return $date->hour === 12;
-        }, $class::createFromDate(2000, 1, 1)->endOfDay()));
+        }, Chronos::createFromDate(2000, 1, 1)->endOfDay()));
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredPositiveWithSecondObject($class)
     {
-        $dt1 = $class::create(2000, 1, 1);
+        $dt1 = Chronos::create(2000, 1, 1);
         $dt2 = $dt1->addSeconds(80);
+        if ($class === ChronosInterval::class) {
+            $interval = $class::seconds(1);
+        } else {
+            $interval = new $class('PT1S');
+        }
 
-        $this->assertSame(40, $dt1->diffFiltered(ChronosInterval::second(), function ($date) {
+        $this->assertSame(40, $dt1->diffFiltered($interval, function ($date) {
             return $date->second % 2 === 0;
         }, $dt2));
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredNegativeNoSignWithMutated($class)
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
+        if ($class === ChronosInterval::class) {
+            $interval = $class::days(2);
+        } else {
+            $interval = new $class('P2D');
+        }
 
-        $this->assertSame(2, $dt->diffFiltered(ChronosInterval::days(2), function ($date) use ($class) {
-            return $date->dayOfWeek === $class::SUNDAY;
+        $this->assertSame(2, $dt->diffFiltered($interval, function ($date) use ($class) {
+            return $date->dayOfWeek === Chronos::SUNDAY;
         }, $dt->startOfMonth()));
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredNegativeNoSignWithSecondObject($class)
     {
-        $dt1 = $class::createFromDate(2006, 1, 31);
-        $dt2 = $class::createFromDate(2000, 1, 1);
+        $dt1 = Chronos::createFromDate(2006, 1, 31);
+        $dt2 = Chronos::createFromDate(2000, 1, 1);
+        if ($class === ChronosInterval::class) {
+            $interval = $class::years(1);
+        } else {
+            $interval = new $class('P1Y');
+        }
 
-        $this->assertSame(7, $dt1->diffFiltered(ChronosInterval::year(), function ($date) {
+        $this->assertSame(7, $dt1->diffFiltered($interval, function ($date) {
             return $date->month === 1;
         }, $dt2));
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredNegativeWithSignWithMutated($class)
     {
-        $dt = $class::createFromDate(2000, 1, 31);
-        $this->assertSame(-4, $dt->diffFiltered(ChronosInterval::week(), function ($date) {
+        $dt = Chronos::createFromDate(2000, 1, 31);
+        if ($class === ChronosInterval::class) {
+            $interval = $class::weeks(1);
+        } else {
+            $interval = new $class('P1W');
+        }
+
+        $this->assertSame(-4, $dt->diffFiltered($interval, function ($date) {
             return $date->month === 12;
         }, $dt->subMonths(3), false));
     }
 
     /**
-     * @dataProvider classNameProvider
+     * @dataProvider dateIntervalProvider
      * @return void
      */
     public function testDiffFilteredNegativeWithSignWithSecondObject($class)
     {
-        $dt1 = $class::createFromDate(2001, 1, 31);
-        $dt2 = $class::createFromDate(1999, 1, 1);
+        $dt1 = Chronos::createFromDate(2001, 1, 31);
+        $dt2 = Chronos::createFromDate(1999, 1, 1);
+        if ($class === ChronosInterval::class) {
+            $interval = $class::months(1);
+        } else {
+            $interval = new $class('P1M');
+        }
 
-        $this->assertSame(-12, $dt1->diffFiltered(ChronosInterval::month(), function ($date) {
+        $this->assertSame(-12, $dt1->diffFiltered($interval, function ($date) {
             return $date->year === 2000;
         }, $dt2, false));
     }
