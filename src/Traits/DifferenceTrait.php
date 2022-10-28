@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\ChronosInterface;
-use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
 use DateInterval;
@@ -134,7 +133,7 @@ trait DifferenceTrait
         ?ChronosInterface $dateTime = null,
         bool $absolute = true
     ): int {
-        return $this->diffFiltered(ChronosInterval::day(), $callback, $dateTime, $absolute);
+        return $this->diffFiltered(new DateInterval('P1D'), $callback, $dateTime, $absolute);
     }
 
     /**
@@ -150,20 +149,20 @@ trait DifferenceTrait
         ?ChronosInterface $dateTime = null,
         bool $absolute = true
     ): int {
-        return $this->diffFiltered(ChronosInterval::hour(), $callback, $dateTime, $absolute);
+        return $this->diffFiltered(new DateInterval('PT1H'), $callback, $dateTime, $absolute);
     }
 
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param \Cake\Chronos\ChronosInterval $interval An interval to traverse by
+     * @param \DateInterval $interval An interval to traverse by
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
-        ChronosInterval $interval,
+        DateInterval $interval,
         callable $callback,
         ?ChronosInterface $dateTime = null,
         bool $absolute = true

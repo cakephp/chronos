@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos;
 
+use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
 
@@ -836,14 +837,14 @@ interface ChronosInterface extends DateTimeInterface
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param \Cake\Chronos\ChronosInterval $interval An interval to traverse by
+     * @param \DateInterval $interval An interval to traverse by.
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosInterface|null $dateTime The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
-        ChronosInterval $interval,
+        DateInterval $interval,
         callable $callback,
         ?ChronosInterface $dateTime = null,
         bool $absolute = true
