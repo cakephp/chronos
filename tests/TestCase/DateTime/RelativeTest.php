@@ -15,45 +15,38 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class RelativeTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSecondsSinceMidnight($class)
+    public function testSecondsSinceMidnight()
     {
-        $d = $class::today()->addSeconds(30);
+        $d = Chronos::today()->addSeconds(30);
         $this->assertSame(30, $d->secondsSinceMidnight());
 
-        $d = $class::today()->addDays(1);
+        $d = Chronos::today()->addDays(1);
         $this->assertSame(0, $d->secondsSinceMidnight());
 
-        $d = $class::today()->addDays(1)->addSeconds(120);
+        $d = Chronos::today()->addDays(1)->addSeconds(120);
         $this->assertSame(120, $d->secondsSinceMidnight());
 
-        $d = $class::today()->addMonths(3)->addSeconds(42);
+        $d = Chronos::today()->addMonths(3)->addSeconds(42);
         $this->assertSame(42, $d->secondsSinceMidnight());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSecondsUntilEndOfDay($class)
+    public function testSecondsUntilEndOfDay()
     {
-        $d = $class::today()->endOfDay();
+        $d = Chronos::today()->endOfDay();
         $this->assertSame(0, $d->secondsUntilEndOfDay());
 
-        $d = $class::today()->endOfDay()->subSeconds(60);
+        $d = Chronos::today()->endOfDay()->subSeconds(60);
         $this->assertSame(60, $d->secondsUntilEndOfDay());
 
-        $d = $class::create(2014, 10, 24, 12, 34, 56);
+        $d = Chronos::create(2014, 10, 24, 12, 34, 56);
         $this->assertSame(41103, $d->secondsUntilEndOfDay());
 
-        $d = $class::create(2014, 10, 24, 0, 0, 0);
+        $d = Chronos::create(2014, 10, 24, 0, 0, 0);
         $this->assertSame(86399, $d->secondsUntilEndOfDay());
     }
 }

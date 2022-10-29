@@ -15,24 +15,17 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class IssetTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIssetReturnFalseForUnknownProperty($class)
+    public function testIssetReturnFalseForUnknownProperty()
     {
-        $this->assertFalse(isset($class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
+        $this->assertFalse(isset(Chronos::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIssetReturnTrueForProperties($class)
+    public function testIssetReturnTrueForProperties()
     {
         $properties = [
             'year',
@@ -57,7 +50,7 @@ class IssetTest extends TestCase
         ];
 
         foreach ($properties as $property) {
-            $this->assertTrue(isset($class::create(1234, 5, 6, 7, 8, 9)->$property));
+            $this->assertTrue(isset(Chronos::create(1234, 5, 6, 7, 8, 9)->$property));
         }
     }
 }

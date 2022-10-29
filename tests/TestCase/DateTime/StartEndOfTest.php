@@ -15,384 +15,241 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class StartEndOfTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfDay($class)
+    public function testStartOfDay()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->startOfDay();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
         $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfDay($class)
+    public function testEndOfDay()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->endOfDay();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
         $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfMonthIsFluid($class)
+    public function testStartOfMonthIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->startOfMonth();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfMonthFromNow($class)
+    public function testStartOfMonthFromNow()
     {
-        $dt = $class::now()->startOfMonth();
+        $dt = Chronos::now()->startOfMonth();
         $this->assertDateTime($dt, $dt->year, $dt->month, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfMonthFromLastDay($class)
+    public function testStartOfMonthFromLastDay()
     {
-        $dt = $class::create(2000, 1, 31, 2, 3, 4)->startOfMonth();
+        $dt = Chronos::create(2000, 1, 31, 2, 3, 4)->startOfMonth();
         $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfYearIsFluid($class)
+    public function testStartOfYearIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->startOfYear();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfYearFromNow($class)
+    public function testStartOfYearFromNow()
     {
-        $dt = $class::now()->startOfYear();
+        $dt = Chronos::now()->startOfYear();
         $this->assertDateTime($dt, $dt->year, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfYearFromFirstDay($class)
+    public function testStartOfYearFromFirstDay()
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfYear();
+        $dt = Chronos::create(2000, 1, 1, 1, 1, 1)->startOfYear();
         $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfYearFromLastDay($class)
+    public function testStartOfYearFromLastDay()
     {
-        $dt = $class::create(2000, 12, 31, 23, 59, 59)->startOfYear();
+        $dt = Chronos::create(2000, 12, 31, 23, 59, 59)->startOfYear();
         $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfMonthIsFluid($class)
+    public function testEndOfMonthIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->endOfMonth();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfMonth($class)
+    public function testEndOfMonth()
     {
-        $dt = $class::create(2000, 1, 1, 2, 3, 4)->endOfMonth();
+        $dt = Chronos::create(2000, 1, 1, 2, 3, 4)->endOfMonth();
         $this->assertDateTime($dt, 2000, 1, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfMonthFromLastDay($class)
+    public function testEndOfMonthFromLastDay()
     {
-        $dt = $class::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
+        $dt = Chronos::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
         $this->assertDateTime($dt, 2000, 1, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfYearIsFluid($class)
+    public function testEndOfYearIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->endOfYear();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfYearFromNow($class)
+    public function testEndOfYearFromNow()
     {
-        $dt = $class::now()->endOfYear();
+        $dt = Chronos::now()->endOfYear();
         $this->assertDateTime($dt, $dt->year, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfYearFromFirstDay($class)
+    public function testEndOfYearFromFirstDay()
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfYear();
+        $dt = Chronos::create(2000, 1, 1, 1, 1, 1)->endOfYear();
         $this->assertDateTime($dt, 2000, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfYearFromLastDay($class)
+    public function testEndOfYearFromLastDay()
     {
-        $dt = $class::create(2000, 12, 31, 23, 59, 59)->endOfYear();
+        $dt = Chronos::create(2000, 12, 31, 23, 59, 59)->endOfYear();
         $this->assertDateTime($dt, 2000, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfDecadeIsFluid($class)
+    public function testStartOfDecadeIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->startOfDecade();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfDecadeFromNow($class)
+    public function testStartOfDecadeFromNow()
     {
-        $dt = $class::now()->startOfDecade();
+        $dt = Chronos::now()->startOfDecade();
         $this->assertDateTime($dt, $dt->year - $dt->year % 10, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfDecadeFromFirstDay($class)
+    public function testStartOfDecadeFromFirstDay()
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->startOfDecade();
+        $dt = Chronos::create(2000, 1, 1, 1, 1, 1)->startOfDecade();
         $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfDecadeFromLastDay($class)
+    public function testStartOfDecadeFromLastDay()
     {
-        $dt = $class::create(2009, 12, 31, 23, 59, 59)->startOfDecade();
+        $dt = Chronos::create(2009, 12, 31, 23, 59, 59)->startOfDecade();
         $this->assertDateTime($dt, 2000, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfDecadeIsFluid($class)
+    public function testEndOfDecadeIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->endOfDecade();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfDecadeFromNow($class)
+    public function testEndOfDecadeFromNow()
     {
-        $dt = $class::now()->endOfDecade();
+        $dt = Chronos::now()->endOfDecade();
         $this->assertDateTime($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfDecadeFromFirstDay($class)
+    public function testEndOfDecadeFromFirstDay()
     {
-        $dt = $class::create(2000, 1, 1, 1, 1, 1)->endOfDecade();
+        $dt = Chronos::create(2000, 1, 1, 1, 1, 1)->endOfDecade();
         $this->assertDateTime($dt, 2009, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfDecadeFromLastDay($class)
+    public function testEndOfDecadeFromLastDay()
     {
-        $dt = $class::create(2009, 12, 31, 23, 59, 59)->endOfDecade();
+        $dt = Chronos::create(2009, 12, 31, 23, 59, 59)->endOfDecade();
         $this->assertDateTime($dt, 2009, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfCenturyIsFluid($class)
+    public function testStartOfCenturyIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->startOfCentury();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfCenturyFromNow($class)
+    public function testStartOfCenturyFromNow()
     {
-        $now = $class::now();
-        $dt = $class::now()->startOfCentury();
+        $now = Chronos::now();
+        $dt = Chronos::now()->startOfCentury();
         $this->assertDateTime($dt, $now->year - $now->year % 100 + 1, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfCenturyFromFirstDay($class)
+    public function testStartOfCenturyFromFirstDay()
     {
-        $dt = $class::create(2001, 1, 1, 1, 1, 1)->startOfCentury();
+        $dt = Chronos::create(2001, 1, 1, 1, 1, 1)->startOfCentury();
         $this->assertDateTime($dt, 2001, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfCenturyFromLastDay($class)
+    public function testStartOfCenturyFromLastDay()
     {
-        $dt = $class::create(2100, 12, 31, 23, 59, 59)->startOfCentury();
+        $dt = Chronos::create(2100, 12, 31, 23, 59, 59)->startOfCentury();
         $this->assertDateTime($dt, 2001, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfCenturyIsFluid($class)
+    public function testEndOfCenturyIsFluid()
     {
-        $now = $class::now();
+        $now = Chronos::now();
         $dt = $now->endOfCentury();
-        $this->assertTrue($dt instanceof $class);
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfCenturyFromNow($class)
+    public function testEndOfCenturyFromNow()
     {
-        $now = $class::now();
-        $dt = $class::now()->endOfCentury();
+        $now = Chronos::now();
+        $dt = Chronos::now()->endOfCentury();
         $this->assertDateTime($dt, $now->year - $now->year % 100 + 100, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfCenturyFromFirstDay($class)
+    public function testEndOfCenturyFromFirstDay()
     {
-        $dt = $class::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
+        $dt = Chronos::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
         $this->assertDateTime($dt, 2100, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfCenturyFromLastDay($class)
+    public function testEndOfCenturyFromLastDay()
     {
-        $dt = $class::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
+        $dt = Chronos::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
         $this->assertDateTime($dt, 2100, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAverageIsFluid($class)
+    public function testAverageIsFluid()
     {
-        $dt = $class::now()->average();
-        $this->assertTrue($dt instanceof $class);
+        $dt = Chronos::now()->average();
+        $this->assertTrue($dt instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAverageFromSame($class)
+    public function testAverageFromSame()
     {
-        $dt1 = $class::create(2000, 1, 31, 2, 3, 4);
-        $dt2 = $class::create(2000, 1, 31, 2, 3, 4)->average($dt1);
+        $dt1 = Chronos::create(2000, 1, 31, 2, 3, 4);
+        $dt2 = Chronos::create(2000, 1, 31, 2, 3, 4)->average($dt1);
         $this->assertDateTime($dt2, 2000, 1, 31, 2, 3, 4);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAverageFromGreater($class)
+    public function testAverageFromGreater()
     {
-        $dt1 = $class::create(2000, 1, 1, 1, 1, 1);
-        $dt2 = $class::create(2009, 12, 31, 23, 59, 59)->average($dt1);
+        $dt1 = Chronos::create(2000, 1, 1, 1, 1, 1);
+        $dt2 = Chronos::create(2009, 12, 31, 23, 59, 59)->average($dt1);
         $this->assertDateTime($dt2, 2004, 12, 31, 12, 30, 30);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAverageFromLower($class)
+    public function testAverageFromLower()
     {
-        $dt1 = $class::create(2009, 12, 31, 23, 59, 59);
-        $dt2 = $class::create(2000, 1, 1, 1, 1, 1)->average($dt1);
+        $dt1 = Chronos::create(2009, 12, 31, 23, 59, 59);
+        $dt2 = Chronos::create(2000, 1, 1, 1, 1, 1)->average($dt1);
         $this->assertDateTime($dt2, 2004, 12, 31, 12, 30, 30);
     }
 }

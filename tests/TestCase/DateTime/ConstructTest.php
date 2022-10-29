@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeImmutable;
@@ -22,191 +23,135 @@ use DateTimeZone;
 
 class ConstructTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimestamp($class)
+    public function testCreateFromTimestamp()
     {
         $ts = 1454284800;
 
-        $time = new $class($ts);
+        $time = new Chronos($ts);
         $this->assertSame('+00:00', $time->tzName);
         $this->assertSame('2016-02-01 00:00:00', $time->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreatesAnInstanceDefaultToNow($class)
+    public function testCreatesAnInstanceDefaultToNow()
     {
-        $c = new $class();
-        $now = $class::now();
-        $this->assertInstanceOf($class, $c);
+        $c = new Chronos();
+        $now = Chronos::now();
+        $this->assertInstanceOf(Chronos::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseCreatesAnInstanceDefaultToNow($class)
+    public function testParseCreatesAnInstanceDefaultToNow()
     {
-        $c = $class::parse();
-        $now = $class::now();
-        $this->assertInstanceOf($class, $c);
+        $c = Chronos::parse();
+        $now = Chronos::now();
+        $this->assertInstanceOf(Chronos::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testWithFancyString($class)
+    public function testWithFancyString()
     {
-        $c = new $class('first day of January 2008');
+        $c = new Chronos('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseWithFancyString($class)
+    public function testParseWithFancyString()
     {
-        $c = $class::parse('first day of January 2008');
+        $c = Chronos::parse('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDefaultTimezone($class)
+    public function testDefaultTimezone()
     {
-        $c = new $class('now');
+        $c = new Chronos('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testConstructWithMicrosecondsAndOffset($class)
+    public function testConstructWithMicrosecondsAndOffset()
     {
-        $c = new $class('2014-09-29 18:24:54.591767+02:00');
+        $c = new Chronos('2014-09-29 18:24:54.591767+02:00');
         $this->assertDateTime($c, 2014, 9, 29, 18, 24, 54);
         $this->assertSame(591767, $c->micro);
         $this->assertSame('+02:00', $c->getTimezone()->getName());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseWithDefaultTimezone($class)
+    public function testParseWithDefaultTimezone()
     {
-        $c = $class::parse('now');
+        $c = Chronos::parse('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSettingTimezone($class)
+    public function testSettingTimezone()
     {
         $timezone = 'Europe/London';
         $dtz = new DateTimeZone($timezone);
         $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
-        $c = new $class('now', $dtz);
+        $c = new Chronos('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseSettingTimezone($class)
+    public function testParseSettingTimezone()
     {
         $timezone = 'Europe/London';
         $dtz = new DateTimeZone($timezone);
         $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
-        $c = $class::parse('now', $dtz);
+        $c = Chronos::parse('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSettingTimezoneWithString($class)
+    public function testSettingTimezoneWithString()
     {
         $timezone = 'Asia/Tokyo';
         $dtz = new DateTimeZone($timezone);
         $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
-        $c = new $class('now', $timezone);
+        $c = new Chronos('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseSettingTimezoneWithString($class)
+    public function testParseSettingTimezoneWithString()
     {
         $timezone = 'Asia/Tokyo';
         $dtz = new DateTimeZone($timezone);
         $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = (int)$dt->format('I');
 
-        $c = $class::parse('now', $timezone);
+        $c = Chronos::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromExistingInstance($class)
+    public function testCreateFromExistingInstance()
     {
-        $existingClass = new $class();
-        $this->assertInstanceOf($class, $existingClass);
+        $existingClass = new Chronos();
+        $this->assertInstanceOf(Chronos::class, $existingClass);
 
-        $newClass = new $class($existingClass);
-        $this->assertInstanceOf($class, $newClass);
+        $newClass = new Chronos($existingClass);
+        $this->assertInstanceOf(Chronos::class, $newClass);
         $this->assertSame((string)$existingClass, (string)$newClass);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromDateTimeInterface($class)
+    public function testCreateFromDateTimeInterface()
     {
         $existingClass = new DateTimeImmutable();
-        $newClass = new $class($existingClass);
+        $newClass = new Chronos($existingClass);
         $this->assertSame($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
 
         $existingClass = new DateTime();
-        $newClass = new $class($existingClass);
+        $newClass = new Chronos($existingClass);
         $this->assertSame($existingClass->format('Y-m-d H:i:s.u'), $newClass->format('Y-m-d H:i:s.u'));
 
         $existingClass = new DateTime('2019-01-15 00:15:22.139302');
-        $newClass = new $class($existingClass);
+        $newClass = new Chronos($existingClass);
         $this->assertDateTime($newClass, 2019, 01, 15, 0, 15, 22);
         $this->assertSame(139302, $newClass->micro);
     }

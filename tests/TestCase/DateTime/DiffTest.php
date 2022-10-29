@@ -29,296 +29,196 @@ class DiffTest extends TestCase
         parent::wrapWithTestNow($func, $dt ?? Chronos::createFromDate(2012, 1, 1));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInYearsPositive($class)
+    public function testDiffInYearsPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->addYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInYearsNegativeWithSign($class)
+    public function testDiffInYearsNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-1, $dt->diffInYears($dt->subYears(1), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInYearsNegativeNoSign($class)
+    public function testDiffInYearsNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->subYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInYearsVsDefaultNow($class)
+    public function testDiffInYearsVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subYears(1)->diffInYears());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(1, Chronos::now()->subYears(1)->diffInYears());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInYearsEnsureIsTruncated($class)
+    public function testDiffInYearsEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->addYears(1)->addMonths(7)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsPositive($class)
+    public function testDiffInMonthsPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(13, $dt->diffInMonths($dt->addYears(1)->addMonths(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsNegativeWithSign($class)
+    public function testDiffInMonthsNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-11, $dt->diffInMonths($dt->subYears(1)->addMonths(1), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsNegativeNoSign($class)
+    public function testDiffInMonthsNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(11, $dt->diffInMonths($dt->subYears(1)->addMonths(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsVsDefaultNow($class)
+    public function testDiffInMonthsVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(12, $class::now()->subYears(1)->diffInMonths());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(12, Chronos::now()->subYears(1)->diffInMonths());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsEnsureIsTruncated($class)
+    public function testDiffInMonthsEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInMonths($dt->addMonths(1)->addDays(16)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMonthsIgnoreTimezone($class)
+    public function testDiffInMonthsIgnoreTimezone()
     {
-        $tokyoStart = new $class('2019-06-01', new DateTimeZone('Asia/Tokyo'));
-        $utcStart = new $class('2019-06-01', new DateTimeZone('UTC'));
+        $tokyoStart = new Chronos('2019-06-01', new DateTimeZone('Asia/Tokyo'));
+        $utcStart = new Chronos('2019-06-01', new DateTimeZone('UTC'));
         foreach (range(1, 6) as $monthOffset) {
-            $end = new $class(sprintf('2019-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
+            $end = new Chronos(sprintf('2019-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
             $this->assertSame($monthOffset, $tokyoStart->diffInMonthsIgnoreTimezone($end));
             $this->assertSame($monthOffset, $utcStart->diffInMonthsIgnoreTimezone($end));
 
-            $end = new $class(sprintf('2020-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
+            $end = new Chronos(sprintf('2020-%02d-01', 6 + $monthOffset), new DateTimeZone('Asia/Tokyo'));
             $this->assertSame($monthOffset + 12, $tokyoStart->diffInMonthsIgnoreTimezone($end));
             $this->assertSame($monthOffset + 12, $utcStart->diffInMonthsIgnoreTimezone($end));
         }
 
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subMonths(1)->startOfMonth()->diffInMonthsIgnoreTimezone());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(1, Chronos::now()->subMonths(1)->startOfMonth()->diffInMonthsIgnoreTimezone());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysPositive($class)
+    public function testDiffInDaysPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(366, $dt->diffInDays($dt->addYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysNegativeWithSign($class)
+    public function testDiffInDaysNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-365, $dt->diffInDays($dt->subYears(1), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysNegativeNoSign($class)
+    public function testDiffInDaysNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(365, $dt->diffInDays($dt->subYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysVsDefaultNow($class)
+    public function testDiffInDaysVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(7, $class::now()->subWeeks(1)->diffInDays());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(7, Chronos::now()->subWeeks(1)->diffInDays());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysEnsureIsTruncated($class)
+    public function testDiffInDaysEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInDays($dt->addDays(1)->addHours(13)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredPositiveWithMutated($class)
+    public function testDiffInDaysFilteredPositiveWithMutated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->endOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredPositiveWithSecondObject($class)
+    public function testDiffInDaysFilteredPositiveWithSecondObject()
     {
-        $dt1 = $class::createFromDate(2000, 1, 1);
-        $dt2 = $class::createFromDate(2000, 1, 31);
+        $dt1 = Chronos::createFromDate(2000, 1, 1);
+        $dt2 = Chronos::createFromDate(2000, 1, 31);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
-            return $date->dayOfWeek === $class::SUNDAY;
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) {
+            return $date->dayOfWeek === Chronos::SUNDAY;
         }, $dt2));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredNegativeNoSignWithMutated($class)
+    public function testDiffInDaysFilteredNegativeNoSignWithMutated()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) use ($class) {
-            return $date->dayOfWeek === $class::SUNDAY;
+        $dt = Chronos::createFromDate(2000, 1, 31);
+        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) {
+            return $date->dayOfWeek === Chronos::SUNDAY;
         }, $dt->startOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredNegativeNoSignWithSecondObject($class)
+    public function testDiffInDaysFilteredNegativeNoSignWithSecondObject()
     {
-        $dt1 = $class::createFromDate(2000, 1, 31);
-        $dt2 = $class::createFromDate(2000, 1, 1);
+        $dt1 = Chronos::createFromDate(2000, 1, 31);
+        $dt2 = Chronos::createFromDate(2000, 1, 1);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
-            return $date->dayOfWeek === $class::SUNDAY;
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function ($date) {
+            return $date->dayOfWeek === Chronos::SUNDAY;
         }, $dt2));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredNegativeWithSignWithMutated($class)
+    public function testDiffInDaysFilteredNegativeWithSignWithMutated()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
         $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->startOfMonth(), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInDaysFilteredNegativeWithSignWithSecondObject($class)
+    public function testDiffInDaysFilteredNegativeWithSignWithSecondObject()
     {
-        $dt1 = $class::createFromDate(2000, 1, 31);
-        $dt2 = $class::createFromDate(2000, 1, 1);
+        $dt1 = Chronos::createFromDate(2000, 1, 31);
+        $dt2 = Chronos::createFromDate(2000, 1, 1);
 
-        $this->assertSame(-5, $dt1->diffInDaysFiltered(function ($date) use ($class) {
-            return $date->dayOfWeek === $class::SUNDAY;
+        $this->assertSame(-5, $dt1->diffInDaysFiltered(function ($date) {
+            return $date->dayOfWeek === Chronos::SUNDAY;
         }, $dt2, false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursFiltered($class)
+    public function testDiffInHoursFiltered()
     {
-        $dt1 = $class::createFromDate(2000, 1, 31)->endOfDay();
-        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = Chronos::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = Chronos::createFromDate(2000, 1, 1)->startOfDay();
 
         $this->assertSame(31, $dt1->diffInHoursFiltered(function ($date) {
             return $date->hour === 9;
         }, $dt2));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursFilteredNegative($class)
+    public function testDiffInHoursFilteredNegative()
     {
-        $dt1 = $class::createFromDate(2000, 1, 31)->endOfDay();
-        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = Chronos::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = Chronos::createFromDate(2000, 1, 1)->startOfDay();
 
         $this->assertSame(-31, $dt1->diffInHoursFiltered(function ($date) {
             return $date->hour === 9;
         }, $dt2, false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursFilteredWorkHoursPerWeek($class)
+    public function testDiffInHoursFilteredWorkHoursPerWeek()
     {
-        $dt1 = $class::createFromDate(2000, 1, 5)->endOfDay();
-        $dt2 = $class::createFromDate(2000, 1, 1)->startOfDay();
+        $dt1 = Chronos::createFromDate(2000, 1, 5)->endOfDay();
+        $dt2 = Chronos::createFromDate(2000, 1, 1)->startOfDay();
 
         $this->assertSame(40, $dt1->diffInHoursFiltered(function ($date) {
             return $date->hour > 8 && $date->hour < 17;
@@ -440,353 +340,221 @@ class DiffTest extends TestCase
         }, $dt2, false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBug188DiffWithSameDates($class)
+    public function testBug188DiffWithSameDates()
     {
-        $start = $class::create(2014, 10, 8, 15, 20, 0);
+        $start = Chronos::create(2014, 10, 8, 15, 20, 0);
         $end = clone $start;
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBug188DiffWithDatesOnlyHoursApart($class)
+    public function testBug188DiffWithDatesOnlyHoursApart()
     {
-        $start = $class::create(2014, 10, 8, 15, 20, 0);
+        $start = Chronos::create(2014, 10, 8, 15, 20, 0);
         $end = clone $start;
 
         $this->assertSame(0, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBug188DiffWithSameDates1DayApart($class)
+    public function testBug188DiffWithSameDates1DayApart()
     {
-        $start = $class::create(2014, 10, 8, 15, 20, 0);
+        $start = Chronos::create(2014, 10, 8, 15, 20, 0);
         $end = $start->addDays(1);
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(1, $start->diffInWeekdays($end));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBug188DiffWithDatesOnTheWeekend($class)
+    public function testBug188DiffWithDatesOnTheWeekend()
     {
-        $start = $class::create(2014, 1, 1, 0, 0, 0);
-        $start = $start->next($class::SATURDAY);
+        $start = Chronos::create(2014, 1, 1, 0, 0, 0);
+        $start = $start->next(Chronos::SATURDAY);
         $end = $start->addDays(1);
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekdaysPositive($class)
+    public function testDiffInWeekdaysPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(21, $dt->diffInWeekdays($dt->endOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekdaysNegativeNoSign($class)
+    public function testDiffInWeekdaysNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
         $this->assertSame(21, $dt->diffInWeekdays($dt->startOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekdaysNegativeWithSign($class)
+    public function testDiffInWeekdaysNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
         $this->assertSame(-21, $dt->diffInWeekdays($dt->startOfMonth(), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekendDaysPositive($class)
+    public function testDiffInWeekendDaysPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(10, $dt->diffInWeekendDays($dt->endOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekendDaysNegativeNoSign($class)
+    public function testDiffInWeekendDaysNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
         $this->assertSame(10, $dt->diffInWeekendDays($dt->startOfMonth()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeekendDaysNegativeWithSign($class)
+    public function testDiffInWeekendDaysNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 31);
+        $dt = Chronos::createFromDate(2000, 1, 31);
         $this->assertSame(-10, $dt->diffInWeekendDays($dt->startOfMonth(), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeeksPositive($class)
+    public function testDiffInWeeksPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(52, $dt->diffInWeeks($dt->addYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeeksNegativeWithSign($class)
+    public function testDiffInWeeksNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-52, $dt->diffInWeeks($dt->subYears(1), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeeksNegativeNoSign($class)
+    public function testDiffInWeeksNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(52, $dt->diffInWeeks($dt->subYears(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeeksVsDefaultNow($class)
+    public function testDiffInWeeksVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subWeeks(1)->diffInWeeks());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(1, Chronos::now()->subWeeks(1)->diffInWeeks());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInWeeksEnsureIsTruncated($class)
+    public function testDiffInWeeksEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(0, $dt->diffInWeeks($dt->addWeeks(1)->subDays(1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursPositive($class)
+    public function testDiffInHoursPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(26, $dt->diffInHours($dt->addDays(1)->addHours(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursNegativeWithSign($class)
+    public function testDiffInHoursNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-22, $dt->diffInHours($dt->subDays(1)->addHours(2), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursNegativeNoSign($class)
+    public function testDiffInHoursNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(22, $dt->diffInHours($dt->subDays(1)->addHours(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursVsDefaultNow($class)
+    public function testDiffInHoursVsDefaultNow()
     {
         date_default_timezone_set('UTC');
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(48, $class::now()->subDays(2)->diffInHours());
-        }, $class::create(2012, 1, 15));
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(48, Chronos::now()->subDays(2)->diffInHours());
+        }, Chronos::create(2012, 1, 15));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInHoursEnsureIsTruncated($class)
+    public function testDiffInHoursEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInHours($dt->addHours(1)->addMinutes(31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesPositive($class)
+    public function testDiffInMinutesPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(62, $dt->diffInMinutes($dt->addHours(1)->addMinutes(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesPositiveAlot($class)
+    public function testDiffInMinutesPositiveAlot()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1502, $dt->diffInMinutes($dt->addHours(25)->addMinutes(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesNegativeWithSign($class)
+    public function testDiffInMinutesNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-58, $dt->diffInMinutes($dt->subHours(1)->addMinutes(2), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesNegativeNoSign($class)
+    public function testDiffInMinutesNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(58, $dt->diffInMinutes($dt->subHours(1)->addMinutes(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesVsDefaultNow($class)
+    public function testDiffInMinutesVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(60, $class::now()->subHours(1)->diffInMinutes());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(60, Chronos::now()->subHours(1)->diffInMinutes());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInMinutesEnsureIsTruncated($class)
+    public function testDiffInMinutesEnsureIsTruncated()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInMinutes($dt->addMinutes(1)->addSeconds(31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsPositive($class)
+    public function testDiffInSecondsPositive()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(62, $dt->diffInSeconds($dt->addMinutes(1)->addSeconds(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsPositiveAlot($class)
+    public function testDiffInSecondsPositiveAlot()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(7202, $dt->diffInSeconds($dt->addHours(2)->addSeconds(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsNegativeWithSign($class)
+    public function testDiffInSecondsNegativeWithSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(-58, $dt->diffInSeconds($dt->subMinutes(1)->addSeconds(2), false));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsNegativeNoSign($class)
+    public function testDiffInSecondsNegativeNoSign()
     {
-        $dt = $class::createFromDate(2000, 1, 1);
+        $dt = Chronos::createFromDate(2000, 1, 1);
         $this->assertSame(58, $dt->diffInSeconds($dt->subMinutes(1)->addSeconds(2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsVsDefaultNow($class)
+    public function testDiffInSecondsVsDefaultNow()
     {
-        $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(3600, $class::now()->subHours(1)->diffInSeconds());
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(3600, Chronos::now()->subHours(1)->diffInSeconds());
         });
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsWithTimezones($class)
+    public function testDiffInSecondsWithTimezones()
     {
-        $dtOttawa = $class::createFromDate(2000, 1, 1, 'America/Toronto');
-        $dtVancouver = $class::createFromDate(2000, 1, 1, 'America/Vancouver');
+        $dtOttawa = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dtVancouver = Chronos::createFromDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(3 * 60 * 60, $dtOttawa->diffInSeconds($dtVancouver));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDiffInSecondsWithTimezonesAndVsDefaulessThan($class)
+    public function testDiffInSecondsWithTimezonesAndVsDefaulessThan()
     {
-        $vanNow = $class::now('America/Vancouver');
-        $hereNow = $vanNow->setTimezone($class::now()->tz);
+        $vanNow = Chronos::now('America/Vancouver');
+        $hereNow = $vanNow->setTimezone(Chronos::now()->tz);
 
         $this->wrapWithTestNow(function () use ($vanNow) {
             $this->assertSame(0, $vanNow->diffInSeconds());
@@ -795,17 +563,14 @@ class DiffTest extends TestCase
 
     /**
      * Tests the "from now" time calculation.
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testFromNow($class)
+    public function testFromNow()
     {
-        $date = $class::now();
+        $date = Chronos::now();
         $date = $date->modify('-1 year')
             ->modify('-6 days')
             ->modify('-51 seconds');
-        $interval = $class::fromNow($date);
+        $interval = Chronos::fromNow($date);
         $result = $interval->format('%y %m %d %H %i %s');
         $this->assertSame($result, '1 0 6 00 0 51');
     }

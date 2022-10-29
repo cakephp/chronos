@@ -15,256 +15,161 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 use InvalidArgumentException;
 
 class CreateTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateReturnsDatingInstance($class)
+    public function testCreateReturnsDatingInstance()
     {
-        $d = $class::create();
-        $this->assertTrue($d instanceof $class);
+        $d = Chronos::create();
+        $this->assertTrue($d instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithDefaults($class)
+    public function testCreateWithDefaults()
     {
-        $d = $class::create();
-        $this->assertSame($d->timestamp, $class::now()->timestamp);
+        $d = Chronos::create();
+        $this->assertSame($d->timestamp, Chronos::now()->timestamp);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithYear($class)
+    public function testCreateWithYear()
     {
-        $d = $class::create(2012);
+        $d = Chronos::create(2012);
         $this->assertSame(2012, $d->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateHandlesNegativeYear($class)
+    public function testCreateHandlesNegativeYear()
     {
-        $d = $class::create(-1, 10, 12, 1, 2, 3);
+        $d = Chronos::create(-1, 10, 12, 1, 2, 3);
         $this->assertDateTime($d, -1, 10, 12, 1, 2, 3);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateHandlesFiveDigitsPositiveYears($class)
+    public function testCreateHandlesFiveDigitsPositiveYears()
     {
-        $c = $class::create(999999999, 10, 12, 1, 2, 3);
+        $c = Chronos::create(999999999, 10, 12, 1, 2, 3);
         $this->assertDateTime($c, 999999999, 10, 12, 1, 2, 3);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateHandlesFiveDigitsNegativeYears($class)
+    public function testCreateHandlesFiveDigitsNegativeYears()
     {
-        $c = $class::create(-999999999, 10, 12, 1, 2, 3);
+        $c = Chronos::create(-999999999, 10, 12, 1, 2, 3);
         $this->assertDateTime($c, -999999999, 10, 12, 1, 2, 3);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithMonth($class)
+    public function testCreateWithMonth()
     {
-        $d = $class::create(null, 3);
+        $d = Chronos::create(null, 3);
         $this->assertSame(3, $d->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithInvalidMonth($class)
+    public function testCreateWithInvalidMonth()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(null, -5);
+        Chronos::create(null, -5);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateMonthWraps($class)
+    public function testCreateMonthWraps()
     {
-        $d = $class::create(2011, 0, 1, 0, 0, 0);
+        $d = Chronos::create(2011, 0, 1, 0, 0, 0);
         $this->assertDateTime($d, 2010, 12, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithDay($class)
+    public function testCreateWithDay()
     {
-        $d = $class::create(null, null, 21);
+        $d = Chronos::create(null, null, 21);
         $this->assertSame(21, $d->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithInvalidDay($class)
+    public function testCreateWithInvalidDay()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(null, null, -4);
+        Chronos::create(null, null, -4);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateDayWraps($class)
+    public function testCreateDayWraps()
     {
-        $d = $class::create(2011, 1, 40, 0, 0, 0);
+        $d = Chronos::create(2011, 1, 40, 0, 0, 0);
         $this->assertDateTime($d, 2011, 2, 9, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithHourAndDefaultMinSecToZero($class)
+    public function testCreateWithHourAndDefaultMinSecToZero()
     {
-        $d = $class::create(null, null, null, 14);
+        $d = Chronos::create(null, null, null, 14);
         $this->assertSame(14, $d->hour);
         $this->assertSame(0, $d->minute);
         $this->assertSame(0, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithInvalidHour($class)
+    public function testCreateWithInvalidHour()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(null, null, null, -1);
+        Chronos::create(null, null, null, -1);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateHourWraps($class)
+    public function testCreateHourWraps()
     {
-        $d = $class::create(2011, 1, 1, 24, 0, 0);
+        $d = Chronos::create(2011, 1, 1, 24, 0, 0);
         $this->assertDateTime($d, 2011, 1, 2, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithMinute($class)
+    public function testCreateWithMinute()
     {
-        $d = $class::create(null, null, null, null, 58);
+        $d = Chronos::create(null, null, null, null, 58);
         $this->assertSame(58, $d->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithInvalidMinute($class)
+    public function testCreateWithInvalidMinute()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(2011, 1, 1, 0, -2, 0);
+        Chronos::create(2011, 1, 1, 0, -2, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateMinuteWraps($class)
+    public function testCreateMinuteWraps()
     {
-        $d = $class::create(2011, 1, 1, 0, 62, 0);
+        $d = Chronos::create(2011, 1, 1, 0, 62, 0);
         $this->assertDateTime($d, 2011, 1, 1, 1, 2, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithSecond($class)
+    public function testCreateWithSecond()
     {
-        $d = $class::create(null, null, null, null, null, 59);
+        $d = Chronos::create(null, null, null, null, null, 59);
         $this->assertSame(59, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithInvalidSecond($class)
+    public function testCreateWithInvalidSecond()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(null, null, null, null, null, -2);
+        Chronos::create(null, null, null, null, null, -2);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateSecondsWrap($class)
+    public function testCreateSecondsWrap()
     {
-        $d = $class::create(2012, 1, 1, 0, 0, 61);
+        $d = Chronos::create(2012, 1, 1, 0, 0, 61);
         $this->assertDateTime($d, 2012, 1, 1, 0, 1, 1);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithDateTimeZone($class)
+    public function testCreateWithDateTimeZone()
     {
-        $d = $class::create(2012, 1, 1, 0, 0, 0, 0, new DateTimeZone('Europe/London'));
+        $d = Chronos::create(2012, 1, 1, 0, 0, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateWithTimeZoneString($class)
+    public function testCreateWithTimeZoneString()
     {
-        $d = $class::create(2012, 1, 1, 0, 0, 0, 0, 'Europe/London');
+        $d = Chronos::create(2012, 1, 1, 0, 0, 0, 0, 'Europe/London');
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromArray($class)
+    public function testCreateFromArray()
     {
         $values = [
             'year' => 2012,
@@ -276,32 +181,24 @@ class CreateTest extends TestCase
             'microsecond' => 123456,
             'meridian' => 'am',
         ];
-        $d = $class::createFromArray($values);
+        $d = Chronos::createFromArray($values);
         $this->assertDateTime($d, 2012, 1, 1, 0, 13, 14, 123456);
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromArrayDateOnly($class)
+    public function testCreateFromArrayDateOnly()
     {
         $values = [
             'year' => 2012,
             'month' => '1',
             'day' => '1',
         ];
-        $d = $class::createFromArray($values);
+        $d = Chronos::createFromArray($values);
         $this->assertDateTime($d, 2012, 1, 1);
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromArrayTimeOnly($class)
+    public function testCreateFromArrayTimeOnly()
     {
         $values = [
             'hour' => 12,
@@ -310,7 +207,7 @@ class CreateTest extends TestCase
             'microsecond' => 123456,
             'meridian' => 'am',
         ];
-        $d = $class::createFromArray($values);
+        $d = Chronos::createFromArray($values);
         $this->assertTime($d, 0, 13, 14, 123456);
         $this->assertSame('America/Toronto', $d->tzName);
     }

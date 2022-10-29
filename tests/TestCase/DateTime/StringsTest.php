@@ -21,116 +21,72 @@ use DateTime;
 
 class StringsTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToString($class)
+    public function testToString()
     {
-        $d = $class::now();
-        $this->assertSame($class::now()->toDateTimeString(), '' . $d);
+        $d = Chronos::now();
+        $this->assertSame(Chronos::now()->toDateTimeString(), '' . $d);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSetToStringFormat($class)
+    public function testSetToStringFormat()
     {
-        $class::setToStringFormat('jS \o\f F, Y g:i:s a');
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        Chronos::setToStringFormat('jS \o\f F, Y g:i:s a');
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('25th of December, 1975 2:15:16 pm', '' . $d);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testResetToStringFormat($class)
+    public function testResetToStringFormat()
     {
-        $d = $class::now();
-        $class::setToStringFormat('123');
-        $class::resetToStringFormat();
+        $d = Chronos::now();
+        Chronos::setToStringFormat('123');
+        Chronos::resetToStringFormat();
         $this->assertSame($d->toDateTimeString(), '' . $d);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToDateString($class)
+    public function testToDateString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25', $d->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToFormattedDateString($class)
+    public function testToFormattedDateString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToTimeString($class)
+    public function testToTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('14:15:16', $d->toTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToDateTimeString($class)
+    public function testToDateTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25 14:15:16', $d->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToDateTimeStringWithPaddedZeroes($class)
+    public function testToDateTimeStringWithPaddedZeroes()
     {
-        $d = $class::create(2000, 5, 2, 4, 3, 4);
+        $d = Chronos::create(2000, 5, 2, 4, 3, 4);
         $this->assertSame('2000-05-02 04:03:04', $d->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToDayDateTimeString($class)
+    public function testToDayDateTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, Dec 25, 1975 2:15 PM', $d->toDayDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToAtomString($class)
+    public function testToAtomString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toAtomString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToCOOKIEString($class)
+    public function testToCOOKIEString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         if (DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
         } else {
@@ -140,106 +96,66 @@ class StringsTest extends TestCase
         $this->assertSame($cookieString, $d->toCOOKIEString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToIso8601String($class)
+    public function testToIso8601String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toIso8601String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRC822String($class)
+    public function testToRC822String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc822String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRfc850String($class)
+    public function testToRfc850String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toRfc850String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRfc1036String($class)
+    public function testToRfc1036String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc1036String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRfc1123String($class)
+    public function testToRfc1123String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRfc2822String($class)
+    public function testToRfc2822String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc2822String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRfc3339String($class)
+    public function testToRfc3339String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRfc3339String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToRssString($class)
+    public function testToRssString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRssString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToW3cString($class)
+    public function testToW3cString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Chronos::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToUnixString($class)
+    public function testToUnixString()
     {
-        $time = $class::parse('2014-04-20 08:00:00');
+        $time = Chronos::parse('2014-04-20 08:00:00');
         $this->assertSame('1397995200', $time->toUnixString());
 
-        $time = $class::parse('2021-12-11 07:00:01');
+        $time = Chronos::parse('2021-12-11 07:00:01');
         $this->assertSame('1639224001', $time->toUnixString());
     }
 

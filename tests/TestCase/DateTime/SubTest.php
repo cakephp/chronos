@@ -15,167 +15,100 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class SubTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearsPositive($class)
+    public function testSubYearsPositive()
     {
-        $this->assertSame(1974, $class::createFromDate(1975)->subYears(1)->year);
+        $this->assertSame(1974, Chronos::createFromDate(1975)->subYears(1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearsZero($class)
+    public function testSubYearsZero()
     {
-        $this->assertSame(1975, $class::createFromDate(1975)->subYears(0)->year);
+        $this->assertSame(1975, Chronos::createFromDate(1975)->subYears(0)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearsNegative($class)
+    public function testSubYearsNegative()
     {
-        $this->assertSame(1976, $class::createFromDate(1975)->subYears(-1)->year);
+        $this->assertSame(1976, Chronos::createFromDate(1975)->subYears(-1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYear($class)
+    public function testSubYear()
     {
-        $this->assertSame(1974, $class::createFromDate(1975)->subYears(1)->year);
+        $this->assertSame(1974, Chronos::createFromDate(1975)->subYears(1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearNoOverflowPassingArg($class)
+    public function testSubYearNoOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2013, 2, 28)->subYears(1);
+        $dt = Chronos::createFromDate(2013, 2, 28)->subYears(1);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearsWithOverflowPassingArg($class)
+    public function testSubYearsWithOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2014, 2, 29)->subYearsWithOverflow(2);
+        $dt = Chronos::createFromDate(2014, 2, 29)->subYearsWithOverflow(2);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearWithOverflowPassingArg($class)
+    public function testSubYearWithOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2013, 2, 28)->subYearsWithOverflow(1);
+        $dt = Chronos::createFromDate(2013, 2, 28)->subYearsWithOverflow(1);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthsPositive($class)
+    public function testSubMonthsPositive()
     {
-        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonths(1)->month);
+        $this->assertSame(12, Chronos::createFromDate(1975, 1, 1)->subMonths(1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthsZero($class)
+    public function testSubMonthsZero()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 1, 1)->subMonths(0)->month);
+        $this->assertSame(1, Chronos::createFromDate(1975, 1, 1)->subMonths(0)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthsNegative($class)
+    public function testSubMonthsNegative()
     {
-        $this->assertSame(2, $class::createFromDate(1975, 1, 1)->subMonths(-1)->month);
+        $this->assertSame(2, Chronos::createFromDate(1975, 1, 1)->subMonths(-1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonth($class)
+    public function testSubMonth()
     {
-        $this->assertSame(12, $class::createFromDate(1975, 1, 1)->subMonths(1)->month);
+        $this->assertSame(12, Chronos::createFromDate(1975, 1, 1)->subMonths(1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubDaysPositive($class)
+    public function testSubDaysPositive()
     {
-        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDays(1)->day);
+        $this->assertSame(30, Chronos::createFromDate(1975, 5, 1)->subDays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubDaysZero($class)
+    public function testSubDaysZero()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 5, 1)->subDays(0)->day);
+        $this->assertSame(1, Chronos::createFromDate(1975, 5, 1)->subDays(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubDaysNegative($class)
+    public function testSubDaysNegative()
     {
-        $this->assertSame(2, $class::createFromDate(1975, 5, 1)->subDays(-1)->day);
+        $this->assertSame(2, Chronos::createFromDate(1975, 5, 1)->subDays(-1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubDay($class)
+    public function testSubDay()
     {
-        $this->assertSame(30, $class::createFromDate(1975, 5, 1)->subDays(1)->day);
+        $this->assertSame(30, Chronos::createFromDate(1975, 5, 1)->subDays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeekdayDuringWeekend($class)
+    public function testSubWeekdayDuringWeekend()
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekdays(1)->day);
+        $this->assertSame(6, Chronos::createFromDate(2012, 1, 8)->subWeekdays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeekdaysPositive($class)
+    public function testSubWeekdaysPositive()
     {
-        $dt = $class::create(2012, 1, 4, 13, 2, 1)->subWeekdays(9);
+        $dt = Chronos::create(2012, 1, 4, 13, 2, 1)->subWeekdays(9);
         $this->assertSame(22, $dt->day);
 
         // Test for https://bugs.php.net/bug.php?id=54909
@@ -184,263 +117,151 @@ class SubTest extends TestCase
         $this->assertSame(1, $dt->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeekdaysZero($class)
+    public function testSubWeekdaysZero()
     {
-        $this->assertSame(4, $class::createFromDate(2012, 1, 4)->subWeekdays(0)->day);
+        $this->assertSame(4, Chronos::createFromDate(2012, 1, 4)->subWeekdays(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeekdaysNegative($class)
+    public function testSubWeekdaysNegative()
     {
-        $this->assertSame(13, $class::createFromDate(2012, 1, 31)->subWeekdays(-9)->day);
+        $this->assertSame(13, Chronos::createFromDate(2012, 1, 31)->subWeekdays(-9)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeekday($class)
+    public function testSubWeekday()
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekdays(1)->day);
+        $this->assertSame(6, Chronos::createFromDate(2012, 1, 9)->subWeekdays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeeksPositive($class)
+    public function testSubWeeksPositive()
     {
-        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeeks(1)->day);
+        $this->assertSame(14, Chronos::createFromDate(1975, 5, 21)->subWeeks(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeeksZero($class)
+    public function testSubWeeksZero()
     {
-        $this->assertSame(21, $class::createFromDate(1975, 5, 21)->subWeeks(0)->day);
+        $this->assertSame(21, Chronos::createFromDate(1975, 5, 21)->subWeeks(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeeksNegative($class)
+    public function testSubWeeksNegative()
     {
-        $this->assertSame(28, $class::createFromDate(1975, 5, 21)->subWeeks(-1)->day);
+        $this->assertSame(28, Chronos::createFromDate(1975, 5, 21)->subWeeks(-1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubWeek($class)
+    public function testSubWeek()
     {
-        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->subWeeks(1)->day);
+        $this->assertSame(14, Chronos::createFromDate(1975, 5, 21)->subWeeks(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubHoursPositive($class)
+    public function testSubHoursPositive()
     {
-        $this->assertSame(23, $class::createFromTime(0)->subHours(1)->hour);
+        $this->assertSame(23, Chronos::createFromTime(0)->subHours(1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubHoursZero($class)
+    public function testSubHoursZero()
     {
-        $this->assertSame(0, $class::createFromTime(0)->subHours(0)->hour);
+        $this->assertSame(0, Chronos::createFromTime(0)->subHours(0)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubHoursNegative($class)
+    public function testSubHoursNegative()
     {
-        $this->assertSame(1, $class::createFromTime(0)->subHours(-1)->hour);
+        $this->assertSame(1, Chronos::createFromTime(0)->subHours(-1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubHour($class)
+    public function testSubHour()
     {
-        $this->assertSame(23, $class::createFromTime(0)->subHours(1)->hour);
+        $this->assertSame(23, Chronos::createFromTime(0)->subHours(1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMinutesPositive($class)
+    public function testSubMinutesPositive()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0)->subMinutes(1)->minute);
+        $this->assertSame(59, Chronos::createFromTime(0, 0)->subMinutes(1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMinutesZero($class)
+    public function testSubMinutesZero()
     {
-        $this->assertSame(0, $class::createFromTime(0, 0)->subMinutes(0)->minute);
+        $this->assertSame(0, Chronos::createFromTime(0, 0)->subMinutes(0)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMinutesNegative($class)
+    public function testSubMinutesNegative()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0)->subMinutes(-1)->minute);
+        $this->assertSame(1, Chronos::createFromTime(0, 0)->subMinutes(-1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMinute($class)
+    public function testSubMinute()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0)->subMinutes(1)->minute);
+        $this->assertSame(59, Chronos::createFromTime(0, 0)->subMinutes(1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubSecondsPositive($class)
+    public function testSubSecondsPositive()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSeconds(1)->second);
+        $this->assertSame(59, Chronos::createFromTime(0, 0, 0)->subSeconds(1)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubSecondsZero($class)
+    public function testSubSecondsZero()
     {
-        $this->assertSame(0, $class::createFromTime(0, 0, 0)->subSeconds(0)->second);
+        $this->assertSame(0, Chronos::createFromTime(0, 0, 0)->subSeconds(0)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubSecondsNegative($class)
+    public function testSubSecondsNegative()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0, 0)->subSeconds(-1)->second);
+        $this->assertSame(1, Chronos::createFromTime(0, 0, 0)->subSeconds(-1)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubSecond($class)
+    public function testSubSecond()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0, 0)->subSeconds(1)->second);
+        $this->assertSame(59, Chronos::createFromTime(0, 0, 0)->subSeconds(1)->second);
     }
 
     /***** Test non plural methods with non default args *****/
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubYearPassingArg($class)
+    public function testSubYearPassingArg()
     {
-        $this->assertSame(1973, $class::createFromDate(1975)->subYears(2)->year);
+        $this->assertSame(1973, Chronos::createFromDate(1975)->subYears(2)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthPassingArg($class)
+    public function testSubMonthPassingArg()
     {
-        $this->assertSame(3, $class::createFromDate(1975, 5, 1)->subMonths(2)->month);
+        $this->assertSame(3, Chronos::createFromDate(1975, 5, 1)->subMonths(2)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthNoOverflowPassingArg($class)
+    public function testSubMonthNoOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2011, 4, 30)->subMonths(2);
+        $dt = Chronos::createFromDate(2011, 4, 30)->subMonths(2);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthsWithOverflowPassingArg($class)
+    public function testSubMonthsWithOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2011, 4, 30)->subMonthsWithOverflow(2);
+        $dt = Chronos::createFromDate(2011, 4, 30)->subMonthsWithOverflow(2);
         $this->assertSame(3, $dt->month);
         $this->assertSame(2, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMonthWithOverflowPassingArg($class)
+    public function testSubMonthWithOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2011, 3, 30)->subMonthsWithOverflow(1);
+        $dt = Chronos::createFromDate(2011, 3, 30)->subMonthsWithOverflow(1);
         $this->assertSame(3, $dt->month);
         $this->assertSame(2, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubDayPassingArg($class)
+    public function testSubDayPassingArg()
     {
-        $this->assertSame(8, $class::createFromDate(1975, 5, 10)->subDays(2)->day);
+        $this->assertSame(8, Chronos::createFromDate(1975, 5, 10)->subDays(2)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubHourPassingArg($class)
+    public function testSubHourPassingArg()
     {
-        $this->assertSame(22, $class::createFromTime(0)->subHours(2)->hour);
+        $this->assertSame(22, Chronos::createFromTime(0)->subHours(2)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubMinutePassingArg($class)
+    public function testSubMinutePassingArg()
     {
-        $this->assertSame(58, $class::createFromTime(0)->subMinutes(2)->minute);
+        $this->assertSame(58, Chronos::createFromTime(0)->subMinutes(2)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSubSecondPassingArg($class)
+    public function testSubSecondPassingArg()
     {
-        $this->assertSame(58, $class::createFromTime(0)->subSeconds(2)->second);
+        $this->assertSame(58, Chronos::createFromTime(0)->subSeconds(2)->second);
     }
 }
