@@ -46,13 +46,6 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function dateClassProvider()
-    {
-        return [
-            'immutable' => [Date::class],
-        ];
-    }
-
     protected function assertTime($d, $hour, $minute, $second = null, $microsecond = null)
     {
         $this->assertSame($hour, $d->hour, 'Chronos->hour');

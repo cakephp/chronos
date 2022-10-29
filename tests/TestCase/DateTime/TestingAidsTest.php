@@ -106,23 +106,20 @@ class TestingAidsTest extends TestCase
 
     /**
      * Ensure that using test now doesn't mutate test now.
-     *
-     * @dataProvider dateClassProvider
-     * @return void
      */
-    public function testNowNoMutateDate($class)
+    public function testNowNoMutateDate()
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
-        $class::setTestNow($notNow);
+        Date::setTestNow($notNow);
 
-        $instance = new $class('-1 day');
+        $instance = new Date('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new $class('-1 day');
+        $instance = new Date('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new $class('-23 hours');
+        $instance = new Date('-23 hours');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
     }
 
