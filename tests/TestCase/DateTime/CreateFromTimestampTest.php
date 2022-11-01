@@ -50,11 +50,4 @@ class CreateFromTimestampTest extends TestCase
         $this->assertSame(0, $d->offset);
         $this->assertSame('UTC', $d->tzName);
     }
-
-    public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone()
-    {
-        $d = Chronos::createFromTimestampUTC(0);
-        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
-        $this->assertSame(0, $d->offset);
-    }
 }

@@ -170,6 +170,6 @@ class ConstructBench
     public function benchFromTimestampUTC($params)
     {
         $class = $params['class'];
-        $class::createFromTimestampUTC(1454284800);
+        $class::createFromTimestamp(1454284800);
     }
 }
