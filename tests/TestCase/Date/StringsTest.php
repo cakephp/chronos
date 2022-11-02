@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
@@ -46,8 +47,8 @@ class StringsTest extends TestCase
 
     public function testToString()
     {
-        $d = ChronosDate::now();
-        $this->assertSame(ChronosDate::now()->toDateString(), '' . $d);
+        $d = ChronosDate::parse('2021-01-01');
+        $this->assertSame($d->toDateString(), '' . $d);
     }
 
     public function testSetToStringFormat()
@@ -59,7 +60,7 @@ class StringsTest extends TestCase
 
     public function testResetToStringFormat()
     {
-        $d = ChronosDate::now();
+        $d = ChronosDate::parse(Chronos::now());
         ChronosDate::setToStringFormat('123');
         ChronosDate::resetToStringFormat();
         $this->assertSame($d->toDateTimeString(), '' . $d);

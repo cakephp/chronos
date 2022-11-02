@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeImmutable;
@@ -133,11 +134,15 @@ class ConstructTest extends TestCase
     public function testCreateFromExistingInstance()
     {
         $existingClass = new Chronos();
-        $this->assertInstanceOf(Chronos::class, $existingClass);
-
         $newClass = new Chronos($existingClass);
-        $this->assertInstanceOf(Chronos::class, $newClass);
         $this->assertSame((string)$existingClass, (string)$newClass);
+    }
+
+    public function testCreateFromChronosDate()
+    {
+        $date = new ChronosDate('2021-01-01');
+        $chronos = new Chronos($date);
+        $this->assertSame('2021-01-01 00:00:00', $chronos->format('Y-m-d H:i:s'));
     }
 
     public function testCreateFromDateTimeInterface()

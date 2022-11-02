@@ -15,6 +15,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use DateTimeInterface;
 
 /**
@@ -69,10 +71,10 @@ trait RelativeKeywordTrait
     /**
      * Determines if there is no fixed date in the time string.
      *
-     * @param \DateTimeInterface|string|null $time The time string to check
+     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|null $time The time string to check
      * @return bool true if doesn't contain a fixed date
      */
-    private static function isRelativeOnly(DateTimeInterface|string|null $time): bool
+    private static function isRelativeOnly(Chronos|ChronosDate|DateTimeInterface|string|null $time): bool
     {
         if ($time === null) {
             return true;

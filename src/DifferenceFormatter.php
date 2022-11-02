@@ -40,24 +40,22 @@ class DifferenceFormatter implements DifferenceFormatterInterface
     }
 
     /**
-     * Get the difference in a human readable format.
-     *
-     * @param \Cake\Chronos\ChronosInterface $dateTime1 The datetime to start with.
-     * @param \Cake\Chronos\ChronosInterface|null $dateTime2 The datetime to compare against.
-     * @param bool $absolute removes time difference modifiers ago, after, etc
-     * @return string The difference between the two days in a human readable format
-     * @see \Cake\Chronos\ChronosInterface::diffForHumans
+     * @inheritDoc
      */
     public function diffForHumans(
-        ChronosInterface $dateTime1,
-        ?ChronosInterface $dateTime2 = null,
+        Chronos|ChronosDate $first,
+        Chronos|ChronosDate|null $second = null,
         bool $absolute = false
     ): string {
-        $isNow = $dateTime2 === null;
-        if ($isNow) {
-            $dateTime2 = $dateTime1->now($dateTime1->getTimezone());
+        $isNow = $second === null;
+        if ($second === null) {
+            if ($first instanceof ChronosDate) {
+                $second = new ChronosDate(Chronos::now());
+            } else {
+                $second = Chronos::now($first->getTimezone());
+            }
         }
-        $diffInterval = $dateTime1->diff($dateTime2);
+        $diffInterval = $first->diff($second);
 
         switch (true) {
             case $diffInterval->y > 0:
@@ -68,9 +66,9 @@ class DifferenceFormatter implements DifferenceFormatterInterface
                 $unit = 'month';
                 $count = $diffInterval->m;
                 break;
-            case $diffInterval->days >= ChronosInterface::DAYS_PER_WEEK * 3:
+            case $diffInterval->days >= Chronos::DAYS_PER_WEEK * 3:
                 $unit = 'week';
-                $count = (int)($diffInterval->days / ChronosInterface::DAYS_PER_WEEK);
+                $count = (int)($diffInterval->days / Chronos::DAYS_PER_WEEK);
                 break;
             case $diffInterval->d > 0:
                 $unit = 'day';

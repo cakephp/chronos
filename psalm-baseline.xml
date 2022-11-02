@@ -1,46 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.x-dev@">
   <file src="src/Chronos.php">
-    <ImpureFunctionCall occurrences="1">
+    <ImpureFunctionCall occurrences="4">
+      <code>array_filter</code>
       <code>date_default_timezone_get</code>
+      <code>date_default_timezone_get</code>
+      <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="5">
+    <ImpureMethodCall occurrences="43">
+      <code>$period</code>
+      <code>diffForHumans</code>
+      <code>diffFormatter</code>
       <code>format</code>
-      <code>format</code>
+      <code>getTestNow</code>
       <code>getTimezone</code>
+      <code>getWeekendDays</code>
+      <code>hasRelativeKeywords</code>
       <code>hasTestNow</code>
-      <code>setTimezone</code>
+      <code>isTimeExpression</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>safeCreateDateTimeZone</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>toDateString</code>
+      <code>tomorrow</code>
+      <code>yesterday</code>
     </ImpureMethodCall>
+    <ImpureStaticProperty occurrences="13">
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$weekEndsAt</code>
+      <code>static::$weekEndsAt</code>
+      <code>static::$weekStartsAt</code>
+      <code>static::$weekStartsAt</code>
+    </ImpureStaticProperty>
+    <ImpureStaticVariable occurrences="1"/>
   </file>
   <file src="src/ChronosDate.php">
-    <ImpureFunctionCall occurrences="1">
-      <code>date_default_timezone_get</code>
+    <ImpureFunctionCall occurrences="2">
+      <code>array_filter</code>
+      <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="4">
-      <code>format</code>
-      <code>getTimezone</code>
+    <ImpureMethodCall occurrences="40">
+      <code>$period</code>
+      <code>diffForHumans</code>
+      <code>diffFormatter</code>
+      <code>getTestNow</code>
+      <code>getWeekEndsAt</code>
+      <code>getWeekEndsAt</code>
+      <code>getWeekStartsAt</code>
+      <code>getWeekStartsAt</code>
+      <code>getWeekendDays</code>
       <code>hasTestNow</code>
-      <code>setTimezone</code>
+      <code>isRelativeOnly</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>stripTime</code>
     </ImpureMethodCall>
-  </file>
-  <file src="src/Traits/FrozenTimeTrait.php">
-    <MissingImmutableAnnotation occurrences="6">
-      <code>public function add(DateInterval $interval): static</code>
-      <code>public function modify(string $relative): static</code>
-      <code>public function setTime(int $hours, int $minutes, ?int $seconds = null, ?int $microseconds = null): static</code>
-      <code>public function setTimestamp(int $value): static</code>
-      <code>public function setTimezone(DateTimeZone|string $value): static</code>
-      <code>public function sub(DateInterval $interval): static</code>
-    </MissingImmutableAnnotation>
-  </file>
-  <file src="src/Traits/ModifierTrait.php">
-    <MissingImmutableAnnotation occurrences="1">
-      <code>public function setDate(int $year, int $month, int $day): static</code>
-    </MissingImmutableAnnotation>
-  </file>
-  <file src="src/Traits/TimezoneTrait.php">
-    <MissingImmutableAnnotation occurrences="1">
-      <code>public function setTimezone(DateTimeZone|string $value): static</code>
-    </MissingImmutableAnnotation>
+    <ImpureStaticProperty occurrences="9">
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+      <code>static::$days</code>
+    </ImpureStaticProperty>
+    <ImpureStaticVariable occurrences="1"/>
   </file>
 </files>

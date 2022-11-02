@@ -16,17 +16,16 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class ComparisonTest extends TestCase
 {
     public function testGetSetWeekendDays()
     {
-        $expected = [ChronosInterface::SATURDAY, ChronosInterface::SUNDAY];
+        $expected = [Chronos::SATURDAY, Chronos::SUNDAY];
         $this->assertSame($expected, Chronos::getWeekendDays());
 
-        $replace = [ChronosInterface::SUNDAY];
+        $replace = [Chronos::SUNDAY];
         Chronos::setWeekendDays($replace);
         $this->assertSame($replace, Chronos::getWeekendDays());
 

@@ -294,7 +294,7 @@ you fix the current time for each class. As part of your test suite's bootstrap
 process you can include the following::
 
     Chronos::setTestNow(Chronos::now());
-    ChronosDate::setTestNow(ChronosDate::now());
+    ChronosDate::setTestNow(ChronosDate::parse(Chronos::now()));
 
 This will fix the current time of all objects to be the point at which the test
 suite started.

@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\ChronosInterface;
+use Cake\Chronos\Chronos;
 use DateTime;
 
 /**
@@ -31,7 +31,7 @@ trait FormattingTrait
      */
     public static function resetToStringFormat(): void
     {
-        static::setToStringFormat(ChronosInterface::DEFAULT_TO_STRING_FORMAT);
+        static::setToStringFormat(Chronos::DEFAULT_TO_STRING_FORMAT);
     }
 
     /**
@@ -239,7 +239,7 @@ trait FormattingTrait
      */
     public function toQuarter(bool $range = false): int|array
     {
-        $quarter = (int)ceil($this->format('m') / 3);
+        $quarter = (int)ceil((int)$this->format('m') / 3);
         if ($range === false) {
             return $quarter;
         }
@@ -258,7 +258,9 @@ trait FormattingTrait
     }
 
     /**
-     * @inheritDoc
+     * Returns the ISO week numnber.
+     *
+     * @return int
      */
     public function toWeek(): int
     {

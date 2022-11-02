@@ -44,19 +44,4 @@ class InstanceTest extends TestCase
         $carbon = Chronos::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
-
-    public function testCreateFromFormatErrors()
-    {
-        Chronos::createFromFormat('d/m/Y', '41/02/1900');
-        $errors = Chronos::getLastErrors();
-        $expected = [
-            'warning_count' => 1,
-            'warnings' => [
-                10 => 'The parsed date was invalid',
-            ],
-            'error_count' => 0,
-            'errors' => [],
-        ];
-        $this->assertSame($expected, $errors);
-    }
 }
