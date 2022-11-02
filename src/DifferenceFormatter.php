@@ -64,7 +64,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
                 $unit = 'year';
                 $count = $diffInterval->y;
                 break;
-            case $diffInterval->days >= ChronosInterface::DAYS_PER_WEEK * 8:
+            case $diffInterval->m >= 2:
                 $unit = 'month';
                 $count = $diffInterval->m;
                 break;
