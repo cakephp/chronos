@@ -44,106 +44,66 @@ class StringsTest extends TestCase
         unset($this->tz);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToString($class)
+    public function testToString()
     {
-        $d = $class::now();
+        $d = Date::now();
         $this->assertSame(Date::now()->toDateString(), '' . $d);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testSetToStringFormat($class)
+    public function testSetToStringFormat()
     {
-        $class::setToStringFormat('jS \o\f F, Y g:i:s a');
-        $d = $class::create(1975, 12, 25);
+        Date::setToStringFormat('jS \o\f F, Y g:i:s a');
+        $d = Date::create(1975, 12, 25);
         $this->assertSame('25th of December, 1975 12:00:00 am', '' . $d);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testResetToStringFormat($class)
+    public function testResetToStringFormat()
     {
-        $d = $class::now();
-        $class::setToStringFormat('123');
-        $class::resetToStringFormat();
+        $d = Date::now();
+        Date::setToStringFormat('123');
+        Date::resetToStringFormat();
         $this->assertSame($d->toDateTimeString(), '' . $d);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToDateString($class)
+    public function testToDateString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25', $d->toDateString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToFormattedDateString($class)
+    public function testToFormattedDateString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToTimeString($class)
+    public function testToTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('00:00:00', $d->toTimeString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToDateTimeString($class)
+    public function testToDateTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25 00:00:00', $d->toDateTimeString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToDayDateTimeString($class)
+    public function testToDayDateTimeString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, Dec 25, 1975 12:00 AM', $d->toDayDateTimeString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToAtomString($class)
+    public function testToAtomString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toAtomString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToCOOKIEString($class)
+    public function testToCOOKIEString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         if (DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 00:00:00 UTC';
         } else {
@@ -153,93 +113,57 @@ class StringsTest extends TestCase
         $this->assertSame($cookieString, $d->toCOOKIEString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToIso8601String($class)
+    public function testToIso8601String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toIso8601String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRC822String($class)
+    public function testToRC822String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 00:00:00 +0000', $d->toRfc822String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRfc850String($class)
+    public function testToRfc850String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thursday, 25-Dec-75 00:00:00 UTC', $d->toRfc850String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRfc1036String($class)
+    public function testToRfc1036String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 75 00:00:00 +0000', $d->toRfc1036String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRfc1123String($class)
+    public function testToRfc1123String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 00:00:00 +0000', $d->toRfc1123String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRfc2822String($class)
+    public function testToRfc2822String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 00:00:00 +0000', $d->toRfc2822String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRfc3339String($class)
+    public function testToRfc3339String()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toRfc3339String());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToRssString($class)
+    public function testToRssString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 00:00:00 +0000', $d->toRssString());
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testToW3cString($class)
+    public function testToW3cString()
     {
-        $d = $class::create(1975, 12, 25, 14, 15, 16);
+        $d = Date::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toW3cString());
     }
 }

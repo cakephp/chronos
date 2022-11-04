@@ -15,93 +15,62 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 
 class CreateFromTimeTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromDateWithDefaults($class)
+    public function testCreateFromDateWithDefaults()
     {
-        $d = $class::createFromTime();
-        $this->assertSame($d->timestamp, $class::create(null, null, null, null, null, null)->timestamp);
+        $d = Chronos::createFromTime();
+        $this->assertSame($d->timestamp, Chronos::create(null, null, null, null, null, null)->timestamp);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromDate($class)
+    public function testCreateFromDate()
     {
-        $d = $class::createFromTime(23, 5, 21);
-        $this->assertDateTime($d, $class::now()->year, $class::now()->month, $class::now()->day, 23, 5, 21);
+        $d = Chronos::createFromTime(23, 5, 21);
+        $this->assertDateTime($d, Chronos::now()->year, Chronos::now()->month, Chronos::now()->day, 23, 5, 21);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithHour($class)
+    public function testCreateFromTimeWithHour()
     {
-        $d = $class::createFromTime(22);
+        $d = Chronos::createFromTime(22);
         $this->assertSame(22, $d->hour);
         $this->assertSame(0, $d->minute);
         $this->assertSame(0, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithMinute($class)
+    public function testCreateFromTimeWithMinute()
     {
-        $d = $class::createFromTime(null, 5);
+        $d = Chronos::createFromTime(null, 5);
         $this->assertSame(5, $d->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithSecond($class)
+    public function testCreateFromTimeWithSecond()
     {
-        $d = $class::createFromTime(null, null, 21);
+        $d = Chronos::createFromTime(null, null, 21);
         $this->assertSame(21, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithMicrosecond($class)
+    public function testCreateFromTimeWithMicrosecond()
     {
-        $d = $class::createFromTime(null, null, null, 123456);
+        $d = Chronos::createFromTime(null, null, null, 123456);
         $this->assertSame(123456, $d->microsecond);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithDateTimeZone($class)
+    public function testCreateFromTimeWithDateTimeZone()
     {
-        $now = $class::now();
-        $d = $class::createFromTime(12, 0, 0, 0, new DateTimeZone('Europe/London'));
+        $now = Chronos::now();
+        $d = Chronos::createFromTime(12, 0, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, $now->year, $now->month, $now->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimeWithTimeZoneString($class)
+    public function testCreateFromTimeWithTimeZoneString()
     {
-        $now = $class::now();
-        $d = $class::createFromTime(12, 0, 0, 0, 'Europe/London');
+        $now = Chronos::now();
+        $d = Chronos::createFromTime(12, 0, 0, 0, 'Europe/London');
         $this->assertDateTime($d, $now->year, $now->month, $now->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }

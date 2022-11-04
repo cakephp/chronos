@@ -15,52 +15,37 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class ComparisonTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetSetWeekendDays($class)
+    public function testGetSetWeekendDays()
     {
         $expected = [ChronosInterface::SATURDAY, ChronosInterface::SUNDAY];
-        $this->assertSame($expected, $class::getWeekendDays());
+        $this->assertSame($expected, Chronos::getWeekendDays());
 
         $replace = [ChronosInterface::SUNDAY];
-        $class::setWeekendDays($replace);
-        $this->assertSame($replace, $class::getWeekendDays());
+        Chronos::setWeekendDays($replace);
+        $this->assertSame($replace, Chronos::getWeekendDays());
 
-        $class::setWeekendDays($expected);
+        Chronos::setWeekendDays($expected);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEqualToTrue($class)
+    public function testEqualToTrue()
     {
-        $this->assertTrue($class::create(2000, 1, 1, 0, 0, 0)->equals($class::create(2000, 1, 1, 0, 0, 0)));
+        $this->assertTrue(Chronos::create(2000, 1, 1, 0, 0, 0)->equals(Chronos::create(2000, 1, 1, 0, 0, 0)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEqualToFalse($class)
+    public function testEqualToFalse()
     {
-        $this->assertFalse($class::create(2000, 1, 1, 0, 0, 0)->equals($class::create(2000, 1, 2, 0, 0, 0)));
+        $this->assertFalse(Chronos::create(2000, 1, 1, 0, 0, 0)->equals(Chronos::create(2000, 1, 2, 0, 0, 0)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEqualWithTimezoneTrue($class)
+    public function testEqualWithTimezoneTrue()
     {
-        $this->assertTrue($class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto')->equals($class::create(
+        $this->assertTrue(Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto')->equals(Chronos::create(
             2000,
             1,
             1,
@@ -72,13 +57,9 @@ class ComparisonTest extends TestCase
         )));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEqualWithTimezoneFalse($class)
+    public function testEqualWithTimezoneFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1, 'America/Toronto')->equals($class::createFromDate(
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1, 'America/Toronto')->equals(Chronos::createFromDate(
             2000,
             1,
             1,
@@ -86,31 +67,19 @@ class ComparisonTest extends TestCase
         )));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNotEqualToTrue($class)
+    public function testNotEqualToTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->notEquals($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->notEquals(Chronos::createFromDate(2000, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNotEqualToFalse($class)
+    public function testNotEqualToFalse()
     {
-        $this->assertFalse($class::create(2000, 1, 1, 0, 0, 0)->notEquals($class::create(2000, 1, 1, 0, 0, 0)));
+        $this->assertFalse(Chronos::create(2000, 1, 1, 0, 0, 0)->notEquals(Chronos::create(2000, 1, 1, 0, 0, 0)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNotEqualWithTimezone($class)
+    public function testNotEqualWithTimezone()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1, 'America/Toronto')->notEquals($class::createFromDate(
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1, 'America/Toronto')->notEquals(Chronos::createFromDate(
             2000,
             1,
             1,
@@ -118,292 +87,184 @@ class ComparisonTest extends TestCase
         )));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanTrue($class)
+    public function testGreaterThanTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->greaterThan($class::createFromDate(1999, 12, 31)));
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->greaterThan(Chronos::createFromDate(1999, 12, 31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanFalse($class)
+    public function testGreaterThanFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->greaterThan($class::createFromDate(2000, 1, 2)));
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->greaterThan(Chronos::createFromDate(2000, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanWithTimezoneTrue($class)
+    public function testGreaterThanWithTimezoneTrue()
     {
-        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
-        $dt2 = $class::create(2000, 1, 1, 8, 59, 59, 0, 'America/Vancouver');
+        $dt1 = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $dt2 = Chronos::create(2000, 1, 1, 8, 59, 59, 0, 'America/Vancouver');
         $this->assertTrue($dt1->greaterThan($dt2));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanWithTimezoneFalse($class)
+    public function testGreaterThanWithTimezoneFalse()
     {
-        $dt1 = $class::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
-        $dt2 = $class::create(2000, 1, 1, 9, 0, 1, 0, 'America/Vancouver');
+        $dt1 = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $dt2 = Chronos::create(2000, 1, 1, 9, 0, 1, 0, 'America/Vancouver');
         $this->assertFalse($dt1->greaterThan($dt2));
         $this->assertFalse($dt1->greaterThan($dt2));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanOrEqualTrue($class)
+    public function testGreaterThanOrEqualTrue()
     {
-        $this->assertTrue($class::create(2000, 1, 1)->greaterThanOrEquals($class::createFromDate(1999, 12, 31)));
+        $this->assertTrue(Chronos::create(2000, 1, 1)->greaterThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanOrEqualTrueEqual($class)
+    public function testGreaterThanOrEqualTrueEqual()
     {
-        $this->assertTrue($class::create(2000, 1, 1, 0, 0, 0)->greaterThanOrEquals($class::create(2000, 1, 1, 0, 0, 0)));
+        $this->assertTrue(Chronos::create(2000, 1, 1, 0, 0, 0)->greaterThanOrEquals(Chronos::create(2000, 1, 1, 0, 0, 0)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGreaterThanOrEqualFalse($class)
+    public function testGreaterThanOrEqualFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->greaterThanOrEquals($class::createFromDate(2000, 1, 2)));
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->greaterThanOrEquals(Chronos::createFromDate(2000, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLessThanTrue($class)
+    public function testLessThanTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThan($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThan(Chronos::createFromDate(2000, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLessThanFalse($class)
+    public function testLessThanFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lessThanOrEquals($class::createFromDate(1999, 12, 31)));
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLessThanOrEqualTrue($class)
+    public function testLessThanOrEqualTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThanOrEquals($class::createFromDate(2000, 1, 2)));
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(2000, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLessThanOrEqualTrueEqual($class)
+    public function testLessThanOrEqualTrueEqual()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 1)->lessThanOrEquals($class::createFromDate(2000, 1, 1)));
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(2000, 1, 1)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLessThanOrEqualFalse($class)
+    public function testLessThanOrEqualFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->lessThanOrEquals($class::createFromDate(1999, 12, 31)));
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenEqualTrue($class)
+    public function testBetweenEqualTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
-            $class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31),
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
+            Chronos::createFromDate(2000, 1, 1),
+            Chronos::createFromDate(2000, 1, 31),
             true
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenNotEqualTrue($class)
+    public function testBetweenNotEqualTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
-            $class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31),
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
+            Chronos::createFromDate(2000, 1, 1),
+            Chronos::createFromDate(2000, 1, 31),
             false
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenEqualFalse($class)
+    public function testBetweenEqualFalse()
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(
-            $class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31),
+        $this->assertFalse(Chronos::createFromDate(1999, 12, 31)->between(
+            Chronos::createFromDate(2000, 1, 1),
+            Chronos::createFromDate(2000, 1, 31),
             true
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenNotEqualFalse($class)
+    public function testBetweenNotEqualFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(
-            $class::createFromDate(2000, 1, 1),
-            $class::createFromDate(2000, 1, 31),
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->between(
+            Chronos::createFromDate(2000, 1, 1),
+            Chronos::createFromDate(2000, 1, 31),
             false
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenEqualSwitchTrue($class)
+    public function testBetweenEqualSwitchTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
-            $class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1),
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
+            Chronos::createFromDate(2000, 1, 31),
+            Chronos::createFromDate(2000, 1, 1),
             true
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenNotEqualSwitchTrue($class)
+    public function testBetweenNotEqualSwitchTrue()
     {
-        $this->assertTrue($class::createFromDate(2000, 1, 15)->between(
-            $class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1),
+        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
+            Chronos::createFromDate(2000, 1, 31),
+            Chronos::createFromDate(2000, 1, 1),
             false
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenEqualSwitchFalse($class)
+    public function testBetweenEqualSwitchFalse()
     {
-        $this->assertFalse($class::createFromDate(1999, 12, 31)->between(
-            $class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1),
+        $this->assertFalse(Chronos::createFromDate(1999, 12, 31)->between(
+            Chronos::createFromDate(2000, 1, 31),
+            Chronos::createFromDate(2000, 1, 1),
             true
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testBetweenNotEqualSwitchFalse($class)
+    public function testBetweenNotEqualSwitchFalse()
     {
-        $this->assertFalse($class::createFromDate(2000, 1, 1)->between(
-            $class::createFromDate(2000, 1, 31),
-            $class::createFromDate(2000, 1, 1),
+        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->between(
+            Chronos::createFromDate(2000, 1, 31),
+            Chronos::createFromDate(2000, 1, 1),
             false
         ));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinIsFluid($class)
+    public function testMinIsFluid()
     {
-        $dt = $class::now();
-        $this->assertTrue($dt->min() instanceof $class);
+        $dt = Chronos::now();
+        $this->assertTrue($dt->min() instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinWithNow($class)
+    public function testMinWithNow()
     {
-        $dt = $class::create(2012, 1, 1, 0, 0, 0)->min();
+        $dt = Chronos::create(2012, 1, 1, 0, 0, 0)->min();
         $this->assertDateTime($dt, 2012, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinWithInstance($class)
+    public function testMinWithInstance()
     {
-        $dt1 = $class::create(2013, 12, 31, 23, 59, 59);
-        $dt2 = $class::create(2012, 1, 1, 0, 0, 0)->min($dt1);
+        $dt1 = Chronos::create(2013, 12, 31, 23, 59, 59);
+        $dt2 = Chronos::create(2012, 1, 1, 0, 0, 0)->min($dt1);
         $this->assertDateTime($dt2, 2012, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMaxIsFluid($class)
+    public function testMaxIsFluid()
     {
-        $dt = $class::now();
-        $this->assertTrue($dt->max() instanceof $class);
+        $dt = Chronos::now();
+        $this->assertTrue($dt->max() instanceof Chronos);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMaxWithNow($class)
+    public function testMaxWithNow()
     {
-        $dt = $class::create(2099, 12, 31, 23, 59, 59)->max();
+        $dt = Chronos::create(2099, 12, 31, 23, 59, 59)->max();
         $this->assertDateTime($dt, 2099, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMaxWithInstance($class)
+    public function testMaxWithInstance()
     {
-        $dt1 = $class::create(2012, 1, 1, 0, 0, 0);
-        $dt2 = $class::create(2099, 12, 31, 23, 59, 59)->max($dt1);
+        $dt1 = Chronos::create(2012, 1, 1, 0, 0, 0);
+        $dt2 = Chronos::create(2099, 12, 31, 23, 59, 59)->max($dt1);
         $this->assertDateTime($dt2, 2099, 12, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsBirthday($class)
+    public function testIsBirthday()
     {
-        $dt = $class::now();
+        $dt = Chronos::now();
         $aBirthday = $dt->subYears(1);
         $this->assertTrue($aBirthday->isBirthday());
         $notABirthday = $dt->subDays(1);
@@ -411,61 +272,45 @@ class ComparisonTest extends TestCase
         $alsoNotABirthday = $dt->addDays(2);
         $this->assertFalse($alsoNotABirthday->isBirthday());
 
-        $dt1 = $class::createFromDate(1987, 4, 23);
-        $dt2 = $class::createFromDate(2014, 9, 26);
-        $dt3 = $class::createFromDate(2014, 4, 23);
+        $dt1 = Chronos::createFromDate(1987, 4, 23);
+        $dt2 = Chronos::createFromDate(2014, 9, 26);
+        $dt3 = Chronos::createFromDate(2014, 4, 23);
         $this->assertFalse($dt2->isBirthday($dt1));
         $this->assertTrue($dt3->isBirthday($dt1));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testClosest($class)
+    public function testClosest()
     {
-        $instance = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
-        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
         $this->assertSame($dt1, $closest);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testClosestWithEquals($class)
+    public function testClosestWithEquals()
     {
-        $instance = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
         $this->assertSame($dt1, $closest);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFarthest($class)
+    public function testFarthest()
     {
-        $instance = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt1 = $class::create(2015, 5, 28, 11, 0, 0);
-        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFarthestWithEquals($class)
+    public function testFarthestWithEquals()
     {
-        $instance = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt1 = $class::create(2015, 5, 28, 12, 0, 0);
-        $dt2 = $class::create(2015, 5, 28, 14, 0, 0);
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
     }

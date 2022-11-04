@@ -15,44 +15,36 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class PhpBug72338Test extends TestCase
 {
     /**
      * Ensures that $date->format('U') returns unchanged timestamp
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testTimestamp($class)
+    public function testTimestamp()
     {
-        $date = $class::createFromTimestamp(0)->setTimezone('+02:00');
+        $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00');
         $this->assertSame('0', $date->format('U'));
     }
 
     /**
      * Ensures that date created from string with timezone and with same timezone set by setTimezone() is equal
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testEqualSetAndCreate($class)
+    public function testEqualSetAndCreate()
     {
-        $date = $class::createFromTimestamp(0)->setTimezone('+02:00');
-        $date1 = new $class('1970-01-01T02:00:00+02:00');
+        $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00');
+        $date1 = new Chronos('1970-01-01T02:00:00+02:00');
         $this->assertSame($date->format('U'), $date1->format('U'));
     }
 
     /**
      * Ensures that second call to setTimezone() dont changing timestamp
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testSecondSetTimezone($class)
+    public function testSecondSetTimezone()
     {
-        $date = $class::createFromTimestamp(0)->setTimezone('+02:00')->setTimezone('Europe/Moscow');
+        $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00')->setTimezone('Europe/Moscow');
         $this->assertSame('0', $date->format('U'));
     }
 }

@@ -15,484 +15,295 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class DayOfWeekModifiersTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfWeek($class)
+    public function testStartOfWeek()
     {
-        $d = $class::create(1980, 8, 7, 12, 11, 9)->startOfWeek();
+        $d = Chronos::create(1980, 8, 7, 12, 11, 9)->startOfWeek();
         $this->assertDateTime($d, 1980, 8, 4, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfWeekFromWeekStart($class)
+    public function testStartOfWeekFromWeekStart()
     {
-        $d = $class::createFromDate(1980, 8, 4)->startOfWeek();
+        $d = Chronos::createFromDate(1980, 8, 4)->startOfWeek();
         $this->assertDateTime($d, 1980, 8, 4, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testStartOfWeekCrossingYearBoundary($class)
+    public function testStartOfWeekCrossingYearBoundary()
     {
-        $d = $class::createFromDate(2013, 12, 31, 'GMT');
+        $d = Chronos::createFromDate(2013, 12, 31, 'GMT');
         $this->assertDateTime($d->startOfWeek(), 2013, 12, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfWeek($class)
+    public function testEndOfWeek()
     {
-        $d = $class::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
+        $d = Chronos::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
         $this->assertDateTime($d, 1980, 8, 10, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfWeekFromWeekEnd($class)
+    public function testEndOfWeekFromWeekEnd()
     {
-        $d = $class::createFromDate(1980, 8, 9)->endOfWeek();
+        $d = Chronos::createFromDate(1980, 8, 9)->endOfWeek();
         $this->assertDateTime($d, 1980, 8, 10, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testEndOfWeekCrossingYearBoundary($class)
+    public function testEndOfWeekCrossingYearBoundary()
     {
-        $d = $class::createFromDate(2013, 12, 31, 'GMT');
+        $d = Chronos::createFromDate(2013, 12, 31, 'GMT');
         $this->assertDateTime($d->endOfWeek(), 2014, 1, 5, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNext($class)
+    public function testNext()
     {
-        $d = $class::createFromDate(1975, 5, 21)->next();
+        $d = Chronos::createFromDate(1975, 5, 21)->next();
         $this->assertDateTime($d, 1975, 5, 28, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     */
-    public function testStartOrEndOfWeekFromWeekWithUTC($class)
+    public function testStartOrEndOfWeekFromWeekWithUTC()
     {
-        $d = $class::create(2016, 7, 27, 17, 13, 7, 0, 'UTC');
+        $d = Chronos::create(2016, 7, 27, 17, 13, 7, 0, 'UTC');
         $this->assertDateTime($d->startOfWeek(), 2016, 7, 25, 0, 0, 0);
         $this->assertDateTime($d->endOfWeek(), 2016, 7, 31, 23, 59, 59);
         $this->assertDateTime($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     */
-    public function testStartOrEndOfWeekFromWeekWithOtherTimezone($class)
+    public function testStartOrEndOfWeekFromWeekWithOtherTimezone()
     {
-        $d = $class::create(2016, 7, 27, 17, 13, 7, 0, 'America/New_York');
+        $d = Chronos::create(2016, 7, 27, 17, 13, 7, 0, 'America/New_York');
         $this->assertDateTime($d->startOfWeek(), 2016, 7, 25, 0, 0, 0);
         $this->assertDateTime($d->endOfWeek(), 2016, 7, 31, 23, 59, 59);
         $this->assertDateTime($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNextMonday($class)
+    public function testNextMonday()
     {
-        $d = $class::createFromDate(1975, 5, 21)->next($class::MONDAY);
+        $d = Chronos::createFromDate(1975, 5, 21)->next(Chronos::MONDAY);
         $this->assertDateTime($d, 1975, 5, 26, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNextSaturday($class)
+    public function testNextSaturday()
     {
-        $d = $class::createFromDate(1975, 5, 21)->next(6);
+        $d = Chronos::createFromDate(1975, 5, 21)->next(6);
         $this->assertDateTime($d, 1975, 5, 24, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNextTimestamp($class)
+    public function testNextTimestamp()
     {
-        $d = $class::createFromDate(1975, 11, 14)->next();
+        $d = Chronos::createFromDate(1975, 11, 14)->next();
         $this->assertDateTime($d, 1975, 11, 21, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testPrevious($class)
+    public function testPrevious()
     {
-        $d = $class::createFromDate(1975, 5, 21)->previous();
+        $d = Chronos::createFromDate(1975, 5, 21)->previous();
         $this->assertDateTime($d, 1975, 5, 14, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testPreviousMonday($class)
+    public function testPreviousMonday()
     {
-        $d = $class::createFromDate(1975, 5, 21)->previous($class::MONDAY);
+        $d = Chronos::createFromDate(1975, 5, 21)->previous(Chronos::MONDAY);
         $this->assertDateTime($d, 1975, 5, 19, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testPreviousSaturday($class)
+    public function testPreviousSaturday()
     {
-        $d = $class::createFromDate(1975, 5, 21)->previous(6);
+        $d = Chronos::createFromDate(1975, 5, 21)->previous(6);
         $this->assertDateTime($d, 1975, 5, 17, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testPreviousTimestamp($class)
+    public function testPreviousTimestamp()
     {
-        $d = $class::createFromDate(1975, 11, 28)->previous();
+        $d = Chronos::createFromDate(1975, 11, 28)->previous();
         $this->assertDateTime($d, 1975, 11, 21, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstDayOfMonth($class)
+    public function testFirstDayOfMonth()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth();
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfMonth();
         $this->assertDateTime($d, 1975, 11, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstWednesdayOfMonth($class)
+    public function testFirstWednesdayOfMonth()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth($class::WEDNESDAY);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfMonth(Chronos::WEDNESDAY);
         $this->assertDateTime($d, 1975, 11, 5, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstFridayOfMonth($class)
+    public function testFirstFridayOfMonth()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfMonth(5);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfMonth(5);
         $this->assertDateTime($d, 1975, 11, 7, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastDayOfMonth($class)
+    public function testLastDayOfMonth()
     {
-        $d = $class::createFromDate(1975, 12, 5)->lastOfMonth();
+        $d = Chronos::createFromDate(1975, 12, 5)->lastOfMonth();
         $this->assertDateTime($d, 1975, 12, 31, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastTuesdayOfMonth($class)
+    public function testLastTuesdayOfMonth()
     {
-        $d = $class::createFromDate(1975, 12, 1)->lastOfMonth($class::TUESDAY);
+        $d = Chronos::createFromDate(1975, 12, 1)->lastOfMonth(Chronos::TUESDAY);
         $this->assertDateTime($d, 1975, 12, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastFridayOfMonth($class)
+    public function testLastFridayOfMonth()
     {
-        $d = $class::createFromDate(1975, 12, 5)->lastOfMonth(5);
+        $d = Chronos::createFromDate(1975, 12, 5)->lastOfMonth(5);
         $this->assertDateTime($d, 1975, 12, 26, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfMonthOutsideScope($class)
+    public function testNthOfMonthOutsideScope()
     {
-        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(6, $class::MONDAY));
+        $this->assertFalse(Chronos::createFromDate(1975, 12, 5)->nthOfMonth(6, Chronos::MONDAY));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfMonthOutsideYear($class)
+    public function testNthOfMonthOutsideYear()
     {
-        $this->assertFalse($class::createFromDate(1975, 12, 5)->nthOfMonth(55, $class::MONDAY));
+        $this->assertFalse(Chronos::createFromDate(1975, 12, 5)->nthOfMonth(55, Chronos::MONDAY));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test2ndMondayOfMonth($class)
+    public function test2ndMondayOfMonth()
     {
-        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(2, $class::MONDAY);
+        $d = Chronos::createFromDate(1975, 12, 5)->nthOfMonth(2, Chronos::MONDAY);
         $this->assertDateTime($d, 1975, 12, 8, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test3rdWednesdayOfMonth($class)
+    public function test3rdWednesdayOfMonth()
     {
-        $d = $class::createFromDate(1975, 12, 5)->nthOfMonth(3, 3);
+        $d = Chronos::createFromDate(1975, 12, 5)->nthOfMonth(3, 3);
         $this->assertDateTime($d, 1975, 12, 17, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstDayOfQuarter($class)
+    public function testFirstDayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter();
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfQuarter();
         $this->assertDateTime($d, 1975, 10, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstWednesdayOfQuarter($class)
+    public function testFirstWednesdayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter($class::WEDNESDAY);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfQuarter(Chronos::WEDNESDAY);
         $this->assertDateTime($d, 1975, 10, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstFridayOfQuarter($class)
+    public function testFirstFridayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfQuarter(5);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfQuarter(5);
         $this->assertDateTime($d, 1975, 10, 3, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth($class)
+    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth()
     {
-        $d = $class::createFromDate(2014, 5, 31)->firstOfQuarter();
+        $d = Chronos::createFromDate(2014, 5, 31)->firstOfQuarter();
         $this->assertDateTime($d, 2014, 4, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastDayOfQuarter($class)
+    public function testLastDayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 8, 5)->lastOfQuarter();
+        $d = Chronos::createFromDate(1975, 8, 5)->lastOfQuarter();
         $this->assertDateTime($d, 1975, 9, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastTuesdayOfQuarter($class)
+    public function testLastTuesdayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 8, 1)->lastOfQuarter($class::TUESDAY);
+        $d = Chronos::createFromDate(1975, 8, 1)->lastOfQuarter(Chronos::TUESDAY);
         $this->assertDateTime($d, 1975, 9, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastFridayOfQuarter($class)
+    public function testLastFridayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 7, 5)->lastOfQuarter(5);
+        $d = Chronos::createFromDate(1975, 7, 5)->lastOfQuarter(5);
         $this->assertDateTime($d, 1975, 9, 26, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth($class)
+    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth()
     {
-        $d = $class::createFromDate(2014, 5, 31)->lastOfQuarter();
+        $d = Chronos::createFromDate(2014, 5, 31)->lastOfQuarter();
         $this->assertDateTime($d, 2014, 6, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfQuarterOutsideScope($class)
+    public function testNthOfQuarterOutsideScope()
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(20, $class::MONDAY));
+        $this->assertFalse(Chronos::createFromDate(1975, 1, 5)->nthOfQuarter(20, Chronos::MONDAY));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfQuarterOutsideYear($class)
+    public function testNthOfQuarterOutsideYear()
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfQuarter(55, $class::MONDAY));
+        $this->assertFalse(Chronos::createFromDate(1975, 1, 5)->nthOfQuarter(55, Chronos::MONDAY));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth($class)
+    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth()
     {
-        $d = $class::createFromDate(2014, 5, 31)->nthOfQuarter(2, $class::MONDAY);
+        $d = Chronos::createFromDate(2014, 5, 31)->nthOfQuarter(2, Chronos::MONDAY);
         $this->assertDateTime($d, 2014, 4, 14, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test2ndMondayOfQuarter($class)
+    public function test2ndMondayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(2, $class::MONDAY);
+        $d = Chronos::createFromDate(1975, 8, 5)->nthOfQuarter(2, Chronos::MONDAY);
         $this->assertDateTime($d, 1975, 7, 14, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test3rdWednesdayOfQuarter($class)
+    public function test3rdWednesdayOfQuarter()
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfQuarter(3, 3);
+        $d = Chronos::createFromDate(1975, 8, 5)->nthOfQuarter(3, 3);
         $this->assertDateTime($d, 1975, 7, 16, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstDayOfYear($class)
+    public function testFirstDayOfYear()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfYear();
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfYear();
         $this->assertDateTime($d, 1975, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstWednesdayOfYear($class)
+    public function testFirstWednesdayOfYear()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfYear($class::WEDNESDAY);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfYear(Chronos::WEDNESDAY);
         $this->assertDateTime($d, 1975, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFirstFridayOfYear($class)
+    public function testFirstFridayOfYear()
     {
-        $d = $class::createFromDate(1975, 11, 21)->firstOfYear(5);
+        $d = Chronos::createFromDate(1975, 11, 21)->firstOfYear(5);
         $this->assertDateTime($d, 1975, 1, 3, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastDayOfYear($class)
+    public function testLastDayOfYear()
     {
-        $d = $class::createFromDate(1975, 8, 5)->lastOfYear();
+        $d = Chronos::createFromDate(1975, 8, 5)->lastOfYear();
         $this->assertDateTime($d, 1975, 12, 31, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastTuesdayOfYear($class)
+    public function testLastTuesdayOfYear()
     {
-        $d = $class::createFromDate(1975, 8, 1)->lastOfYear($class::TUESDAY);
+        $d = Chronos::createFromDate(1975, 8, 1)->lastOfYear(Chronos::TUESDAY);
         $this->assertDateTime($d, 1975, 12, 30, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testLastFridayOfYear($class)
+    public function testLastFridayOfYear()
     {
-        $d = $class::createFromDate(1975, 7, 5)->lastOfYear(5);
+        $d = Chronos::createFromDate(1975, 7, 5)->lastOfYear(5);
         $this->assertDateTime($d, 1975, 12, 26, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNthOfYearOutsideScope($class)
+    public function testNthOfYearOutsideScope()
     {
-        $this->assertFalse($class::createFromDate(1975, 1, 5)->nthOfYear(55, $class::MONDAY));
+        $this->assertFalse(Chronos::createFromDate(1975, 1, 5)->nthOfYear(55, Chronos::MONDAY));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test2ndMondayOfYear($class)
+    public function test2ndMondayOfYear()
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(2, $class::MONDAY);
+        $d = Chronos::createFromDate(1975, 8, 5)->nthOfYear(2, Chronos::MONDAY);
         $this->assertDateTime($d, 1975, 1, 13, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function test3rdWednesdayOfYear($class)
+    public function test3rdWednesdayOfYear()
     {
-        $d = $class::createFromDate(1975, 8, 5)->nthOfYear(3, 3);
+        $d = Chronos::createFromDate(1975, 8, 5)->nthOfYear(3, 3);
         $this->assertDateTime($d, 1975, 1, 15, 0, 0, 0);
     }
 }

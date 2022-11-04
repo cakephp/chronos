@@ -15,189 +15,130 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class FluidSettersTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidYearSetter($class)
+    public function testFluidYearSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->year(1995);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(1995, $d->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidMonthSetter($class)
+    public function testFluidMonthSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->month(3);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(3, $d->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidMonthSetterWithWrap($class)
+    public function testFluidMonthSetterWithWrap()
     {
-        $d = $class::createFromDate(2012, 8, 21);
+        $d = Chronos::createFromDate(2012, 8, 21);
         $d = $d->month(13);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(1, $d->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidDaySetter($class)
+    public function testFluidDaySetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->day(2);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidDaySetterWithWrap($class)
+    public function testFluidDaySetterWithWrap()
     {
-        $d = $class::createFromDate(2000, 1, 1);
+        $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->day(32);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(1, $d->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidSetDate($class)
+    public function testFluidSetDate()
     {
-        $d = $class::createFromDate(2000, 1, 1);
+        $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->setDate(1995, 13, 32);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertDateTime($d, 1996, 2, 1);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidHourSetter($class)
+    public function testFluidHourSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->hour(2);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidHourSetterWithWrap($class)
+    public function testFluidHourSetterWithWrap()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->hour(25);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(1, $d->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidMinuteSetter($class)
+    public function testFluidMinuteSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->minute(2);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidMinuteSetterWithWrap($class)
+    public function testFluidMinuteSetterWithWrap()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->minute(61);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(1, $d->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidSecondSetter($class)
+    public function testFluidSecondSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->second(2);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidSecondSetterWithWrap($class)
+    public function testFluidSecondSetterWithWrap()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->second(62);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidMicroecondSetter($class)
+    public function testFluidMicroecondSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $second = $d->second;
         $d = $d->microsecond(2);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(2, $d->microsecond);
         $this->assertSame($second, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidSetTime($class)
+    public function testFluidSetTime()
     {
-        $d = $class::createFromDate(2000, 1, 1);
+        $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->setTime(25, 61, 61);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertDateTime($d, 2000, 1, 2, 2, 2, 1);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testFluidTimestampSetter($class)
+    public function testFluidTimestampSetter()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $d = $d->timestamp(10);
-        $this->assertTrue($d instanceof $class);
+        $this->assertTrue($d instanceof Chronos);
         $this->assertSame(10, $d->timestamp);
     }
 }

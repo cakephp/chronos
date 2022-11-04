@@ -15,64 +15,45 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 
 class CreateFromTimestampTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateReturnsDatingInstance($class)
+    public function testCreateReturnsDatingInstance()
     {
-        $d = $class::createFromTimestamp($class::create(1975, 5, 21, 22, 32, 5)->timestamp);
+        $d = Chronos::createFromTimestamp(Chronos::create(1975, 5, 21, 22, 32, 5)->timestamp);
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 5);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimestampUsesDefaultTimezone($class)
+    public function testCreateFromTimestampUsesDefaultTimezone()
     {
-        $d = $class::createFromTimestamp(0);
+        $d = Chronos::createFromTimestamp(0);
 
         // We know Toronto is -5 since no DST in Jan
         $this->assertSame(1969, $d->year);
         $this->assertSame(-5 * 3600, $d->offset);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimestampWithDateTimeZone($class)
+    public function testCreateFromTimestampWithDateTimeZone()
     {
-        $d = $class::createFromTimestamp(0, new DateTimeZone('UTC'));
+        $d = Chronos::createFromTimestamp(0, new DateTimeZone('UTC'));
         $this->assertSame('UTC', $d->tzName);
         $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimestampWithString($class)
+    public function testCreateFromTimestampWithString()
     {
-        $d = $class::createFromTimestamp(0, 'UTC');
+        $d = Chronos::createFromTimestamp(0, 'UTC');
         $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
         $this->assertSame('UTC', $d->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone($class)
+    public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone()
     {
-        $d = $class::createFromTimestampUTC(0);
+        $d = Chronos::createFromTimestampUTC(0);
         $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
     }

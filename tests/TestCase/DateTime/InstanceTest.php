@@ -15,55 +15,40 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeZone;
 
 class InstanceTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testInstanceFromDateTime($class)
+    public function testInstanceFromDateTime()
     {
-        $dating = $class::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $dating = Chronos::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
         $this->assertDateTime($dating, 1975, 5, 21, 22, 32, 11);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testInstanceFromDateTimeKeepsTimezoneName($class)
+    public function testInstanceFromDateTimeKeepsTimezoneName()
     {
-        $dating = $class::instance(DateTime::createFromFormat(
+        $dating = Chronos::instance(DateTime::createFromFormat(
             'Y-m-d H:i:s',
             '1975-05-21 22:32:11'
         )->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testInstanceFromDateTimeKeepsMicros($class)
+    public function testInstanceFromDateTimeKeepsMicros()
     {
         $micro = 254687;
         $datetime = DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
-        $carbon = $class::instance($datetime);
+        $carbon = Chronos::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testCreateFromFormatErrors($class)
+    public function testCreateFromFormatErrors()
     {
-        $class::createFromFormat('d/m/Y', '41/02/1900');
-        $errors = $class::getLastErrors();
+        Chronos::createFromFormat('d/m/Y', '41/02/1900');
+        $errors = Chronos::getLastErrors();
         $expected = [
             'warning_count' => 1,
             'warnings' => [

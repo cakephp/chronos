@@ -15,176 +15,105 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class AddTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsPositive($class)
+    public function testAddYearsPositive()
     {
-        $this->assertSame(1976, $class::createFromDate(1975)->addYears(1)->year);
+        $this->assertSame(1976, Chronos::createFromDate(1975)->addYears(1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsZero($class)
+    public function testAddYearsZero()
     {
-        $this->assertSame(1975, $class::createFromDate(1975)->addYears(0)->year);
+        $this->assertSame(1975, Chronos::createFromDate(1975)->addYears(0)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsNegative($class)
+    public function testAddYearsNegative()
     {
-        $this->assertSame(1974, $class::createFromDate(1975)->addYears(-1)->year);
+        $this->assertSame(1974, Chronos::createFromDate(1975)->addYears(-1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYears($class)
+    public function testAddYears()
     {
-        $this->assertSame(1976, $class::createFromDate(1975)->addYears(1)->year);
+        $this->assertSame(1976, Chronos::createFromDate(1975)->addYears(1)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsPositive($class)
+    public function testAddMonthsPositive()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 12)->addMonths(1)->month);
+        $this->assertSame(1, Chronos::createFromDate(1975, 12)->addMonths(1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsZero($class)
+    public function testAddMonthsZero()
     {
-        $this->assertSame(12, $class::createFromDate(1975, 12)->addMonths(0)->month);
+        $this->assertSame(12, Chronos::createFromDate(1975, 12)->addMonths(0)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsNegative($class)
+    public function testAddMonthsNegative()
     {
-        $this->assertSame(11, $class::createFromDate(1975, 12, 1)->addMonths(-1)->month);
+        $this->assertSame(11, Chronos::createFromDate(1975, 12, 1)->addMonths(-1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonth($class)
+    public function testAddMonth()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 12)->addMonths(1)->month);
+        $this->assertSame(1, Chronos::createFromDate(1975, 12)->addMonths(1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthWithOverflow($class)
+    public function testAddMonthWithOverflow()
     {
-        $this->assertSame(3, $class::createFromDate(2012, 1, 31)->addMonthsWithOverflow(1)->month);
+        $this->assertSame(3, Chronos::createFromDate(2012, 1, 31)->addMonthsWithOverflow(1)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsNoOverflowPositive($class)
+    public function testAddMonthsNoOverflowPositive()
     {
-        $this->assertSame('2012-02-29', $class::createFromDate(2012, 1, 31)->addMonths(1)->toDateString());
-        $this->assertSame('2012-03-31', $class::createFromDate(2012, 1, 31)->addMonths(2)->toDateString());
-        $this->assertSame('2012-03-29', $class::createFromDate(2012, 2, 29)->addMonths(1)->toDateString());
-        $this->assertSame('2012-02-29', $class::createFromDate(2011, 12, 31)->addMonths(2)->toDateString());
+        $this->assertSame('2012-02-29', Chronos::createFromDate(2012, 1, 31)->addMonths(1)->toDateString());
+        $this->assertSame('2012-03-31', Chronos::createFromDate(2012, 1, 31)->addMonths(2)->toDateString());
+        $this->assertSame('2012-03-29', Chronos::createFromDate(2012, 2, 29)->addMonths(1)->toDateString());
+        $this->assertSame('2012-02-29', Chronos::createFromDate(2011, 12, 31)->addMonths(2)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsNoOverflowZero($class)
+    public function testAddMonthsNoOverflowZero()
     {
-        $this->assertSame(12, $class::createFromDate(1975, 12)->addMonths(0)->month);
+        $this->assertSame(12, Chronos::createFromDate(1975, 12)->addMonths(0)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthsNoOverflowNegative($class)
+    public function testAddMonthsNoOverflowNegative()
     {
-        $this->assertSame('2012-01-29', $class::createFromDate(2012, 2, 29)->addMonths(-1)->toDateString());
-        $this->assertSame('2012-01-31', $class::createFromDate(2012, 3, 31)->addMonths(-2)->toDateString());
-        $this->assertSame('2012-02-29', $class::createFromDate(2012, 3, 31)->addMonths(-1)->toDateString());
-        $this->assertSame('2011-12-31', $class::createFromDate(2012, 1, 31)->addMonths(-1)->toDateString());
+        $this->assertSame('2012-01-29', Chronos::createFromDate(2012, 2, 29)->addMonths(-1)->toDateString());
+        $this->assertSame('2012-01-31', Chronos::createFromDate(2012, 3, 31)->addMonths(-2)->toDateString());
+        $this->assertSame('2012-02-29', Chronos::createFromDate(2012, 3, 31)->addMonths(-1)->toDateString());
+        $this->assertSame('2011-12-31', Chronos::createFromDate(2012, 1, 31)->addMonths(-1)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddDaysPositive($class)
+    public function testAddDaysPositive()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 5, 31)->addDays(1)->day);
+        $this->assertSame(1, Chronos::createFromDate(1975, 5, 31)->addDays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddDaysZero($class)
+    public function testAddDaysZero()
     {
-        $this->assertSame(31, $class::createFromDate(1975, 5, 31)->addDays(0)->day);
+        $this->assertSame(31, Chronos::createFromDate(1975, 5, 31)->addDays(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddDaysNegative($class)
+    public function testAddDaysNegative()
     {
-        $this->assertSame(30, $class::createFromDate(1975, 5, 31)->addDays(-1)->day);
+        $this->assertSame(30, Chronos::createFromDate(1975, 5, 31)->addDays(-1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddDay($class)
+    public function testAddDay()
     {
-        $this->assertSame(1, $class::createFromDate(1975, 5, 31)->addDays(1)->day);
+        $this->assertSame(1, Chronos::createFromDate(1975, 5, 31)->addDays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeekdayDuringWeekend($class)
+    public function testAddWeekdayDuringWeekend()
     {
-        $this->assertSame(9, $class::createFromDate(2012, 1, 7)->addWeekdays(1)->day);
+        $this->assertSame(9, Chronos::createFromDate(2012, 1, 7)->addWeekdays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeekdaysPositive($class)
+    public function testAddWeekdaysPositive()
     {
-        $dt = $class::create(2012, 1, 4, 13, 2, 1)->addWeekdays(9);
+        $dt = Chronos::create(2012, 1, 4, 13, 2, 1)->addWeekdays(9);
         $this->assertSame(17, $dt->day);
 
         // Test for https://bugs.php.net/bug.php?id=54909
@@ -193,284 +122,164 @@ class AddTest extends TestCase
         $this->assertSame(1, $dt->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeekdaysZero($class)
+    public function testAddWeekdaysZero()
     {
-        $this->assertSame(4, $class::createFromDate(2012, 1, 4)->addWeekdays(0)->day);
+        $this->assertSame(4, Chronos::createFromDate(2012, 1, 4)->addWeekdays(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeekdaysNegative($class)
+    public function testAddWeekdaysNegative()
     {
-        $this->assertSame(18, $class::createFromDate(2012, 1, 31)->addWeekdays(-9)->day);
+        $this->assertSame(18, Chronos::createFromDate(2012, 1, 31)->addWeekdays(-9)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeekday($class)
+    public function testAddWeekday()
     {
-        $this->assertSame(9, $class::createFromDate(2012, 1, 6)->addWeekdays(1)->day);
+        $this->assertSame(9, Chronos::createFromDate(2012, 1, 6)->addWeekdays(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeeksPositive($class)
+    public function testAddWeeksPositive()
     {
-        $this->assertSame(28, $class::createFromDate(1975, 5, 21)->addWeeks(1)->day);
+        $this->assertSame(28, Chronos::createFromDate(1975, 5, 21)->addWeeks(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeeksZero($class)
+    public function testAddWeeksZero()
     {
-        $this->assertSame(21, $class::createFromDate(1975, 5, 21)->addWeeks(0)->day);
+        $this->assertSame(21, Chronos::createFromDate(1975, 5, 21)->addWeeks(0)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeeksNegative($class)
+    public function testAddWeeksNegative()
     {
-        $this->assertSame(14, $class::createFromDate(1975, 5, 21)->addWeeks(-1)->day);
+        $this->assertSame(14, Chronos::createFromDate(1975, 5, 21)->addWeeks(-1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddWeek($class)
+    public function testAddWeek()
     {
-        $this->assertSame(28, $class::createFromDate(1975, 5, 21)->addWeeks(1)->day);
+        $this->assertSame(28, Chronos::createFromDate(1975, 5, 21)->addWeeks(1)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddHoursPositive($class)
+    public function testAddHoursPositive()
     {
-        $this->assertSame(1, $class::createFromTime(0)->addHours(1)->hour);
+        $this->assertSame(1, Chronos::createFromTime(0)->addHours(1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddHoursZero($class)
+    public function testAddHoursZero()
     {
-        $this->assertSame(0, $class::createFromTime(0)->addHours(0)->hour);
+        $this->assertSame(0, Chronos::createFromTime(0)->addHours(0)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddHoursNegative($class)
+    public function testAddHoursNegative()
     {
-        $this->assertSame(23, $class::createFromTime(0)->addHours(-1)->hour);
+        $this->assertSame(23, Chronos::createFromTime(0)->addHours(-1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddHour($class)
+    public function testAddHour()
     {
-        $this->assertSame(1, $class::createFromTime(0)->addHours(1)->hour);
+        $this->assertSame(1, Chronos::createFromTime(0)->addHours(1)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMinutesPositive($class)
+    public function testAddMinutesPositive()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0)->addMinutes(1)->minute);
+        $this->assertSame(1, Chronos::createFromTime(0, 0)->addMinutes(1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMinutesZero($class)
+    public function testAddMinutesZero()
     {
-        $this->assertSame(0, $class::createFromTime(0, 0)->addMinutes(0)->minute);
+        $this->assertSame(0, Chronos::createFromTime(0, 0)->addMinutes(0)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMinutesNegative($class)
+    public function testAddMinutesNegative()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0)->addMinutes(-1)->minute);
+        $this->assertSame(59, Chronos::createFromTime(0, 0)->addMinutes(-1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMinute($class)
+    public function testAddMinute()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0)->addMinutes(1)->minute);
+        $this->assertSame(1, Chronos::createFromTime(0, 0)->addMinutes(1)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddSecondsPositive($class)
+    public function testAddSecondsPositive()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0, 0)->addSeconds(1)->second);
+        $this->assertSame(1, Chronos::createFromTime(0, 0, 0)->addSeconds(1)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddSecondsZero($class)
+    public function testAddSecondsZero()
     {
-        $this->assertSame(0, $class::createFromTime(0, 0, 0)->addSeconds(0)->second);
+        $this->assertSame(0, Chronos::createFromTime(0, 0, 0)->addSeconds(0)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddSecondsNegative($class)
+    public function testAddSecondsNegative()
     {
-        $this->assertSame(59, $class::createFromTime(0, 0, 0)->addSeconds(-1)->second);
+        $this->assertSame(59, Chronos::createFromTime(0, 0, 0)->addSeconds(-1)->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddSecond($class)
+    public function testAddSecond()
     {
-        $this->assertSame(1, $class::createFromTime(0, 0, 0)->addSeconds(1)->second);
+        $this->assertSame(1, Chronos::createFromTime(0, 0, 0)->addSeconds(1)->second);
     }
 
     /***** Test non plural methods with non default args *****/
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearPassingArg($class)
+    public function testAddYearPassingArg()
     {
-        $this->assertSame(1977, $class::createFromDate(1975)->addYears(2)->year);
+        $this->assertSame(1977, Chronos::createFromDate(1975)->addYears(2)->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearWithOverflow($class)
+    public function testAddYearWithOverflow()
     {
-        $this->assertSame('2013-03-01', $class::createFromDate(2012, 2, 29)->addYearsWithOverflow(1)->toDateString());
+        $this->assertSame('2013-03-01', Chronos::createFromDate(2012, 2, 29)->addYearsWithOverflow(1)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsNoOverflowPositive($class)
+    public function testAddYearsNoOverflowPositive()
     {
-        $this->assertSame('2013-01-31', $class::createFromDate(2012, 1, 31)->addYears(1)->toDateString());
-        $this->assertSame('2014-01-31', $class::createFromDate(2012, 1, 31)->addYears(2)->toDateString());
-        $this->assertSame('2013-02-28', $class::createFromDate(2012, 2, 29)->addYears(1)->toDateString());
-        $this->assertSame('2013-12-31', $class::createFromDate(2011, 12, 31)->addYears(2)->toDateString());
+        $this->assertSame('2013-01-31', Chronos::createFromDate(2012, 1, 31)->addYears(1)->toDateString());
+        $this->assertSame('2014-01-31', Chronos::createFromDate(2012, 1, 31)->addYears(2)->toDateString());
+        $this->assertSame('2013-02-28', Chronos::createFromDate(2012, 2, 29)->addYears(1)->toDateString());
+        $this->assertSame('2013-12-31', Chronos::createFromDate(2011, 12, 31)->addYears(2)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsNoOverflowZero($class)
+    public function testAddYearsNoOverflowZero()
     {
-        $this->assertSame('1975-12-31', $class::createFromDate(1975, 12, 31)->addYears(0)->toDateString());
+        $this->assertSame('1975-12-31', Chronos::createFromDate(1975, 12, 31)->addYears(0)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddYearsNoOverflowNegative($class)
+    public function testAddYearsNoOverflowNegative()
     {
-        $this->assertSame('2011-02-28', $class::createFromDate(2012, 2, 29)->addYears(-1)->toDateString());
-        $this->assertSame('2010-03-31', $class::createFromDate(2012, 3, 31)->addYears(-2)->toDateString());
-        $this->assertSame('2011-03-31', $class::createFromDate(2012, 3, 31)->addYears(-1)->toDateString());
-        $this->assertSame('2011-01-31', $class::createFromDate(2012, 1, 31)->addYears(-1)->toDateString());
+        $this->assertSame('2011-02-28', Chronos::createFromDate(2012, 2, 29)->addYears(-1)->toDateString());
+        $this->assertSame('2010-03-31', Chronos::createFromDate(2012, 3, 31)->addYears(-2)->toDateString());
+        $this->assertSame('2011-03-31', Chronos::createFromDate(2012, 3, 31)->addYears(-1)->toDateString());
+        $this->assertSame('2011-01-31', Chronos::createFromDate(2012, 1, 31)->addYears(-1)->toDateString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthPassingArg($class)
+    public function testAddMonthPassingArg()
     {
-        $this->assertSame(7, $class::createFromDate(1975, 5, 1)->addMonths(2)->month);
+        $this->assertSame(7, Chronos::createFromDate(1975, 5, 1)->addMonths(2)->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMonthNoOverflowPassingArg($class)
+    public function testAddMonthNoOverflowPassingArg()
     {
-        $dt = $class::createFromDate(2010, 12, 31)->addMonths(2);
+        $dt = Chronos::createFromDate(2010, 12, 31)->addMonths(2);
         $this->assertSame(2011, $dt->year);
         $this->assertSame(2, $dt->month);
         $this->assertSame(28, $dt->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddDayPassingArg($class)
+    public function testAddDayPassingArg()
     {
-        $this->assertSame(12, $class::createFromDate(1975, 5, 10)->addDays(2)->day);
+        $this->assertSame(12, Chronos::createFromDate(1975, 5, 10)->addDays(2)->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddHourPassingArg($class)
+    public function testAddHourPassingArg()
     {
-        $this->assertSame(2, $class::createFromTime(0)->addHours(2)->hour);
+        $this->assertSame(2, Chronos::createFromTime(0)->addHours(2)->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddMinutePassingArg($class)
+    public function testAddMinutePassingArg()
     {
-        $this->assertSame(2, $class::createFromTime(0)->addMinutes(2)->minute);
+        $this->assertSame(2, Chronos::createFromTime(0)->addMinutes(2)->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testAddSecondPassingArg($class)
+    public function testAddSecondPassingArg()
     {
-        $this->assertSame(2, $class::createFromTime(0)->addSeconds(2)->second);
+        $this->assertSame(2, Chronos::createFromTime(0)->addSeconds(2)->second);
     }
 }

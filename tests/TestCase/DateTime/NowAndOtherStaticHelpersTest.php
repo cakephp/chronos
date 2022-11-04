@@ -15,137 +15,90 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeZone;
 
 class NowAndOtherStaticHelpersTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNow($class)
+    public function testNow()
     {
-        $dt = $class::now();
+        $dt = Chronos::now();
         $this->assertSame(time(), $dt->timestamp);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNowWithTimezone($class)
+    public function testNowWithTimezone()
     {
-        $dt = $class::now('Europe/London');
+        $dt = Chronos::now('Europe/London');
         $this->assertSame(time(), $dt->timestamp);
         $this->assertSame('Europe/London', $dt->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testToday($class)
+    public function testToday()
     {
-        $dt = $class::today();
+        $dt = Chronos::today();
         $this->assertSame(date('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTodayWithTimezone($class)
+    public function testTodayWithTimezone()
     {
-        $dt = $class::today('Europe/London');
+        $dt = Chronos::today('Europe/London');
         $dt2 = new DateTime('now', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTomorrow($class)
+    public function testTomorrow()
     {
-        $dt = $class::tomorrow();
+        $dt = Chronos::tomorrow();
         $dt2 = new DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTomorrowWithTimezone($class)
+    public function testTomorrowWithTimezone()
     {
-        $dt = $class::tomorrow('Europe/London');
+        $dt = Chronos::tomorrow('Europe/London');
         $dt2 = new DateTime('tomorrow', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testYesterday($class)
+    public function testYesterday()
     {
-        $dt = $class::yesterday();
+        $dt = Chronos::yesterday();
         $dt2 = new DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testYesterdayWithTimezone($class)
+    public function testYesterdayWithTimezone()
     {
-        $dt = $class::yesterday('Europe/London');
+        $dt = Chronos::yesterday('Europe/London');
         $dt2 = new DateTime('yesterday', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinValue($class)
+    public function testMinValue()
     {
-        $this->assertLessThanOrEqual(-2147483647, $class::minValue()->getTimestamp());
+        $this->assertLessThanOrEqual(-2147483647, Chronos::minValue()->getTimestamp());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinValueNonUtcTimezone($class)
+    public function testMinValueNonUtcTimezone()
     {
         date_default_timezone_set('Europe/Amsterdam');
 
-        $this->assertLessThanOrEqual(-2147483647, $class::minValue()->getTimestamp());
-        $this->assertTrue($class::now()->greaterThan($class::minValue()));
+        $this->assertLessThanOrEqual(-2147483647, Chronos::minValue()->getTimestamp());
+        $this->assertTrue(Chronos::now()->greaterThan(Chronos::minValue()));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMaxValue($class)
+    public function testMaxValue()
     {
-        $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
+        $this->assertGreaterThanOrEqual(2147483647, Chronos::maxValue()->getTimestamp());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMaxValueNonUtcTimezone($class)
+    public function testMaxValueNonUtcTimezone()
     {
         date_default_timezone_set('Europe/Amsterdam');
 
-        $this->assertGreaterThanOrEqual(2147483647, $class::maxValue()->getTimestamp());
-        $this->assertTrue($class::now()->lessThan($class::maxValue()));
+        $this->assertGreaterThanOrEqual(2147483647, Chronos::maxValue()->getTimestamp());
+        $this->assertTrue(Chronos::now()->lessThan(Chronos::maxValue()));
     }
 }

@@ -15,172 +15,109 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Test\TestCase\TestCase;
 use InvalidArgumentException;
 
 class GettersTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGettersThrowExceptionOnUnknownGetter($class)
+    public function testGettersThrowExceptionOnUnknownGetter()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $class::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
+        Chronos::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testYearGetter($class)
+    public function testYearGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(1234, $d->year);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testYearIsoGetter($class)
+    public function testYearIsoGetter()
     {
-        $d = $class::createFromDate(2012, 12, 31);
+        $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(2013, $d->yearIso);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMonthGetter($class)
+    public function testMonthGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(5, $d->month);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDayGetter($class)
+    public function testDayGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(6, $d->day);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testHourGetter($class)
+    public function testHourGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(7, $d->hour);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMinuteGetter($class)
+    public function testMinuteGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(8, $d->minute);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testSecondGetter($class)
+    public function testSecondGetter()
     {
-        $d = $class::create(1234, 5, 6, 7, 8, 9);
+        $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(9, $d->second);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testMicroGetter($class)
+    public function testMicroGetter()
     {
         $micro = 345678;
-        $d = $class::parse('2014-01-05 12:34:11.' . $micro);
+        $d = Chronos::parse('2014-01-05 12:34:11.' . $micro);
         $this->assertSame($micro, $d->micro);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDayOfWeekGetter($class)
+    public function testDayOfWeekGetter()
     {
-        $d = $class::create(2012, 5, 7, 7, 8, 9);
-        $this->assertSame($class::MONDAY, $d->dayOfWeek);
+        $d = Chronos::create(2012, 5, 7, 7, 8, 9);
+        $this->assertSame(Chronos::MONDAY, $d->dayOfWeek);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDayOfWeekNameGetter($class)
+    public function testDayOfWeekNameGetter()
     {
-        $d = $class::create(2012, 5, 7, 7, 8, 9);
+        $d = Chronos::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame('Monday', $d->dayOfWeekName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDayOfYearGetter($class)
+    public function testDayOfYearGetter()
     {
-        $d = $class::createFromDate(2012, 5, 7);
+        $d = Chronos::createFromDate(2012, 5, 7);
         $this->assertSame(127, $d->dayOfYear);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testDaysInMonthGetter($class)
+    public function testDaysInMonthGetter()
     {
-        $d = $class::createFromDate(2012, 5, 7);
+        $d = Chronos::createFromDate(2012, 5, 7);
         $this->assertSame(31, $d->daysInMonth);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTimestampGetter($class)
+    public function testTimestampGetter()
     {
-        $d = $class::create();
+        $d = Chronos::create();
         $d = $d->setTimezone('GMT')->setDateTime(1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->timestamp);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetAge($class)
+    public function testGetAge()
     {
-        $d = $class::now();
+        $d = Chronos::now();
         $this->assertSame(0, $d->age);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetAgeWithRealAge($class)
+    public function testGetAgeWithRealAge()
     {
-        $d = $class::createFromDate(1975, 5, 21);
+        $d = Chronos::createFromDate(1975, 5, 21);
         $age = intval(substr(
             (string)(date('Ymd') - date('Ymd', $d->timestamp)),
             0,
@@ -190,312 +127,192 @@ class GettersTest extends TestCase
         $this->assertSame($age, $d->age);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterFirst($class)
+    public function testGetQuarterFirst()
     {
-        $d = $class::createFromDate(2012, 1, 1);
+        $d = Chronos::createFromDate(2012, 1, 1);
         $this->assertSame(1, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterFirstEnd($class)
+    public function testGetQuarterFirstEnd()
     {
-        $d = $class::createFromDate(2012, 3, 31);
+        $d = Chronos::createFromDate(2012, 3, 31);
         $this->assertSame(1, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterSecond($class)
+    public function testGetQuarterSecond()
     {
-        $d = $class::createFromDate(2012, 4, 1);
+        $d = Chronos::createFromDate(2012, 4, 1);
         $this->assertSame(2, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterThird($class)
+    public function testGetQuarterThird()
     {
-        $d = $class::createFromDate(2012, 7, 1);
+        $d = Chronos::createFromDate(2012, 7, 1);
         $this->assertSame(3, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterFourth($class)
+    public function testGetQuarterFourth()
     {
-        $d = $class::createFromDate(2012, 10, 1);
+        $d = Chronos::createFromDate(2012, 10, 1);
         $this->assertSame(4, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetQuarterFirstLast($class)
+    public function testGetQuarterFirstLast()
     {
-        $d = $class::createFromDate(2012, 12, 31);
+        $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(4, $d->quarter);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetLocalTrue($class)
+    public function testGetLocalTrue()
     {
         // Default timezone has been set to America/Toronto in TestCase.php
         // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
-        $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/Toronto')->local);
-        $this->assertTrue($class::createFromDate(2012, 1, 1, 'America/New_York')->local);
+        $this->assertTrue(Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->local);
+        $this->assertTrue(Chronos::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetLocalFalse($class)
+    public function testGetLocalFalse()
     {
-        $this->assertFalse($class::createFromDate(2012, 7, 1, 'UTC')->local);
-        $this->assertFalse($class::createFromDate(2012, 7, 1, 'Europe/London')->local);
+        $this->assertFalse(Chronos::createFromDate(2012, 7, 1, 'UTC')->local);
+        $this->assertFalse(Chronos::createFromDate(2012, 7, 1, 'Europe/London')->local);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetUtcFalse($class)
+    public function testGetUtcFalse()
     {
-        $this->assertFalse($class::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
-        $this->assertFalse($class::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
+        $this->assertFalse(Chronos::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
+        $this->assertFalse(Chronos::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetUtcTrue($class)
+    public function testGetUtcTrue()
     {
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'Europe/London')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'UTC')->utc);
-        $this->assertTrue($class::createFromDate(2013, 1, 1, 'GMT')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Europe/London')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'UTC')->utc);
+        $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'GMT')->utc);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetDstFalse($class)
+    public function testGetDstFalse()
     {
-        $this->assertFalse($class::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
+        $this->assertFalse(Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetDstTrue($class)
+    public function testGetDstTrue()
     {
-        $this->assertTrue($class::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
+        $this->assertTrue(Chronos::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetForTorontoWithDST($class)
+    public function testOffsetForTorontoWithDST()
     {
-        $this->assertSame(-18000, $class::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
+        $this->assertSame(-18000, Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetForTorontoNoDST($class)
+    public function testOffsetForTorontoNoDST()
     {
-        $this->assertSame(-14400, $class::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
+        $this->assertSame(-14400, Chronos::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetForGMT($class)
+    public function testOffsetForGMT()
     {
-        $this->assertSame(0, $class::createFromDate(2012, 6, 1, 'GMT')->offset);
+        $this->assertSame(0, Chronos::createFromDate(2012, 6, 1, 'GMT')->offset);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetHoursForTorontoWithDST($class)
+    public function testOffsetHoursForTorontoWithDST()
     {
-        $this->assertSame(-5, $class::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
+        $this->assertSame(-5, Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetHoursForTorontoNoDST($class)
+    public function testOffsetHoursForTorontoNoDST()
     {
-        $this->assertSame(-4, $class::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
+        $this->assertSame(-4, Chronos::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testOffsetHoursForGMT($class)
+    public function testOffsetHoursForGMT()
     {
-        $this->assertSame(0, $class::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
+        $this->assertSame(0, Chronos::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLeapYearTrue($class)
+    public function testIsLeapYearTrue()
     {
-        $this->assertTrue($class::createFromDate(2012, 1, 1)->isLeapYear());
+        $this->assertTrue(Chronos::createFromDate(2012, 1, 1)->isLeapYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLeapYearFalse($class)
+    public function testIsLeapYearFalse()
     {
-        $this->assertFalse($class::createFromDate(2011, 1, 1)->isLeapYear());
+        $this->assertFalse(Chronos::createFromDate(2011, 1, 1)->isLeapYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testWeekOfMonth($class)
+    public function testWeekOfMonth()
     {
-        $this->assertSame(5, $class::createFromDate(2012, 9, 30)->weekOfMonth);
-        $this->assertSame(4, $class::createFromDate(2012, 9, 28)->weekOfMonth);
-        $this->assertSame(3, $class::createFromDate(2012, 9, 20)->weekOfMonth);
-        $this->assertSame(2, $class::createFromDate(2012, 9, 8)->weekOfMonth);
-        $this->assertSame(1, $class::createFromDate(2012, 9, 1)->weekOfMonth);
+        $this->assertSame(5, Chronos::createFromDate(2012, 9, 30)->weekOfMonth);
+        $this->assertSame(4, Chronos::createFromDate(2012, 9, 28)->weekOfMonth);
+        $this->assertSame(3, Chronos::createFromDate(2012, 9, 20)->weekOfMonth);
+        $this->assertSame(2, Chronos::createFromDate(2012, 9, 8)->weekOfMonth);
+        $this->assertSame(1, Chronos::createFromDate(2012, 9, 1)->weekOfMonth);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testWeekOfYearFirstWeek($class)
+    public function testWeekOfYearFirstWeek()
     {
-        $this->assertSame(52, $class::createFromDate(2012, 1, 1)->weekOfYear);
-        $this->assertSame(1, $class::createFromDate(2012, 1, 2)->weekOfYear);
+        $this->assertSame(52, Chronos::createFromDate(2012, 1, 1)->weekOfYear);
+        $this->assertSame(1, Chronos::createFromDate(2012, 1, 2)->weekOfYear);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testWeekOfYearLastWeek($class)
+    public function testWeekOfYearLastWeek()
     {
-        $this->assertSame(52, $class::createFromDate(2012, 12, 30)->weekOfYear);
-        $this->assertSame(1, $class::createFromDate(2012, 12, 31)->weekOfYear);
+        $this->assertSame(52, Chronos::createFromDate(2012, 12, 30)->weekOfYear);
+        $this->assertSame(1, Chronos::createFromDate(2012, 12, 31)->weekOfYear);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetWeekStartsAt($class)
+    public function testGetWeekStartsAt()
     {
-        $d = $class::createFromDate(2012, 12, 31);
+        $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(ChronosInterface::MONDAY, $d->getWeekStartsAt());
 
         $d::setWeekStartsAt(ChronosInterface::SUNDAY);
         $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekStartsAt());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetWeekEndsAt($class)
+    public function testGetWeekEndsAt()
     {
-        $d = $class::createFromDate(2012, 12, 31);
+        $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekEndsAt());
 
         $d::setWeekEndsAt(ChronosInterface::SATURDAY);
         $this->assertSame(ChronosInterface::SATURDAY, $d->getWeekEndsAt());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetTimezone($class)
+    public function testGetTimezone()
     {
-        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezone->getName());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetTz($class)
+    public function testGetTz()
     {
-        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tz->getName());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetTimezoneName($class)
+    public function testGetTimezoneName()
     {
-        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezoneName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testGetTzName($class)
+    public function testGetTzName()
     {
-        $dt = $class::createFromDate(2000, 1, 1, 'America/Toronto');
+        $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tzName);
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testInvalidGetter($class)
+    public function testInvalidGetter()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $d = $class::now();
+        $d = Chronos::now();
         $bb = $d->doesNotExit;
     }
 }

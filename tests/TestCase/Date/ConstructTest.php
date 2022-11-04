@@ -25,175 +25,119 @@ use DateTimeZone;
  */
 class ConstructTest extends TestCase
 {
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreateFromEmpty($class)
+    public function testCreateFromEmpty()
     {
-        $c = $class::parse(null);
+        $c = Date::parse(null);
         $this->assertSame('00:00:00', $c->format('H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
-        $c = $class::parse('');
+        $c = Date::parse('');
         $this->assertSame('00:00:00', $c->format('H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreateFromEmptyWithTestNow($class)
+    public function testCreateFromEmptyWithTestNow()
     {
-        $class::setTestNow($class::create(2001, 1, 1));
+        Date::setTestNow(Date::create(2001, 1, 1));
 
-        $c = $class::parse(null);
+        $c = Date::parse(null);
         $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
-        $c = $class::parse('');
+        $c = Date::parse('');
         $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreateFromTimestamp($class)
+    public function testCreateFromTimestamp()
     {
-        $this->withTimezone('Europe/Berlin', function () use ($class) {
+        $this->withTimezone('Europe/Berlin', function () {
             $ts = 1454284800;
 
-            $date = $class::createFromTimestamp($ts);
+            $date = Date::createFromTimestamp($ts);
             $this->assertSame('Europe/Berlin', $date->tzName);
             $this->assertSame('2016-02-01', $date->format('Y-m-d'));
 
-            $date = new $class($ts);
+            $date = new Date($ts);
             $this->assertSame('Europe/Berlin', $date->tzName);
             $this->assertSame('2016-02-01', $date->format('Y-m-d'));
         });
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreatesAnInstanceDefaultToNow($class)
+    public function testCreatesAnInstanceDefaultToNow()
     {
-        $c = new $class();
-        $now = $class::now();
-        $this->assertInstanceOf($class, $c);
+        $c = new Date();
+        $now = Date::now();
+        $this->assertInstanceOf(Date::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertDateTime($c, $now->year, $now->month, $now->day, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseCreatesAnInstanceDefaultToNow($class)
+    public function testParseCreatesAnInstanceDefaultToNow()
     {
-        $c = $class::parse();
-        $now = $class::now();
-        $this->assertInstanceOf($class, $c);
+        $c = Date::parse();
+        $now = Date::now();
+        $this->assertInstanceOf(Date::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertDateTime($c, $now->year, $now->month, $now->day, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testWithFancyString($class)
+    public function testWithFancyString()
     {
-        $c = new $class('first day of January 2008');
+        $c = new Date('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseWithFancyString($class)
+    public function testParseWithFancyString()
     {
-        $c = $class::parse('first day of January 2008');
+        $c = Date::parse('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseWithMicroSeconds($class)
+    public function testParseWithMicroSeconds()
     {
-        $date = $class::parse('2016-12-08 18:06:46.510954');
+        $date = Date::parse('2016-12-08 18:06:46.510954');
         $this->assertSame(0, $date->hour);
         $this->assertSame(0, $date->second);
         $this->assertSame(0, $date->minute);
         $this->assertSame(0, $date->micro);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testUsesDefaultTimezone($class)
+    public function testUsesDefaultTimezone()
     {
-        $c = new $class('now');
+        $c = new Date('now');
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseUsesDefaultTimezone($class)
+    public function testParseUsesDefaultTimezone()
     {
-        $c = $class::parse('now');
+        $c = Date::parse('now');
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testSettingTimezoneIgnored($class)
+    public function testSettingTimezoneIgnored()
     {
         $timezone = 'Europe/London';
         $dtz = new DateTimeZone($timezone);
-        $c = new $class('now', $dtz);
+        $c = new Date('now', $dtz);
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseSettingTimezoneIgnored($class)
+    public function testParseSettingTimezoneIgnored()
     {
-        $c = $class::parse('now', new DateTimeZone('Europe/London'));
+        $c = Date::parse('now', new DateTimeZone('Europe/London'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testSettingTimezoneWithStringIgnored($class)
+    public function testSettingTimezoneWithStringIgnored()
     {
-        $c = new $class('now', 'Asia/Tokyo');
+        $c = new Date('now', 'Asia/Tokyo');
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testParseSettingTimezoneWithStringIgnored($class)
+    public function testParseSettingTimezoneWithStringIgnored()
     {
-        $c = $class::parse('now', 'Asia/Tokyo');
+        $c = Date::parse('now', 'Asia/Tokyo');
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
@@ -234,115 +178,100 @@ class ConstructTest extends TestCase
         $this->assertSame(0, $dt->second);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testConstructWithTestNow($class)
+    public function testConstructWithTestNow()
     {
-        $class::setTestNow($class::create(2001, 1, 1));
-        $date = new $class('+2 days');
+        Date::setTestNow(Date::create(2001, 1, 1));
+        $date = new Date('+2 days');
         $this->assertDateTime($date, 2001, 1, 3);
 
-        $date = new $class('2015-12-12');
+        $date = new Date('2015-12-12');
         $this->assertDateTime($date, 2015, 12, 12);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testConstructWithTestNowNoMutation($class)
+    public function testConstructWithTestNowNoMutation()
     {
-        $class::setTestNow($class::create(2001, 1, 1));
-        $date = new $class('+2 days');
+        Date::setTestNow(Date::create(2001, 1, 1));
+        $date = new Date('+2 days');
         $this->assertDateTime($date, 2001, 1, 3, 0, 0, 0);
 
-        $date = new $class();
+        $date = new Date();
         $this->assertNotEquals('2001-01-03', $date->format('Y-m-d'));
-        $class::setTestNow(null);
+        Date::setTestNow(null);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testConstructWithRelative($class)
+    public function testConstructWithRelative()
     {
-        $c = new $class('+7 days');
+        $c = new Date('+7 days');
         $this->assertSame('00:00:00', $c->format('H:i:s'));
 
-        $c = new $class('+10 minutes');
+        $c = new Date('+10 minutes');
         $this->assertSame('00:00:00', $c->format('H:i:s'));
 
-        $c = new $class('2001-01-01 +7 days');
+        $c = new Date('2001-01-01 +7 days');
         $this->assertSame('2001-01-08', $c->format('Y-m-d'));
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testConstructWithLocalTimezone($class)
+    public function testConstructWithLocalTimezone()
     {
         $londonTimezone = new DateTimeZone('Europe/London');
 
         // now adjusted to London time
         // This test could have different results depending on when now is
-        $c = new $class('now', $londonTimezone);
+        $c = new Date('now', $londonTimezone);
         $london = new DateTimeImmutable('now', $londonTimezone);
         $this->assertSame($london->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // now adjusted to London time
-        $c = $class::today($londonTimezone);
+        $c = Date::today($londonTimezone);
         $this->assertSame(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
 
         // London timezone is used instead of local timezone
-        $c = new $class('2001-01-02 01:00:00', $londonTimezone);
+        $c = new Date('2001-01-02 01:00:00', $londonTimezone);
         $this->assertSame('2001-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when timezone is provided in time string
-        $c = new $class('2001-01-01 23:00:00-400', $londonTimezone);
+        $c = new Date('2001-01-01 23:00:00-400', $londonTimezone);
         $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // London timezone is ignored when DateTimeInterface instance is provided
-        $c = new $class(new DateTimeImmutable('2001-01-01 23:00:00-400'), $londonTimezone);
+        $c = new Date(new DateTimeImmutable('2001-01-01 23:00:00-400'), $londonTimezone);
         $this->assertSame('2001-01-01 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testConstructWithLocalTimezoneTestNow($class)
+    public function testConstructWithLocalTimezoneTestNow()
     {
-        $class::setTestNow(new Chronos('2010-01-01 23:00:00'));
+        Date::setTestNow(new Chronos('2010-01-01 23:00:00'));
 
         $londonTimezone = new DateTimeZone('Europe/London');
 
         // TestNow is adjusted to London time
-        $c = new $class('now', $londonTimezone);
+        $c = new Date('now', $londonTimezone);
         $this->assertSame('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
-        $c = new $class('+2 days', $londonTimezone);
+        $c = new Date('+2 days', $londonTimezone);
         $this->assertSame('2010-01-04 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
-        $c = $class::today($londonTimezone);
+        $c = Date::today($londonTimezone);
         $this->assertSame('2010-01-02 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(Chronos::today($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is adjusted to London time
-        $c = $class::tomorrow($londonTimezone);
+        $c = Date::tomorrow($londonTimezone);
         $this->assertSame('2010-01-03 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(Chronos::tomorrow($londonTimezone)->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
 
         // TestNow is ignored when specific date is provided
-        $c = new $class('2001-01-05 01:00:00', $londonTimezone);
+        $c = new Date('2001-01-05 01:00:00', $londonTimezone);
         $this->assertSame('2001-01-05 00:00:00', $c->format('Y-m-d H:i:s'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
     }
@@ -351,10 +280,8 @@ class ConstructTest extends TestCase
      * This tests with a large difference between local timezone and
      * timezone provided as parameter.  This is to help guarantee a date
      * change would occur so the tests are more consistent.
-     *
-     * @dataProvider dateClassProvider
      */
-    public function testConstructWithLargeTimezoneChange($class)
+    public function testConstructWithLargeTimezoneChange()
     {
         $savedTz = date_default_timezone_get();
         date_default_timezone_set('Pacific/Kiritimati');
@@ -362,7 +289,7 @@ class ConstructTest extends TestCase
         $samoaTimezone = new DateTimeZone('Pacific/Samoa');
 
         // Pacific/Samoa -11:00 is used intead of local timezone +14:00
-        $c = $class::today($samoaTimezone);
+        $c = Date::today($samoaTimezone);
         $Samoa = new DateTimeImmutable('now', $samoaTimezone);
         $this->assertSame($Samoa->format('Y-m-d'), $c->format('Y-m-d'));
         $this->assertSame(date_default_timezone_get(), $c->tzName);
@@ -370,44 +297,33 @@ class ConstructTest extends TestCase
         date_default_timezone_set($savedTz);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testCreateFromExistingInstance($class)
+    public function testCreateFromExistingInstance()
     {
-        $existingClass = new $class();
-        $this->assertInstanceOf($class, $existingClass);
+        $existingClass = new Date();
+        $this->assertInstanceOf(Date::class, $existingClass);
 
-        $newClass = new $class($existingClass);
-        $this->assertInstanceOf($class, $newClass);
+        $newClass = new Date($existingClass);
+        $this->assertInstanceOf(Date::class, $newClass);
 
         $this->assertSame((string)$existingClass, (string)$newClass);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreateFromDateTimeInterface($class)
+    public function testCreateFromDateTimeInterface()
     {
         $existingClass = new DateTimeImmutable();
-        $newClass = new $class($existingClass);
-        $this->assertInstanceOf($class, $newClass);
+        $newClass = new Date($existingClass);
+        $this->assertInstanceOf(Date::class, $newClass);
         $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
 
         $existingClass = new DateTime();
-        $newClass = new $class($existingClass);
-        $this->assertInstanceOf($class, $newClass);
+        $newClass = new Date($existingClass);
+        $this->assertInstanceOf(Date::class, $newClass);
         $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     * @return void
-     */
-    public function testCreateFromFormat($class)
+    public function testCreateFromFormat()
     {
-        $date = $class::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
+        $date = Date::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
         $this->assertSame('2014-02-01 00:00:00 America/Toronto', $date->format('Y-m-d H:i:s e'));
     }
 }

@@ -22,268 +22,212 @@ use DateTimeZone;
 
 class TestingAidsTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTestingAidsWithTestNowNotSet($class)
+    public function testTestingAidsWithTestNowNotSet()
     {
-        $class::setTestNow();
+        Chronos::setTestNow();
 
-        $this->assertFalse($class::hasTestNow());
-        $this->assertNull($class::getTestNow());
+        $this->assertFalse(Chronos::hasTestNow());
+        $this->assertNull(Chronos::getTestNow());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTestingAidsWithTestNowSet($class)
+    public function testTestingAidsWithTestNowSet()
     {
-        $notNow = $class::yesterday();
-        $class::setTestNow($notNow);
+        $notNow = Chronos::yesterday();
+        Chronos::setTestNow($notNow);
 
-        $this->assertTrue($class::hasTestNow());
-        $this->assertSame($notNow, $class::getTestNow());
+        $this->assertTrue(Chronos::hasTestNow());
+        $this->assertSame($notNow, Chronos::getTestNow());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testTestingAidsWithTestNowSetToString($class)
+    public function testTestingAidsWithTestNowSetToString()
     {
-        $class::setTestNow('2016-11-23');
-        $this->assertTrue($class::hasTestNow());
-        $this->assertSame((string)$class::getTestNow(), (string)$class::parse('2016-11-23'));
+        Chronos::setTestNow('2016-11-23');
+        $this->assertTrue(Chronos::hasTestNow());
+        $this->assertSame((string)Chronos::getTestNow(), (string)Chronos::parse('2016-11-23'));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testConstructorWithTestValueSet($class)
+    public function testConstructorWithTestValueSet()
     {
-        $notNow = $class::yesterday();
-        $class::setTestNow($notNow);
+        $notNow = Chronos::yesterday();
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame((string)$notNow, (string)new $class());
-        $this->assertSame((string)$notNow, (string)new $class(null));
-        $this->assertSame((string)$notNow, (string)new $class(''));
-        $this->assertSame((string)$notNow, (string)new $class('now'));
+        $this->assertSame((string)$notNow, (string)new Chronos());
+        $this->assertSame((string)$notNow, (string)new Chronos(null));
+        $this->assertSame((string)$notNow, (string)new Chronos(''));
+        $this->assertSame((string)$notNow, (string)new Chronos('now'));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNowWithTestValueSet($class)
+    public function testNowWithTestValueSet()
     {
-        $notNow = $class::yesterday();
-        $class::setTestNow($notNow);
+        $notNow = Chronos::yesterday();
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame((string)$notNow, (string)$class::now());
+        $this->assertSame((string)$notNow, (string)Chronos::now());
     }
 
     /**
      * Ensure that using test now doesn't mutate test now.
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testNowNoMutateDateTime($class)
+    public function testNowNoMutateDateTime()
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
-        $class::setTestNow($notNow);
+        Chronos::setTestNow($notNow);
 
-        $instance = new $class('-10 minutes');
+        $instance = new Chronos('-10 minutes');
         $this->assertSame('10:01:12', $instance->format('H:i:s'));
 
-        $instance = new $class('-10 minutes');
+        $instance = new Chronos('-10 minutes');
         $this->assertSame('10:01:12', $instance->format('H:i:s'));
     }
 
     /**
      * Ensure that using test now doesn't mutate test now.
-     *
-     * @dataProvider dateClassProvider
-     * @return void
      */
-    public function testNowNoMutateDate($class)
+    public function testNowNoMutateDate()
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
-        $class::setTestNow($notNow);
+        Date::setTestNow($notNow);
 
-        $instance = new $class('-1 day');
+        $instance = new Date('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new $class('-1 day');
+        $instance = new Date('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new $class('-23 hours');
+        $instance = new Date('-23 hours');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseWithTestValueSet($class)
+    public function testParseWithTestValueSet()
     {
-        $notNow = $class::yesterday();
-        $class::setTestNow($notNow);
+        $notNow = Chronos::yesterday();
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame((string)$notNow, (string)$class::parse());
-        $this->assertSame((string)$notNow, (string)$class::parse(null));
-        $this->assertSame((string)$notNow, (string)$class::parse(''));
-        $this->assertSame((string)$notNow, (string)$class::parse('now'));
+        $this->assertSame((string)$notNow, (string)Chronos::parse());
+        $this->assertSame((string)$notNow, (string)Chronos::parse(null));
+        $this->assertSame((string)$notNow, (string)Chronos::parse(''));
+        $this->assertSame((string)$notNow, (string)Chronos::parse('now'));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseRelativeWithTestValueSet($class)
+    public function testParseRelativeWithTestValueSet()
     {
-        $notNow = $class::parse('2013-09-01 05:15:05');
-        $class::setTestNow($notNow);
+        $notNow = Chronos::parse('2013-09-01 05:15:05');
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame('2013-09-01 06:30:00', $class::parse('6:30')->toDateTimeString());
-        $this->assertSame('2013-09-01 06:30:00', $class::parse('6:30:00')->toDateTimeString());
-        $this->assertSame('2013-09-01 06:30:00', $class::parse('06:30:00')->toDateTimeString());
+        $this->assertSame('2013-09-01 06:30:00', Chronos::parse('6:30')->toDateTimeString());
+        $this->assertSame('2013-09-01 06:30:00', Chronos::parse('6:30:00')->toDateTimeString());
+        $this->assertSame('2013-09-01 06:30:00', Chronos::parse('06:30:00')->toDateTimeString());
 
-        $this->assertSame('2013-09-01 05:10:05', $class::parse('5 minutes ago')->toDateTimeString());
+        $this->assertSame('2013-09-01 05:10:05', Chronos::parse('5 minutes ago')->toDateTimeString());
 
-        $this->assertSame('2013-08-25 05:15:05', $class::parse('1 week ago')->toDateTimeString());
+        $this->assertSame('2013-08-25 05:15:05', Chronos::parse('1 week ago')->toDateTimeString());
 
-        $this->assertSame('2013-09-02 00:00:00', $class::parse('tomorrow')->toDateTimeString());
-        $this->assertSame('2013-09-01 00:00:00', $class::parse('today')->toDateTimeString());
-        $this->assertSame('2013-09-01 00:00:00', $class::parse('midnight')->toDateTimeString());
-        $this->assertSame('2013-08-31 00:00:00', $class::parse('yesterday')->toDateTimeString());
+        $this->assertSame('2013-09-02 00:00:00', Chronos::parse('tomorrow')->toDateTimeString());
+        $this->assertSame('2013-09-01 00:00:00', Chronos::parse('today')->toDateTimeString());
+        $this->assertSame('2013-09-01 00:00:00', Chronos::parse('midnight')->toDateTimeString());
+        $this->assertSame('2013-08-31 00:00:00', Chronos::parse('yesterday')->toDateTimeString());
 
-        $this->assertSame('2013-09-02 05:15:05', $class::parse('+1 day')->toDateTimeString());
-        $this->assertSame('2013-08-31 05:15:05', $class::parse('-1 day')->toDateTimeString());
+        $this->assertSame('2013-09-02 05:15:05', Chronos::parse('+1 day')->toDateTimeString());
+        $this->assertSame('2013-08-31 05:15:05', Chronos::parse('-1 day')->toDateTimeString());
 
-        $this->assertSame('2013-09-02 00:00:00', $class::parse('next monday')->toDateTimeString());
-        $this->assertSame('2013-09-03 00:00:00', $class::parse('next tuesday')->toDateTimeString());
-        $this->assertSame('2013-09-04 00:00:00', $class::parse('next wednesday')->toDateTimeString());
-        $this->assertSame('2013-09-05 00:00:00', $class::parse('next thursday')->toDateTimeString());
-        $this->assertSame('2013-09-06 00:00:00', $class::parse('next friday')->toDateTimeString());
-        $this->assertSame('2013-09-07 00:00:00', $class::parse('next saturday')->toDateTimeString());
-        $this->assertSame('2013-09-08 00:00:00', $class::parse('next sunday')->toDateTimeString());
+        $this->assertSame('2013-09-02 00:00:00', Chronos::parse('next monday')->toDateTimeString());
+        $this->assertSame('2013-09-03 00:00:00', Chronos::parse('next tuesday')->toDateTimeString());
+        $this->assertSame('2013-09-04 00:00:00', Chronos::parse('next wednesday')->toDateTimeString());
+        $this->assertSame('2013-09-05 00:00:00', Chronos::parse('next thursday')->toDateTimeString());
+        $this->assertSame('2013-09-06 00:00:00', Chronos::parse('next friday')->toDateTimeString());
+        $this->assertSame('2013-09-07 00:00:00', Chronos::parse('next saturday')->toDateTimeString());
+        $this->assertSame('2013-09-08 00:00:00', Chronos::parse('next sunday')->toDateTimeString());
 
-        $this->assertSame('2013-08-26 00:00:00', $class::parse('last monday')->toDateTimeString());
-        $this->assertSame('2013-08-27 00:00:00', $class::parse('last tuesday')->toDateTimeString());
-        $this->assertSame('2013-08-28 00:00:00', $class::parse('last wednesday')->toDateTimeString());
-        $this->assertSame('2013-08-29 00:00:00', $class::parse('last thursday')->toDateTimeString());
-        $this->assertSame('2013-08-30 00:00:00', $class::parse('last friday')->toDateTimeString());
-        $this->assertSame('2013-08-31 00:00:00', $class::parse('last saturday')->toDateTimeString());
-        $this->assertSame('2013-08-25 00:00:00', $class::parse('last sunday')->toDateTimeString());
+        $this->assertSame('2013-08-26 00:00:00', Chronos::parse('last monday')->toDateTimeString());
+        $this->assertSame('2013-08-27 00:00:00', Chronos::parse('last tuesday')->toDateTimeString());
+        $this->assertSame('2013-08-28 00:00:00', Chronos::parse('last wednesday')->toDateTimeString());
+        $this->assertSame('2013-08-29 00:00:00', Chronos::parse('last thursday')->toDateTimeString());
+        $this->assertSame('2013-08-30 00:00:00', Chronos::parse('last friday')->toDateTimeString());
+        $this->assertSame('2013-08-31 00:00:00', Chronos::parse('last saturday')->toDateTimeString());
+        $this->assertSame('2013-08-25 00:00:00', Chronos::parse('last sunday')->toDateTimeString());
 
-        $this->assertSame('2013-09-02 00:00:00', $class::parse('this monday')->toDateTimeString());
-        $this->assertSame('2013-09-03 00:00:00', $class::parse('this tuesday')->toDateTimeString());
-        $this->assertSame('2013-09-04 00:00:00', $class::parse('this wednesday')->toDateTimeString());
-        $this->assertSame('2013-09-05 00:00:00', $class::parse('this thursday')->toDateTimeString());
-        $this->assertSame('2013-09-06 00:00:00', $class::parse('this friday')->toDateTimeString());
-        $this->assertSame('2013-09-07 00:00:00', $class::parse('this saturday')->toDateTimeString());
-        $this->assertSame('2013-09-01 00:00:00', $class::parse('this sunday')->toDateTimeString());
+        $this->assertSame('2013-09-02 00:00:00', Chronos::parse('this monday')->toDateTimeString());
+        $this->assertSame('2013-09-03 00:00:00', Chronos::parse('this tuesday')->toDateTimeString());
+        $this->assertSame('2013-09-04 00:00:00', Chronos::parse('this wednesday')->toDateTimeString());
+        $this->assertSame('2013-09-05 00:00:00', Chronos::parse('this thursday')->toDateTimeString());
+        $this->assertSame('2013-09-06 00:00:00', Chronos::parse('this friday')->toDateTimeString());
+        $this->assertSame('2013-09-07 00:00:00', Chronos::parse('this saturday')->toDateTimeString());
+        $this->assertSame('2013-09-01 00:00:00', Chronos::parse('this sunday')->toDateTimeString());
 
-        $this->assertSame('2013-10-01 05:15:05', $class::parse('first day of next month')->toDateTimeString());
-        $this->assertSame('2013-09-30 05:15:05', $class::parse('last day of this month')->toDateTimeString());
+        $this->assertSame('2013-10-01 05:15:05', Chronos::parse('first day of next month')->toDateTimeString());
+        $this->assertSame('2013-09-30 05:15:05', Chronos::parse('last day of this month')->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseRelativeWithMinusSignsInDate($class)
+    public function testParseRelativeWithMinusSignsInDate()
     {
-        $notNow = $class::parse('2013-09-01 05:15:05');
-        $class::setTestNow($notNow);
+        $notNow = Chronos::parse('2013-09-01 05:15:05');
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame('2000-01-03 00:00:00', $class::parse('2000-1-3')->toDateTimeString());
-        $this->assertSame('2000-10-10 00:00:00', $class::parse('2000-10-10')->toDateTimeString());
+        $this->assertSame('2000-01-03 00:00:00', Chronos::parse('2000-1-3')->toDateTimeString());
+        $this->assertSame('2000-10-10 00:00:00', Chronos::parse('2000-10-10')->toDateTimeString());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseWithTimeZone($class)
+    public function testParseWithTimeZone()
     {
-        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
-        $class::setTestNow($notNow);
+        $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame('2013-07-01T12:00:00-04:00', $class::parse('now')->toIso8601String());
-        $this->assertSame('2013-07-01T11:00:00-05:00', $class::parse('now', 'America/Mexico_City')->toIso8601String());
-        $this->assertSame('2013-07-01T09:00:00-07:00', $class::parse('now', 'America/Vancouver')->toIso8601String());
+        $this->assertSame('2013-07-01T12:00:00-04:00', Chronos::parse('now')->toIso8601String());
+        $this->assertSame('2013-07-01T11:00:00-05:00', Chronos::parse('now', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T09:00:00-07:00', Chronos::parse('now', 'America/Vancouver')->toIso8601String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testParseRelativeWithTimeZone($class)
+    public function testParseRelativeWithTimeZone()
     {
-        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
-        $class::setTestNow($notNow);
+        $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame('2013-07-01T10:55:00-05:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toIso8601String());
-        $this->assertSame('2013-07-01 10:55:00', $class::parse('5 minutes ago', 'America/Mexico_City')->toDateTimeString());
+        $this->assertSame('2013-07-01T10:55:00-05:00', Chronos::parse('5 minutes ago', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01 10:55:00', Chronos::parse('5 minutes ago', 'America/Mexico_City')->toDateTimeString());
     }
 
     /**
      * Test parse() with relative values and timezones
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testParseRelativeWithTimezoneAndTestValueSet($class)
+    public function testParseRelativeWithTimezoneAndTestValueSet()
     {
-        $notNow = $class::parse('2013-07-01 12:00:00', 'America/New_York');
-        $class::setTestNow($notNow);
+        $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
+        Chronos::setTestNow($notNow);
 
-        $this->assertSame('06:30:00', $class::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toTimeString());
-        $this->assertSame('06:30:00', $class::parse('6:30', 'America/Mexico_City')->toTimeString());
+        $this->assertSame('06:30:00', Chronos::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toTimeString());
+        $this->assertSame('06:30:00', Chronos::parse('6:30', 'America/Mexico_City')->toTimeString());
 
-        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('2013-07-01 06:30:00')->toIso8601String());
-        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-04:00', Chronos::parse('2013-07-01 06:30:00')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', Chronos::parse('2013-07-01 06:30:00', 'America/Mexico_City')->toIso8601String());
 
-        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('06:30')->toIso8601String());
-        $this->assertSame('2013-07-01T06:30:00-04:00', $class::parse('6:30')->toIso8601String());
-        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('6:30', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-04:00', Chronos::parse('06:30')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-04:00', Chronos::parse('6:30')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', Chronos::parse('6:30', 'America/Mexico_City')->toIso8601String());
 
-        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('6:30:00', 'America/Mexico_City')->toIso8601String());
-        $this->assertSame('2013-07-01T06:30:00-05:00', $class::parse('06:30:00', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', Chronos::parse('6:30:00', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T06:30:00-05:00', Chronos::parse('06:30:00', 'America/Mexico_City')->toIso8601String());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testNullTimezone($class)
+    public function testNullTimezone()
     {
-        $c = new $class('2016-01-01 00:00:00', 'Europe/Copenhagen');
-        $class::setTestNow($c);
+        $c = new Chronos('2016-01-01 00:00:00', 'Europe/Copenhagen');
+        Chronos::setTestNow($c);
 
-        $result = new $class('now', null);
+        $result = new Chronos('now', null);
         $this->assertSame((new DateTimeZone('America/Toronto'))->getName(), $result->tz->getName());
         $this->assertSame('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
-        $this->assertSame((new DateTimeZone('Europe/Copenhagen'))->getName(), $class::getTestNow()->tz->getName());
+        $this->assertSame((new DateTimeZone('Europe/Copenhagen'))->getName(), Chronos::getTestNow()->tz->getName());
     }
 
     /**
      * Test that setting testNow() on one class sets it on all of the chronos classes.
-     *
-     * @dataProvider classNameProvider
-     * @return void
      */
-    public function testSetTestNowSingular($class)
+    public function testSetTestNowSingular()
     {
-        $c = new $class('2016-01-03 00:00:00', 'Europe/Copenhagen');
-        $class::setTestNow($c);
+        $c = new Chronos('2016-01-03 00:00:00', 'Europe/Copenhagen');
+        Chronos::setTestNow($c);
 
         $this->assertSame($c, Date::getTestNow());
         $this->assertSame($c, Chronos::getTestNow());

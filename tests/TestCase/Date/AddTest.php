@@ -14,18 +14,16 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
+use Cake\Chronos\Date;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
 
 class AddTest extends TestCase
 {
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddFullDay($class)
+    public function testAddFullDay()
     {
         $interval = DateInterval::createFromDateString('1 day');
-        $date = $class::create(2001, 1, 1);
+        $date = Date::create(2001, 1, 1);
         $new = $date->add($interval);
 
         $this->assertSame(0, $new->hour);
@@ -36,13 +34,10 @@ class AddTest extends TestCase
         $this->assertSame(0, $date->second);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddIgnoreTime($class)
+    public function testAddIgnoreTime()
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = $class::create(2001, 1, 1);
+        $date = Date::create(2001, 1, 1);
         $new = $date->add($interval);
 
         $this->assertSame(0, $new->hour);
@@ -53,13 +48,10 @@ class AddTest extends TestCase
         $this->assertSame(0, $date->second);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testSubFullDay($class)
+    public function testSubFullDay()
     {
         $interval = DateInterval::createFromDateString('1 day');
-        $date = $class::create(2001, 1, 1);
+        $date = Date::create(2001, 1, 1);
         $new = $date->sub($interval);
 
         $this->assertSame(0, $new->hour);
@@ -70,13 +62,10 @@ class AddTest extends TestCase
         $this->assertSame(0, $date->second);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testSubIgnoreTime($class)
+    public function testSubIgnoreTime()
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = $class::create(2001, 1, 1);
+        $date = Date::create(2001, 1, 1);
         $new = $date->sub($interval);
 
         $this->assertSame(0, $new->hour);
@@ -87,39 +76,27 @@ class AddTest extends TestCase
         $this->assertSame(0, $date->second);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddDay($class)
+    public function testAddDay()
     {
-        $this->assertSame(1, $class::create(1975, 5, 31)->addDays(1)->day);
-        $this->assertSame(30, $class::create(1975, 5, 31)->addDays(-1)->day);
+        $this->assertSame(1, Date::create(1975, 5, 31)->addDays(1)->day);
+        $this->assertSame(30, Date::create(1975, 5, 31)->addDays(-1)->day);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddMonth($class)
+    public function testAddMonth()
     {
-        $this->assertSame(6, $class::create(1975, 5, 31)->addMonths(1)->month);
-        $this->assertSame(4, $class::create(1975, 5, 31)->addMonths(-1)->month);
+        $this->assertSame(6, Date::create(1975, 5, 31)->addMonths(1)->month);
+        $this->assertSame(4, Date::create(1975, 5, 31)->addMonths(-1)->month);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddYears($class)
+    public function testAddYears()
     {
-        $this->assertSame(1976, $class::create(1975, 5, 31)->addYears(1)->year);
-        $this->assertSame(1974, $class::create(1975, 5, 31)->addYears(-1)->year);
+        $this->assertSame(1976, Date::create(1975, 5, 31)->addYears(1)->year);
+        $this->assertSame(1974, Date::create(1975, 5, 31)->addYears(-1)->year);
     }
 
-    /**
-     * @dataProvider dateClassProvider
-     */
-    public function testAddWeekdays($class)
+    public function testAddWeekdays()
     {
-        $this->assertSame(2, $class::create(1975, 5, 31)->addWeekdays(1)->day);
-        $this->assertSame(30, $class::create(1975, 5, 31)->addWeekdays(-1)->day);
+        $this->assertSame(2, Date::create(1975, 5, 31)->addWeekdays(1)->day);
+        $this->assertSame(30, Date::create(1975, 5, 31)->addWeekdays(-1)->day);
     }
 }

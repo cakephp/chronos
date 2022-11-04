@@ -15,514 +15,341 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class IsTest extends TestCase
 {
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWeekdayTrue($class)
+    public function testIsWeekdayTrue()
     {
-        $this->assertTrue($class::createFromDate(2012, 1, 2)->isWeekday());
+        $this->assertTrue(Chronos::createFromDate(2012, 1, 2)->isWeekday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWeekdayFalse($class)
+    public function testIsWeekdayFalse()
     {
-        $this->assertFalse($class::createFromDate(2012, 1, 1)->isWeekday());
+        $this->assertFalse(Chronos::createFromDate(2012, 1, 1)->isWeekday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWeekendTrue($class)
+    public function testIsWeekendTrue()
     {
-        $this->assertTrue($class::createFromDate(2012, 1, 1)->isWeekend());
+        $this->assertTrue(Chronos::createFromDate(2012, 1, 1)->isWeekend());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWeekendFalse($class)
+    public function testIsWeekendFalse()
     {
-        $this->assertFalse($class::createFromDate(2012, 1, 2)->isWeekend());
+        $this->assertFalse(Chronos::createFromDate(2012, 1, 2)->isWeekend());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsYesterdayTrue($class)
+    public function testIsYesterdayTrue()
     {
-        $this->assertTrue($class::now()->subDays(1)->isYesterday());
+        $this->assertTrue(Chronos::now()->subDays(1)->isYesterday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsYesterdayFalseWithToday($class)
+    public function testIsYesterdayFalseWithToday()
     {
-        $this->assertFalse($class::now()->endOfDay()->isYesterday());
+        $this->assertFalse(Chronos::now()->endOfDay()->isYesterday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsYesterdayFalseWith2Days($class)
+    public function testIsYesterdayFalseWith2Days()
     {
-        $this->assertFalse($class::now()->subDays(2)->startOfDay()->isYesterday());
+        $this->assertFalse(Chronos::now()->subDays(2)->startOfDay()->isYesterday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTodayTrue($class)
+    public function testIsTodayTrue()
     {
-        $this->assertTrue($class::now()->isToday());
+        $this->assertTrue(Chronos::now()->isToday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTodayFalseWithYesterday($class)
+    public function testIsTodayFalseWithYesterday()
     {
-        $this->assertFalse($class::now()->subDays(1)->endOfDay()->isToday());
+        $this->assertFalse(Chronos::now()->subDays(1)->endOfDay()->isToday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTodayFalseWithTomorrow($class)
+    public function testIsTodayFalseWithTomorrow()
     {
-        $this->assertFalse($class::now()->addDays(1)->startOfDay()->isToday());
+        $this->assertFalse(Chronos::now()->addDays(1)->startOfDay()->isToday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTodayWithTimezone($class)
+    public function testIsTodayWithTimezone()
     {
-        $this->assertTrue($class::now('Asia/Tokyo')->isToday());
+        $this->assertTrue(Chronos::now('Asia/Tokyo')->isToday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTomorrowTrue($class)
+    public function testIsTomorrowTrue()
     {
-        $this->assertTrue($class::now()->addDays(1)->isTomorrow());
+        $this->assertTrue(Chronos::now()->addDays(1)->isTomorrow());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTomorrowFalseWithToday($class)
+    public function testIsTomorrowFalseWithToday()
     {
-        $this->assertFalse($class::now()->endOfDay()->isTomorrow());
+        $this->assertFalse(Chronos::now()->endOfDay()->isTomorrow());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTomorrowFalseWith2Days($class)
+    public function testIsTomorrowFalseWith2Days()
     {
-        $this->assertFalse($class::now()->addDays(2)->startOfDay()->isTomorrow());
+        $this->assertFalse(Chronos::now()->addDays(2)->startOfDay()->isTomorrow());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextWeekTrue($class)
+    public function testIsNextWeekTrue()
     {
-        $this->assertTrue($class::now()->addWeeks(1)->isNextWeek());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->isNextWeek());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastWeekTrue($class)
+    public function testIsLastWeekTrue()
     {
-        $this->assertTrue($class::now()->subWeeks(1)->isLastWeek());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->isLastWeek());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextWeekFalse($class)
+    public function testIsNextWeekFalse()
     {
-        $this->assertFalse($class::now()->addWeeks(2)->isNextWeek());
+        $this->assertFalse(Chronos::now()->addWeeks(2)->isNextWeek());
 
-        $class::setTestNow('2017-W01');
-        $time = new $class('2018-W02');
+        Chronos::setTestNow('2017-W01');
+        $time = new Chronos('2018-W02');
         $this->assertFalse($time->isNextWeek());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastWeekFalse($class)
+    public function testIsLastWeekFalse()
     {
-        $this->assertFalse($class::now()->subWeeks(2)->isLastWeek());
+        $this->assertFalse(Chronos::now()->subWeeks(2)->isLastWeek());
 
-        $class::setTestNow('2018-W02');
-        $time = new $class('2017-W01');
+        Chronos::setTestNow('2018-W02');
+        $time = new Chronos('2017-W01');
         $this->assertFalse($time->isLastWeek());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextMonthTrue($class)
+    public function testIsNextMonthTrue()
     {
-        $this->assertTrue($class::now()->addMonths(1)->isNextMonth());
+        $this->assertTrue(Chronos::now()->addMonths(1)->isNextMonth());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastMonthTrue($class)
+    public function testIsLastMonthTrue()
     {
-        $this->assertTrue($class::now()->subMonths(1)->isLastMonth());
+        $this->assertTrue(Chronos::now()->subMonths(1)->isLastMonth());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextMonthFalse($class)
+    public function testIsNextMonthFalse()
     {
-        $this->assertFalse($class::now()->addMonths(2)->isNextMonth());
+        $this->assertFalse(Chronos::now()->addMonths(2)->isNextMonth());
 
-        $class::setTestNow('2017-12-31');
-        $time = new $class('2017-01-01');
+        Chronos::setTestNow('2017-12-31');
+        $time = new Chronos('2017-01-01');
         $this->assertFalse($time->isNextMonth());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastMonthFalse($class)
+    public function testIsLastMonthFalse()
     {
-        $this->assertFalse($class::now()->subMonths(2)->isLastMonth());
+        $this->assertFalse(Chronos::now()->subMonths(2)->isLastMonth());
 
-        $class::setTestNow('2017-01-01');
-        $time = new $class('2017-12-31');
+        Chronos::setTestNow('2017-01-01');
+        $time = new Chronos('2017-12-31');
         $this->assertFalse($time->isLastMonth());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextYearTrue($class)
+    public function testIsNextYearTrue()
     {
-        $this->assertTrue($class::now()->addYears(1)->isNextYear());
+        $this->assertTrue(Chronos::now()->addYears(1)->isNextYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastYearTrue($class)
+    public function testIsLastYearTrue()
     {
-        $this->assertTrue($class::now()->subYears(1)->isLastYear());
+        $this->assertTrue(Chronos::now()->subYears(1)->isLastYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsNextYearFalse($class)
+    public function testIsNextYearFalse()
     {
-        $this->assertFalse($class::now()->addYears(2)->isNextYear());
+        $this->assertFalse(Chronos::now()->addYears(2)->isNextYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLastYearFalse($class)
+    public function testIsLastYearFalse()
     {
-        $this->assertFalse($class::now()->subYears(2)->isLastYear());
+        $this->assertFalse(Chronos::now()->subYears(2)->isLastYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsFutureTrue($class)
+    public function testIsFutureTrue()
     {
-        $this->assertTrue($class::now()->addSeconds(1)->isFuture());
+        $this->assertTrue(Chronos::now()->addSeconds(1)->isFuture());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsFutureFalse($class)
+    public function testIsFutureFalse()
     {
-        $this->assertFalse($class::now()->isFuture());
+        $this->assertFalse(Chronos::now()->isFuture());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsFutureFalseInThePast($class)
+    public function testIsFutureFalseInThePast()
     {
-        $this->assertFalse($class::now()->subSeconds(1)->isFuture());
+        $this->assertFalse(Chronos::now()->subSeconds(1)->isFuture());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsPastTrue($class)
+    public function testIsPastTrue()
     {
-        $this->assertTrue($class::now()->subSeconds(1)->isPast());
+        $this->assertTrue(Chronos::now()->subSeconds(1)->isPast());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsPastFalse($class)
+    public function testIsPastFalse()
     {
-        $this->assertFalse($class::now()->addSeconds(1)->isPast());
+        $this->assertFalse(Chronos::now()->addSeconds(1)->isPast());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLeapYearTrue($class)
+    public function testIsLeapYearTrue()
     {
-        $this->assertTrue($class::createFromDate(2016, 1, 1)->isLeapYear());
+        $this->assertTrue(Chronos::createFromDate(2016, 1, 1)->isLeapYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsLeapYearFalse($class)
+    public function testIsLeapYearFalse()
     {
-        $this->assertFalse($class::createFromDate(2014, 1, 1)->isLeapYear());
+        $this->assertFalse(Chronos::createFromDate(2014, 1, 1)->isLeapYear());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsSameDayTrue($class)
+    public function testIsSameDayTrue()
     {
-        $current = $class::createFromDate(2012, 1, 2);
-        $this->assertTrue($current->isSameDay($class::createFromDate(2012, 1, 2)));
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameDay(Chronos::createFromDate(2012, 1, 2)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsSameDayFalse($class)
+    public function testIsSameDayFalse()
     {
-        $current = $class::createFromDate(2012, 1, 2);
-        $this->assertFalse($current->isSameDay($class::createFromDate(2012, 1, 3)));
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameDay(Chronos::createFromDate(2012, 1, 3)));
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsSunday($class)
+    public function testIsSunday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 5, 31)->isSunday());
-        $this->assertTrue($class::createFromDate(2015, 6, 21)->isSunday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::SUNDAY)->isSunday());
+        $this->assertTrue(Chronos::createFromDate(2015, 5, 31)->isSunday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 21)->isSunday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::SUNDAY)->isSunday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::SUNDAY)->isSunday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::SUNDAY)->isSunday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::SUNDAY)->isSunday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::SUNDAY)->isSunday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::MONDAY)->isSunday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::MONDAY)->isSunday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::MONDAY)->isSunday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::MONDAY)->isSunday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::MONDAY)->isSunday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::MONDAY)->isSunday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::MONDAY)->isSunday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::MONDAY)->isSunday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsMonday($class)
+    public function testIsMonday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 1)->isMonday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::MONDAY)->isMonday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 1)->isMonday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::MONDAY)->isMonday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::MONDAY)->isMonday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::MONDAY)->isMonday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::MONDAY)->isMonday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::MONDAY)->isMonday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::TUESDAY)->isMonday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::TUESDAY)->isMonday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::TUESDAY)->isMonday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::TUESDAY)->isMonday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::TUESDAY)->isMonday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::TUESDAY)->isMonday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::TUESDAY)->isMonday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::TUESDAY)->isMonday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsTuesday($class)
+    public function testIsTuesday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 2)->isTuesday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::TUESDAY)->isTuesday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 2)->isTuesday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::TUESDAY)->isTuesday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::TUESDAY)->isTuesday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::TUESDAY)->isTuesday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::TUESDAY)->isTuesday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::TUESDAY)->isTuesday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::WEDNESDAY)->isTuesday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::WEDNESDAY)->isTuesday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::WEDNESDAY)->isTuesday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::WEDNESDAY)->isTuesday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::WEDNESDAY)->isTuesday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::WEDNESDAY)->isTuesday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::WEDNESDAY)->isTuesday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::WEDNESDAY)->isTuesday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWednesday($class)
+    public function testIsWednesday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 3)->isWednesday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::WEDNESDAY)->isWednesday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 3)->isWednesday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::WEDNESDAY)->isWednesday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::WEDNESDAY)->isWednesday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::WEDNESDAY)->isWednesday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::WEDNESDAY)->isWednesday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::WEDNESDAY)->isWednesday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::THURSDAY)->isWednesday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::THURSDAY)->isWednesday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::THURSDAY)->isWednesday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::THURSDAY)->isWednesday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::THURSDAY)->isWednesday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::THURSDAY)->isWednesday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::THURSDAY)->isWednesday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::THURSDAY)->isWednesday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsThursday($class)
+    public function testIsThursday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 4)->isThursday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::THURSDAY)->isThursday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 4)->isThursday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::THURSDAY)->isThursday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::THURSDAY)->isThursday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::THURSDAY)->isThursday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::THURSDAY)->isThursday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::THURSDAY)->isThursday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::FRIDAY)->isThursday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::FRIDAY)->isThursday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::FRIDAY)->isThursday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::FRIDAY)->isThursday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::FRIDAY)->isThursday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::FRIDAY)->isThursday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::FRIDAY)->isThursday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::FRIDAY)->isThursday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsFriday($class)
+    public function testIsFriday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 5)->isFriday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::FRIDAY)->isFriday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 5)->isFriday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::FRIDAY)->isFriday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::FRIDAY)->isFriday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::FRIDAY)->isFriday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::FRIDAY)->isFriday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::FRIDAY)->isFriday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::SATURDAY)->isFriday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::SATURDAY)->isFriday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::SATURDAY)->isFriday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::SATURDAY)->isFriday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::SATURDAY)->isFriday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::SATURDAY)->isFriday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::SATURDAY)->isFriday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::SATURDAY)->isFriday());
     }
 
-    /**
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsSaturday($class)
+    public function testIsSaturday()
     {
         // True in the past past
-        $this->assertTrue($class::createFromDate(2015, 6, 6)->isSaturday());
-        $this->assertTrue($class::now()->subWeeks(1)->previous($class::SATURDAY)->isSaturday());
+        $this->assertTrue(Chronos::createFromDate(2015, 6, 6)->isSaturday());
+        $this->assertTrue(Chronos::now()->subWeeks(1)->previous(Chronos::SATURDAY)->isSaturday());
 
         // True in the future
-        $this->assertTrue($class::now()->addWeeks(1)->previous($class::SATURDAY)->isSaturday());
-        $this->assertTrue($class::now()->addMonths(1)->previous($class::SATURDAY)->isSaturday());
+        $this->assertTrue(Chronos::now()->addWeeks(1)->previous(Chronos::SATURDAY)->isSaturday());
+        $this->assertTrue(Chronos::now()->addMonths(1)->previous(Chronos::SATURDAY)->isSaturday());
 
         // False in the past
-        $this->assertFalse($class::now()->subWeeks(1)->previous($class::SUNDAY)->isSaturday());
-        $this->assertFalse($class::now()->subMonths(1)->previous($class::SUNDAY)->isSaturday());
+        $this->assertFalse(Chronos::now()->subWeeks(1)->previous(Chronos::SUNDAY)->isSaturday());
+        $this->assertFalse(Chronos::now()->subMonths(1)->previous(Chronos::SUNDAY)->isSaturday());
 
         // False in the future
-        $this->assertFalse($class::now()->addWeeks(1)->previous($class::SUNDAY)->isSaturday());
-        $this->assertFalse($class::now()->addMonths(1)->previous($class::SUNDAY)->isSaturday());
+        $this->assertFalse(Chronos::now()->addWeeks(1)->previous(Chronos::SUNDAY)->isSaturday());
+        $this->assertFalse(Chronos::now()->addMonths(1)->previous(Chronos::SUNDAY)->isSaturday());
     }
 
-    /**
-     * testIsThisWeek method
-     *
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsThisWeek($class)
+    public function testIsThisWeek()
     {
-        $time = new $class('this sunday');
+        $time = new Chronos('this sunday');
         $this->assertTrue($time->isThisWeek());
 
         $time = $time->modify('-1 day');
@@ -531,86 +358,62 @@ class IsTest extends TestCase
         $time = $time->modify('-6 days');
         $this->assertFalse($time->isThisWeek());
 
-        $time = new $class();
+        $time = new Chronos();
         $time = $time->year($time->year - 1);
         $this->assertFalse($time->isThisWeek());
     }
 
-    /**
-     * testIsThisMonth method
-     *
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsThisMonth($class)
+    public function testIsThisMonth()
     {
-        $time = new $class();
+        $time = new Chronos();
         $this->assertTrue($time->isThisMonth());
 
         $time = $time->year($time->year + 1);
         $this->assertFalse($time->isThisMonth());
 
-        $time = new $class();
+        $time = new Chronos();
         $this->assertFalse($time->modify('next month')->isThisMonth());
     }
 
-    /**
-     * testIsThisYear method
-     *
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsThisYear($class)
+    public function testIsThisYear()
     {
-        $time = new $class();
+        $time = new Chronos();
         $this->assertTrue($time->isThisYear());
 
         $time = $time->year($time->year + 1);
         $this->assertFalse($time->isThisYear());
     }
 
-    /**
-     * testWasWithinLast method
-     *
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testWasWithinLast($class)
+    public function testWasWithinLast()
     {
-        $this->assertTrue((new $class('-1 day'))->wasWithinLast('1 day'));
-        $this->assertTrue((new $class('-1 week'))->wasWithinLast('1 week'));
-        $this->assertTrue((new $class('-1 year'))->wasWithinLast('1 year'));
-        $this->assertTrue((new $class('-1 second'))->wasWithinLast('1 second'));
-        $this->assertTrue((new $class('-1 day'))->wasWithinLast('1 week'));
-        $this->assertTrue((new $class('-1 week'))->wasWithinLast('2 week'));
-        $this->assertTrue((new $class('-1 second'))->wasWithinLast('10 minutes'));
-        $this->assertTrue((new $class('-1 month'))->wasWithinLast('13 month'));
-        $this->assertTrue((new $class('-1 seconds'))->wasWithinLast('1 hour'));
-        $this->assertFalse((new $class('-1 year'))->wasWithinLast('1 second'));
-        $this->assertFalse((new $class('-1 year'))->wasWithinLast('0 year'));
-        $this->assertFalse((new $class('-1 weeks'))->wasWithinLast('1 day'));
+        $this->assertTrue((new Chronos('-1 day'))->wasWithinLast('1 day'));
+        $this->assertTrue((new Chronos('-1 week'))->wasWithinLast('1 week'));
+        $this->assertTrue((new Chronos('-1 year'))->wasWithinLast('1 year'));
+        $this->assertTrue((new Chronos('-1 second'))->wasWithinLast('1 second'));
+        $this->assertTrue((new Chronos('-1 day'))->wasWithinLast('1 week'));
+        $this->assertTrue((new Chronos('-1 week'))->wasWithinLast('2 week'));
+        $this->assertTrue((new Chronos('-1 second'))->wasWithinLast('10 minutes'));
+        $this->assertTrue((new Chronos('-1 month'))->wasWithinLast('13 month'));
+        $this->assertTrue((new Chronos('-1 seconds'))->wasWithinLast('1 hour'));
+        $this->assertFalse((new Chronos('-1 year'))->wasWithinLast('1 second'));
+        $this->assertFalse((new Chronos('-1 year'))->wasWithinLast('0 year'));
+        $this->assertFalse((new Chronos('-1 weeks'))->wasWithinLast('1 day'));
     }
 
-    /**
-     * testWasWithinLast method
-     *
-     * @dataProvider classNameProvider
-     * @return void
-     */
-    public function testIsWithinNext($class)
+    public function testIsWithinNext()
     {
-        $this->assertFalse((new $class('-1 day'))->isWithinNext('1 day'));
-        $this->assertFalse((new $class('-1 week'))->isWithinNext('1 week'));
-        $this->assertFalse((new $class('-1 year'))->isWithinNext('1 year'));
-        $this->assertFalse((new $class('-1 second'))->isWithinNext('1 second'));
-        $this->assertFalse((new $class('-1 day'))->isWithinNext('1 week'));
-        $this->assertFalse((new $class('-1 week'))->isWithinNext('2 week'));
-        $this->assertFalse((new $class('-1 second'))->isWithinNext('10 minutes'));
-        $this->assertFalse((new $class('-1 month'))->isWithinNext('13 month'));
-        $this->assertFalse((new $class('-1 seconds'))->isWithinNext('1 hour'));
-        $this->assertTrue((new $class('+1 day'))->isWithinNext('1 day'));
-        $this->assertTrue((new $class('+1 week'))->isWithinNext('7 day'));
-        $this->assertTrue((new $class('+1 second'))->isWithinNext('1 minute'));
-        $this->assertTrue((new $class('+1 month'))->isWithinNext('1 month'));
+        $this->assertFalse((new Chronos('-1 day'))->isWithinNext('1 day'));
+        $this->assertFalse((new Chronos('-1 week'))->isWithinNext('1 week'));
+        $this->assertFalse((new Chronos('-1 year'))->isWithinNext('1 year'));
+        $this->assertFalse((new Chronos('-1 second'))->isWithinNext('1 second'));
+        $this->assertFalse((new Chronos('-1 day'))->isWithinNext('1 week'));
+        $this->assertFalse((new Chronos('-1 week'))->isWithinNext('2 week'));
+        $this->assertFalse((new Chronos('-1 second'))->isWithinNext('10 minutes'));
+        $this->assertFalse((new Chronos('-1 month'))->isWithinNext('13 month'));
+        $this->assertFalse((new Chronos('-1 seconds'))->isWithinNext('1 hour'));
+        $this->assertTrue((new Chronos('+1 day'))->isWithinNext('1 day'));
+        $this->assertTrue((new Chronos('+1 week'))->isWithinNext('7 day'));
+        $this->assertTrue((new Chronos('+1 second'))->isWithinNext('1 minute'));
+        $this->assertTrue((new Chronos('+1 month'))->isWithinNext('1 month'));
     }
 }
