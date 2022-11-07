@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
 use Closure;
+use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -76,32 +76,34 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function assertDateTimeInterval(ChronosInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
+    protected function assertDateInterval(DateInterval $interval, $years = null, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
-        $this->assertSame($years, $ci->years, 'ChronosInterval->years');
+        if ($years !== null) {
+            $this->assertSame($years, $interval->y, 'DateInterval->y');
+        }
 
         if ($months !== null) {
-            $this->assertSame($months, $ci->months, 'ChronosInterval->months');
+            $this->assertSame($months, $interval->m, 'DateInterval->m');
         }
 
         if ($days !== null) {
-            $this->assertSame($days, $ci->dayz, 'ChronosInterval->dayz');
+            $this->assertSame($days, $interval->d, 'DateInterval->d');
         }
 
         if ($hours !== null) {
-            $this->assertSame($hours, $ci->hours, 'ChronosInterval->hours');
+            $this->assertSame($hours, $interval->h, 'DateInterval->h');
         }
 
         if ($minutes !== null) {
-            $this->assertSame($minutes, $ci->minutes, 'ChronosInterval->minutes');
+            $this->assertSame($minutes, $interval->i, 'DateInterval->i');
         }
 
         if ($seconds !== null) {
-            $this->assertSame($seconds, $ci->seconds, 'ChronosInterval->seconds');
+            $this->assertSame($seconds, $interval->s, 'DateInterval->s');
         }
 
         if ($microseconds !== null) {
-            $this->assertSame($microseconds, $ci->microseconds, 'ChronosInterval->microseconds');
+            $this->assertSame($microseconds, $interval->f, 'DateInterval->f');
         }
     }
 
