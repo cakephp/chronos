@@ -494,7 +494,10 @@ trait ModifierTrait
      */
     public function addMonthWithOverflow(int $value = 1): ChronosInterface
     {
-        trigger_error('2.4 - addMonthWithOverflow() is deprecated. Use addMonthsWithOverflow() instead.', E_USER_DEPRECATED);
+        trigger_error(
+            '2.4 - addMonthWithOverflow() is deprecated. Use addMonthsWithOverflow() instead.',
+            E_USER_DEPRECATED
+        );
 
         return $this->modify($value . ' months');
     }
@@ -522,7 +525,10 @@ trait ModifierTrait
      */
     public function subMonthWithOverflow(int $value = 1): ChronosInterface
     {
-        trigger_error('2.4 - subMonthWithOverflow() is deprecated. Use subMonthsWithOverflow() instead.', E_USER_DEPRECATED);
+        trigger_error(
+            '2.4 - subMonthWithOverflow() is deprecated. Use subMonthsWithOverflow() instead.',
+            E_USER_DEPRECATED
+        );
 
         return $this->subMonthsWithOverflow($value);
     }
