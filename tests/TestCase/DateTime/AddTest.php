@@ -52,7 +52,9 @@ class AddTest extends TestCase
      */
     public function testAddYear($class)
     {
-        $this->assertSame(1976, $class::createFromDate(1975)->addYear()->year);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1976, $class::createFromDate(1975)->addYear()->year);
+        });
     }
 
     /**
@@ -88,7 +90,9 @@ class AddTest extends TestCase
      */
     public function testAddMonth($class)
     {
-        $this->assertSame(1, $class::createFromDate(1975, 12)->addMonth()->month);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1, $class::createFromDate(1975, 12)->addMonth()->month);
+        });
     }
 
     /**
@@ -97,7 +101,9 @@ class AddTest extends TestCase
      */
     public function testAddMonthWithOverflow($class)
     {
-        $this->assertSame(3, $class::createFromDate(2012, 1, 31)->addMonthWithOverflow()->month);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(3, $class::createFromDate(2012, 1, 31)->addMonthWithOverflow()->month);
+        });
     }
 
     /**
@@ -106,9 +112,9 @@ class AddTest extends TestCase
      */
     public function testAddMonthsNoOverflowPositive($class)
     {
-        $this->assertSame('2012-02-29', $class::createFromDate(2012, 1, 31)->addMonth()->toDateString());
+        $this->assertSame('2012-02-29', $class::createFromDate(2012, 1, 31)->addMonths(1)->toDateString());
         $this->assertSame('2012-03-31', $class::createFromDate(2012, 1, 31)->addMonths(2)->toDateString());
-        $this->assertSame('2012-03-29', $class::createFromDate(2012, 2, 29)->addMonth()->toDateString());
+        $this->assertSame('2012-03-29', $class::createFromDate(2012, 2, 29)->addMonths(1)->toDateString());
         $this->assertSame('2012-02-29', $class::createFromDate(2011, 12, 31)->addMonths(2)->toDateString());
     }
 
@@ -166,7 +172,9 @@ class AddTest extends TestCase
      */
     public function testAddDay($class)
     {
-        $this->assertSame(1, $class::createFromDate(1975, 5, 31)->addDay()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1, $class::createFromDate(1975, 5, 31)->addDay()->day);
+        });
     }
 
     /**
@@ -175,7 +183,9 @@ class AddTest extends TestCase
      */
     public function testAddWeekdayDuringWeekend($class)
     {
-        $this->assertSame(9, $class::createFromDate(2012, 1, 7)->addWeekday()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(9, $class::createFromDate(2012, 1, 7)->addWeekday()->day);
+        });
     }
 
     /**
@@ -217,7 +227,9 @@ class AddTest extends TestCase
      */
     public function testAddWeekday($class)
     {
-        $this->assertSame(9, $class::createFromDate(2012, 1, 6)->addWeekday()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(9, $class::createFromDate(2012, 1, 6)->addWeekday()->day);
+        });
     }
 
     /**
@@ -253,7 +265,9 @@ class AddTest extends TestCase
      */
     public function testAddWeek($class)
     {
-        $this->assertSame(28, $class::createFromDate(1975, 5, 21)->addWeek()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(28, $class::createFromDate(1975, 5, 21)->addWeek()->day);
+        });
     }
 
     /**
@@ -289,7 +303,9 @@ class AddTest extends TestCase
      */
     public function testAddHour($class)
     {
-        $this->assertSame(1, $class::createFromTime(0)->addHour()->hour);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1, $class::createFromTime(0)->addHour()->hour);
+        });
     }
 
     /**
@@ -325,7 +341,9 @@ class AddTest extends TestCase
      */
     public function testAddMinute($class)
     {
-        $this->assertSame(1, $class::createFromTime(0, 0)->addMinute()->minute);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1, $class::createFromTime(0, 0)->addMinute()->minute);
+        });
     }
 
     /**
@@ -361,7 +379,7 @@ class AddTest extends TestCase
      */
     public function testAddSecond($class)
     {
-        $this->assertSame(1, $class::createFromTime(0, 0, 0)->addSecond()->second);
+        $this->assertSame(1, $class::createFromTime(0, 0, 0)->addSeconds(1)->second);
     }
 
     /***** Test non plural methods with non default args *****/
@@ -372,7 +390,9 @@ class AddTest extends TestCase
      */
     public function testAddYearPassingArg($class)
     {
-        $this->assertSame(1977, $class::createFromDate(1975)->addYear(2)->year);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(1977, $class::createFromDate(1975)->addYear(2)->year);
+        });
     }
 
     /**
@@ -381,7 +401,9 @@ class AddTest extends TestCase
      */
     public function testAddYearWithOverflow($class)
     {
-        $this->assertSame('2013-03-01', $class::createFromDate(2012, 2, 29)->addYearWithOverflow()->toDateString());
+        $this->deprecated(function () use ($class) {
+            $this->assertSame('2013-03-01', $class::createFromDate(2012, 2, 29)->addYearWithOverflow()->toDateString());
+        });
     }
 
     /**
@@ -390,9 +412,9 @@ class AddTest extends TestCase
      */
     public function testAddYearsNoOverflowPositive($class)
     {
-        $this->assertSame('2013-01-31', $class::createFromDate(2012, 1, 31)->addYear()->toDateString());
+        $this->assertSame('2013-01-31', $class::createFromDate(2012, 1, 31)->addYears(1)->toDateString());
         $this->assertSame('2014-01-31', $class::createFromDate(2012, 1, 31)->addYears(2)->toDateString());
-        $this->assertSame('2013-02-28', $class::createFromDate(2012, 2, 29)->addYear()->toDateString());
+        $this->assertSame('2013-02-28', $class::createFromDate(2012, 2, 29)->addYears(1)->toDateString());
         $this->assertSame('2013-12-31', $class::createFromDate(2011, 12, 31)->addYears(2)->toDateString());
     }
 
@@ -423,7 +445,9 @@ class AddTest extends TestCase
      */
     public function testAddMonthPassingArg($class)
     {
-        $this->assertSame(7, $class::createFromDate(1975, 5, 1)->addMonth(2)->month);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(7, $class::createFromDate(1975, 5, 1)->addMonth(2)->month);
+        });
     }
 
     /**
@@ -432,10 +456,12 @@ class AddTest extends TestCase
      */
     public function testAddMonthNoOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2010, 12, 31)->addMonth(2);
-        $this->assertSame(2011, $dt->year);
-        $this->assertSame(2, $dt->month);
-        $this->assertSame(28, $dt->day);
+        $this->deprecated(function () use ($class) {
+            $dt = $class::createFromDate(2010, 12, 31)->addMonth(2);
+            $this->assertSame(2011, $dt->year);
+            $this->assertSame(2, $dt->month);
+            $this->assertSame(28, $dt->day);
+        });
     }
 
     /**
@@ -444,7 +470,9 @@ class AddTest extends TestCase
      */
     public function testAddDayPassingArg($class)
     {
-        $this->assertSame(12, $class::createFromDate(1975, 5, 10)->addDay(2)->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(12, $class::createFromDate(1975, 5, 10)->addDay(2)->day);
+        });
     }
 
     /**
@@ -453,7 +481,9 @@ class AddTest extends TestCase
      */
     public function testAddHourPassingArg($class)
     {
-        $this->assertSame(2, $class::createFromTime(0)->addHour(2)->hour);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(2, $class::createFromTime(0)->addHour(2)->hour);
+        });
     }
 
     /**
@@ -462,7 +492,9 @@ class AddTest extends TestCase
      */
     public function testAddMinutePassingArg($class)
     {
-        $this->assertSame(2, $class::createFromTime(0)->addMinute(2)->minute);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(2, $class::createFromTime(0)->addMinute(2)->minute);
+        });
     }
 
     /**
@@ -471,6 +503,8 @@ class AddTest extends TestCase
      */
     public function testAddSecondPassingArg($class)
     {
-        $this->assertSame(2, $class::createFromTime(0)->addSecond(2)->second);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(2, $class::createFromTime(0)->addSecond(2)->second);
+        });
     }
 }

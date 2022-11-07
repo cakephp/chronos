@@ -547,7 +547,7 @@ trait ModifierTrait
      */
     public function addDay(int $value = 1): ChronosInterface
     {
-        trigger_error('2.4 - addYear() is deprecated. Use addYears() instead.', E_USER_DEPRECATED);
+        trigger_error('2.4 - addDay() is deprecated. Use addDays() instead.', E_USER_DEPRECATED);
 
         return $this->modify("$value days");
     }

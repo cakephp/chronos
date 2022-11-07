@@ -34,7 +34,7 @@ class DiffTest extends TestCase
     public function testDiffInYearsPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()));
+        $this->assertSame(1, $dt->diffInYears($dt->copy()->addYears(1)));
     }
 
     /**
@@ -44,7 +44,7 @@ class DiffTest extends TestCase
     public function testDiffInYearsNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-1, $dt->diffInYears($dt->copy()->subYear(), false));
+        $this->assertSame(-1, $dt->diffInYears($dt->copy()->subYears(1), false));
     }
 
     /**
@@ -54,7 +54,7 @@ class DiffTest extends TestCase
     public function testDiffInYearsNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInYears($dt->copy()->subYear()));
+        $this->assertSame(1, $dt->diffInYears($dt->copy()->subYears(1)));
     }
 
     /**
@@ -64,7 +64,7 @@ class DiffTest extends TestCase
     public function testDiffInYearsVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subYear()->diffInYears());
+            $this->assertSame(1, $class::now()->subYears(1)->diffInYears());
         });
     }
 
@@ -75,7 +75,7 @@ class DiffTest extends TestCase
     public function testDiffInYearsEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()->addMonths(7)));
+        $this->assertSame(1, $dt->diffInYears($dt->copy()->addYears(1)->addMonths(7)));
     }
 
     /**
@@ -85,7 +85,7 @@ class DiffTest extends TestCase
     public function testDiffInMonthsPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(13, $dt->diffInMonths($dt->copy()->addYear()->addMonth()));
+        $this->assertSame(13, $dt->diffInMonths($dt->copy()->addYears(1)->addMonths(1)));
     }
 
     /**
@@ -95,7 +95,7 @@ class DiffTest extends TestCase
     public function testDiffInMonthsNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-11, $dt->diffInMonths($dt->copy()->subYear()->addMonth(), false));
+        $this->assertSame(-11, $dt->diffInMonths($dt->copy()->subYears(1)->addMonths(1), false));
     }
 
     /**
@@ -105,7 +105,7 @@ class DiffTest extends TestCase
     public function testDiffInMonthsNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(11, $dt->diffInMonths($dt->copy()->subYear()->addMonth()));
+        $this->assertSame(11, $dt->diffInMonths($dt->copy()->subYears(1)->addMonths(1)));
     }
 
     /**
@@ -115,7 +115,7 @@ class DiffTest extends TestCase
     public function testDiffInMonthsVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(12, $class::now()->subYear()->diffInMonths());
+            $this->assertSame(12, $class::now()->subYears(1)->diffInMonths());
         });
     }
 
@@ -126,7 +126,7 @@ class DiffTest extends TestCase
     public function testDiffInMonthsEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInMonths($dt->copy()->addMonth()->addDays(16)));
+        $this->assertSame(1, $dt->diffInMonths($dt->copy()->addMonths(1)->addDays(16)));
     }
 
     /**
@@ -148,7 +148,7 @@ class DiffTest extends TestCase
         }
 
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subMonth()->startOfMonth()->diffInMonthsIgnoreTimezone());
+            $this->assertSame(1, $class::now()->subMonths(1)->startOfMonth()->diffInMonthsIgnoreTimezone());
         });
     }
 
@@ -159,7 +159,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(366, $dt->diffInDays($dt->copy()->addYear()));
+        $this->assertSame(366, $dt->diffInDays($dt->copy()->addYears(1)));
     }
 
     /**
@@ -169,7 +169,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-365, $dt->diffInDays($dt->copy()->subYear(), false));
+        $this->assertSame(-365, $dt->diffInDays($dt->copy()->subYears(1), false));
     }
 
     /**
@@ -179,7 +179,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(365, $dt->diffInDays($dt->copy()->subYear()));
+        $this->assertSame(365, $dt->diffInDays($dt->copy()->subYears(1)));
     }
 
     /**
@@ -189,7 +189,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(7, $class::now()->subWeek()->diffInDays());
+            $this->assertSame(7, $class::now()->subWeeks(1)->diffInDays());
         });
     }
 
@@ -200,7 +200,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInDays($dt->copy()->addDay()->addHours(13)));
+        $this->assertSame(1, $dt->diffInDays($dt->copy()->addDays(1)->addHours(13)));
     }
 
     /**
@@ -435,7 +435,7 @@ class DiffTest extends TestCase
     public function testBug188DiffWithSameDates1DayApart($class)
     {
         $start = $class::create(2014, 10, 8, 15, 20, 0);
-        $end = $start->copy()->addDay();
+        $end = $start->copy()->addDays(1);
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(1, $start->diffInWeekdays($end));
@@ -449,7 +449,7 @@ class DiffTest extends TestCase
     {
         $start = $class::create(2014, 1, 1, 0, 0, 0);
         $start = $start->next($class::SATURDAY);
-        $end = $start->copy()->addDay();
+        $end = $start->copy()->addDays(1);
 
         $this->assertSame(1, $start->diffInDays($end));
         $this->assertSame(0, $start->diffInWeekdays($end));
@@ -522,7 +522,7 @@ class DiffTest extends TestCase
     public function testDiffInWeeksPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->addYear()));
+        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->addYears(1)));
     }
 
     /**
@@ -532,7 +532,7 @@ class DiffTest extends TestCase
     public function testDiffInWeeksNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-52, $dt->diffInWeeks($dt->copy()->subYear(), false));
+        $this->assertSame(-52, $dt->diffInWeeks($dt->copy()->subYears(1), false));
     }
 
     /**
@@ -542,7 +542,7 @@ class DiffTest extends TestCase
     public function testDiffInWeeksNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->subYear()));
+        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->subYears(1)));
     }
 
     /**
@@ -552,7 +552,7 @@ class DiffTest extends TestCase
     public function testDiffInWeeksVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(1, $class::now()->subWeek()->diffInWeeks());
+            $this->assertSame(1, $class::now()->subWeeks(1)->diffInWeeks());
         });
     }
 
@@ -563,7 +563,7 @@ class DiffTest extends TestCase
     public function testDiffInWeeksEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(0, $dt->diffInWeeks($dt->copy()->addWeek()->subDay()));
+        $this->assertSame(0, $dt->diffInWeeks($dt->copy()->addWeeks(1)->subDays(1)));
     }
 
     /**
@@ -573,7 +573,7 @@ class DiffTest extends TestCase
     public function testDiffInHoursPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(26, $dt->diffInHours($dt->copy()->addDay()->addHours(2)));
+        $this->assertSame(26, $dt->diffInHours($dt->copy()->addDays(1)->addHours(2)));
     }
 
     /**
@@ -583,7 +583,7 @@ class DiffTest extends TestCase
     public function testDiffInHoursNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-22, $dt->diffInHours($dt->copy()->subDay()->addHours(2), false));
+        $this->assertSame(-22, $dt->diffInHours($dt->copy()->subDays(1)->addHours(2), false));
     }
 
     /**
@@ -593,7 +593,7 @@ class DiffTest extends TestCase
     public function testDiffInHoursNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(22, $dt->diffInHours($dt->copy()->subDay()->addHours(2)));
+        $this->assertSame(22, $dt->diffInHours($dt->copy()->subDays(1)->addHours(2)));
     }
 
     /**
@@ -615,7 +615,7 @@ class DiffTest extends TestCase
     public function testDiffInHoursEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInHours($dt->copy()->addHour()->addMinutes(31)));
+        $this->assertSame(1, $dt->diffInHours($dt->copy()->addHours(1)->addMinutes(31)));
     }
 
     /**
@@ -625,7 +625,7 @@ class DiffTest extends TestCase
     public function testDiffInMinutesPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(62, $dt->diffInMinutes($dt->copy()->addHour()->addMinutes(2)));
+        $this->assertSame(62, $dt->diffInMinutes($dt->copy()->addHours(1)->addMinutes(2)));
     }
 
     /**
@@ -645,7 +645,7 @@ class DiffTest extends TestCase
     public function testDiffInMinutesNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-58, $dt->diffInMinutes($dt->copy()->subHour()->addMinutes(2), false));
+        $this->assertSame(-58, $dt->diffInMinutes($dt->copy()->subHours(1)->addMinutes(2), false));
     }
 
     /**
@@ -655,7 +655,7 @@ class DiffTest extends TestCase
     public function testDiffInMinutesNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(58, $dt->diffInMinutes($dt->copy()->subHour()->addMinutes(2)));
+        $this->assertSame(58, $dt->diffInMinutes($dt->copy()->subHours(1)->addMinutes(2)));
     }
 
     /**
@@ -665,7 +665,7 @@ class DiffTest extends TestCase
     public function testDiffInMinutesVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(60, $class::now()->subHour()->diffInMinutes());
+            $this->assertSame(60, $class::now()->subHours(1)->diffInMinutes());
         });
     }
 
@@ -676,7 +676,7 @@ class DiffTest extends TestCase
     public function testDiffInMinutesEnsureIsTruncated($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(1, $dt->diffInMinutes($dt->copy()->addMinute()->addSeconds(31)));
+        $this->assertSame(1, $dt->diffInMinutes($dt->copy()->addMinutes(1)->addSeconds(31)));
     }
 
     /**
@@ -686,7 +686,7 @@ class DiffTest extends TestCase
     public function testDiffInSecondsPositive($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(62, $dt->diffInSeconds($dt->copy()->addMinute()->addSeconds(2)));
+        $this->assertSame(62, $dt->diffInSeconds($dt->copy()->addMinutes(1)->addSeconds(2)));
     }
 
     /**
@@ -706,7 +706,7 @@ class DiffTest extends TestCase
     public function testDiffInSecondsNegativeWithSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(-58, $dt->diffInSeconds($dt->copy()->subMinute()->addSeconds(2), false));
+        $this->assertSame(-58, $dt->diffInSeconds($dt->copy()->subMinutes(1)->addSeconds(2), false));
     }
 
     /**
@@ -716,7 +716,7 @@ class DiffTest extends TestCase
     public function testDiffInSecondsNegativeNoSign($class)
     {
         $dt = $class::createFromDate(2000, 1, 1);
-        $this->assertSame(58, $dt->diffInSeconds($dt->copy()->subMinute()->addSeconds(2)));
+        $this->assertSame(58, $dt->diffInSeconds($dt->copy()->subMinutes(1)->addSeconds(2)));
     }
 
     /**
@@ -726,7 +726,7 @@ class DiffTest extends TestCase
     public function testDiffInSecondsVsDefaultNow($class)
     {
         $this->wrapWithTestNow(function () use ($class) {
-            $this->assertSame(3600, $class::now()->subHour()->diffInSeconds());
+            $this->assertSame(3600, $class::now()->subHours(1)->diffInSeconds());
         });
     }
 
