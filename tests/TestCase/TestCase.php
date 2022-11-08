@@ -142,4 +142,37 @@ abstract class TestCase extends BaseTestCase
             date_default_timezone_set($restore);
         }
     }
+
+    /**
+     * Helper method for check deprecation methods
+     *
+     * @param \Closure $callable callable function that will receive asserts
+     * @return void
+     */
+    public function deprecated(Closure $callable): void
+    {
+        /** @var bool $deprecation Expand type for psalm */
+        $deprecation = false;
+
+        $previousHandler = set_error_handler(
+            function ($code, $message, $file, $line, $context = null) use (&$previousHandler, &$deprecation): bool {
+                if ($code == E_USER_DEPRECATED) {
+                    $deprecation = true;
+
+                    return true;
+                }
+                if ($previousHandler) {
+                    return $previousHandler($code, $message, $file, $line, $context);
+                }
+
+                return false;
+            }
+        );
+        try {
+            $callable();
+        } finally {
+            restore_error_handler();
+        }
+        $this->assertTrue($deprecation, 'Should have at least one deprecation warning');
+    }
 }

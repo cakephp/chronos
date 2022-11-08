@@ -296,6 +296,8 @@ trait ModifierTrait
      */
     public function addYear(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addYear() is deprecated. Use addYears() instead.', E_USER_DEPRECATED);
+
         return $this->addYears($value);
     }
 
@@ -322,6 +324,8 @@ trait ModifierTrait
      */
     public function subYear(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subYear() is deprecated. Use subYears() instead.', E_USER_DEPRECATED);
+
         return $this->addYears(-$value);
     }
 
@@ -355,6 +359,8 @@ trait ModifierTrait
      */
     public function addYearWithOverflow(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addYearWithOverflow() is deprecated.', E_USER_DEPRECATED);
+
         return $this->addYearsWithOverflow($value);
     }
 
@@ -425,6 +431,8 @@ trait ModifierTrait
      */
     public function addMonth(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addMonth() is deprecated. Use addMonths() instead.', E_USER_DEPRECATED);
+
         return $this->addMonths($value);
     }
 
@@ -438,6 +446,8 @@ trait ModifierTrait
      */
     public function subMonth(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subMonth() is deprecated. Use subMonths() instead.', E_USER_DEPRECATED);
+
         return $this->addMonths(-$value);
     }
 
@@ -484,6 +494,11 @@ trait ModifierTrait
      */
     public function addMonthWithOverflow(int $value = 1): ChronosInterface
     {
+        trigger_error(
+            'Since 2.4 - addMonthWithOverflow() is deprecated. Use addMonthsWithOverflow() instead.',
+            E_USER_DEPRECATED
+        );
+
         return $this->modify($value . ' months');
     }
 
@@ -510,6 +525,11 @@ trait ModifierTrait
      */
     public function subMonthWithOverflow(int $value = 1): ChronosInterface
     {
+        trigger_error(
+            'Since 2.4 - subMonthWithOverflow() is deprecated. Use subMonthsWithOverflow() instead.',
+            E_USER_DEPRECATED
+        );
+
         return $this->subMonthsWithOverflow($value);
     }
 
@@ -533,6 +553,8 @@ trait ModifierTrait
      */
     public function addDay(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addDay() is deprecated. Use addDays() instead.', E_USER_DEPRECATED);
+
         return $this->modify("$value days");
     }
 
@@ -544,6 +566,8 @@ trait ModifierTrait
      */
     public function subDay(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subDay() is deprecated. Use subDays() instead.', E_USER_DEPRECATED);
+
         return $this->addDays(-$value);
     }
 
@@ -578,6 +602,8 @@ trait ModifierTrait
      */
     public function addWeekday(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addWeekday() is deprecated. Use addWeekdays() instead.', E_USER_DEPRECATED);
+
         return $this->addWeekdays($value);
     }
 
@@ -623,6 +649,8 @@ trait ModifierTrait
      */
     public function addWeek(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addWeek() is deprecated. Use addWeeks() instead.', E_USER_DEPRECATED);
+
         return $this->modify("$value week");
     }
 
@@ -634,6 +662,8 @@ trait ModifierTrait
      */
     public function subWeek(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subWeek() is deprecated. Use subWeeks() instead.', E_USER_DEPRECATED);
+
         return $this->addWeeks(-$value);
     }
 
@@ -668,6 +698,8 @@ trait ModifierTrait
      */
     public function addHour(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addHour() is deprecated. Use addHours() instead.', E_USER_DEPRECATED);
+
         return $this->modify("$value hour");
     }
 
@@ -679,6 +711,8 @@ trait ModifierTrait
      */
     public function subHour(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subHour() is deprecated. Use subHours() instead.', E_USER_DEPRECATED);
+
         return $this->addHours(-$value);
     }
 
@@ -713,6 +747,8 @@ trait ModifierTrait
      */
     public function addMinute(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addMinute() is deprecated. Use addMinutes() instead.', E_USER_DEPRECATED);
+
         return $this->modify("$value minute");
     }
 
@@ -724,6 +760,8 @@ trait ModifierTrait
      */
     public function subMinute(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subMinute() is deprecated. Use subMinutes() instead.', E_USER_DEPRECATED);
+
         return $this->addMinutes(-$value);
     }
 
@@ -758,6 +796,8 @@ trait ModifierTrait
      */
     public function addSecond(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addSecond() is deprecated. Use addSeconds() instead.', E_USER_DEPRECATED);
+
         return $this->modify("$value second");
     }
 
@@ -769,6 +809,8 @@ trait ModifierTrait
      */
     public function subSecond(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subSecond() is deprecated. Use subSeconds() instead.', E_USER_DEPRECATED);
+
         return $this->addSeconds(-$value);
     }
 
