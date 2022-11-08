@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
@@ -40,7 +41,7 @@ abstract class TestCase extends BaseTestCase
         MutableDateTime::setTestNow(null);
         Chronos::setTestNow(null);
         MutableDate::setTestNow(null);
-        Date::setTestNow(null);
+        ChronosDate::setTestNow(null);
     }
 
     public function classNameProvider()
@@ -55,7 +56,8 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             'mutable' => [MutableDate::class],
-            'immutable' => [Date::class],
+            'immutable' => [ChronosDate::class],
+            'immutableAlias' => [Date::class],
         ];
     }
 
