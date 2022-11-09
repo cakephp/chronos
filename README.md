@@ -63,7 +63,6 @@ want to migrate, we could use the following to update files:
 
 ```
 # Replace imports
-find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\CarbonInterval/use Cake\\Chronos\\ChronosInterval/g' {} \;
 find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\CarbonImmutable/use Cake\\Chronos\\Chronos/g' {} \;
 find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
 

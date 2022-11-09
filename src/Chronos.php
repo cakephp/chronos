@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos;
 
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 
@@ -195,6 +196,70 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     public static function hasTestNow(): bool
     {
         return static::$testNow !== null;
+    }
+
+    /**
+     * Create a new DateInterval instance from specified values.
+     *
+     * @param int|null $years The year to use.
+     * @param int|null $months The month to use.
+     * @param int|null $weeks The week to use.
+     * @param int|null $days The day to use.
+     * @param int|null $hours The hours to use.
+     * @param int|null $minutes The minutes to use.
+     * @param int|null $seconds The seconds to use.
+     * @param int|null $microseconds The microseconds to use.
+     * @return \DateInterval
+     */
+    public static function createInterval(
+        ?int $years = null,
+        ?int $months = null,
+        ?int $weeks = null,
+        ?int $days = null,
+        ?int $hours = null,
+        ?int $minutes = null,
+        ?int $seconds = null,
+        ?int $microseconds = null,
+    ): DateInterval {
+        $spec = 'P';
+
+        if ($years) {
+            $spec .= $years . 'Y';
+        }
+        if ($months) {
+            $spec .= $months . 'M';
+        }
+        if ($weeks) {
+            $spec .= $weeks . 'W';
+        }
+        if ($days) {
+            $spec .= $days . 'D';
+        }
+
+        if ($hours || $minutes || $seconds) {
+            $spec .= 'T';
+            if ($hours) {
+                $spec .= $hours . 'H';
+            }
+            if ($minutes) {
+                $spec .= $minutes . 'M';
+            }
+            if ($seconds) {
+                $spec .= $seconds . 'S';
+            }
+        }
+
+        if ($microseconds && $spec === 'P') {
+            $spec .= 'T0S';
+        }
+
+        $instance = new DateInterval($spec);
+
+        if ($microseconds) {
+            $instance->f = $microseconds / 1000000;
+        }
+
+        return $instance;
     }
 
     /**

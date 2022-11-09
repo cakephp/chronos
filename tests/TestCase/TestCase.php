@@ -20,6 +20,7 @@ use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 use Closure;
+use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase

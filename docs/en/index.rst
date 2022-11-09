@@ -29,8 +29,6 @@ and extensions to ``DateInterval``.
 * ``Cake\Chronos\Date`` is a immutable *date* object.
 * ``Cake\Chronos\MutableDateTime`` is a mutable *date and time* object.
 * ``Cake\Chronos\MutableDate`` is a mutable *date* object.
-* ``Cake\Chronos\ChronosInterval`` is an extension to the ``DateInterval``
-  object.
 
 Lastly, if you want to typehint against Chronos-provided date/time objects you
 should use ``Cake\Chronos\ChronosInterface``. All of the date and time objects

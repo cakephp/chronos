@@ -14,8 +14,9 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\ChronosInterval;
+use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
 use DatePeriod;
@@ -128,7 +129,9 @@ trait DifferenceTrait
      */
     public function diffInDaysFiltered(callable $callback, ?ChronosInterface $dt = null, bool $abs = true): int
     {
-        return $this->diffFiltered(ChronosInterval::day(), $callback, $dt, $abs);
+        $interval = Chronos::createInterval(0, 0, 0, 1);
+
+        return $this->diffFiltered($interval, $callback, $dt, $abs);
     }
 
     /**
@@ -141,20 +144,22 @@ trait DifferenceTrait
      */
     public function diffInHoursFiltered(callable $callback, ?ChronosInterface $dt = null, bool $abs = true): int
     {
-        return $this->diffFiltered(ChronosInterval::hour(), $callback, $dt, $abs);
+        $interval = Chronos::createInterval(0, 0, 0, 0, 1);
+
+        return $this->diffFiltered($interval, $callback, $dt, $abs);
     }
 
     /**
      * Get the difference by the given interval using a filter callable
      *
-     * @param \Cake\Chronos\ChronosInterval $ci An interval to traverse by
+     * @param \Cake\Chronos\ChronosInterval|\DateInterval $ci An interval to traverse by
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosInterface|null $dt The instance to difference from.
      * @param bool $abs Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
-        ChronosInterval $ci,
+        $ci,
         callable $callback,
         ?ChronosInterface $dt = null,
         bool $abs = true

@@ -146,6 +146,10 @@ class ChronosInterval extends DateInterval
         if ($microseconds > 0) {
             $this->f = $microseconds / 1000000;
         }
+        trigger_error(
+            'Since 2.4 ChronosInterval is deprecated. Use `Chronos::createInterval() instead.`',
+            E_USER_DEPRECATED
+        );
     }
 
     /**
