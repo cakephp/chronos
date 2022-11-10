@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\DifferenceFormatter;
