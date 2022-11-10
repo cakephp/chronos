@@ -219,7 +219,7 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         ?int $hours = null,
         ?int $minutes = null,
         ?int $seconds = null,
-        ?int $microseconds = null,
+        ?int $microseconds = null
     ): DateInterval {
         $spec = 'P';
 
