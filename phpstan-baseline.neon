@@ -16,14 +16,14 @@ parameters:
 			path: src/ChronosInterval.php
 
 		-
-			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\Date\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\ChronosDate\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
 			count: 1
-			path: src/Date.php
+			path: src/ChronosDate.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 13
-			path: src/Date.php
+			path: src/ChronosDate.php
 
 		-
 			message: "#^Access to an undefined property Cake\\\\Chronos\\\\ChronosInterface\\:\\:\\$tz\\.$#"
