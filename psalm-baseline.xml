@@ -12,7 +12,7 @@
       <code>setTimezone</code>
     </ImpureMethodCall>
   </file>
-  <file src="src/Date.php">
+  <file src="src/ChronosDate.php">
     <ImpureFunctionCall occurrences="1">
       <code>date_default_timezone_get</code>
     </ImpureFunctionCall>
