@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Closure;
 use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -36,7 +36,7 @@ abstract class TestCase extends BaseTestCase
     {
         date_default_timezone_set($this->saveTz);
         Chronos::setTestNow(null);
-        Date::setTestNow(null);
+        ChronosDate::setTestNow(null);
     }
 
     protected function assertTime($d, $hour, $minute, $second = null, $microsecond = null)
@@ -123,5 +123,38 @@ abstract class TestCase extends BaseTestCase
         } finally {
             date_default_timezone_set($restore);
         }
+    }
+
+    /**
+     * Helper method for check deprecation methods
+     *
+     * @param \Closure $callable callable function that will receive asserts
+     * @return void
+     */
+    public function deprecated(Closure $callable): void
+    {
+        /** @var bool $deprecation Expand type for psalm */
+        $deprecation = false;
+
+        $previousHandler = set_error_handler(
+            function ($code, $message, $file, $line, $context = null) use (&$previousHandler, &$deprecation): bool {
+                if ($code == E_USER_DEPRECATED) {
+                    $deprecation = true;
+
+                    return true;
+                }
+                if ($previousHandler) {
+                    return $previousHandler($code, $message, $file, $line, $context);
+                }
+
+                return false;
+            }
+        );
+        try {
+            $callable();
+        } finally {
+            restore_error_handler();
+        }
+        $this->assertTrue($deprecation, 'Should have at least one deprecation warning');
     }
 }

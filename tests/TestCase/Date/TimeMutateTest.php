@@ -13,7 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 /**
@@ -39,7 +39,7 @@ class TimeMutateTest extends TestCase
      */
     public function testModifyFails($value)
     {
-        $date = new Date();
+        $date = new ChronosDate();
         $new = $date->modify($value);
 
         $this->assertSame(0, $date->hour);
@@ -75,7 +75,7 @@ class TimeMutateTest extends TestCase
      */
     public function testSetterMethodIsIgnored($method, $value)
     {
-        $date = new Date();
+        $date = new ChronosDate();
         $new = $date->{$method}($value);
         $this->assertSame(0, $new->hour);
         $this->assertSame(0, $new->minute);
@@ -92,7 +92,7 @@ class TimeMutateTest extends TestCase
      */
     public function testSetTimeIgnored()
     {
-        $date = new Date();
+        $date = new ChronosDate();
         $new = $date->setTime(1, 2, 3, 4);
         $this->assertSame(0, $new->hour);
         $this->assertSame(0, $new->minute);
@@ -111,13 +111,13 @@ class TimeMutateTest extends TestCase
      */
     public function testSetTimestampRemovesTime()
     {
-        $date = new Date();
+        $date = new ChronosDate();
         $date->setTimestamp(strtotime('+2 hours +2 minutes'));
         $this->assertSame(0, $date->hour);
         $this->assertSame(0, $date->minute);
         $this->assertSame(0, $date->second);
 
-        $date = new Date();
+        $date = new ChronosDate();
         $date->timestamp(strtotime('+2 hours +2 minutes'));
         $this->assertSame(0, $date->hour);
         $this->assertSame(0, $date->minute);
@@ -126,13 +126,13 @@ class TimeMutateTest extends TestCase
 
     public function testStartOfDay()
     {
-        $date = new Date();
+        $date = new ChronosDate();
         $this->assertSame('00:00:00', $date->startOfDay()->format('H:i:s'));
     }
 
     public function testEndOfDay()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->endOfDay();
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2001-01-01', $new->format('Y-m-d'));
@@ -140,7 +140,7 @@ class TimeMutateTest extends TestCase
 
     public function testEndOfMonth()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->endOfMonth();
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2001-01-31', $new->format('Y-m-d'));
@@ -148,7 +148,7 @@ class TimeMutateTest extends TestCase
 
     public function testEndOfYear()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->endOfYear();
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2001-12-31', $new->format('Y-m-d'));
@@ -156,7 +156,7 @@ class TimeMutateTest extends TestCase
 
     public function testEndOfDecade()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->endOfDecade();
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2009-12-31', $new->format('Y-m-d'));
@@ -164,7 +164,7 @@ class TimeMutateTest extends TestCase
 
     public function testEndOfCentury()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->endOfCentury();
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2100-12-31', $new->format('Y-m-d'));
@@ -172,7 +172,7 @@ class TimeMutateTest extends TestCase
 
     public function testNextAndPrev()
     {
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->next(3);
         $this->assertSame('00:00:00', $new->format('H:i:s'));
         $this->assertSame('2001-01-03', $new->format('Y-m-d'));

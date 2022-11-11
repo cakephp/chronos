@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
 
@@ -88,15 +88,15 @@ class TestingAidsTest extends TestCase
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
-        Date::setTestNow($notNow);
+        ChronosDate::setTestNow($notNow);
 
-        $instance = new Date('-1 day');
+        $instance = new ChronosDate('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new Date('-1 day');
+        $instance = new ChronosDate('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
 
-        $instance = new Date('-23 hours');
+        $instance = new ChronosDate('-23 hours');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
     }
 
@@ -229,7 +229,7 @@ class TestingAidsTest extends TestCase
         $c = new Chronos('2016-01-03 00:00:00', 'Europe/Copenhagen');
         Chronos::setTestNow($c);
 
-        $this->assertSame($c, Date::getTestNow());
+        $this->assertSame($c, ChronosDate::getTestNow());
         $this->assertSame($c, Chronos::getTestNow());
     }
 }

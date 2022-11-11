@@ -1,2 +1,11 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Unsafe call to private method Cake\\\\Chronos\\\\ChronosDate\\:\\:isRelativeOnly\\(\\) through static\\:\\:\\.$#"
+			count: 1
+			path: src/ChronosDate.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 13
+			path: src/ChronosDate.php

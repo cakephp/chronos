@@ -106,9 +106,9 @@ set to the server default timezone. This makes them ideal when working with
 calendar dates as the time components will always match.
 
 ```php
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 
-$today = new Date();
+$today = new ChronosDate();
 echo $today;
 // Outputs '2015-10-21'
 

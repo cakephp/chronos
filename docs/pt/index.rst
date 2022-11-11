@@ -27,7 +27,7 @@ cobrem variantes de data/hora mutáveis e imutáveis e uma extensão do objeto
 ``DateInterval``.
 
 * ``Cake\Chronos\Chronos`` é um objeto *date & time* imutável.
-* ``Cake\Chronos\Date`` é um objeto *date* imutável.
+* ``Cake\Chronos\ChronosDate`` é um objeto *date* imutável.
 * ``Cake\Chronos\MutableDateTime`` é um objeto *date and time* mutável.
 * ``Cake\Chronos\MutableDate`` é um objeto *date* mutável.
 * ``Cake\Chronos\ChronosInterval`` é uma extensão do objeto ``DateInterval``.
@@ -101,9 +101,9 @@ pode ser um pouco desconfortável por essa classe, uma vez que ela inclui
 zona desse objeto é sempre fixado em ``00:00:00 UTC`` e todos os métodos de
 formatação/diferença operam sob a resolução de dia::
 
-    use Cake\Chronos\Date;
+    use Cake\Chronos\ChronosDate;
 
-    $today = Date::today();
+    $today = ChronosDate::today();
 
     // Mudanças na hora/timezone são ignoradas
     $today->modify('+1 hours');
@@ -268,7 +268,7 @@ de testes, você pode incluir o seguinte::
 
     Chronos::setTestNow(Chronos::now());
     MutableDateTime::setTestNow(MutableDateTime::now());
-    Date::setTestNow(Date::now());
+    ChronosDate::setTestNow(ChronosDate::now());
     MutableDate::setTestNow(MutableDate::now());
 
 Isso irá corrigir a hora atual de todos os objetos para o momento em que o

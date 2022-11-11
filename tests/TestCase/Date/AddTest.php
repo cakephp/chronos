@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
 
@@ -23,7 +23,7 @@ class AddTest extends TestCase
     public function testAddFullDay()
     {
         $interval = DateInterval::createFromDateString('1 day');
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->add($interval);
 
         $this->assertSame(0, $new->hour);
@@ -37,7 +37,7 @@ class AddTest extends TestCase
     public function testAddIgnoreTime()
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->add($interval);
 
         $this->assertSame(0, $new->hour);
@@ -51,7 +51,7 @@ class AddTest extends TestCase
     public function testSubFullDay()
     {
         $interval = DateInterval::createFromDateString('1 day');
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->sub($interval);
 
         $this->assertSame(0, $new->hour);
@@ -65,7 +65,7 @@ class AddTest extends TestCase
     public function testSubIgnoreTime()
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = Date::create(2001, 1, 1);
+        $date = ChronosDate::create(2001, 1, 1);
         $new = $date->sub($interval);
 
         $this->assertSame(0, $new->hour);
@@ -78,25 +78,25 @@ class AddTest extends TestCase
 
     public function testAddDay()
     {
-        $this->assertSame(1, Date::create(1975, 5, 31)->addDays(1)->day);
-        $this->assertSame(30, Date::create(1975, 5, 31)->addDays(-1)->day);
+        $this->assertSame(1, ChronosDate::create(1975, 5, 31)->addDays(1)->day);
+        $this->assertSame(30, ChronosDate::create(1975, 5, 31)->addDays(-1)->day);
     }
 
     public function testAddMonth()
     {
-        $this->assertSame(6, Date::create(1975, 5, 31)->addMonths(1)->month);
-        $this->assertSame(4, Date::create(1975, 5, 31)->addMonths(-1)->month);
+        $this->assertSame(6, ChronosDate::create(1975, 5, 31)->addMonths(1)->month);
+        $this->assertSame(4, ChronosDate::create(1975, 5, 31)->addMonths(-1)->month);
     }
 
     public function testAddYears()
     {
-        $this->assertSame(1976, Date::create(1975, 5, 31)->addYears(1)->year);
-        $this->assertSame(1974, Date::create(1975, 5, 31)->addYears(-1)->year);
+        $this->assertSame(1976, ChronosDate::create(1975, 5, 31)->addYears(1)->year);
+        $this->assertSame(1974, ChronosDate::create(1975, 5, 31)->addYears(-1)->year);
     }
 
     public function testAddWeekdays()
     {
-        $this->assertSame(2, Date::create(1975, 5, 31)->addWeekdays(1)->day);
-        $this->assertSame(30, Date::create(1975, 5, 31)->addWeekdays(-1)->day);
+        $this->assertSame(2, ChronosDate::create(1975, 5, 31)->addWeekdays(1)->day);
+        $this->assertSame(30, ChronosDate::create(1975, 5, 31)->addWeekdays(-1)->day);
     }
 }

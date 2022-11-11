@@ -254,7 +254,7 @@ trait ModifierTrait
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
-     * If the new date does not exist, the last day of the month is used
+     * If the new ChronosDate does not exist, the last day of the month is used
      * instead instead of overflowing into the next month.
      *
      * ### Example:
@@ -297,7 +297,7 @@ trait ModifierTrait
      * Add years with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
-     * If the new date does not exist, the days overflow into the next month.
+     * If the new ChronosDate does not exist, the days overflow into the next month.
      *
      * ### Example:
      *
@@ -374,7 +374,7 @@ trait ModifierTrait
      * Add months with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
-     * If the new date does not exist, the days overflow into the next month.
+     * If the new ChronosDate does not exist, the days overflow into the next month.
      *
      * ### Example:
      *
@@ -391,9 +391,16 @@ trait ModifierTrait
     }
 
     /**
-     * Remove months with overflow from the instance.
+     * Add months with overflowing to the instance. Positive $value
+     * travels forward while negative $value travels into the past.
      *
-     * Has the same behavior as `addMonthsWithOverflow()`.
+     * If the new ChronosDate does not exist, the days overflow into the next month.
+     *
+     * ### Example:
+     *
+     * ```
+     *  (new Chronos('2012-01-30'))->addMonthsWithOverflow(1); // Results in 2013-03-01
+     * ```
      *
      * @param int $value The number of months to remove.
      * @return static

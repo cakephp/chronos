@@ -533,7 +533,7 @@ interface ChronosInterface extends DateTimeInterface
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
      *
-     * If the new date does not exist, the last day of the month is used
+     * If the new ChronosDate does not exist, the last day of the month is used
      * instead instead of overflowing into the next month.
      *
      * ### Example:
@@ -563,7 +563,7 @@ interface ChronosInterface extends DateTimeInterface
      * Add years with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
-     * If the new date does not exist, the days overflow into the next month.
+     * If the new ChronosDate does not exist, the days overflow into the next month.
      *
      * ### Example:
      *
@@ -590,7 +590,7 @@ interface ChronosInterface extends DateTimeInterface
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
-     * If the new date does not exist, the last day of the month is used
+     * If the new ChronosDate does not exist, the last day of the month is used
      * instead instead of overflowing into the next month.
      *
      * ### Example:
@@ -620,7 +620,7 @@ interface ChronosInterface extends DateTimeInterface
      * Add months with overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
-     * If the new date does not exist, the days overflow into the next month.
+     * If the new ChronosDate does not exist, the days overflow into the next month.
      *
      * ### Example:
      *

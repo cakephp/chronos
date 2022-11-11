@@ -35,11 +35,6 @@ class SubTest extends TestCase
         $this->assertSame(1976, Chronos::createFromDate(1975)->subYears(-1)->year);
     }
 
-    public function testSubYear()
-    {
-        $this->assertSame(1974, Chronos::createFromDate(1975)->subYears(1)->year);
-    }
-
     public function testSubYearNoOverflowPassingArg()
     {
         $dt = Chronos::createFromDate(2013, 2, 28)->subYears(1);

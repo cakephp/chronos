@@ -14,20 +14,20 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\Date;
 
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class IsTest extends TestCase
 {
     public function testIsTodayTrue()
     {
-        $this->assertTrue(Date::now()->isToday());
+        $this->assertTrue(ChronosDate::now()->isToday());
     }
 
     public function testIsTodayOtherTimezone()
     {
         $this->withTimezone('Asia/Tokyo', function () {
-            $today = Date::today();
+            $today = ChronosDate::today();
             $this->assertSame('Asia/Tokyo', $today->tzName);
             $this->assertTrue($today->isToday());
         });
@@ -35,6 +35,6 @@ class IsTest extends TestCase
 
     public function testIsTodayFalseWithYesterday()
     {
-        $this->assertFalse(Date::now()->subDays(1)->endOfDay()->isToday());
+        $this->assertFalse(ChronosDate::now()->subDays(1)->endOfDay()->isToday());
     }
 }

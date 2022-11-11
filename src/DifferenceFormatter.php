@@ -64,17 +64,17 @@ class DifferenceFormatter implements DifferenceFormatterInterface
                 $unit = 'year';
                 $count = $diffInterval->y;
                 break;
-            case $diffInterval->m > 0:
+            case $diffInterval->m >= 2:
                 $unit = 'month';
                 $count = $diffInterval->m;
+                break;
+            case $diffInterval->days >= ChronosInterface::DAYS_PER_WEEK * 3:
+                $unit = 'week';
+                $count = (int)($diffInterval->days / ChronosInterface::DAYS_PER_WEEK);
                 break;
             case $diffInterval->d > 0:
                 $unit = 'day';
                 $count = $diffInterval->d;
-                if ($count >= ChronosInterface::DAYS_PER_WEEK) {
-                    $unit = 'week';
-                    $count = (int)($count / ChronosInterface::DAYS_PER_WEEK);
-                }
                 break;
             case $diffInterval->h > 0:
                 $unit = 'hour';

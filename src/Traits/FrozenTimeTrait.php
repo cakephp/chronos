@@ -142,7 +142,7 @@ trait FrozenTimeTrait
      * will have its time frozen to 00:00:00.
      *
      * @param string $relative The relative change to make.
-     * @return static A new date with the applied date changes.
+     * @return static A new ChronosDate with the applied date changes.
      */
     public function modify(string $relative): static
     {
