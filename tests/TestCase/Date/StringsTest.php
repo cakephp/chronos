@@ -13,7 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class StringsTest extends TestCase
@@ -50,7 +50,7 @@ class StringsTest extends TestCase
     public function testToString($class)
     {
         $d = $class::now();
-        $this->assertSame(Date::now()->toDateString(), '' . $d);
+        $this->assertSame(ChronosDate::now()->toDateString(), '' . $d);
     }
 
     /**

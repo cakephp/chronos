@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\Benchmark;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 
 /**
  * @BeforeMethods({"init"})
@@ -38,7 +38,7 @@ class ConstructBench
     public function provideClasses()
     {
         yield 'chronos' => ['class' => Chronos::class];
-        yield 'date' => ['class' => Date::class];
+        yield 'date' => ['class' => ChronosDate::class];
     }
 
     /**

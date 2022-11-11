@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\Date;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeImmutable;
@@ -227,7 +227,7 @@ class ConstructTest extends TestCase
      */
     public function testConstructWithTimeParts($time)
     {
-        $dt = new Date($time);
+        $dt = new ChronosDate($time);
         $this->assertSame(8, $dt->month);
         $this->assertSame(0, $dt->hour);
         $this->assertSame(0, $dt->minute);
