@@ -30,8 +30,6 @@ immutables de date/time et les extensions de ``DateInterval``.
 * ``Cake\Chronos\ChronosDate`` est un objet de *date* immutable.
 * ``Cake\Chronos\MutableDateTime`` est un objet de *date et heure* mutable.
 * ``Cake\Chronos\MutableDate`` est un objet de *date* mutable.
-* ``Cake\Chronos\ChronosInterval`` est une extension pour l'objet
-  ``DateInterval``.
 
 Enfin si vous voulez typer selon les objets date/time fournis par Chronos,
 vous devez utiliser ``Cake\Chronos\ChronosInterface``. Tous les objets date et

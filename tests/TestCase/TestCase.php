@@ -21,6 +21,7 @@ use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 use Closure;
+use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -124,6 +125,37 @@ abstract class TestCase extends BaseTestCase
 
         if ($microseconds !== null) {
             $this->assertSame($microseconds, $ci->microseconds, 'ChronosInterval->microseconds');
+        }
+    }
+
+    protected function assertDateInterval(DateInterval $interval, $years = null, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
+    {
+        if ($years !== null) {
+            $this->assertSame($years, $interval->y, 'DateInterval->y');
+        }
+
+        if ($months !== null) {
+            $this->assertSame($months, $interval->m, 'DateInterval->m');
+        }
+
+        if ($days !== null) {
+            $this->assertSame($days, $interval->d, 'DateInterval->d');
+        }
+
+        if ($hours !== null) {
+            $this->assertSame($hours, $interval->h, 'DateInterval->h');
+        }
+
+        if ($minutes !== null) {
+            $this->assertSame($minutes, $interval->i, 'DateInterval->i');
+        }
+
+        if ($seconds !== null) {
+            $this->assertSame($seconds, $interval->s, 'DateInterval->s');
+        }
+
+        if ($microseconds !== null) {
+            $this->assertSame($microseconds, $interval->f, 'DateInterval->f');
         }
     }
 
