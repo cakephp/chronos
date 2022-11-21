@@ -13,11 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
-use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosDate;
 use DateInterval;
-use DateTimeImmutable;
-use DateTimeInterface;
 use InvalidArgumentException;
 
 /**
@@ -28,23 +24,6 @@ use InvalidArgumentException;
 trait FrozenTimeTrait
 {
     use RelativeKeywordTrait;
-
-    /**
-     * Removes the time components from an input string.
-     *
-     * Used to ensure constructed objects always lack time.
-     *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The input time
-     * @return string The date component of $time.
-     */
-    protected function stripTime(Chronos|ChronosDate|DateTimeInterface|string $time): string
-    {
-        if (is_string($time)) {
-            $time = new DateTimeImmutable($time);
-        }
-
-        return $time->format('Y-m-d 00:00:00');
-    }
 
     /**
      * Remove time components from strtotime relative strings.

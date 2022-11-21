@@ -40,6 +40,162 @@ class IsTest extends TestCase
         $this->assertFalse(ChronosDate::create(2012, 1, 2)->isWeekend());
     }
 
+    public function testIsYesterdayTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->subDays(1)->isYesterday());
+    }
+
+    public function testIsYesterdayFalseWithToday()
+    {
+        $this->assertFalse(ChronosDate::now()->isYesterday());
+    }
+
+    public function testIsYesterdayFalseWith2Days()
+    {
+        $this->assertFalse(ChronosDate::now()->subDays(2)->isYesterday());
+    }
+
+    public function testIsTodayTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->isToday());
+    }
+
+    public function testIsTodayFalseWithYesterday()
+    {
+        $this->assertFalse(ChronosDate::now()->subDays(1)->isToday());
+    }
+
+    public function testIsTodayFalseWithTomorrow()
+    {
+        $this->assertFalse(ChronosDate::now()->addDays(1)->isToday());
+    }
+
+    public function isTodayFalseWithTimezone()
+    {
+        date_default_timezone_set('Pacific/Kiritimati');
+        $samoaTimezone = new DateTimeZone('Pacific/Samoa');
+
+        // Pacific/Samoa -11:00 is used intead of local timezone +14:00
+        $this->assertFalse(ChronosDate::now()->isToday($samoaTimezone));
+        $this->assertTrue(ChronosDate::now()->isToday('Pacific/Kiritimati'));
+    }
+
+    public function testIsTomorrowTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->addDays(1)->isTomorrow());
+    }
+
+    public function testIsTomorrowFalseWithToday()
+    {
+        $this->assertFalse(ChronosDate::now()->isTomorrow());
+    }
+
+    public function testIsTomorrowFalseWith2Days()
+    {
+        $this->assertFalse(Chronos::now()->addDays(2)->isTomorrow());
+    }
+
+    public function testIsNextWeekTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->addWeeks(1)->isNextWeek());
+    }
+
+    public function testIsLastWeekTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->subWeeks(1)->isLastWeek());
+    }
+
+    public function testIsNextWeekFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->addWeeks(2)->isNextWeek());
+
+        Chronos::setTestNow('2017-W01');
+        $time = new ChronosDate('2018-W02');
+        $this->assertFalse($time->isNextWeek());
+    }
+
+    public function testIsLastWeekFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->subWeeks(2)->isLastWeek());
+
+        Chronos::setTestNow('2018-W02');
+        $time = new ChronosDate('2017-W01');
+        $this->assertFalse($time->isLastWeek());
+    }
+
+    public function testIsNextMonthTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->addMonths(1)->isNextMonth());
+    }
+
+    public function testIsLastMonthTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->subMonths(1)->isLastMonth());
+    }
+
+    public function testIsNextMonthFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->addMonths(2)->isNextMonth());
+
+        Chronos::setTestNow('2017-12-31');
+        $time = new ChronosDate('2017-01-01');
+        $this->assertFalse($time->isNextMonth());
+    }
+
+    public function testIsLastMonthFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->subMonths(2)->isLastMonth());
+
+        Chronos::setTestNow('2017-01-01');
+        $time = new ChronosDate('2017-12-31');
+        $this->assertFalse($time->isLastMonth());
+    }
+
+    public function testIsNextYearTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->addYears(1)->isNextYear());
+    }
+
+    public function testIsLastYearTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->subYears(1)->isLastYear());
+    }
+
+    public function testIsNextYearFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->addYears(2)->isNextYear());
+    }
+
+    public function testIsLastYearFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->subYears(2)->isLastYear());
+    }
+
+    public function testIsFutureTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->addDays(1)->isFuture());
+    }
+
+    public function testIsFutureFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->isFuture());
+    }
+
+    public function testIsFutureFalseInThePast()
+    {
+        $this->assertFalse(ChronosDate::now()->subDays(1)->isFuture());
+    }
+
+    public function testIsPastTrue()
+    {
+        $this->assertTrue(ChronosDate::now()->subDays(1)->isPast());
+    }
+
+    public function testIsPastFalse()
+    {
+        $this->assertFalse(ChronosDate::now()->addDays(1)->isPast());
+    }
+
     public function testIsLeapYearTrue()
     {
         $this->assertTrue(ChronosDate::create(2016, 1, 1)->isLeapYear());
