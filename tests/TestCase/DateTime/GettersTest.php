@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Test\TestCase\TestCase;
 use InvalidArgumentException;
 
@@ -269,19 +268,19 @@ class GettersTest extends TestCase
     public function testGetWeekStartsAt()
     {
         $d = Chronos::createFromDate(2012, 12, 31);
-        $this->assertSame(ChronosInterface::MONDAY, $d->getWeekStartsAt());
+        $this->assertSame(Chronos::MONDAY, $d->getWeekStartsAt());
 
-        $d::setWeekStartsAt(ChronosInterface::SUNDAY);
-        $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekStartsAt());
+        $d::setWeekStartsAt(Chronos::SUNDAY);
+        $this->assertSame(Chronos::SUNDAY, $d->getWeekStartsAt());
     }
 
     public function testGetWeekEndsAt()
     {
         $d = Chronos::createFromDate(2012, 12, 31);
-        $this->assertSame(ChronosInterface::SUNDAY, $d->getWeekEndsAt());
+        $this->assertSame(Chronos::SUNDAY, $d->getWeekEndsAt());
 
-        $d::setWeekEndsAt(ChronosInterface::SATURDAY);
-        $this->assertSame(ChronosInterface::SATURDAY, $d->getWeekEndsAt());
+        $d::setWeekEndsAt(Chronos::SATURDAY);
+        $this->assertSame(Chronos::SATURDAY, $d->getWeekEndsAt());
     }
 
     public function testGetTimezone()

@@ -286,7 +286,7 @@ Chronos は、出力した日時オブジェクトを表示するための多く
 
     Chronos::setTestNow(Chronos::now());
     MutableDateTime::setTestNow(MutableDateTime::now());
-    ChronosDate::setTestNow(ChronosDate::now());
+    ChronosDate::setTestNow(ChronosDate::parse(Chronos::now()));
     MutableDate::setTestNow(MutableDate::now());
 
 これでテストスイートが開始された時点で全てのオブジェクトの現在時刻を修正します。

@@ -313,7 +313,7 @@ vous pouvez inclure ce qui suit::
 
     Chronos::setTestNow(Chronos::now());
     MutableDateTime::setTestNow(MutableDateTime::now());
-    ChronosDate::setTestNow(ChronosDate::now());
+    ChronosDate::setTestNow(ChronosDate::parse(Chronos::now()));
     MutableDate::setTestNow(MutableDate::now());
 
 Ceci va fixer le time courant de tous les objets selon le moment où la suite de

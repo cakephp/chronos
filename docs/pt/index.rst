@@ -268,7 +268,7 @@ de testes, você pode incluir o seguinte::
 
     Chronos::setTestNow(Chronos::now());
     MutableDateTime::setTestNow(MutableDateTime::now());
-    ChronosDate::setTestNow(ChronosDate::now());
+    ChronosDate::setTestNow(ChronosDate::parse(Chronos::now()));
     MutableDate::setTestNow(MutableDate::now());
 
 Isso irá corrigir a hora atual de todos os objetos para o momento em que o

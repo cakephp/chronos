@@ -107,6 +107,13 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
+    protected function assertDate($d, $year, $month, $day)
+    {
+        $this->assertSame($year, $d->year, 'Chronos->year');
+        $this->assertSame($month, $d->month, 'Chronos->month');
+        $this->assertSame($day, $d->day, 'Chronos->day');
+    }
+
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
         Chronos::setTestNow($dt ?? Chronos::now());

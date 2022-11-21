@@ -50,10 +50,12 @@
         "cs-check": "phpcs --colors --parallel=16 -p src/ tests/",
         "cs-fix": "phpcbf --colors --parallel=16 -p src/ tests/",
         "phpstan": "phpstan.phar analyse",
+        "psalm": "psalm.phar --show-info=false",
         "stan": [
-            "@phpstan"
+            "@phpstan",
+            "@psalm"
         ],
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:~1.8.0 && mv composer.backup composer.json",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:~1.8.0 psalm/phar:~5.0-beta && mv composer.backup composer.json",
         "test": "phpunit"
     },
     "config": {

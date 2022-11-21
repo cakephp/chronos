@@ -13,11 +13,12 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use DateInterval;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeZone;
+use InvalidArgumentException;
 
 /**
  * A trait for freezing the time aspect of a DateTime.
@@ -33,23 +34,13 @@ trait FrozenTimeTrait
      *
      * Used to ensure constructed objects always lack time.
      *
-     * @param \DateTime|\DateTimeImmutable|string|int|null $time The input time. Integer values will be assumed
-     *   to be in UTC. The 'now' and '' values will use the current local time.
-     * @param \DateTimeZone|null $timezone The timezone in which the date is taken
+     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The input time
      * @return string The date component of $time.
      */
-    protected function stripTime(DateTime|DateTimeImmutable|string|int|null $time, ?DateTimeZone $timezone): string
+    protected function stripTime(Chronos|ChronosDate|DateTimeInterface|string $time): string
     {
-        if (is_int($time)) {
-            return gmdate('Y-m-d 00:00:00', $time);
-        }
-
-        if (is_string($time) && substr($time, 0, 1) === '@') {
-            return gmdate('Y-m-d 00:00:00', (int)substr($time, 1));
-        }
-
-        if (!($time instanceof DateTimeInterface)) {
-            $time = new DateTimeImmutable($time ?? 'now', $timezone);
+        if (is_string($time)) {
+            $time = new DateTimeImmutable($time);
         }
 
         return $time->format('Y-m-d 00:00:00');
@@ -77,9 +68,12 @@ trait FrozenTimeTrait
      * @param int $microseconds The microseconds to set (ignored)
      * @return static A modified Date instance.
      */
-    public function setTime(int $hours, int $minutes, ?int $seconds = null, ?int $microseconds = null): static
+    protected function setTime(int $hours, int $minutes, int $seconds = 0, int $microseconds = 0): static
     {
-        return parent::setTime(0, 0, 0, 0);
+        $new = clone $this;
+        $new->native = $new->native->setTime(0, 0, 0, 0);
+
+        return $new;
     }
 
     /**
@@ -92,7 +86,10 @@ trait FrozenTimeTrait
      */
     public function add(DateInterval $interval): static
     {
-        return parent::add($interval)->setTime(0, 0, 0);
+        $new = clone $this;
+        $new->native = $new->native->add($interval)->setTime(0, 0, 0);
+
+        return $new;
     }
 
     /**
@@ -105,20 +102,10 @@ trait FrozenTimeTrait
      */
     public function sub(DateInterval $interval): static
     {
-        return parent::sub($interval)->setTime(0, 0, 0);
-    }
+        $new = clone $this;
+        $new->native = $new->native->sub($interval)->setTime(0, 0, 0);
 
-    /**
-     * No-op method.
-     *
-     * Timezones have no effect on calendar dates.
-     *
-     * @param \DateTimeZone|string $value The DateTimeZone object or timezone name to use.
-     * @return static
-     */
-    public function setTimezone(DateTimeZone|string $value): static
-    {
-        return $this;
+        return $new;
     }
 
     /**
@@ -132,26 +119,35 @@ trait FrozenTimeTrait
      */
     public function setTimestamp(int $value): static
     {
-        return parent::setTimestamp($value)->setTime(0, 0, 0);
+        $new = clone $this;
+        $new->native = $new->native->setTimestamp($value)->setTime(0, 0, 0);
+
+        return $new;
     }
 
     /**
-     * Overloaded to ignore time changes.
+     * Creates a new instance with date modified according to DateTimeImmutable::modifier().
      *
      * Changing any aspect of the time will be ignored, and the resulting object
      * will have its time frozen to 00:00:00.
      *
-     * @param string $relative The relative change to make.
-     * @return static A new ChronosDate with the applied date changes.
+     * @param string $modifier Date modifier
+     * @return static
      */
-    public function modify(string $relative): static
+    public function modify(string $modifier): static
     {
-        if (preg_match('/hour|minute|second/', $relative)) {
-            return $this;
+        if (preg_match('/hour|minute|second/', $modifier)) {
+            return clone $this;
         }
-        $new = parent::modify($relative);
+
+        $new = clone $this;
+        $new->native = $new->native->modify($modifier);
+        if ($new->native === false) {
+            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+        }
+
         if ($new->format('H:i:s') !== '00:00:00') {
-            return $new->setTime(0, 0, 0);
+            $new->native = $new->native->setTime(0, 0, 0);
         }
 
         return $new;
