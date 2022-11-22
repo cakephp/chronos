@@ -70,14 +70,16 @@
     <ImpureStaticVariable occurrences="1"/>
   </file>
   <file src="src/ChronosDate.php">
-    <ImpureFunctionCall occurrences="2">
+    <ImpureFunctionCall occurrences="3">
       <code>array_filter</code>
+      <code>date_default_timezone_get</code>
       <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="40">
+    <ImpureMethodCall occurrences="50">
       <code>$period</code>
       <code>diffForHumans</code>
       <code>diffFormatter</code>
+      <code>format</code>
       <code>getTestNow</code>
       <code>getWeekEndsAt</code>
       <code>getWeekEndsAt</code>
@@ -85,7 +87,6 @@
       <code>getWeekStartsAt</code>
       <code>getWeekendDays</code>
       <code>hasTestNow</code>
-      <code>isRelativeOnly</code>
       <code>modify</code>
       <code>modify</code>
       <code>modify</code>
@@ -114,7 +115,17 @@
       <code>now</code>
       <code>now</code>
       <code>now</code>
-      <code>stripTime</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>now</code>
+      <code>tomorrow</code>
+      <code>yesterday</code>
     </ImpureMethodCall>
     <ImpureStaticProperty occurrences="9">
       <code>static::$days</code>

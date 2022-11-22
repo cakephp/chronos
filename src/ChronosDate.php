@@ -18,6 +18,7 @@ use DateInterval;
 use DatePeriod;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use InvalidArgumentException;
 
 /**
@@ -90,33 +91,90 @@ class ChronosDate
      * subtraction/addition to have deterministic results.
      *
      * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      */
-    public function __construct(Chronos|ChronosDate|DateTimeInterface|string $time)
-    {
-        $this->native = $this->createNative($time);
+    public function __construct(
+        Chronos|ChronosDate|DateTimeInterface|string $time = 'now',
+        DateTimeZone|string|null $timezone = null
+    ) {
+        $this->native = $this->createNative($time, $timezone);
     }
 
     /**
      * Initializes the PHP DateTimeImmutable object.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time Fixed or relative time
+     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      * @return \DateTimeImmutable
      */
-    protected function createNative(Chronos|ChronosDate|DateTimeInterface|string|int|null $time): DateTimeImmutable
-    {
-        $testNow = Chronos::getTestNow();
-        if ($testNow === null || !static::isRelativeOnly($time)) {
-            $time = $this->stripTime($time);
-
-            return new DateTimeImmutable($time);
+    protected function createNative(
+        Chronos|ChronosDate|DateTimeInterface|string $time,
+        DateTimeZone|string|null $timezone
+    ): DateTimeImmutable {
+        if (!is_string($time)) {
+            return new DateTimeImmutable($time->format('Y-m-d 00:00:00'));
         }
 
-        $testNow = clone $testNow;
-        if (!empty($time)) {
+        $timezone ??= date_default_timezone_get();
+        $timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
+
+        $testNow = Chronos::getTestNow();
+        if ($testNow === null) {
+            $time = new DateTimeImmutable($time, $timezone);
+
+            return new DateTimeImmutable($time->format('Y-m-d 00:00:00'));
+        }
+
+        $testNow = $testNow->setTimezone($timezone);
+        if ($time !== 'now') {
             $testNow = $testNow->modify($time);
         }
 
         return new DateTimeImmutable($testNow->format('Y-m-d 00:00:00'));
+    }
+
+    /**
+     * Get today's date.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return static
+     */
+    public static function now(DateTimeZone|string|null $timezone = null): static
+    {
+        return new static('now', $timezone);
+    }
+
+    /**
+     * Get today's date.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return static
+     */
+    public static function today(DateTimeZone|string|null $timezone = null): static
+    {
+        return static::now($timezone);
+    }
+
+    /**
+     * Get tomorrow's date.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return static
+     */
+    public static function tomorrow(DateTimeZone|string|null $timezone = null): static
+    {
+        return new static('tomorrow', $timezone);
+    }
+
+    /**
+     * Get yesterday's date.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return static
+     */
+    public static function yesterday(DateTimeZone|string|null $timezone = null): static
+    {
+        return new static('yesterday', $timezone);
     }
 
     /**
@@ -963,6 +1021,127 @@ class ChronosDate
     public function isWeekend(): bool
     {
         return in_array($this->dayOfWeek, Chronos::getWeekendDays(), true);
+    }
+
+    /**
+     * Determines if the instance is yesterday
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isYesterday(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->equals(static::yesterday($timezone));
+    }
+
+    /**
+     * Determines if the instance is today
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isToday(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->equals(static::now($timezone));
+    }
+
+    /**
+     * Determines if the instance is tomorrow
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isTomorrow(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->equals(static::tomorrow($timezone));
+    }
+
+    /**
+     * Determines if the instance is within the next week
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isNextWeek(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->format('W o') === static::now($timezone)->addWeeks(1)->format('W o');
+    }
+
+    /**
+     * Determines if the instance is within the last week
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isLastWeek(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->format('W o') === static::now($timezone)->subWeeks(1)->format('W o');
+    }
+
+    /**
+     * Determines if the instance is within the next month
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isNextMonth(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->format('m Y') === static::now($timezone)->addMonths(1)->format('m Y');
+    }
+
+    /**
+     * Determines if the instance is within the last month
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isLastMonth(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->format('m Y') === static::now($timezone)->subMonths(1)->format('m Y');
+    }
+
+    /**
+     * Determines if the instance is within the next year
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isNextYear(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->year === static::now($timezone)->addYears(1)->year;
+    }
+
+    /**
+     * Determines if the instance is within the last year
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isLastYear(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->year === static::now($timezone)->subYears(1)->year;
+    }
+
+    /**
+     * Determines if the instance is in the future, ie. greater (after) than now
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isFuture(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->greaterThan(static::now($timezone));
+    }
+
+    /**
+     * Determines if the instance is in the past, ie. less (before) than now
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @return bool
+     */
+    public function isPast(DateTimeZone|string|null $timezone = null): bool
+    {
+        return $this->lessThan(static::now($timezone));
     }
 
     /**
