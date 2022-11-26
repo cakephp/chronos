@@ -240,7 +240,7 @@ class Chronos
         Chronos|ChronosDate|DateTimeInterface|string|int|null $time,
         DateTimeZone|string|null $timezone = null
     ): DateTimeImmutable {
-        if (is_int($time)) {
+        if (is_int($time) || (is_string($time) && ctype_digit($time))) {
             return new DateTimeImmutable("@{$time}");
         }
 

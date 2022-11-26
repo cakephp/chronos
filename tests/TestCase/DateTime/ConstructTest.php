@@ -27,10 +27,16 @@ class ConstructTest extends TestCase
     public function testCreateFromTimestamp()
     {
         $ts = 1454284800;
-
         $time = new Chronos($ts);
         $this->assertSame('+00:00', $time->tzName);
         $this->assertSame('2016-02-01 00:00:00', $time->format('Y-m-d H:i:s'));
+        $this->assertSame($ts, $time->getTimestamp());
+
+        $ts = '1454284800';
+        $time = new Chronos($ts);
+        $this->assertSame('+00:00', $time->tzName);
+        $this->assertSame('2016-02-01 00:00:00', $time->format('Y-m-d H:i:s'));
+        $this->assertSame((int)$ts, $time->getTimestamp());
     }
 
     public function testCreatesAnInstanceDefaultToNow()
