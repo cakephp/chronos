@@ -85,10 +85,14 @@ class ChronosDate
     /**
      * Create a new Immutable Date instance.
      *
-     * Date instances lack time components, however due to limitations in PHP's
-     * internal Datetime object the time will always be set to 00:00:00, and the
-     * timezone will always be the server local time. Normalizing the timezone allows for
-     * subtraction/addition to have deterministic results.
+     * Dates do not have time or timezone components exposed. Internally
+     * ChronosDate wraps a PHP DateTimeImmutable but limits modifications
+     * to only those that operate on day values.
+     *
+     * By default dates will be calculated from the server's default timezone.
+     * You can use the `timezone` parameter to use a different timezone. Timezones
+     * are used when parsing relative date expressions like `today` and `yesterday`
+     * but do not participate in parsing values like `2022-01-01`.
      *
      * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
@@ -147,7 +151,7 @@ class ChronosDate
     /**
      * Get today's date.
      *
-     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @param \DateTimeZone|string|null $timezone Time zone to use for today.
      * @return static
      */
     public static function today(DateTimeZone|string|null $timezone = null): static
@@ -158,7 +162,7 @@ class ChronosDate
     /**
      * Get tomorrow's date.
      *
-     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @param \DateTimeZone|string|null $timezone Time zone to use for tomorrow.
      * @return static
      */
     public static function tomorrow(DateTimeZone|string|null $timezone = null): static
@@ -169,7 +173,7 @@ class ChronosDate
     /**
      * Get yesterday's date.
      *
-     * @param \DateTimeZone|string|null $timezone Time zone to use for now.
+     * @param \DateTimeZone|string|null $timezone Time zone to use for yesterday.
      * @return static
      */
     public static function yesterday(DateTimeZone|string|null $timezone = null): static
@@ -1394,23 +1398,19 @@ class ChronosDate
      * Get the difference in a human readable format.
      *
      * When comparing a value in the past to default now:
-     * 1 hour ago
      * 5 months ago
      *
      * When comparing a value in the future to default now:
-     * 1 hour from now
      * 5 months from now
      *
      * When comparing a value in the past to another value:
-     * 1 hour before
      * 5 months before
      *
      * When comparing a value in the future to another value:
-     * 1 hour after
      * 5 months after
      *
      * @param \Cake\Chronos\ChronosDate|null $other The datetime to compare with.
-     * @param bool $absolute removes time difference modifiers ago, after, etc
+     * @param bool $absolute removes difference modifiers ago, after, etc
      * @return string
      */
     public function diffForHumans(?ChronosDate $other = null, bool $absolute = false): string

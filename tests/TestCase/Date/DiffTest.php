@@ -113,15 +113,16 @@ class DiffTest extends TestCase
         });
     }
 
-    /* Does not include January 31 since DatePeriod does not include the end date by default
+    /**
+     * DateInterval does not include the end date by default.
+     */
     public function testDiffInDaysFilteredPositiveWithMutated()
     {
         $dt = ChronosDate::create(2000, 1, 1);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) {
+        $this->assertSame(4, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->endOfMonth()));
     }
-    */
 
     public function testDiffInDaysFilteredPositiveWithSecondObject()
     {
@@ -151,15 +152,16 @@ class DiffTest extends TestCase
         }, $dt2));
     }
 
-    /* DatePeriod does not include the end date by default
+    /**
+     * DateInterval does not include the end date by default
+     */
     public function testDiffInDaysFilteredNegativeWithSignWithMutated()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) {
+        $this->assertSame(-4, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->startOfMonth(), false));
     }
-    */
 
     public function testDiffInDaysFilteredNegativeWithSignWithSecondObject()
     {
@@ -213,29 +215,31 @@ class DiffTest extends TestCase
         }, $dt2, false));
     }
 
-    /* DatePeriod does not include the end date by default
+    // DatePeriod does not include the end date by default
+
     public function testDiffInWeekdaysPositive()
     {
         $dt = ChronosDate::create(2000, 1, 1);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->endOfMonth()));
+        $this->assertSame(20, $dt->diffInWeekdays($dt->endOfMonth()));
     }
-    */
 
-    /* DatePeriod does not include the end date by default
+    /**
+     * DatePeriod does not include the end date by default
+     */
     public function testDiffInWeekdaysNegativeNoSign()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->startOfMonth()));
+        $this->assertSame(20, $dt->diffInWeekdays($dt->startOfMonth()));
     }
-    */
 
-    /* DatePeriod does not include the end date by default
+    /**
+     * DatePeriod does not include the end date by default
+     */
     public function testDiffInWeekdaysNegativeWithSign()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(-21, $dt->diffInWeekdays($dt->startOfMonth(), false));
+        $this->assertSame(-20, $dt->diffInWeekdays($dt->startOfMonth(), false));
     }
-    */
 
     public function testDiffInWeekendDaysPositive()
     {
