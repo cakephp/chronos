@@ -119,7 +119,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysFilteredPositiveWithMutated()
     {
         $dt = ChronosDate::create(2000, 1, 1);
-        $this->assertSame(4, $dt->diffInDaysFiltered(function ($date) {
+        $this->assertSame(5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->endOfMonth()));
     }
@@ -158,7 +158,7 @@ class DiffTest extends TestCase
     public function testDiffInDaysFilteredNegativeWithSignWithMutated()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(-4, $dt->diffInDaysFiltered(function ($date) {
+        $this->assertSame(-5, $dt->diffInDaysFiltered(function ($date) {
             return $date->dayOfWeek === 1;
         }, $dt->startOfMonth(), false));
     }
@@ -220,7 +220,7 @@ class DiffTest extends TestCase
     public function testDiffInWeekdaysPositive()
     {
         $dt = ChronosDate::create(2000, 1, 1);
-        $this->assertSame(20, $dt->diffInWeekdays($dt->endOfMonth()));
+        $this->assertSame(21, $dt->diffInWeekdays($dt->endOfMonth()));
     }
 
     /**
@@ -229,7 +229,7 @@ class DiffTest extends TestCase
     public function testDiffInWeekdaysNegativeNoSign()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(20, $dt->diffInWeekdays($dt->startOfMonth()));
+        $this->assertSame(21, $dt->diffInWeekdays($dt->startOfMonth()));
     }
 
     /**
@@ -238,7 +238,7 @@ class DiffTest extends TestCase
     public function testDiffInWeekdaysNegativeWithSign()
     {
         $dt = ChronosDate::create(2000, 1, 31);
-        $this->assertSame(-20, $dt->diffInWeekdays($dt->startOfMonth(), false));
+        $this->assertSame(-21, $dt->diffInWeekdays($dt->startOfMonth(), false));
     }
 
     public function testDiffInWeekendDaysPositive()

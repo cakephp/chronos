@@ -1284,8 +1284,11 @@ class ChronosDate
             $end = $this;
             $inverse = true;
         }
+        // Hack around PHP's DatePeriod not counting equal dates at midnight as
+        // within the range. Sadly INCLUDE_END_DATE doesn't land until 8.2
+        $endTime = $end->native->modify('+1 second');
 
-        $period = new DatePeriod($start->native, $interval, $end->native);
+        $period = new DatePeriod($start->native, $interval, $endTime);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return $callback(static::parse($date));
         });
