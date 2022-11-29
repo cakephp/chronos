@@ -87,11 +87,11 @@ expected.
 Date Objects
 ------------
 
-PHP only provides a single DateTime object. Representing calendar dates can be
-a bit awkward with this class as it includes timezones, and time components that
-don't really belong in the concept of a 'day'. Chronos provides a ``Date``
-object that allows you to represent dates. The time and timezone for these
-objects is always fixed to ``00:00:00 UTC`` and all formatting/difference
+PHP only provides a single DateTime object that combines both dates and time.
+Representing calendar dates can be a bit awkward with `DateTime` as it includes
+time and timezones, which aren't part of a 'date'. Chronos provides
+``ChronosDate`` that allows you to represent dates. The time and timezone for
+these objects is always fixed to ``00:00:00 UTC`` and all formatting/difference
 methods operate at the day resolution::
 
     use Cake\Chronos\ChronosDate;
@@ -111,6 +111,11 @@ time zone to use for current time such as ``now()`` or ``today()``::
 
     // Takes the current date from Asia/Tokyo time zone
     $today = ChronosDate::today('Asia/Tokyo');
+
+The API of ``ChronosDate`` is mostly the same as ``Chronos`` with exceptions for
+modifying with expressions or mutating time attributes. While the interfaces are
+generally consistent, there isn't a common interface between ``ChronosDate`` and
+``Chronos`` as combining date and datetime objects is not type-safe.
 
 Modifier Methods
 ----------------
