@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosDate;
 use Closure;
 use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;

@@ -58,7 +58,7 @@ use InvalidArgumentException;
  */
 class Chronos
 {
-    use Traits\FormattingTrait;
+    use FormattingTrait;
 
     /**
      * @var int
@@ -214,7 +214,6 @@ class Chronos
      */
     // phpcs:disable Generic.Files.LineLength.TooLong
     protected static string $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
-
 
     /**
      * @var \DateTimeImmutable

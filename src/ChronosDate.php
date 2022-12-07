@@ -44,7 +44,7 @@ use InvalidArgumentException;
  */
 class ChronosDate
 {
-    use Traits\FormattingTrait;
+    use FormattingTrait;
 
     /**
      * Format to use for __toString method when type juggling occurs.
@@ -298,23 +298,6 @@ class ChronosDate
     {
         $new = clone $this;
         $new->native = $new->native->sub($interval)->setTime(0, 0, 0);
-
-        return $new;
-    }
-
-    /**
-     * Set the timestamp value and get a new object back.
-     *
-     * This method will discard the time aspects of the timestamp
-     * and only apply the date portions
-     *
-     * @param int $value The timestamp value to set.
-     * @return static
-     */
-    public function setTimestamp(int $value): static
-    {
-        $new = clone $this;
-        $new->native = $new->native->setTimestamp($value)->setTime(0, 0, 0);
 
         return $new;
     }
