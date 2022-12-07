@@ -36,7 +36,6 @@ abstract class TestCase extends BaseTestCase
     {
         date_default_timezone_set($this->saveTz);
         Chronos::setTestNow(null);
-        ChronosDate::setTestNow(null);
     }
 
     protected function assertTime($d, $hour, $minute, $second = null, $microsecond = null)

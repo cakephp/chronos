@@ -15,6 +15,8 @@ namespace Cake\Chronos;
 
 /**
  * Basic english only 'translator' for diffForHumans()
+ *
+ * @internal
  */
 class Translator
 {

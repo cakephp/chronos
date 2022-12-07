@@ -21,6 +21,8 @@ use DateTime;
  * Provides string formatting methods for datetime instances.
  *
  * Expects implementing classes to define static::$toStringFormat
+ *
+ * @internal
  */
 trait FormattingTrait
 {

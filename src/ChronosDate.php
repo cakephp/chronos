@@ -45,8 +45,6 @@ use InvalidArgumentException;
 class ChronosDate
 {
     use Traits\FormattingTrait;
-    use Traits\FrozenTimeTrait;
-    use Traits\TestingAidTrait;
 
     /**
      * Format to use for __toString method when type juggling occurs.
@@ -270,6 +268,83 @@ class ChronosDate
         }
 
         return static::$diffFormatter = $formatter;
+    }
+
+    /**
+     * Add an Interval to a Date
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function add(DateInterval $interval): static
+    {
+        $new = clone $this;
+        $new->native = $new->native->add($interval)->setTime(0, 0, 0);
+
+        return $new;
+    }
+
+    /**
+     * Subtract an Interval from a Date.
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function sub(DateInterval $interval): static
+    {
+        $new = clone $this;
+        $new->native = $new->native->sub($interval)->setTime(0, 0, 0);
+
+        return $new;
+    }
+
+    /**
+     * Set the timestamp value and get a new object back.
+     *
+     * This method will discard the time aspects of the timestamp
+     * and only apply the date portions
+     *
+     * @param int $value The timestamp value to set.
+     * @return static
+     */
+    public function setTimestamp(int $value): static
+    {
+        $new = clone $this;
+        $new->native = $new->native->setTimestamp($value)->setTime(0, 0, 0);
+
+        return $new;
+    }
+
+    /**
+     * Creates a new instance with date modified according to DateTimeImmutable::modifier().
+     *
+     * Changing any aspect of the time will be ignored, and the resulting object
+     * will have its time frozen to 00:00:00.
+     *
+     * @param string $modifier Date modifier
+     * @return static
+     */
+    public function modify(string $modifier): static
+    {
+        if (preg_match('/hour|minute|second/', $modifier)) {
+            return clone $this;
+        }
+
+        $new = clone $this;
+        $new->native = $new->native->modify($modifier);
+        if ($new->native === false) {
+            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+        }
+
+        if ($new->format('H:i:s') !== '00:00:00') {
+            $new->native = $new->native->setTime(0, 0, 0);
+        }
+
+        return $new;
     }
 
     /**
@@ -1487,7 +1562,7 @@ class ChronosDate
     public function __debugInfo(): array
     {
         $properties = [
-            'hasFixedNow' => static::hasTestNow(),
+            'hasFixedNow' => Chronos::hasTestNow(),
             'date' => $this->format('Y-m-d'),
         ];
 

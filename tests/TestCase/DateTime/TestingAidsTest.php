@@ -88,7 +88,7 @@ class TestingAidsTest extends TestCase
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
-        ChronosDate::setTestNow($notNow);
+        Chronos::setTestNow($notNow);
 
         $instance = new ChronosDate('-1 day');
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
@@ -229,7 +229,6 @@ class TestingAidsTest extends TestCase
         $c = new Chronos('2016-01-03 00:00:00', 'Europe/Copenhagen');
         Chronos::setTestNow($c);
 
-        $this->assertSame($c, ChronosDate::getTestNow());
         $this->assertSame($c, Chronos::getTestNow());
     }
 }

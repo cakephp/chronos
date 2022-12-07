@@ -62,7 +62,7 @@ class DebugInfoTest extends TestCase
             'date' => '2001-02-03',
         ];
 
-        ChronosDate::setTestNow(Chronos::now());
+        Chronos::setTestNow(Chronos::now());
         $date = ChronosDate::create(2001, 2, 3, 10, 20, 30);
         $this->assertSame($expected, $date->__debugInfo());
     }
