@@ -76,4 +76,18 @@ class AddTest extends TestCase
         $this->assertSame(2, ChronosDate::create(1975, 5, 31)->addWeekdays(1)->day);
         $this->assertSame(30, ChronosDate::create(1975, 5, 31)->addWeekdays(-1)->day);
     }
+
+    public function testModify()
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $new = $date->modify('2 days');
+        $this->assertSame('2001-01-03', $new->toDateString());
+    }
+
+    public function testModifyTimeComponentError()
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $this->expectException(InvalidArgumentException::class);
+        $date->modify('10 seconds');
+    }
 }

@@ -311,8 +311,7 @@ class ChronosDate
     /**
      * Creates a new instance with date modified according to DateTimeImmutable::modifier().
      *
-     * Changing any aspect of the time will be ignored, and the resulting object
-     * will have its time frozen to 00:00:00.
+     * Attempting to change a time component will raise an exception
      *
      * @param string $modifier Date modifier
      * @return static
@@ -320,7 +319,7 @@ class ChronosDate
     public function modify(string $modifier): static
     {
         if (preg_match('/hour|minute|second/', $modifier)) {
-            return clone $this;
+            throw new InvalidArgumentException('Cannot modify date objects by time values');
         }
 
         $new = clone $this;
