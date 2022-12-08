@@ -17,6 +17,7 @@ namespace Cake\Chronos\Test\TestCase\Date;
 use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
+use InvalidArgumentException;
 
 class AddTest extends TestCase
 {
@@ -28,12 +29,12 @@ class AddTest extends TestCase
         $this->assertSame('2001-01-02', $new->toDateString());
     }
 
-    public function testAddIgnoreTime()
+    public function testAddRaiseErrorOnTime()
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
         $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->add($interval);
-        $this->assertSame('2001-01-01', $new->toDateString());
+        $this->expectException(InvalidArgumentException::class);
+        $date->add($interval);
     }
 
     public function testSubFullDay()
@@ -48,8 +49,8 @@ class AddTest extends TestCase
     {
         $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
         $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->sub($interval);
-        $this->assertSame('2000-12-31', $new->toDateString());
+        $this->expectException(InvalidArgumentException::class);
+        $date->sub($interval);
     }
 
     public function testAddDay()

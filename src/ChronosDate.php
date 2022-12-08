@@ -280,6 +280,9 @@ class ChronosDate
      */
     public function add(DateInterval $interval): static
     {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            throw new InvalidArgumentException('Cannot add intervals with time components');
+        }
         $new = clone $this;
         $new->native = $new->native->add($interval)->setTime(0, 0, 0);
 
@@ -296,6 +299,9 @@ class ChronosDate
      */
     public function sub(DateInterval $interval): static
     {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            throw new InvalidArgumentException('Cannot subtract intervals with time components');
+        }
         $new = clone $this;
         $new->native = $new->native->sub($interval)->setTime(0, 0, 0);
 
