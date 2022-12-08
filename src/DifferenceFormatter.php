@@ -19,6 +19,8 @@ namespace Cake\Chronos;
  *
  * Provides a swappable component for other libraries to leverage.
  * when localizing or customizing the difference output.
+ *
+ * @internal
  */
 class DifferenceFormatter implements DifferenceFormatterInterface
 {

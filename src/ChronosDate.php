@@ -44,9 +44,7 @@ use InvalidArgumentException;
  */
 class ChronosDate
 {
-    use Traits\FormattingTrait;
-    use Traits\FrozenTimeTrait;
-    use Traits\TestingAidTrait;
+    use FormattingTrait;
 
     /**
      * Format to use for __toString method when type juggling occurs.
@@ -270,6 +268,71 @@ class ChronosDate
         }
 
         return static::$diffFormatter = $formatter;
+    }
+
+    /**
+     * Add an Interval to a Date
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function add(DateInterval $interval): static
+    {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            throw new InvalidArgumentException('Cannot add intervals with time components');
+        }
+        $new = clone $this;
+        $new->native = $new->native->add($interval)->setTime(0, 0, 0);
+
+        return $new;
+    }
+
+    /**
+     * Subtract an Interval from a Date.
+     *
+     * Any changes to the time will be ignored and reset to 00:00:00
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    public function sub(DateInterval $interval): static
+    {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            throw new InvalidArgumentException('Cannot subtract intervals with time components');
+        }
+        $new = clone $this;
+        $new->native = $new->native->sub($interval)->setTime(0, 0, 0);
+
+        return $new;
+    }
+
+    /**
+     * Creates a new instance with date modified according to DateTimeImmutable::modifier().
+     *
+     * Attempting to change a time component will raise an exception
+     *
+     * @param string $modifier Date modifier
+     * @return static
+     */
+    public function modify(string $modifier): static
+    {
+        if (preg_match('/hour|minute|second/', $modifier)) {
+            throw new InvalidArgumentException('Cannot modify date objects by time values');
+        }
+
+        $new = clone $this;
+        $new->native = $new->native->modify($modifier);
+        if ($new->native === false) {
+            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+        }
+
+        if ($new->format('H:i:s') !== '00:00:00') {
+            $new->native = $new->native->setTime(0, 0, 0);
+        }
+
+        return $new;
     }
 
     /**
@@ -1487,7 +1550,7 @@ class ChronosDate
     public function __debugInfo(): array
     {
         $properties = [
-            'hasFixedNow' => static::hasTestNow(),
+            'hasFixedNow' => Chronos::hasTestNow(),
             'date' => $this->format('Y-m-d'),
         ];
 

@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosDate;
 use Closure;
 use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -36,7 +35,6 @@ abstract class TestCase extends BaseTestCase
     {
         date_default_timezone_set($this->saveTz);
         Chronos::setTestNow(null);
-        ChronosDate::setTestNow(null);
     }
 
     protected function assertTime($d, $hour, $minute, $second = null, $microsecond = null)

@@ -78,7 +78,7 @@ class ConstructTest extends TestCase
 
     public function testConstructWithTestNow()
     {
-        ChronosDate::setTestNow(Chronos::create(2001, 1, 1));
+        Chronos::setTestNow(Chronos::create(2001, 1, 1));
         $date = new ChronosDate('+2 days');
         $this->assertDate($date, 2001, 1, 3);
 

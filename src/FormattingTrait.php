@@ -12,15 +12,16 @@ declare(strict_types=1);
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Cake\Chronos\Traits;
+namespace Cake\Chronos;
 
-use Cake\Chronos\Chronos;
 use DateTime;
 
 /**
  * Provides string formatting methods for datetime instances.
  *
  * Expects implementing classes to define static::$toStringFormat
+ *
+ * @internal
  */
 trait FormattingTrait
 {
