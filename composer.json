@@ -7,7 +7,7 @@
     "time",
     "DateTime"
   ],
-  "homepage": "http://cakephp.org",
+  "homepage": "https://cakephp.org",
   "license": "MIT",
   "authors": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "The CakePHP Team",
-      "homepage": "http://cakephp.org"
+      "homepage": "https://cakephp.org"
     }
   ],
   "support": {
