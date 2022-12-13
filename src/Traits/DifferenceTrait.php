@@ -49,6 +49,8 @@ trait DifferenceTrait
      */
     public function diffInYears(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        $this->checkTypes($this, $dt);
+
         $diff = $this->diff($dt ?? static::now($this->tz), $abs);
 
         return $diff->invert ? -$diff->y : $diff->y;
@@ -166,6 +168,7 @@ trait DifferenceTrait
         $start = $this;
         $end = $dt ?? static::now($this->tz);
         $inverse = false;
+        $this->checkTypes($start, $end);
 
         if ($end < $start) {
             $start = $end;
