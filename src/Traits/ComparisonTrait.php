@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosInterface;
 use DateTime;
 
@@ -61,7 +62,7 @@ trait ComparisonTrait
      */
     public function eq(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 eq() is deprecated. Use equals() instead.');
+        trigger_error('2.5 eq() is deprecated. Use equals() instead.', E_USER_DEPRECATED);
 
         return $this->equals($dt);
     }
@@ -86,7 +87,7 @@ trait ComparisonTrait
      */
     public function ne(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 ne() is deprecated. Use notEquals() instead.');
+        trigger_error('2.5 ne() is deprecated. Use notEquals() instead.', E_USER_DEPRECATED);
 
         return $this->notEquals($dt);
     }
@@ -111,7 +112,7 @@ trait ComparisonTrait
      */
     public function gt(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 gt() is deprecated. Use greaterThan() instead.');
+        trigger_error('2.5 gt() is deprecated. Use greaterThan() instead.', E_USER_DEPRECATED);
 
         return $this->greaterThan($dt);
     }
@@ -136,7 +137,7 @@ trait ComparisonTrait
      */
     public function gte(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 gte() is deprecated. Use greaterThanOrEquals() instead.');
+        trigger_error('2.5 gte() is deprecated. Use greaterThanOrEquals() instead.', E_USER_DEPRECATED);
 
         return $this->greaterThanOrEquals($dt);
     }
@@ -161,7 +162,7 @@ trait ComparisonTrait
      */
     public function lt(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 lt() is deprecated. Use lessThan() instead.');
+        trigger_error('2.5 lt() is deprecated. Use lessThan() instead.', E_USER_DEPRECATED);
 
         return $this->lessThan($dt);
     }
@@ -186,7 +187,7 @@ trait ComparisonTrait
      */
     public function lte(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 lte() is deprecated. Use lessthanOrEquals() instead.');
+        trigger_error('2.5 lte() is deprecated. Use lessthanOrEquals() instead.', E_USER_DEPRECATED);
 
         return $this->lessThanOrEquals($dt);
     }
@@ -203,27 +204,6 @@ trait ComparisonTrait
     }
 
     /**
-     * Deprecation helper to compare types
-     *
-     * Future versions of Chronos will not support comparing date/datetimes to each other.
-     *
-     * @param object $first The first object.
-     * @param object|null $second The second object
-     * @return void
-     */
-    private function checkTypes(object $first, object $second): void
-    {
-        $firstClass = get_class($first);
-        $secondClass = get_class($second);
-        if ($second !== null && $firstClass !== $secondClass) {
-            trigger_error(
-                "2.5 Comparing {$firstClass} and {$secondClass} is deprecated. " .
-                'In 3.0 this functionality will be removed.'
-            );
-        }
-    }
-
-    /**
      * Determines if the instance is between two others
      *
      * @param \Cake\Chronos\ChronosInterface $dt1 The instance to compare with.
@@ -233,12 +213,12 @@ trait ComparisonTrait
      */
     public function between(ChronosInterface $dt1, ChronosInterface $dt2, bool $equal = true): bool
     {
-        if ($dt1->gt($dt2)) {
+        if ($dt1->greaterThan($dt2)) {
             $temp = $dt1;
             $dt1 = $dt2;
             $dt2 = $temp;
         }
-        $this->checkTypes($dt1, $dt2);
+        Chronos::checkTypes($dt1, $dt2);
 
         if ($equal) {
             return $this->greaterThanOrEquals($dt1) && $this->lessThanOrEquals($dt2);

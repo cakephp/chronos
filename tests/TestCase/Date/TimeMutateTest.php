@@ -39,15 +39,17 @@ class TimeMutateTest extends TestCase
      */
     public function testModifyFails($value)
     {
-        $date = new ChronosDate();
-        $new = $date->modify($value);
+        $this->deprecated(function () use ($value) {
+            $date = new ChronosDate();
+            $new = $date->modify($value);
 
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
-        $this->assertSame(0, $new->hour);
-        $this->assertSame(0, $new->minute);
-        $this->assertSame(0, $new->second);
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
+            $this->assertSame(0, $new->hour);
+            $this->assertSame(0, $new->minute);
+            $this->assertSame(0, $new->second);
+        });
     }
 
     /**
@@ -75,16 +77,18 @@ class TimeMutateTest extends TestCase
      */
     public function testSetterMethodIsIgnored($method, $value)
     {
-        $date = new ChronosDate();
-        $new = $date->{$method}($value);
-        $this->assertSame(0, $new->hour);
-        $this->assertSame(0, $new->minute);
-        $this->assertSame(0, $new->second);
-        $this->assertSame('000000', $new->format('u'));
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
-        $this->assertSame('000000', $date->format('u'));
+        $this->deprecated(function () use ($method, $value) {
+            $date = new ChronosDate();
+            $new = $date->{$method}($value);
+            $this->assertSame(0, $new->hour);
+            $this->assertSame(0, $new->minute);
+            $this->assertSame(0, $new->second);
+            $this->assertSame('000000', $new->format('u'));
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
+            $this->assertSame('000000', $date->format('u'));
+        });
     }
 
     /**
@@ -92,6 +96,7 @@ class TimeMutateTest extends TestCase
      */
     public function testSetTimeIgnored()
     {
+        // This should have a deprecation but we use it internally quite a bit.
         $date = new ChronosDate();
         $new = $date->setTime(1, 2, 3, 4);
         $this->assertSame(0, $new->hour);
@@ -111,17 +116,19 @@ class TimeMutateTest extends TestCase
      */
     public function testSetTimestampRemovesTime()
     {
-        $date = new ChronosDate();
-        $date->setTimestamp(strtotime('+2 hours +2 minutes'));
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
+        $this->deprecated(function () {
+            $date = new ChronosDate();
+            $date->setTimestamp(strtotime('+2 hours +2 minutes'));
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
 
-        $date = new ChronosDate();
-        $date->timestamp(strtotime('+2 hours +2 minutes'));
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
+            $date = new ChronosDate();
+            $date->timestamp(strtotime('+2 hours +2 minutes'));
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
+        });
     }
 
     public function testStartOfDay()

@@ -277,4 +277,27 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
 
         return $properties;
     }
+
+    /**
+     * Deprecation helper to compare types
+     *
+     * Future versions of Chronos will not support comparing date/datetimes to each other.
+     *
+     * @param object $first The first object.
+     * @param object|null $second The second object
+     * @return void
+     * @internal
+     */
+    public static function checkTypes(object $first, $second): void
+    {
+        $firstClass = get_class($first);
+        $secondClass = $second !== null ? get_class($second) : null;
+        if ($second !== null && $firstClass !== $secondClass) {
+            trigger_error(
+                "2.5 Comparing {$firstClass} and {$secondClass} is deprecated. " .
+                'In 3.0 this functionality will be removed.',
+                E_USER_DEPRECATED
+            );
+        }
+    }
 }

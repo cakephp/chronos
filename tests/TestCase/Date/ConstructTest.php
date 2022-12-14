@@ -63,7 +63,7 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromTimestamp($class)
     {
-        $this->withTimezone('Europe/Berlin', function () use ($class) {
+        $scenario = function () use ($class) {
             $ts = 1454284800;
 
             $date = $class::createFromTimestamp($ts);
@@ -73,7 +73,14 @@ class ConstructTest extends TestCase
             $date = new $class($ts);
             $this->assertSame('Europe/Berlin', $date->tzName);
             $this->assertSame('2016-02-01', $date->format('Y-m-d'));
-        });
+        };
+        $wrapped = $scenario;
+        if ($class != MutableDate::class) {
+            $wrapped = function () use ($scenario) {
+                $this->deprecated($scenario);
+            };
+        }
+        $this->withTimezone('Europe/Berlin', $wrapped);
     }
 
     /**

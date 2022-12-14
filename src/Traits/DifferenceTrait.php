@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\DifferenceFormatterInterface;
@@ -49,8 +50,7 @@ trait DifferenceTrait
      */
     public function diffInYears(?ChronosInterface $dt = null, bool $abs = true): int
     {
-        $this->checkTypes($this, $dt);
-
+        Chronos::checkTypes($this, $dt);
         $diff = $this->diff($dt ?? static::now($this->tz), $abs);
 
         return $diff->invert ? -$diff->y : $diff->y;
@@ -65,6 +65,7 @@ trait DifferenceTrait
      */
     public function diffInMonths(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        Chronos::checkTypes($this, $dt);
         $diff = $this->diff($dt ?? static::now($this->tz), $abs);
         $months = $diff->y * ChronosInterface::MONTHS_PER_YEAR + $diff->m;
 
@@ -168,12 +169,18 @@ trait DifferenceTrait
         $start = $this;
         $end = $dt ?? static::now($this->tz);
         $inverse = false;
-        $this->checkTypes($start, $end);
+        Chronos::checkTypes($start, $end);
 
         if ($end < $start) {
             $start = $end;
             $end = $this;
             $inverse = true;
+        }
+        // Hack around DatePeriod not including end values.
+        // When handling dates we need to convert to a DateTime
+        // and offset by 1 second.
+        if ($end instanceof ChronosDate) {
+            $end = (new Chronos($end))->modify('+1 second');
         }
 
         $period = new DatePeriod($start, $ci, $end);
