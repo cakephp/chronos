@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use DateTimeInterface;
 use DateTimeZone;
@@ -113,6 +114,10 @@ trait FactoryTrait
      */
     public static function maxValue(): ChronosInterface
     {
+        if (static::class == ChronosDate::class) {
+            trigger_error('2.5 Using minValue to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
         return static::createFromTimestampUTC(PHP_INT_MAX);
     }
 
@@ -123,6 +128,9 @@ trait FactoryTrait
      */
     public static function minValue(): ChronosInterface
     {
+        if (static::class == ChronosDate::class) {
+            trigger_error('2.5 Using minValue to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
+        }
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
         return static::createFromTimestampUTC(~$max);
@@ -219,6 +227,10 @@ trait FactoryTrait
         ?int $microsecond = null,
         $tz = null
     ): ChronosInterface {
+        if (static::class == ChronosDate::class) {
+            trigger_error('2.5 Using createFromTime to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
         return static::create(null, null, null, $hour, $minute, $second, $microsecond, $tz);
     }
 
