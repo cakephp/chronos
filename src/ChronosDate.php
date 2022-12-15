@@ -171,7 +171,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @return static A modified Date instance
      */
     #[\ReturnTypeWillChange]
-    public function add(DateInterval $interval)
+    public function add($interval)
     {
         if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
             trigger_error('2.5 Adding intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
@@ -189,7 +189,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @return static A modified Date instance
      */
     #[\ReturnTypeWillChange]
-    public function sub(DateInterval $interval)
+    public function sub($interval)
     {
         if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
             trigger_error('2.5 Subtracting intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
