@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Cake\Chronos;
 
-use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -156,7 +155,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
     {
         $instance = static::createFromFormat(
             'Y-m-d',
-            sprintf('%s-%s-%s', 0, $month, $day),
+            sprintf('%s-%s-%s', 0, $month, $day)
         );
 
         return $instance->addYears($year);
