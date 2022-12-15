@@ -152,7 +152,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @param int $day The day to create an instance with.
      * @return static
      */
-    public static function create(int $year, int $month, int $day): static
+    public static function create(int $year, int $month, int $day)
     {
         $instance = static::createFromFormat(
             'Y-m-d',
@@ -170,7 +170,8 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    public function add(DateInterval $interval): static
+    #[\ReturnTypeWillChange]
+    public function add(DateInterval $interval)
     {
         if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
             trigger_error('2.5 Adding intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
@@ -187,7 +188,8 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @param \DateInterval $interval The interval to modify this date by.
      * @return static A modified Date instance
      */
-    public function sub(DateInterval $interval): static
+    #[\ReturnTypeWillChange]
+    public function sub(DateInterval $interval)
     {
         if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
             trigger_error('2.5 Subtracting intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
@@ -204,7 +206,8 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @param string $modifier Date modifier
      * @return static
      */
-    public function modify(string $modifier): static
+    #[\ReturnTypeWillChange]
+    public function modify(string $modifier)
     {
         if (preg_match('/hour|minute|second/', $modifier)) {
             trigger_error('2.5 Modifying dates with time values will be removed in 3.0', E_USER_DEPRECATED);
@@ -225,7 +228,8 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
     /**
      * @inheritDoc
      */
-    public function setTimestamp($value): static
+    #[\ReturnTypeWillChange]
+    public function setTimestamp($value)
     {
         trigger_error('2.5 Setting timestamp values on Date values will be removed in 3.0', E_USER_DEPRECATED);
 
