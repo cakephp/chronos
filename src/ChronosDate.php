@@ -207,7 +207,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      * @return static
      */
     #[\ReturnTypeWillChange]
-    public function modify(string $modifier)
+    public function modify($modifier)
     {
         if (preg_match('/hour|minute|second/', $modifier)) {
             trigger_error('2.5 Modifying dates with time values will be removed in 3.0', E_USER_DEPRECATED);
