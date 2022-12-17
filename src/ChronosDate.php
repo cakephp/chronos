@@ -16,6 +16,7 @@ namespace Cake\Chronos;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use InvalidArgumentException;
 
 /**
  * An immutable date object that converts all time components into 00:00:00.
@@ -122,6 +123,8 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
      */
     public function toMutable(): MutableDate
     {
+        trigger_error('2.5 Mutable classes will be removed in 3.0', E_USER_DEPRECATED);
+
         return MutableDate::instance($this);
     }
 
@@ -138,6 +141,147 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
         ];
 
         return $properties;
+    }
+
+    /**
+     * Create an instance from a specific date.
+     *
+     * @param int $year The year to create an instance with.
+     * @param int $month The month to create an instance with.
+     * @param int $day The day to create an instance with.
+     * @return static
+     */
+    public static function create(int $year, int $month, int $day)
+    {
+        $instance = static::createFromFormat(
+            'Y-m-d',
+            sprintf('%s-%s-%s', 0, $month, $day)
+        );
+
+        return $instance->addYears($year);
+    }
+
+    /**
+     * Add an Interval to a Date
+     *
+     * Any changes to the time will cause an exception to be raised.
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    #[\ReturnTypeWillChange]
+    public function add($interval)
+    {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            trigger_error('2.5 Adding intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
+        return parent::add($interval)->setTime(0, 0, 0);
+    }
+
+    /**
+     * Subtract an Interval from a Date.
+     *
+     * Any changes to the time will cause an exception to be raised.
+     *
+     * @param \DateInterval $interval The interval to modify this date by.
+     * @return static A modified Date instance
+     */
+    #[\ReturnTypeWillChange]
+    public function sub($interval)
+    {
+        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+            trigger_error('2.5 Subtracting intervals with time components will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
+        return parent::sub($interval)->setTime(0, 0, 0);
+    }
+
+    /**
+     * Creates a new instance with date modified according to DateTimeImmutable::modifier().
+     *
+     * Attempting to change a time component will raise an exception
+     *
+     * @param string $modifier Date modifier
+     * @return static
+     */
+    #[\ReturnTypeWillChange]
+    public function modify($modifier)
+    {
+        if (preg_match('/hour|minute|second/', $modifier)) {
+            trigger_error('2.5 Modifying dates with time values will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
+        $new = parent::modify($modifier);
+        if ($new === false) {
+            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+        }
+
+        if ($new->format('H:i:s') !== '00:00:00') {
+            $new = $new->setTime(0, 0, 0);
+        }
+
+        return $new;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\ReturnTypeWillChange]
+    public function setTimestamp($value)
+    {
+        trigger_error('2.5 Setting timestamp values on Date values will be removed in 3.0', E_USER_DEPRECATED);
+
+        return parent::setTimestamp($value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hour(int $value): ChronosInterface
+    {
+        trigger_error('2.5 Modifying hours on Date values will be removed in 3.0', E_USER_DEPRECATED);
+
+        return $this->setTime($value, $this->minute, $this->second);
+    }
+
+    /**
+     * Set the instance's minute
+     *
+     * @param int $value The minute value.
+     * @return static
+     */
+    public function minute(int $value): ChronosInterface
+    {
+        trigger_error('2.5 Modifying minutes on Date values will be removed in 3.0', E_USER_DEPRECATED);
+
+        return $this->setTime($this->hour, $value, $this->second);
+    }
+
+    /**
+     * Set the instance's second
+     *
+     * @param int $value The seconds value.
+     * @return static
+     */
+    public function second(int $value): ChronosInterface
+    {
+        trigger_error('2.5 Modifying second on Date values will be removed in 3.0', E_USER_DEPRECATED);
+
+        return $this->setTime($this->hour, $this->minute, $value);
+    }
+
+    /**
+     * Set the instance's microsecond
+     *
+     * @param int $value The microsecond value.
+     * @return static
+     */
+    public function microsecond(int $value): ChronosInterface
+    {
+        trigger_error('2.5 Modifying microsecond on Date values will be removed in 3.0', E_USER_DEPRECATED);
+
+        return $this->setTime($this->hour, $this->minute, $this->second, $value);
     }
 }
 

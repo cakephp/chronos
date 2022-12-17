@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
+use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
 
@@ -41,16 +42,22 @@ class AddTest extends TestCase
      */
     public function testAddIgnoreTime($class)
     {
-        $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = $class::create(2001, 1, 1);
-        $new = $date->add($interval);
+        $scenario = function () use ($class) {
+            $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
+            $date = $class::create(2001, 1, 1);
+            $new = $date->add($interval);
 
-        $this->assertSame(0, $new->hour);
-        $this->assertSame(0, $new->minute);
-        $this->assertSame(0, $new->second);
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
+            $this->assertSame(0, $new->hour);
+            $this->assertSame(0, $new->minute);
+            $this->assertSame(0, $new->second);
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
+        };
+        if ($class == MutableDate::class) {
+            return $scenario();
+        }
+        $this->deprecated($scenario);
     }
 
     /**
@@ -75,16 +82,22 @@ class AddTest extends TestCase
      */
     public function testSubIgnoreTime($class)
     {
-        $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
-        $date = $class::create(2001, 1, 1);
-        $new = $date->sub($interval);
+        $scenario = function () use ($class) {
+            $interval = DateInterval::createFromDateString('1 hour, 1 minute, 3 seconds');
+            $date = $class::create(2001, 1, 1);
+            $new = $date->sub($interval);
 
-        $this->assertSame(0, $new->hour);
-        $this->assertSame(0, $new->minute);
-        $this->assertSame(0, $new->second);
-        $this->assertSame(0, $date->hour);
-        $this->assertSame(0, $date->minute);
-        $this->assertSame(0, $date->second);
+            $this->assertSame(0, $new->hour);
+            $this->assertSame(0, $new->minute);
+            $this->assertSame(0, $new->second);
+            $this->assertSame(0, $date->hour);
+            $this->assertSame(0, $date->minute);
+            $this->assertSame(0, $date->second);
+        };
+        if ($class == MutableDate::class) {
+            return $scenario();
+        }
+        $this->deprecated($scenario);
     }
 
     /**

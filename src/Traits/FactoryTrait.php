@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use DateTimeInterface;
 use DateTimeZone;
@@ -219,7 +220,12 @@ trait FactoryTrait
         ?int $microsecond = null,
         $tz = null
     ): ChronosInterface {
-        return static::create(null, null, null, $hour, $minute, $second, $microsecond, $tz);
+        $instance = static::create(null, null, null, $hour, $minute, $second, $microsecond, $tz);
+        if (get_class($instance) === ChronosDate::class) {
+            trigger_error('2.5 Using createFromTime to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
+        return $instance;
     }
 
     /**
@@ -326,7 +332,12 @@ trait FactoryTrait
      */
     public static function createFromTimestampUTC(int $timestamp): ChronosInterface
     {
-        return new static($timestamp);
+        $instance = new static($timestamp);
+        if (get_class($instance) === ChronosDate::class) {
+            trigger_error('2.5 Creating Date objects from timestamps will be removed in 3.0', E_USER_DEPRECATED);
+        }
+
+        return $instance;
     }
 
     /**
