@@ -31,6 +31,11 @@ class ConstructTest extends TestCase
             $date = ChronosDate::createFromTimestamp(time());
             $this->assertGreaterThanOrEqual(2022, $date->year);
         });
+
+        $this->deprecated(function () {
+            $date = ChronosDate::createFromTimestampUTC(time());
+            $this->assertGreaterThanOrEqual(2022, $date->year);
+        });
     }
 
     /**
