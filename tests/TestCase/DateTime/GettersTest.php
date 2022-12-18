@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @copyright     Copyright (c) Brian Nesbitt <brian@nesbot.com>
- * @link          http://cakephp.org CakePHP(tm) Project
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Cake\Chronos\Test\TestCase\DateTime;
@@ -165,7 +165,7 @@ class GettersTest extends TestCase
     public function testGetLocalTrue()
     {
         // Default timezone has been set to America/Toronto in TestCase.php
-        // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
+        // @see : https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
         $this->assertTrue(Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->local);
         $this->assertTrue(Chronos::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }
