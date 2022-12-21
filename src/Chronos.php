@@ -140,6 +140,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      */
     public function toMutable(): MutableDateTime
     {
+        trigger_error('2.5 Mutable classes will be removed in 3.0', E_USER_DEPRECATED);
+
         return MutableDateTime::instance($this);
     }
 

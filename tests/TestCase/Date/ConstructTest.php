@@ -25,6 +25,19 @@ use DateTimeZone;
  */
 class ConstructTest extends TestCase
 {
+    public function testCreateFromTimestampDeprecated()
+    {
+        $this->deprecated(function () {
+            $date = ChronosDate::createFromTimestamp(time());
+            $this->assertGreaterThanOrEqual(2022, $date->year);
+        });
+
+        $this->deprecated(function () {
+            $date = ChronosDate::createFromTimestampUTC(time());
+            $this->assertGreaterThanOrEqual(2022, $date->year);
+        });
+    }
+
     /**
      * @dataProvider dateClassProvider
      * @return void
