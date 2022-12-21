@@ -333,7 +333,10 @@ trait FactoryTrait
     {
         $instance = static::now($tz)->setTimestamp($timestamp);
         if (get_class($instance) === ChronosDate::class) {
-            trigger_error('2.5 Creating Date instances with createFromTimestamp() will be removed in 3.0', E_USER_DEPRECATED);
+            trigger_error(
+                '2.5 Creating Date instances with createFromTimestamp() will be removed in 3.0',
+                E_USER_DEPRECATED
+            );
         }
 
         return $instance;
