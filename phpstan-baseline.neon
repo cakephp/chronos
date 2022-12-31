@@ -1,8 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Cake\\\\Chronos\\\\Chronos\\:\\:safeCreateDateTimeZone\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: src/Chronos.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\Chronos\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 5
+			count: 32
+			path: src/Chronos.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\Chronos\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
+			count: 9
 			path: src/Chronos.php
 
 		-
@@ -14,6 +24,11 @@ parameters:
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 13
 			path: src/Chronos.php
+
+		-
+			message: "#^Method Cake\\\\Chronos\\\\ChronosDate\\:\\:safeCreateDateTimeZone\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: src/ChronosDate.php
 
 		-
 			message: "#^Parameter \\#1 \\$year of static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) expects int, null given\\.$#"
@@ -46,6 +61,11 @@ parameters:
 			path: src/ChronosDate.php
 
 		-
+			message: "#^Variable \\$tz on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/ChronosDate.php
+
+		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 10
 			path: src/ChronosInterval.php
@@ -56,8 +76,18 @@ parameters:
 			path: src/DifferenceFormatter.php
 
 		-
+			message: "#^Method Cake\\\\Chronos\\\\MutableDate\\:\\:safeCreateDateTimeZone\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: src/MutableDate.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\MutableDate\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 5
+			count: 35
+			path: src/MutableDate.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\MutableDate\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
+			count: 9
 			path: src/MutableDate.php
 
 		-
@@ -71,8 +101,18 @@ parameters:
 			path: src/MutableDate.php
 
 		-
+			message: "#^Method Cake\\\\Chronos\\\\MutableDateTime\\:\\:safeCreateDateTimeZone\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: src/MutableDateTime.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\MutableDateTime\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 5
+			count: 32
+			path: src/MutableDateTime.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\MutableDateTime\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
+			count: 9
 			path: src/MutableDateTime.php
 
 		-
