@@ -65,6 +65,10 @@ trait ModifierTrait
      */
     public static function getWeekStartsAt(): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 getWeekStartsAt() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return static::$weekStartsAt;
     }
 
@@ -76,6 +80,10 @@ trait ModifierTrait
      */
     public static function setWeekStartsAt(int $day): void
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 getWeekStartsAt() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         static::$weekStartsAt = $day;
     }
 
@@ -86,6 +94,10 @@ trait ModifierTrait
      */
     public static function getWeekEndsAt(): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 getWeekEndsAt() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return static::$weekEndsAt;
     }
 
@@ -97,6 +109,10 @@ trait ModifierTrait
      */
     public static function setWeekEndsAt(int $day): void
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setWeekEndsAt() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         static::$weekEndsAt = $day;
     }
 
@@ -149,6 +165,10 @@ trait ModifierTrait
         int $minute,
         int $second = 0
     ): ChronosInterface {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 setDateTime() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
     }
 
@@ -160,6 +180,9 @@ trait ModifierTrait
      */
     public function setTimeFromTimeString(string $time): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 setTimeFromTimeString() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         $time = explode(':', $time);
         $hour = $time[0];
         $minute = $time[1] ?? 0;
@@ -176,6 +199,10 @@ trait ModifierTrait
      */
     public function timestamp(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 timestamp() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setTimestamp($value);
     }
 
@@ -220,6 +247,10 @@ trait ModifierTrait
      */
     public function hour(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 hour() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setTime($value, $this->minute, $this->second);
     }
 
@@ -231,6 +262,10 @@ trait ModifierTrait
      */
     public function minute(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 minute() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setTime($this->hour, $value, $this->second);
     }
 
@@ -242,6 +277,10 @@ trait ModifierTrait
      */
     public function second(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 second() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setTime($this->hour, $this->minute, $value);
     }
 
@@ -253,6 +292,10 @@ trait ModifierTrait
      */
     public function microsecond(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 microsecond() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->setTime($this->hour, $this->minute, $this->second, $value);
     }
 
@@ -728,6 +771,10 @@ trait ModifierTrait
      */
     public function subHours(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 subHours() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->addHours(-$value);
     }
 
@@ -740,6 +787,10 @@ trait ModifierTrait
      */
     public function addMinutes(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 addMinutes() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify("$value minute");
     }
 
@@ -777,6 +828,10 @@ trait ModifierTrait
      */
     public function subMinutes(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 subMinutes() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->addMinutes(-$value);
     }
 
@@ -789,6 +844,10 @@ trait ModifierTrait
      */
     public function addSeconds(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 setTimestamp() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify("$value second");
     }
 
@@ -826,6 +885,10 @@ trait ModifierTrait
      */
     public function subSeconds(int $value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 subSeconds() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->addSeconds(-$value);
     }
 
@@ -836,6 +899,10 @@ trait ModifierTrait
      */
     public function startOfDay(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 startOfDay() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('midnight');
     }
 
@@ -846,6 +913,10 @@ trait ModifierTrait
      */
     public function endOfDay(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 endOfDay() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('23:59:59');
     }
 
@@ -856,6 +927,10 @@ trait ModifierTrait
      */
     public function startOfMonth(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 startOfMonth() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('first day of this month midnight');
     }
 
@@ -866,6 +941,10 @@ trait ModifierTrait
      */
     public function endOfMonth(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 endOfMonth() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('last day of this month, 23:59:59');
     }
 
@@ -876,6 +955,10 @@ trait ModifierTrait
      */
     public function startOfYear(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 startOfYear() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('first day of january midnight');
     }
 
@@ -886,6 +969,10 @@ trait ModifierTrait
      */
     public function endOfYear(): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 endOfYear() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->modify('last day of december, 23:59:59');
     }
 
@@ -1178,6 +1265,9 @@ trait ModifierTrait
      */
     public function average(?ChronosInterface $dt = null): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 average() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         $dt = $dt ?? static::now($this->tz);
 
         return $this->addSeconds((int)($this->diffInSeconds($dt, false) / 2));

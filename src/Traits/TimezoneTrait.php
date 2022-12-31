@@ -58,6 +58,9 @@ trait TimezoneTrait
     #[ReturnTypeWillChange]
     public function setTimezone($value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 setTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 }

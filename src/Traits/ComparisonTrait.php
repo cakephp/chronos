@@ -39,6 +39,10 @@ trait ComparisonTrait
      */
     public static function getWeekendDays(): array
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 getWeekendDays() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return static::$weekendDays;
     }
 
@@ -50,6 +54,10 @@ trait ComparisonTrait
      */
     public static function setWeekendDays(array $days): void
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setWeekendDays() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         static::$weekendDays = $days;
     }
 

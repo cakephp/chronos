@@ -175,6 +175,10 @@ trait FrozenTimeTrait
     #[ReturnTypeWillChange]
     public function setTimestamp($value): ChronosInterface
     {
+        if (get_class($this) === ChronosDate::class) {
+            trigger_error('2.5 setTimestamp() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
 

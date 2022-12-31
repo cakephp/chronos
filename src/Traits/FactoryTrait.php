@@ -41,6 +41,9 @@ trait FactoryTrait
      */
     public static function instance(DateTimeInterface $dt): ChronosInterface
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 instance() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         if ($dt instanceof static) {
             return clone $dt;
         }
@@ -210,6 +213,10 @@ trait FactoryTrait
         ?int $day = null,
         $tz = null
     ): ChronosInterface {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 createFromDate() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return static::create($year, $month, $day, null, null, null, null, $tz);
     }
 

@@ -22,9 +22,11 @@ class DateMutabilityConversionTest extends TestCase
 {
     public function testImmutableInstanceFromMutable()
     {
-        $dt1 = MutableDate::create(2001, 2, 3, 10, 20, 30);
-        $dt2 = ChronosDate::instance($dt1);
-        $this->checkBothInstances($dt1, $dt2);
+        $this->deprecated(function () {
+            $dt1 = MutableDate::create(2001, 2, 3, 10, 20, 30);
+            $dt2 = ChronosDate::instance($dt1);
+            $this->checkBothInstances($dt1, $dt2);
+        });
     }
 
     public function testMutableInstanceFromImmutable()
@@ -36,9 +38,11 @@ class DateMutabilityConversionTest extends TestCase
 
     public function testToImmutable()
     {
-        $dt1 = MutableDate::create(2001, 2, 3, 10, 20, 30);
-        $dt2 = $dt1->toImmutable();
-        $this->checkBothInstances($dt1, $dt2);
+        $this->deprecated(function () {
+            $dt1 = MutableDate::create(2001, 2, 3, 10, 20, 30);
+            $dt2 = $dt1->toImmutable();
+            $this->checkBothInstances($dt1, $dt2);
+        });
     }
 
     public function testToMutable()
