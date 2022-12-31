@@ -59,11 +59,15 @@ class DateMutabilityConversionTest extends TestCase
 
     public function testIsMutableMethod()
     {
-        $dt1 = MutableDate::now();
-        $this->assertTrue($dt1->isMutable());
+        $this->deprecated(function () {
+            $dt1 = MutableDate::now();
+            $this->assertTrue($dt1->isMutable());
+        });
 
-        $dt2 = ChronosDate::now();
-        $this->assertFalse($dt2->isMutable());
+        $this->deprecated(function () {
+            $dt2 = ChronosDate::now();
+            $this->assertFalse($dt2->isMutable());
+        });
     }
 
     protected function checkBothInstances(MutableDate $dt1, ChronosDate $dt2)

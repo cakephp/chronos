@@ -387,6 +387,8 @@ trait ModifierTrait
      */
     public function subYearWithOverflow(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - addYearWithOverflow() is deprecated.', E_USER_DEPRECATED);
+
         return $this->subYearsWithOverflow($value);
     }
 
@@ -626,6 +628,8 @@ trait ModifierTrait
      */
     public function subWeekday(int $value = 1): ChronosInterface
     {
+        trigger_error('Since 2.4 - subWeekday() is deprecated. Use subWeekdays() instead.', E_USER_DEPRECATED);
+
         return $this->addWeekdays(-$value);
     }
 

@@ -87,9 +87,11 @@ class SubTest extends TestCase
      */
     public function testSubYearWithOverflowPassingArg($class)
     {
-        $dt = $class::createFromDate(2013, 2, 28)->subYearWithOverflow();
-        $this->assertSame(2, $dt->month);
-        $this->assertSame(28, $dt->day);
+        $this->deprecated(function () use ($class) {
+            $dt = $class::createFromDate(2013, 2, 28)->subYearWithOverflow();
+            $this->assertSame(2, $dt->month);
+            $this->assertSame(28, $dt->day);
+        });
     }
 
     /**
@@ -174,7 +176,9 @@ class SubTest extends TestCase
      */
     public function testSubWeekdayDuringWeekend($class)
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekday()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(6, $class::createFromDate(2012, 1, 8)->subWeekday()->day);
+        });
     }
 
     /**
@@ -216,7 +220,9 @@ class SubTest extends TestCase
      */
     public function testSubWeekday($class)
     {
-        $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekday()->day);
+        $this->deprecated(function () use ($class) {
+            $this->assertSame(6, $class::createFromDate(2012, 1, 9)->subWeekday()->day);
+        });
     }
 
     /**

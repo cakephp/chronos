@@ -580,6 +580,8 @@ trait ComparisonTrait
      */
     public function isMutable(): bool
     {
+        trigger_error('2.5 isMutable will be removed in the future', E_USER_DEPRECATED);
+
         return $this instanceof DateTime;
     }
 }

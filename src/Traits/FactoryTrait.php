@@ -358,7 +358,7 @@ trait FactoryTrait
         return $instance;
     }
 
-    /**
+    /**n
      * Creates a DateTimeZone from a string or a DateTimeZone
      *
      * @param \DateTimeZone|string|null $object The value to convert.
@@ -389,6 +389,8 @@ trait FactoryTrait
         if (empty(static::$_lastErrors)) {
             return parent::getLastErrors();
         }
+
+        trigger_error('2.5 getLastErrors() is deprecated. Exceptions will be raised in 3.x', E_USER_DEPRECATED);
 
         return static::$_lastErrors;
     }

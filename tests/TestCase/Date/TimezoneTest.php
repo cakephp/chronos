@@ -35,11 +35,14 @@ class TimezoneTest extends TestCase
      */
     public function testNoopOnTimezoneChange($method)
     {
-        $tz = new DateTimeZone('Pacific/Honolulu');
-        $date = new ChronosDate('2015-01-01');
-        $new = $date->{$method}($tz);
-        $this->assertSame($new, $date);
-        $this->assertNotSame($tz, $new->timezone);
+        $this->deprecated(function () use ($method) {
+            $tz = new DateTimeZone('Pacific/Honolulu');
+            $date = new ChronosDate('2015-01-01');
+            $new = $date->{$method}($tz);
+            $this->assertSame($new, $date);
+
+            $this->assertNotSame($tz, $new->timezone);
+        });
     }
 
     /**
@@ -53,6 +56,7 @@ class TimezoneTest extends TestCase
         $date = new MutableDate('2015-01-01');
         $new = $date->{$method}($tz);
         $this->assertSame($new, $date);
+
         $this->assertNotSame($tz, $date->timezone);
     }
 }

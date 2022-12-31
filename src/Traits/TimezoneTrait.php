@@ -31,6 +31,8 @@ trait TimezoneTrait
      */
     public function timezone($value): ChronosInterface
     {
+        trigger_error('2.5 timezone() is deprecated. Use setTimezone() instead.', E_USER_DEPRECATED);
+
         return $this->setTimezone($value);
     }
 
@@ -42,6 +44,8 @@ trait TimezoneTrait
      */
     public function tz($value): ChronosInterface
     {
+        trigger_error('2.5 tz() is deprecated. Use setTimezone() instead.', E_USER_DEPRECATED);
+
         return $this->setTimezone($value);
     }
 

@@ -43,9 +43,9 @@ class MutabilityConversionTest extends TestCase
     public function testToMutable()
     {
         $this->deprecated(function () {
-            $dt1 = Chronos::create(2001, 2, 3, 10, 20, 30);
-            $dt2 = $dt1->toMutable();
-            $this->checkBothInstances($dt2, $dt1);
+        $dt1 = Chronos::create(2001, 2, 3, 10, 20, 30);
+        $dt2 = $dt1->toMutable();
+        $this->checkBothInstances($dt2, $dt1);
         });
     }
 
@@ -58,11 +58,15 @@ class MutabilityConversionTest extends TestCase
 
     public function testIsMutableMethod()
     {
-        $dt1 = MutableDateTime::now();
-        $this->assertTrue($dt1->isMutable());
+        $this->deprecated(function () {
+            $dt1 = MutableDateTime::now();
+            $this->assertTrue($dt1->isMutable());
+        });
 
-        $dt2 = Chronos::now();
-        $this->assertFalse($dt2->isMutable());
+        $this->deprecated(function () {
+            $dt2 = Chronos::now();
+            $this->assertFalse($dt2->isMutable());
+        });
     }
 
     protected function checkBothInstances(MutableDateTime $dt1, Chronos $dt2)
