@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use ReturnTypeWillChange;
 
