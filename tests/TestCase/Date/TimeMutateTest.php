@@ -133,32 +133,40 @@ class TimeMutateTest extends TestCase
 
     public function testStartOfDay()
     {
-        $date = new ChronosDate();
-        $this->assertSame('00:00:00', $date->startOfDay()->format('H:i:s'));
+        $this->deprecated(function () {
+            $date = new ChronosDate();
+            $this->assertSame('00:00:00', $date->startOfDay()->format('H:i:s'));
+        });
     }
 
     public function testEndOfDay()
     {
-        $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->endOfDay();
-        $this->assertSame('00:00:00', $new->format('H:i:s'));
-        $this->assertSame('2001-01-01', $new->format('Y-m-d'));
+        $this->deprecated(function () {
+            $date = ChronosDate::create(2001, 1, 1);
+            $new = $date->endOfDay();
+            $this->assertSame('00:00:00', $new->format('H:i:s'));
+            $this->assertSame('2001-01-01', $new->format('Y-m-d'));
+        });
     }
 
     public function testEndOfMonth()
     {
-        $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->endOfMonth();
-        $this->assertSame('00:00:00', $new->format('H:i:s'));
-        $this->assertSame('2001-01-31', $new->format('Y-m-d'));
+        $this->deprecated(function () {
+            $date = ChronosDate::create(2001, 1, 1);
+            $new = $date->endOfMonth();
+            $this->assertSame('00:00:00', $new->format('H:i:s'));
+            $this->assertSame('2001-01-31', $new->format('Y-m-d'));
+        });
     }
 
     public function testEndOfYear()
     {
-        $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->endOfYear();
-        $this->assertSame('00:00:00', $new->format('H:i:s'));
-        $this->assertSame('2001-12-31', $new->format('Y-m-d'));
+        $this->deprecated(function () {
+            $date = ChronosDate::create(2001, 1, 1);
+            $new = $date->endOfYear();
+            $this->assertSame('00:00:00', $new->format('H:i:s'));
+            $this->assertSame('2001-12-31', $new->format('Y-m-d'));
+        });
     }
 
     public function testEndOfDecade()
@@ -171,10 +179,12 @@ class TimeMutateTest extends TestCase
 
     public function testEndOfCentury()
     {
-        $date = ChronosDate::create(2001, 1, 1);
-        $new = $date->endOfCentury();
-        $this->assertSame('00:00:00', $new->format('H:i:s'));
-        $this->assertSame('2100-12-31', $new->format('Y-m-d'));
+        $this->deprecated(function () {
+            $date = ChronosDate::create(2001, 1, 1);
+            $new = $date->endOfCentury();
+            $this->assertSame('00:00:00', $new->format('H:i:s'));
+            $this->assertSame('2100-12-31', $new->format('Y-m-d'));
+        });
     }
 
     public function testNextAndPrev()
