@@ -86,6 +86,9 @@ trait DifferenceTrait
      */
     public function diffInMonthsIgnoreTimezone(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 diffInMonthsIgnoreTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         $utcTz = new DateTimeZone('UTC');
         $source = new static($this->format('Y-m-d H:i:s.u'), $utcTz);
 
@@ -146,6 +149,9 @@ trait DifferenceTrait
      */
     public function diffInHoursFiltered(callable $callback, ?ChronosInterface $dt = null, bool $abs = true): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 diffInHoursFiltered() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         $interval = Chronos::createInterval(0, 0, 0, 0, 1);
 
         return $this->diffFiltered($interval, $callback, $dt, $abs);
@@ -230,6 +236,10 @@ trait DifferenceTrait
      */
     public function diffInHours(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 diffInHours() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return (int)(
             $this->diffInSeconds($dt, $abs)
             / ChronosInterface::SECONDS_PER_MINUTE
@@ -246,6 +256,10 @@ trait DifferenceTrait
      */
     public function diffInMinutes(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 diffInMinutes() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return (int)($this->diffInSeconds($dt, $abs) / ChronosInterface::SECONDS_PER_MINUTE);
     }
 
@@ -258,6 +272,10 @@ trait DifferenceTrait
      */
     public function diffInSeconds(?ChronosInterface $dt = null, bool $abs = true): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 diffInSeconds() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         $dt = $dt ?? static::now($this->tz);
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
@@ -271,6 +289,10 @@ trait DifferenceTrait
      */
     public function secondsSinceMidnight(): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 secondsSinceMidnight() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->diffInSeconds($this->copy()->startOfDay());
     }
 
@@ -281,6 +303,10 @@ trait DifferenceTrait
      */
     public function secondsUntilEndOfDay(): int
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 secondsUntilEndOfDay() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this->diffInSeconds($this->copy()->endOfDay());
     }
 
@@ -292,6 +318,9 @@ trait DifferenceTrait
      */
     public static function fromNow($datetime)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 fromNow() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
         $timeNow = new static();
 
         return $timeNow->diff($datetime);

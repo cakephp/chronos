@@ -105,7 +105,7 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
         }
 
         $testNow = clone $testNow;
-        if ($tz !== $testNow->getTimezone()) {
+        if ($tz !== null && $tz !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($tz ?? date_default_timezone_get());
         }
         if (!empty($time)) {

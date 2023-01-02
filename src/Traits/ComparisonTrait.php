@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Traits;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use DateTime;
 
@@ -39,6 +40,10 @@ trait ComparisonTrait
      */
     public static function getWeekendDays(): array
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 getWeekendDays() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return static::$weekendDays;
     }
 
@@ -50,6 +55,10 @@ trait ComparisonTrait
      */
     public static function setWeekendDays(array $days): void
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setWeekendDays() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         static::$weekendDays = $days;
     }
 
@@ -580,6 +589,8 @@ trait ComparisonTrait
      */
     public function isMutable(): bool
     {
+        trigger_error('2.5 isMutable will be removed in the future', E_USER_DEPRECATED);
+
         return $this instanceof DateTime;
     }
 }

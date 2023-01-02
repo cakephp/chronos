@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -120,6 +121,10 @@ trait FrozenTimeTrait
      */
     public function timezone($value)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 timezone() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this;
     }
 
@@ -133,6 +138,10 @@ trait FrozenTimeTrait
      */
     public function tz($value)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 tz() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this;
     }
 
@@ -147,6 +156,10 @@ trait FrozenTimeTrait
     #[ReturnTypeWillChange]
     public function setTimezone($value)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this;
     }
 
@@ -162,6 +175,10 @@ trait FrozenTimeTrait
     #[ReturnTypeWillChange]
     public function setTimestamp($value): ChronosInterface
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setTimestamp() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
 
@@ -186,5 +203,20 @@ trait FrozenTimeTrait
         }
 
         return $new;
+    }
+
+    /**
+     * @param int $year The year.
+     * @param int $week The week number.
+     * @param int $dayOfWeek Day of the week.
+     * @return mixed
+     * @deprecated
+     */
+    #[ReturnTypeWillChange]
+    public function setISODate($year, $week, $dayOfWeek = null)
+    {
+        trigger_error('2.5 setISODate will be removed in 3.x');
+
+        return parent::setISODate($year, $week, $dayOfWeek);
     }
 }
