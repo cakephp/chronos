@@ -7,12 +7,12 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\Chronos\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 32
+			count: 5
 			path: src/Chronos.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\Chronos\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 9
+			count: 36
 			path: src/Chronos.php
 
 		-
@@ -82,12 +82,12 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\MutableDate\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 35
+			count: 5
 			path: src/MutableDate.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\MutableDate\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 9
+			count: 39
 			path: src/MutableDate.php
 
 		-
@@ -107,12 +107,12 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<Cake\\\\Chronos\\\\MutableDateTime\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 32
+			count: 5
 			path: src/MutableDateTime.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<static\\(Cake\\\\Chronos\\\\MutableDateTime\\)\\> and 'Cake\\\\\\\\Chronos\\\\\\\\ChronosDate' will always evaluate to false\\.$#"
-			count: 9
+			count: 36
 			path: src/MutableDateTime.php
 
 		-
