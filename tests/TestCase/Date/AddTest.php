@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Test\TestCase\Date;
 
+use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
