@@ -157,7 +157,21 @@ trait FrozenTimeTrait
     public function setTimezone($value)
     {
         if (static::class === ChronosDate::class) {
-            trigger_error('2.5 setTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+            $trace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 5);
+            $found = false;
+            foreach ($trace as $frame) {
+                $found = in_array(
+                    $frame['class'],
+                    ['PHPUnit\Framework\Assert', 'PHPUnit\Framework\Constraint\IsEqual'],
+                    true
+                );
+                if ($found) {
+                    break;
+                }
+            }
+            if (!$found) {
+                trigger_error('2.5 setTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+            }
         }
 
         return $this;
