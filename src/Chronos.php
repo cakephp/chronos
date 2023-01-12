@@ -1004,7 +1004,10 @@ class Chronos
      */
     public function getTimezone(): ?DateTimeZone
     {
-        return $this->native->getTimezone() ?: null;
+        /** @var \DateTimeZone|false $timezone */
+        $timezone = $this->native->getTimezone();
+
+        return $timezone ?: null;
     }
 
     /**
