@@ -227,7 +227,9 @@ class ChronosDate
 
         $errors = DateTimeImmutable::getLastErrors();
         if (!$dateTime) {
-            throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
+            $message = implode(PHP_EOL, $errors ? $errors['errors'] : []);
+
+            throw new InvalidArgumentException($message);
         }
 
         return new static($dateTime);
