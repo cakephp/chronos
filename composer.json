@@ -47,8 +47,8 @@
             "@cs-check",
             "@phpstan"
         ],
-        "cs-check": "phpcs --colors --parallel=16 -p src/ tests/",
-        "cs-fix": "phpcbf --colors --parallel=16 -p src/ tests/",
+        "cs-check": "phpcs --colors --parallel=16 -p",
+        "cs-fix": "phpcbf --colors --parallel=16 -p",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar --show-info=false",
         "stan": [

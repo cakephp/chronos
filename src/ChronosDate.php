@@ -1413,7 +1413,7 @@ class ChronosDate
     {
         $diff = $this->diff($other ?? new static(Chronos::now()), $absolute);
 
-        return $diff->invert ? -$diff->days : $diff->days;
+        return $diff->invert ? -(int)$diff->days : (int)$diff->days;
     }
 
     /**
