@@ -227,7 +227,9 @@ class ChronosDate
 
         $errors = DateTimeImmutable::getLastErrors();
         if (!$dateTime) {
-            throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
+            $message = implode(PHP_EOL, $errors ? $errors['errors'] : ['Unknown error']);
+
+            throw new InvalidArgumentException($message);
         }
 
         return new static($dateTime);
@@ -1413,7 +1415,7 @@ class ChronosDate
     {
         $diff = $this->diff($other ?? new static(Chronos::now()), $absolute);
 
-        return $diff->invert ? -$diff->days : $diff->days;
+        return $diff->invert ? -(int)$diff->days : (int)$diff->days;
     }
 
     /**
