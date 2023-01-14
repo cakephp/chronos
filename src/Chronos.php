@@ -1000,11 +1000,14 @@ class Chronos
     /**
      * Return time zone set for this instance.
      *
-     * @return \DateTimeZone|false
+     * @return \DateTimeZone|null
      */
-    public function getTimezone(): DateTimeZone|false
+    public function getTimezone(): ?DateTimeZone
     {
-        return $this->native->getTimezone();
+        /** @var \DateTimeZone|false $timezone */
+        $timezone = $this->native->getTimezone();
+
+        return $timezone ?: null;
     }
 
     /**
