@@ -60,17 +60,17 @@ path. Unfortunately these changes will result in hard breaks in 3.0.
 Carbon aliases removed
 ----------------------
 
-When chronos was started Carbon had no active maintainers. We included
-compatiblity aliases in chronos to help users migrate from the un-maintained
-carbon library to chronos. Presently, carbon has active maintainers and we no
+When Chronos was started Carbon had no active maintainers. We included
+compatiblity aliases in Chronos to help users migrate from the unmaintained
+Carbon library to Chronos. Presently, Carbon has active maintainers and we no
 longer feel the need to provide shims.
 
 No longer extending DateTime
 ----------------------------
 
-Historically chronos has extended PHP's ``DateTime`` classes. This has proven to
-be problematic especially for date classes. While chronos will not extend
-PHP's datetime classes or implements the ``DateTimeInterface``, if a method does
+Historically Chronos has extended PHP's ``DateTime`` classes. This has proven to
+be problematic especially for date classes. While Chronos will not extend
+PHP's ``DateTime`` classes or implements the ``DateTimeInterface``, if a method does
 not emit a deprecation in 2.4.0 it will continue to work in 3.0.
 
 To adapt to this change before upgrading to 3.0 replace references to PHP's
