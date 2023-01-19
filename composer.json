@@ -45,17 +45,19 @@
         "check": [
             "@test",
             "@cs-check",
-            "@phpstan"
+            "@stan"
         ],
         "cs-check": "phpcs --colors --parallel=16 -p",
         "cs-fix": "phpcbf --colors --parallel=16 -p",
-        "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar --show-info=false",
+        "phpstan": "tools/phpstan analyse",
+        "psalm": "tools/psalm --show-info=false",
         "stan": [
             "@phpstan",
             "@psalm"
         ],
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:~1.8.0 psalm/phar:~5.0-beta && mv composer.backup composer.json",
+        "stan-baseline": "tools/phpstan --generate-baseline",
+        "psalm-baseline": "tools/psalm  --set-baseline=psalm-baseline.xml",
+        "stan-setup": "phive install",
         "test": "phpunit"
     },
     "config": {
