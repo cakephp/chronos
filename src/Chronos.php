@@ -279,7 +279,7 @@ class Chronos
         }
 
         if ($relative) {
-            $testNow = $testNow->modify($time);
+            $testNow = $testNow->modify($time ?? 'now');
         }
 
         return new DateTimeImmutable($testNow->format('Y-m-d H:i:s.u'), $timezone);
@@ -2540,13 +2540,14 @@ class Chronos
                 return $this->offset === 0;
 
             case $name === 'timezone' || $name === 'tz':
+                assert($this->getTimezone() !== null, 'Timezone is not set');
+
                 return $this->getTimezone();
 
             case $name === 'timezoneName' || $name === 'tzName':
-                $timezone = $this->getTimezone();
-                assert($timezone !== false, 'Timezone is not set');
+                assert($this->getTimezone() !== null, 'Timezone is not set');
 
-                return $timezone->getName();
+                return $this->getTimezone()->getName();
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
