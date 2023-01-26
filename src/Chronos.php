@@ -268,18 +268,18 @@ class Chronos
         }
 
         $relative = static::hasRelativeKeywords($time);
-        if (!empty($time) && $time !== 'now' && !$relative) {
+        if ($time && $time !== 'now' && !$relative) {
             return new DateTimeImmutable($time, $timezone);
         }
 
         $testNow = clone $testNow;
-        $relativetime = self::isTimeExpression($time);
-        if (!$relativetime && $timezone !== $testNow->getTimezone()) {
+        $relativeTime = self::isTimeExpression($time);
+        if (!$relativeTime && $timezone !== $testNow->getTimezone()) {
             $testNow = $testNow->setTimezone($timezone ?? date_default_timezone_get());
         }
 
         if ($relative) {
-            $testNow = $testNow->modify($time);
+            $testNow = $testNow->modify($time ?? 'now');
         }
 
         return new DateTimeImmutable($testNow->format('Y-m-d H:i:s.u'), $timezone);
@@ -678,7 +678,9 @@ class Chronos
 
         $errors = DateTimeImmutable::getLastErrors();
         if (!$dateTime) {
-            throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
+            $message = $errors ? implode(PHP_EOL, $errors['errors']) : 'Unknown error';
+
+            throw new InvalidArgumentException($message);
         }
 
         $dateTime = new static($dateTime->format('Y-m-d H:i:s.u'), $dateTime->getTimezone());
@@ -728,7 +730,7 @@ class Chronos
             $values['hour'] = 0;
         }
         if (isset($values['meridian'])) {
-            $values['hour'] = strtolower($values['meridian']) === 'am' ? $values['hour'] : $values['hour'] + 12;
+            $values['hour'] = strtolower((string)$values['meridian']) === 'am' ? (int)$values['hour'] : (int)$values['hour'] + 12;
         }
         $formatted .= sprintf(
             '%02d:%02d:%02d.%06d',
@@ -737,6 +739,8 @@ class Chronos
             $values['second'],
             $values['microsecond']
         );
+
+        assert(!is_int($values['timezone']), 'Timezone cannot be of type `int`');
 
         return static::parse($formatted, $values['timezone']);
     }
@@ -2311,7 +2315,7 @@ class Chronos
     {
         $diff = $this->diff($other ?? static::now($this->tz), $absolute);
 
-        return $diff->invert ? -$diff->days : $diff->days;
+        return $diff->invert ? -(int)$diff->days : (int)$diff->days;
     }
 
     /**
@@ -2440,10 +2444,10 @@ class Chronos
     /**
      * Convenience method for getting the remaining time from a given time.
      *
-     * @param \Cake\Chronos\Chronos $other The date to get the remaining time from.
+     * @param \Cake\Chronos\Chronos|\DateTimeInterface $other The date to get the remaining time from.
      * @return \DateInterval|bool The DateInterval object representing the difference between the two dates or FALSE on failure.
      */
-    public static function fromNow(Chronos|ChronosDate $other): DateInterval|bool
+    public static function fromNow(Chronos|DateTimeInterface $other): DateInterval|bool
     {
         $timeNow = new static();
 
@@ -2536,9 +2540,13 @@ class Chronos
                 return $this->offset === 0;
 
             case $name === 'timezone' || $name === 'tz':
+                assert($this->getTimezone() !== null, 'Timezone is not set');
+
                 return $this->getTimezone();
 
             case $name === 'timezoneName' || $name === 'tzName':
+                assert($this->getTimezone() !== null, 'Timezone is not set');
+
                 return $this->getTimezone()->getName();
 
             default:
@@ -2570,10 +2578,13 @@ class Chronos
      */
     public function __debugInfo(): array
     {
+        /** @var \DateTimeZone $timezone */
+        $timezone = $this->getTimezone();
+
         $properties = [
             'hasFixedNow' => static::hasTestNow(),
             'time' => $this->format('Y-m-d H:i:s.u'),
-            'timezone' => $this->getTimezone()->getName(),
+            'timezone' => $timezone->getName(),
         ];
 
         return $properties;
