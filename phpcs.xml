@@ -9,8 +9,8 @@
         <severity>0</severity>
     </rule>
 
-    <file>./src</file>
-    <file>./tests</file>
+    <file>src/</file>
+    <file>tests/</file>
 
     <arg name="extensions" value="php"/>
 </ruleset>
