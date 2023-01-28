@@ -117,7 +117,7 @@ trait FactoryTrait
      */
     public static function maxValue(): ChronosInterface
     {
-        $instance = static::createFromTimestampUTC(PHP_INT_MAX);
+        $instance = static::createFromTimestamp(PHP_INT_MAX);
         if (get_class($instance) === ChronosDate::class) {
             trigger_error('2.5 Using minValue() to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
         }
@@ -134,7 +134,7 @@ trait FactoryTrait
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
-        $instance = static::createFromTimestampUTC(~$max);
+        $instance = static::createFromTimestamp(~$max);
         if (get_class($instance) === ChronosDate::class) {
             trigger_error('2.5 Using minValue() to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
         }
@@ -357,10 +357,11 @@ trait FactoryTrait
      */
     public static function createFromTimestampUTC(int $timestamp): ChronosInterface
     {
+        trigger_error(
+            '2.5 createFromTimestampUTC() is deprecated. Use createFromTimestamp() instead.', 
+            E_USER_DEPRECATED
+        );
         $instance = new static($timestamp);
-        if (get_class($instance) === ChronosDate::class) {
-            trigger_error('2.5 Creating Date objects from timestamps will be removed in 3.0', E_USER_DEPRECATED);
-        }
 
         return $instance;
     }

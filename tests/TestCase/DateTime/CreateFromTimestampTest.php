@@ -71,8 +71,10 @@ class CreateFromTimestampTest extends TestCase
      */
     public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone($class)
     {
-        $d = $class::createFromTimestampUTC(0);
-        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
-        $this->assertSame(0, $d->offset);
+        $this->deprecated(function () use ($class) {
+            $d = $class::createFromTimestampUTC(0);
+            $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
+            $this->assertSame(0, $d->offset);
+        });
     }
 }
