@@ -547,7 +547,7 @@ class Chronos
      */
     public static function maxValue(): static
     {
-        return static::createFromTimestampUTC(PHP_INT_MAX);
+        return static::createFromTimestamp(PHP_INT_MAX);
     }
 
     /**
@@ -559,7 +559,7 @@ class Chronos
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
-        return static::createFromTimestampUTC(~$max);
+        return static::createFromTimestamp(~$max);
     }
 
     /**
@@ -755,17 +755,6 @@ class Chronos
     public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timezone = null): static
     {
         return static::now($timezone)->setTimestamp($timestamp);
-    }
-
-    /**
-     * Create an instance from an UTC timestamp
-     *
-     * @param int $timestamp The UTC timestamp to create an instance from.
-     * @return static
-     */
-    public static function createFromTimestampUTC(int $timestamp): static
-    {
-        return new static($timestamp);
     }
 
     /**
