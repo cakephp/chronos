@@ -358,7 +358,7 @@ trait FactoryTrait
     public static function createFromTimestampUTC(int $timestamp): ChronosInterface
     {
         trigger_error(
-            '2.5 createFromTimestampUTC() is deprecated. Use createFromTimestamp() instead.', 
+            '2.5 createFromTimestampUTC() is deprecated. Use createFromTimestamp() instead.',
             E_USER_DEPRECATED
         );
         $instance = new static($timestamp);
@@ -366,7 +366,7 @@ trait FactoryTrait
         return $instance;
     }
 
-    /**n
+    /**
      * Creates a DateTimeZone from a string or a DateTimeZone
      *
      * @param \DateTimeZone|string|null $object The value to convert.
