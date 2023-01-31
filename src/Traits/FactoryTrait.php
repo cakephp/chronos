@@ -117,7 +117,7 @@ trait FactoryTrait
      */
     public static function maxValue(): ChronosInterface
     {
-        $instance = static::createFromTimestamp(PHP_INT_MAX);
+        $instance = new static(PHP_INT_MAX);
         if (get_class($instance) === ChronosDate::class) {
             trigger_error('2.5 Using minValue() to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
         }
@@ -134,7 +134,7 @@ trait FactoryTrait
     {
         $max = PHP_INT_SIZE === 4 ? PHP_INT_MAX : PHP_INT_MAX / 10;
 
-        $instance = static::createFromTimestamp(~$max);
+        $instance = new static(~$max);
         if (get_class($instance) === ChronosDate::class) {
             trigger_error('2.5 Using minValue() to create Date objects will be removed in 3.0', E_USER_DEPRECATED);
         }
