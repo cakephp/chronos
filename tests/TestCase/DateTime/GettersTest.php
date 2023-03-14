@@ -312,6 +312,6 @@ class GettersTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $d = Chronos::now();
-        $bb = $d->doesNotExit;
+        $d->doesNotExit;
     }
 }
