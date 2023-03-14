@@ -21,6 +21,11 @@ use DateTime;
 class StringsTest extends TestCase
 {
     /**
+     * @var string
+     */
+    protected $tz;
+
+    /**
      * Setup
      *
      * @return void
@@ -166,5 +171,11 @@ class StringsTest extends TestCase
     {
         $d = ChronosDate::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toW3cString());
+    }
+
+    public function testToNative(): void
+    {
+        $d = ChronosDate::now();
+        $this->assertSame($d->format('Y-m-d'), $d->toNative()->format('Y-m-d'));
     }
 }
