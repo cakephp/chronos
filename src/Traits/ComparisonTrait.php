@@ -398,14 +398,27 @@ trait ComparisonTrait
     }
 
     /**
-     * Checks if the passed in date is the same day as the instance current day.
-     *
-     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
-     * @return bool
+     * @inheritDoc
      */
     public function isSameDay(ChronosInterface $dt): bool
     {
         return $this->toDateString() === $dt->toDateString();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isSameMonth(ChronosInterface $dt): bool
+    {
+        return $this->format('Y-m') === $dt->format('Y-m');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isSameYear(ChronosInterface $dt): bool
+    {
+        return $this->format('Y') === $dt->format('Y');
     }
 
     /**

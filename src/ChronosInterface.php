@@ -535,6 +535,22 @@ interface ChronosInterface extends DateTimeInterface
     public function isSameDay(ChronosInterface $dt): bool;
 
     /**
+     * Checks if the passed in date is the same month as the instance current month.
+     *
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
+     * @return bool
+     */
+    public function isSameMonth(ChronosInterface $dt): bool;
+
+    /**
+     * Checks if the passed in date is the same year as the instance current year.
+     *
+     * @param \Cake\Chronos\ChronosInterface $dt The instance to check against.
+     * @return bool
+     */
+    public function isSameYear(ChronosInterface $dt): bool;
+
+    /**
      * Checks if this day is a Sunday.
      *
      * @return bool

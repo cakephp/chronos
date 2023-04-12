@@ -356,6 +356,46 @@ class IsTest extends TestCase
      * @dataProvider classNameProvider
      * @return void
      */
+    public function testIsSameMonthTrue($class)
+    {
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameMonth($class::createFromDate(2012, 1, 3)));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSameMonthFalse($class)
+    {
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameMonth($class::createFromDate(2013, 1, 2)));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSameYearTrue($class)
+    {
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameYear($class::createFromDate(2012, 3, 2)));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
+    public function testIsSameYearFalse($class)
+    {
+        $current = $class::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameYear($class::createFromDate(2013, 1, 2)));
+    }
+
+    /**
+     * @dataProvider classNameProvider
+     * @return void
+     */
     public function testIsSunday($class)
     {
         // True in the past past
