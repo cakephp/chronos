@@ -213,6 +213,30 @@ class IsTest extends TestCase
         $this->assertFalse($current->isSameDay(Chronos::createFromDate(2012, 1, 3)));
     }
 
+    public function testIsSameMonthTrue()
+    {
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameMonth(Chronos::createFromDate(2012, 1, 3)));
+    }
+
+    public function testIsSameMonthFalse()
+    {
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameMonth(Chronos::createFromDate(2013, 1, 2)));
+    }
+
+    public function testIsSameYearTrue()
+    {
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameYear(Chronos::createFromDate(2012, 3, 2)));
+    }
+
+    public function testIsSameYearFalse()
+    {
+        $current = Chronos::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameYear(Chronos::createFromDate(2013, 1, 2)));
+    }
+
     public function testIsSunday()
     {
         // True in the past past

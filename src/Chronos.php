@@ -2050,6 +2050,28 @@ class Chronos
     }
 
     /**
+     * Checks if the passed in date is the same month as the instance current month.
+     *
+     * @param \Cake\Chronos\Chronos $other The instance to check against.
+     * @return bool
+     */
+    public function isSameMonth(Chronos $other): bool
+    {
+        return $this->format('Y-m') === $other->format('Y-m');
+    }
+
+    /**
+     * Checks if the passed in date is the same year as the instance current year.
+     *
+     * @param \Cake\Chronos\Chronos $other The instance to check against.
+     * @return bool
+     */
+    public function isSameYear(Chronos $other): bool
+    {
+        return $this->format('Y') === $other->format('Y');
+    }
+
+    /**
      * Checks if this day is a Sunday.
      *
      * @return bool
