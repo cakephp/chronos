@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.x-dev@">
+<files psalm-version="dev-master@">
   <file src="src/Chronos.php">
     <ImpureFunctionCall occurrences="4">
       <code>array_filter</code>
@@ -7,8 +7,7 @@
       <code>date_default_timezone_get</code>
       <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="43">
-      <code>$period</code>
+    <ImpureMethodCall occurrences="42">
       <code>diffForHumans</code>
       <code>diffFormatter</code>
       <code>format</code>
@@ -75,8 +74,7 @@
       <code>date_default_timezone_get</code>
       <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="50">
-      <code>$period</code>
+    <ImpureMethodCall occurrences="24">
       <code>diffForHumans</code>
       <code>diffFormatter</code>
       <code>format</code>
@@ -87,31 +85,6 @@
       <code>getWeekStartsAt</code>
       <code>getWeekendDays</code>
       <code>hasTestNow</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
       <code>now</code>
       <code>now</code>
       <code>now</code>
@@ -139,5 +112,15 @@
       <code>static::$days</code>
     </ImpureStaticProperty>
     <ImpureStaticVariable occurrences="1"/>
+  </file>
+  <file src="src/ChronosTime.php">
+    <ImpureMethodCall occurrences="6">
+      <code>format</code>
+      <code>mod</code>
+      <code>mod</code>
+      <code>mod</code>
+      <code>mod</code>
+      <code>mod</code>
+    </ImpureMethodCall>
   </file>
 </files>

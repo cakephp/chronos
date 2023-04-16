@@ -18,6 +18,10 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use InvalidArgumentException;
 
+/**
+ * @psalm-immutable
+ * @psalm-consistent-constructor
+ */
 class ChronosTime
 {
     /**
@@ -51,19 +55,35 @@ class ChronosTime
     protected int $ticks;
 
     /**
-     * Constructs instance with time string in the format HH[:.]mm or HH[:.]mm[:.]ss.u
+     * Copies time from onther instance or from time string in the format HH[:.]mm or HH[:.]mm[:.]ss.u.
+     *
+     * Defaults to server time.
      *
      * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
      */
     public function __construct(Chronos|ChronosTime|DateTimeInterface|string|null $time = null)
     {
-        if ($time === null) {
-            $this->ticks = 0;
-        } elseif ($time instanceof ChronosTime) {
+        if ($time instanceof ChronosTime) {
             $this->ticks = $time->ticks;
+        } elseif (is_string($time)) {
+            $this->ticks = static::parseTime($time);
         } else {
-            $this->ticks = static::parseTime(is_string($time) ? $time : $time->format('H:i:s.u'));
+            $time ??= Chronos::getTestNow() ?? Chronos::now();
+            $this->ticks = static::parseTime($time->format('H:i:s.u'));
         }
+    }
+
+    /**
+     * Copies time from onther instance or from string in the format HH[:.]mm or HH[:.]mm[:.]ss.u
+     *
+     * Defaults to server time.
+     *
+     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
+     * @return static
+     */
+    public static function parse(Chronos|ChronosTime|DateTimeInterface|string|null $time = null): static
+    {
+        return new static($time);
     }
 
     /**
@@ -96,6 +116,36 @@ class ChronosTime
     }
 
     /**
+     * Returns instance set to server time.
+     *
+     * @return static
+     */
+    public static function now(): static
+    {
+        return new static();
+    }
+
+    /**
+     * Returns instance set to midnight.
+     *
+     * @return static
+     */
+    public static function midnight(): static
+    {
+        return new static('00:00:00');
+    }
+
+    /**
+     * Returns instance set to noon.
+     *
+     * @return static
+     */
+    public static function noon(): static
+    {
+        return new static('12:00:00');
+    }
+
+    /**
      * Returns clock microseconds.
      *
      * @return int
@@ -113,12 +163,11 @@ class ChronosTime
      */
     public function setMicroseconds(int $microseconds): static
     {
+        $baseTicks = $this->ticks - $this->ticks % self::TICKS_PER_SECOND;
+        $newTicks = static::mod($baseTicks + $microseconds * self::TICKS_PER_MICROSECOND, self::TICKS_PER_DAY);
+
         $clone = clone $this;
-
-        $prevTicks = $this->ticks % self::TICKS_PER_SECOND;
-        $newTicks = static::mod($microseconds, 1_000_000) * self::TICKS_PER_MICROSECOND;
-
-        $clone->ticks = $this->ticks - $prevTicks + $newTicks;
+        $clone->ticks = $newTicks;
 
         return $clone;
     }
@@ -143,11 +192,11 @@ class ChronosTime
      */
     public function setSeconds(int $seconds): static
     {
-        $prevSecondsTicks = $this->ticks % self::TICKS_PER_MINUTE - $this->ticks % self::TICKS_PER_SECOND;
-        $newSecondsTicks = static::mod($seconds, 60) * self::TICKS_PER_SECOND;
+        $baseTicks = $this->ticks - ($this->ticks % self::TICKS_PER_MINUTE - $this->ticks % self::TICKS_PER_SECOND);
+        $newTicks = static::mod($baseTicks + $seconds * self::TICKS_PER_SECOND, self::TICKS_PER_DAY);
 
         $clone = clone $this;
-        $clone->ticks = $this->ticks - $prevSecondsTicks + $newSecondsTicks;
+        $clone->ticks = $newTicks;
 
         return $clone;
     }
@@ -172,11 +221,11 @@ class ChronosTime
      */
     public function setMinutes(int $minutes): static
     {
-        $prevMinutesTicks = $this->ticks % self::TICKS_PER_HOUR - $this->ticks % self::TICKS_PER_MINUTE;
-        $newMinutesTicks = static::mod($minutes, 60) * self::TICKS_PER_MINUTE;
+        $baseTicks = $this->ticks - ($this->ticks % self::TICKS_PER_HOUR - $this->ticks % self::TICKS_PER_MINUTE);
+        $newTicks = static::mod($baseTicks + $minutes * self::TICKS_PER_MINUTE, self::TICKS_PER_DAY);
 
         $clone = clone $this;
-        $clone->ticks = $this->ticks - $prevMinutesTicks + $newMinutesTicks;
+        $clone->ticks = $newTicks;
 
         return $clone;
     }
@@ -201,11 +250,11 @@ class ChronosTime
      */
     public function setHours(int $hours): static
     {
-        $prevHoursTicks = $this->ticks - $this->ticks % self::TICKS_PER_HOUR;
-        $newHoursTicks = static::mod($hours, 24) * self::TICKS_PER_HOUR;
+        $baseTicks = $this->ticks - ($this->ticks - $this->ticks % self::TICKS_PER_HOUR);
+        $newTicks = static::mod($baseTicks + $hours * self::TICKS_PER_HOUR, self::TICKS_PER_DAY);
 
         $clone = clone $this;
-        $clone->ticks = $this->ticks - $prevHoursTicks + $newHoursTicks;
+        $clone->ticks = $newTicks;
 
         return $clone;
     }
@@ -221,11 +270,14 @@ class ChronosTime
      */
     public function setTime(int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0): static
     {
+        $ticks = $hours * self::TICKS_PER_HOUR +
+            $minutes * self::TICKS_PER_MINUTE +
+            $seconds * self::TICKS_PER_SECOND +
+            $microseconds * self::TICKS_PER_MICROSECOND;
+        $ticks = static::mod($ticks, self::TICKS_PER_DAY);
+
         $clone = clone $this;
-        $clone->ticks = static::mod($hours, 24) * self::TICKS_PER_HOUR +
-            static::mod($minutes, 60) * self::TICKS_PER_MINUTE +
-            static::mod($seconds, 60) * self::TICKS_PER_SECOND +
-            static::mod($microseconds, 1_000_000) * self::TICKS_PER_MICROSECOND;
+        $clone->ticks = $ticks;
 
         return $clone;
     }
