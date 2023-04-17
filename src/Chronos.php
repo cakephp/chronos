@@ -1815,24 +1815,22 @@ class Chronos
     /**
      * Determines if the instance is between two others
      *
-     * @param \Cake\Chronos\Chronos $first The instance to compare with.
-     * @param \Cake\Chronos\Chronos $second The instance to compare with.
-     * @param bool $equals If true, use >= and <= comparisons
+     * @param \Cake\Chronos\Chronos $start Start of target range
+     * @param \Cake\Chronos\Chronos $end End of target range
+     * @param bool $equals Whether to include the beginning and end of range
      * @return bool
      */
-    public function between(Chronos $first, Chronos $second, bool $equals = true): bool
+    public function between(Chronos $start, Chronos $end, bool $equals = true): bool
     {
-        if ($first->greaterThan($second)) {
-            $temp = $first;
-            $first = $second;
-            $second = $temp;
+        if ($start->greaterThan($end)) {
+            [$start, $end] = [$end, $start];
         }
 
         if ($equals) {
-            return $this->greaterThanOrEquals($first) && $this->lessThanOrEquals($second);
+            return $this->greaterThanOrEquals($start) && $this->lessThanOrEquals($end);
         }
 
-        return $this->greaterThan($first) && $this->lessThan($second);
+        return $this->greaterThan($start) && $this->lessThan($end);
     }
 
     /**
