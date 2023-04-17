@@ -16,6 +16,7 @@ namespace Cake\Chronos;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use InvalidArgumentException;
 
 /**
@@ -60,15 +61,23 @@ class ChronosTime
      * Defaults to server time.
      *
      * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
+     * @param \DateTimeZone|string|null $timezone The timezone to use for now
      */
-    public function __construct(Chronos|ChronosTime|DateTimeInterface|string|null $time = null)
-    {
-        if ($time instanceof ChronosTime) {
-            $this->ticks = $time->ticks;
+    public function __construct(
+        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        DateTimeZone|string|null $timezone = null
+    ) {
+        if ($time === null) {
+            $time = Chronos::getTestNow() ?? Chronos::now();
+            if ($timezone !== null) {
+                $time = $time->setTimezone($timezone);
+            }
+            $this->ticks = static::parseTime($time->format('H:i:s.u'));
         } elseif (is_string($time)) {
             $this->ticks = static::parseTime($time);
+        } elseif ($time instanceof ChronosTime) {
+            $this->ticks = $time->ticks;
         } else {
-            $time ??= Chronos::getTestNow() ?? Chronos::now();
             $this->ticks = static::parseTime($time->format('H:i:s.u'));
         }
     }
@@ -78,12 +87,15 @@ class ChronosTime
      *
      * Defaults to server time.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
+     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
+     * @param \DateTimeZone|string|null $timezone The timezone to use for now
      * @return static
      */
-    public static function parse(Chronos|ChronosTime|DateTimeInterface|string|null $time = null): static
-    {
-        return new static($time);
+    public static function parse(
+        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        DateTimeZone|string|null $timezone = null
+    ): static {
+        return new static($time, $timezone);
     }
 
     /**
@@ -118,11 +130,12 @@ class ChronosTime
     /**
      * Returns instance set to server time.
      *
+     * @param \DateTimeZone|string|null $timezone The timezone to use for now
      * @return static
      */
-    public static function now(): static
+    public static function now(DateTimeZone|string|null $timezone = null): static
     {
-        return new static();
+        return new static(null, $timezone);
     }
 
     /**

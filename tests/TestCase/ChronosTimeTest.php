@@ -21,7 +21,7 @@ use InvalidArgumentException;
 
 class ChronosTimeTest extends TestCase
 {
-    public function testConstructDefault(): void
+    public function testConstructNow(): void
     {
         Chronos::setTestNow('2001-01-01 12:13:14.123456');
 
@@ -65,7 +65,7 @@ class ChronosTimeTest extends TestCase
     public function testConstructInvalid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        new ChronosTime('now');
+        new ChronosTime('tomorrow');
     }
 
     public function testConstructIncomplete(): void
@@ -96,14 +96,21 @@ class ChronosTimeTest extends TestCase
     {
         $t = ChronosTime::parse('23:59:59.999999');
         $this->assertSame('23:59:59.999999', $t->format('H:i:s.u'));
+
+        Chronos::setTestNow(new Chronos('2001-01-01 12:13:14.123456', 'America/Chicago'));
+        $t = ChronosTime::parse(null, 'America/New_York');
+        $this->assertSame('13:13:14.123456', $t->format('H:i:s.u'));
     }
 
     public function testNow(): void
     {
-        Chronos::setTestNow('2001-01-01 12:13:14.123456');
+        Chronos::setTestNow(new Chronos('2001-01-01 12:13:14.123456', 'America/Chicago'));
 
         $t = ChronosTime::now();
         $this->assertSame('12:13:14.123456', $t->format('H:i:s.u'));
+
+        $t = ChronosTime::now('America/New_York');
+        $this->assertSame('13:13:14.123456', $t->format('H:i:s.u'));
     }
 
     public function testMidnight(): void
