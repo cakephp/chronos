@@ -2050,7 +2050,7 @@ class Chronos
     }
 
     /**
-     * Checks if the passed in date is the same month as the instance current month.
+     * Returns whether the passed in date is the same month and year.
      *
      * @param \Cake\Chronos\Chronos $other The instance to check against.
      * @return bool
@@ -2061,7 +2061,7 @@ class Chronos
     }
 
     /**
-     * Checks if the passed in date is the same year as the instance current year.
+     * Returns whether passed in date is the same year.
      *
      * @param \Cake\Chronos\Chronos $other The instance to check against.
      * @return bool
