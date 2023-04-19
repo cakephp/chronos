@@ -324,6 +324,82 @@ class ChronosTime
     }
 
     /**
+     * Returns whether time is equal to target time.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @return bool
+     */
+    public function equals(ChronosTime $target): bool
+    {
+        return $this->ticks === $target->ticks;
+    }
+
+    /**
+     * Returns whether time is greater than target time.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @return bool
+     */
+    public function greaterThan(ChronosTime $target): bool
+    {
+        return $this->ticks > $target->ticks;
+    }
+
+    /**
+     * Returns whether time is greater than or equal to target time.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @return bool
+     */
+    public function greaterThanOrEquals(ChronosTime $target): bool
+    {
+        return $this->ticks >= $target->ticks;
+    }
+
+    /**
+     * Returns whether time is less than target time.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @return bool
+     */
+    public function lessThan(ChronosTime $target): bool
+    {
+        return $this->ticks < $target->ticks;
+    }
+
+    /**
+     * Returns whether time is less than or equal to target time.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @return bool
+     */
+    public function lessThanOrEquals(ChronosTime $target): bool
+    {
+        return $this->ticks <= $target->ticks;
+    }
+
+    /**
+     * Returns whether time is between time range.
+     *
+     * @param \Cake\Chronos\ChronosTime $start Start of target range
+     * @param \Cake\Chronos\ChronosTime $end End of target range
+     * @param bool $equals Whether to include the beginning and end of range
+     * @return bool
+     */
+    public function between(ChronosTime $start, ChronosTime $end, bool $equals = true): bool
+    {
+        if ($start->greaterThan($end)) {
+            [$start, $end] = [$end, $start];
+        }
+
+        if ($equals) {
+            return $this->greaterThanOrEquals($start) && $this->lessThanOrEquals($end);
+        }
+
+        return $this->greaterThan($start) && $this->lessThan($end);
+    }
+
+    /**
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
      * @return \DateTimeImmutable

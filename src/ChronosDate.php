@@ -1028,24 +1028,22 @@ class ChronosDate
     /**
      * Determines if the instance is between two others
      *
-     * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
-     * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
-     * @param bool $equals If true, use >= and <= comparisons
+     * @param \Cake\Chronos\ChronosDate $start Start of target range
+     * @param \Cake\Chronos\ChronosDate $end End of target range
+     * @param bool $equals Whether to include the beginning and end of range
      * @return bool
      */
-    public function between(ChronosDate $first, ChronosDate $second, bool $equals = true): bool
+    public function between(ChronosDate $start, ChronosDate $end, bool $equals = true): bool
     {
-        if ($first->greaterThan($second)) {
-            $temp = $first;
-            $first = $second;
-            $second = $temp;
+        if ($start->greaterThan($end)) {
+            [$start, $end] = [$end, $start];
         }
 
         if ($equals) {
-            return $this->greaterThanOrEquals($first) && $this->lessThanOrEquals($second);
+            return $this->greaterThanOrEquals($start) && $this->lessThanOrEquals($end);
         }
 
-        return $this->greaterThan($first) && $this->lessThan($second);
+        return $this->greaterThan($start) && $this->lessThan($end);
     }
 
     /**
@@ -1064,12 +1062,12 @@ class ChronosDate
      * Get the farthest date from the instance.
      *
      * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
-     * @param \Cake\Chronos\ChronosDate $seocnd The instance to compare with.
+     * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
      * @return self
      */
-    public function farthest(ChronosDate $first, ChronosDate $seocnd): ChronosDate
+    public function farthest(ChronosDate $first, ChronosDate $second): ChronosDate
     {
-        return $this->diffInDays($first) > $this->diffInDays($seocnd) ? $first : $seocnd;
+        return $this->diffInDays($first) > $this->diffInDays($second) ? $first : $second;
     }
 
     /**

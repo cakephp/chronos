@@ -186,4 +186,80 @@ class ChronosTimeTest extends TestCase
         $t = new ChronosTime('23:59:59.999999');
         $this->assertSame('23:59:59.999999', $t->format('H:i:s.u'));
     }
+
+    public function testComparisons(): void
+    {
+        $t1 = ChronosTime::parse('00:00:00');
+        $t2 = ChronosTime::parse('00:00:00');
+        $this->assertTrue($t1->equals($t2));
+        $this->assertTrue($t1->greaterThanOrEquals($t2));
+        $this->assertTrue($t1->lessThanOrEquals($t2));
+        $this->assertFalse($t1->greaterThan($t2));
+        $this->assertFalse($t1->lessThan($t2));
+
+        $t1 = ChronosTime::parse('00:00:00');
+        $t2 = ChronosTime::parse('00:00:00')->setHours(24);
+        $this->assertTrue($t1->equals($t2));
+        $this->assertTrue($t1->greaterThanOrEquals($t2));
+        $this->assertTrue($t1->lessThanOrEquals($t2));
+        $this->assertFalse($t1->greaterThan($t2));
+        $this->assertFalse($t1->lessThan($t2));
+
+        $t1 = ChronosTime::parse('00:00:00');
+        $t2 = ChronosTime::parse('00:00:00.000001');
+        $this->assertTrue($t1->lessThan($t2));
+        $this->assertTrue($t1->lessThanOrEquals($t2));
+        $this->assertFalse($t1->equals($t2));
+        $this->assertFalse($t1->greaterThan($t2));
+        $this->assertFalse($t1->greaterThanOrEquals($t2));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00');
+        $this->assertTrue($t1->greaterThan($t2));
+        $this->assertTrue($t1->greaterThanOrEquals($t2));
+        $this->assertFalse($t1->equals($t2));
+        $this->assertFalse($t1->lessThan($t2));
+        $this->assertFalse($t1->lessThanOrEquals($t2));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertTrue($t2->between($t1, $t3));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertTrue($t2->between($t1, $t3, false));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertTrue($t1->between($t1, $t3, true));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertFalse($t1->between($t1, $t3, false));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertTrue($t2->between($t3, $t1, false));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertFalse($t1->between($t2, $t3));
+
+        $t1 = ChronosTime::parse('00:00:00.000001');
+        $t2 = ChronosTime::parse('00:00:00.000002');
+        $t3 = ChronosTime::parse('00:00:00.000003');
+        $this->assertFalse($t3->between($t1, $t2));
+    }
+
+    public function testToNative(): void
+    {
+        $native = ChronosTime::parse('23:59:59.999999')->toNative();
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+    }
 }
