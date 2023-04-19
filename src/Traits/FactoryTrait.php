@@ -358,7 +358,12 @@ trait FactoryTrait
     public static function getLastErrors(): array
     {
         if (empty(static::$_lastErrors)) {
-            return parent::getLastErrors();
+            return parent::getLastErrors() ?: [
+                'warning_count' => 0,
+                'warnings' => [],
+                'error_count' => 0,
+                'errors' => [],
+            ];
         }
 
         return static::$_lastErrors;
