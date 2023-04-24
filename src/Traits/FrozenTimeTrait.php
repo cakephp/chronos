@@ -227,7 +227,7 @@ trait FrozenTimeTrait
      * @deprecated
      */
     #[ReturnTypeWillChange]
-    public function setISODate($year, $week, $dayOfWeek = null)
+    public function setISODate($year, $week, $dayOfWeek = 1)
     {
         trigger_error('2.5 setISODate will be removed in 3.x');
 
