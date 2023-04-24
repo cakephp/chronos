@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @copyright     Copyright (c) Brian Nesbitt <brian@nesbot.com>
- * @link          http://cakephp.org CakePHP(tm) Project
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace Cake\Chronos\Traits;
 
@@ -395,7 +395,12 @@ trait FactoryTrait
     public static function getLastErrors(): array
     {
         if (empty(static::$_lastErrors)) {
-            return parent::getLastErrors();
+            return parent::getLastErrors() ?: [
+                'warning_count' => 0,
+                'warnings' => [],
+                'error_count' => 0,
+                'errors' => [],
+            ];
         }
 
         trigger_error('2.5 getLastErrors() is deprecated. Exceptions will be raised in 3.x', E_USER_DEPRECATED);
