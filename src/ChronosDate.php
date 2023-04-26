@@ -354,6 +354,22 @@ class ChronosDate
     }
 
     /**
+     * Sets the date according to the ISO 8601 standard
+     *
+     * @param int $year Year of the date.
+     * @param int $week Week of the date.
+     * @param int $dayOfWeek Offset from the first day of the week.
+     * @return static
+     */
+    public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
+    {
+        $new = clone $this;
+        $new->native = $new->native->setISODate($year, $week, $dayOfWeek);
+
+        return $new;
+    }
+
+    /**
      * Returns the difference between this instance and target.
      *
      * @param \Cake\Chronos\ChronosDate $target Target instance
