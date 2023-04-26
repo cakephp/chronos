@@ -218,19 +218,4 @@ trait FrozenTimeTrait
 
         return $new;
     }
-
-    /**
-     * @param int $year The year.
-     * @param int $week The week number.
-     * @param int $dayOfWeek Day of the week.
-     * @return mixed
-     * @deprecated
-     */
-    #[ReturnTypeWillChange]
-    public function setISODate($year, $week, $dayOfWeek = 1)
-    {
-        trigger_error('2.5 setISODate will be removed in 3.x');
-
-        return parent::setISODate($year, $week, $dayOfWeek);
-    }
 }

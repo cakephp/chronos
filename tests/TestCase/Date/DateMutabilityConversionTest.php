@@ -74,6 +74,14 @@ class DateMutabilityConversionTest extends TestCase
         });
     }
 
+    public function testSetISODate()
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $new = $date->setISODate(2023, 17, 3);
+        $this->assertSame('00:00:00', $new->format('H:i:s'));
+        $this->assertSame('2023-04-26', $new->format('Y-m-d'));
+    }
+
     protected function checkBothInstances(MutableDate $dt1, ChronosDate $dt2)
     {
         $this->assertDateTime($dt1, 2001, 2, 3, 0, 0, 0);
