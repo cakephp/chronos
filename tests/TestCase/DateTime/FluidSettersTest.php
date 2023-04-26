@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class FluidSettersTest extends TestCase
@@ -66,6 +67,22 @@ class FluidSettersTest extends TestCase
         $d = $d->setDate(1995, 13, 32);
         $this->assertTrue($d instanceof Chronos);
         $this->assertDateTime($d, 1996, 2, 1);
+    }
+
+    public function testFluidChronosSetISODate()
+    {
+        $d = Chronos::createFromDate(2000, 1, 1);
+        $d = $d->setISODate(2023, 17, 3);
+        $this->assertTrue($d instanceof Chronos);
+        $this->assertDateTime($d, 2023, 04, 26);
+    }
+
+    public function testFluidChronosDateSetISODate()
+    {
+        $d = ChronosDate::create(2000, 1, 1);
+        $d = $d->setISODate(2023, 17, 3);
+        $this->assertTrue($d instanceof ChronosDate);
+        $this->assertDateTime($d, 2023, 04, 26);
     }
 
     public function testFluidHourSetter()

@@ -880,6 +880,22 @@ class Chronos
     }
 
     /**
+     * Sets the date according to the ISO 8601 standard
+     *
+     * @param int $year Year of the date.
+     * @param int $week Week of the date.
+     * @param int $dayOfWeek Offset from the first day of the week.
+     * @return static
+     */
+    public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
+    {
+        $new = clone $this;
+        $new->native = $new->native->setISODate($year, $week, $dayOfWeek);
+
+        return $new;
+    }
+
+    /**
      * Sets the time.
      *
      * @param int $hours Hours of the time
