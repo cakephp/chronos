@@ -72,13 +72,13 @@ class ChronosTime
             if ($timezone !== null) {
                 $time = $time->setTimezone($timezone);
             }
-            $this->ticks = static::parseTime($time->format('H:i:s.u'));
+            $this->ticks = static::parseString($time->format('H:i:s.u'));
         } elseif (is_string($time)) {
-            $this->ticks = static::parseTime($time);
+            $this->ticks = static::parseString($time);
         } elseif ($time instanceof ChronosTime) {
             $this->ticks = $time->ticks;
         } else {
-            $this->ticks = static::parseTime($time->format('H:i:s.u'));
+            $this->ticks = static::parseString($time->format('H:i:s.u'));
         }
     }
 
@@ -102,7 +102,7 @@ class ChronosTime
      * @param string $time Time string in the format HH[:.]mm or HH[:.]mm[:.]ss.u
      * @return int
      */
-    protected static function parseTime(string $time): int
+    protected static function parseString(string $time): int
     {
         if (!preg_match('/^\s*(\d{1,2})[:.](\d{1,2})(?|[:.](\d{1,2})[.](\d+)|[:.](\d{1,2}))?\s*$/', $time, $matches)) {
             throw new InvalidArgumentException(
