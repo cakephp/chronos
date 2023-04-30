@@ -115,7 +115,7 @@ class ChronosTime
         $seconds = (int)($matches[3] ?? 0);
         $microseconds = (int)substr($matches[4] ?? '', 0, 6);
 
-        if ($hours > 23 || $minutes > 59 || $seconds > 59 || $microseconds > 999_999) {
+        if ($hours > 24 || $minutes > 59 || $seconds > 59 || $microseconds > 999_999) {
             throw new InvalidArgumentException('Time string contains invalid values.');
         }
 
@@ -124,7 +124,7 @@ class ChronosTime
         $ticks += $seconds * self::TICKS_PER_SECOND;
         $ticks += $microseconds * self::TICKS_PER_MICROSECOND;
 
-        return $ticks;
+        return $ticks % self::TICKS_PER_DAY;
     }
 
     /**
