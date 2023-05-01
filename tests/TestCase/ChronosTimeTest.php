@@ -34,6 +34,9 @@ class ChronosTimeTest extends TestCase
 
     public function testConstructFromString(): void
     {
+        $t = new ChronosTime('12:13');
+        $this->assertSame('12:13:00.000000', $t->format('H:i:s.u'));
+
         $t = new ChronosTime('0.0.0.0');
         $this->assertSame('00:00:00.000000', $t->format('H:i:s.u'));
 
@@ -46,8 +49,8 @@ class ChronosTimeTest extends TestCase
         $t = new ChronosTime('23:59.59.9999991');
         $this->assertSame('23:59:59.999999', $t->format('H:i:s.u'));
 
-        $t = new ChronosTime('12:13');
-        $this->assertSame('12:13:00.000000', $t->format('H:i:s.u'));
+        $t = new ChronosTime('24:59.59.9999991');
+        $this->assertSame('00:59:59.999999', $t->format('H:i:s.u'));
     }
 
     public function testConstructFromInstance(): void
@@ -77,7 +80,7 @@ class ChronosTimeTest extends TestCase
     public function testConstructInvalidHours(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        new ChronosTime('24:00:00');
+        new ChronosTime('25:00:00');
     }
 
     public function testConstructInvalidMinutes(): void
