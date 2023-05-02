@@ -367,26 +367,6 @@ class Chronos
     }
 
     /**
-     * Determines if there is no fixed date in the time string.
-     *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|null $time The time string to check
-     * @return bool true if doesn't contain a fixed date
-     */
-    private static function isRelativeOnly(Chronos|ChronosDate|DateTimeInterface|string|null $time): bool
-    {
-        if ($time === null) {
-            return true;
-        }
-
-        if (!is_string($time)) {
-            return false;
-        }
-
-        // must not contain fixed date before relative keywords or time expression
-        return preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1;
-    }
-
-    /**
      * Get weekend days
      *
      * @return array

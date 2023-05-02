@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="dev-master@">
+<files psalm-version="5.10.0@a5effd2d2dddd1a7ea7a0f6a051ce63ff979e356">
   <file src="src/Chronos.php">
-    <ImpureFunctionCall occurrences="4">
+    <ImpureFunctionCall>
       <code>array_filter</code>
       <code>date_default_timezone_get</code>
       <code>date_default_timezone_get</code>
       <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="42">
+    <ImpureMethodCall>
       <code>diffForHumans</code>
       <code>diffFormatter</code>
       <code>format</code>
@@ -51,7 +51,7 @@
       <code>tomorrow</code>
       <code>yesterday</code>
     </ImpureMethodCall>
-    <ImpureStaticProperty occurrences="13">
+    <ImpureStaticProperty>
       <code>static::$days</code>
       <code>static::$days</code>
       <code>static::$days</code>
@@ -66,15 +66,35 @@
       <code>static::$weekStartsAt</code>
       <code>static::$weekStartsAt</code>
     </ImpureStaticProperty>
-    <ImpureStaticVariable occurrences="1"/>
+    <ImpureStaticVariable>
+      <code><![CDATA[static $formats = [
+            'year' => 'Y',
+            'yearIso' => 'o',
+            'month' => 'n',
+            'day' => 'j',
+            'hour' => 'G',
+            'minute' => 'i',
+            'second' => 's',
+            'micro' => 'u',
+            'microsecond' => 'u',
+            'dayOfWeek' => 'N',
+            'dayOfYear' => 'z',
+            'weekOfYear' => 'W',
+            'daysInMonth' => 't',
+            'timestamp' => 'U',
+        ];]]></code>
+    </ImpureStaticVariable>
+    <InaccessibleProperty>
+      <code><![CDATA[$instance->f]]></code>
+    </InaccessibleProperty>
   </file>
   <file src="src/ChronosDate.php">
-    <ImpureFunctionCall occurrences="3">
+    <ImpureFunctionCall>
       <code>array_filter</code>
       <code>date_default_timezone_get</code>
       <code>iterator_to_array</code>
     </ImpureFunctionCall>
-    <ImpureMethodCall occurrences="24">
+    <ImpureMethodCall>
       <code>diffForHumans</code>
       <code>diffFormatter</code>
       <code>format</code>
@@ -100,7 +120,7 @@
       <code>tomorrow</code>
       <code>yesterday</code>
     </ImpureMethodCall>
-    <ImpureStaticProperty occurrences="9">
+    <ImpureStaticProperty>
       <code>static::$days</code>
       <code>static::$days</code>
       <code>static::$days</code>
@@ -111,10 +131,21 @@
       <code>static::$days</code>
       <code>static::$days</code>
     </ImpureStaticProperty>
-    <ImpureStaticVariable occurrences="1"/>
+    <ImpureStaticVariable>
+      <code><![CDATA[static $formats = [
+            'year' => 'Y',
+            'yearIso' => 'o',
+            'month' => 'n',
+            'day' => 'j',
+            'dayOfWeek' => 'N',
+            'dayOfYear' => 'z',
+            'weekOfYear' => 'W',
+            'daysInMonth' => 't',
+        ];]]></code>
+    </ImpureStaticVariable>
   </file>
   <file src="src/ChronosTime.php">
-    <ImpureMethodCall occurrences="6">
+    <ImpureMethodCall>
       <code>format</code>
       <code>mod</code>
       <code>mod</code>
