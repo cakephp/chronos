@@ -520,7 +520,7 @@ class DiffTest extends TestCase
         $this->assertSame($result, '1 0 6 00 0 51');
     }
 
-    public function diffForHumansProvider()
+    public static function diffForHumansProvider()
     {
         $now = Chronos::parse('2020-01-04 10:01:01');
 
