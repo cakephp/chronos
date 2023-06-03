@@ -164,7 +164,7 @@ class StringsTest extends TestCase
      *
      * @return array
      */
-    public function toQuarterProvider()
+    public static function toQuarterProvider()
     {
         return [
             ['2007-12-25', 4],
@@ -193,7 +193,7 @@ class StringsTest extends TestCase
      *
      * @return array
      */
-    public function toWeekProvider()
+    public static function toWeekProvider()
     {
         return [
             ['2007-1-1', 1],

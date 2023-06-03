@@ -48,7 +48,7 @@ class ConstructTest extends TestCase
      *
      * @return array
      */
-    public function inputTimeProvider()
+    public static function inputTimeProvider()
     {
         return [
             ['@' . strtotime('2015-08-19 22:24:32')],

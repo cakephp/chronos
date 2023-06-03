@@ -276,7 +276,7 @@ class DiffTest extends TestCase
         $this->assertSame(0, $dt->diffInWeeks($dt->addWeeks(1)->subDays(1)));
     }
 
-    public function diffForHumansProvider()
+    public static function diffForHumansProvider()
     {
         $now = ChronosDate::parse('2020-01-04');
 
