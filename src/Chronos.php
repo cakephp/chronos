@@ -782,6 +782,18 @@ class Chronos
     ): DateInterval {
         $spec = 'P';
 
+        $rollover = static::rolloverTime($microseconds, 1_000_000);
+        $seconds = $seconds === null ? $rollover : $seconds + (int)$rollover;
+
+        $rollover = static::rolloverTime($seconds, 60);
+        $minutes = $minutes === null ? $rollover : $minutes + (int)$rollover;
+
+        $rollover = static::rolloverTime($minutes, 60);
+        $hours = $hours === null ? $rollover : $hours + (int)$rollover;
+
+        $rollover = static::rolloverTime($hours, 24);
+        $days = $days === null ? $rollover : $days + (int)$rollover;
+
         if ($years) {
             $spec .= $years . 'Y';
         }
@@ -797,6 +809,7 @@ class Chronos
 
         if ($hours || $minutes || $seconds) {
             $spec .= 'T';
+
             if ($hours) {
                 $spec .= $hours . 'H';
             }
@@ -819,6 +832,26 @@ class Chronos
         }
 
         return $instance;
+    }
+
+    /**
+     * Updates value to remaininger and returns rollover value for time
+     * unit or null if no rollover.
+     *
+     * @param int|null $value Time unit value
+     * @param int $max Time unit max value
+     * @return int|null
+     */
+    protected static function rolloverTime(?int &$value, int $max): ?int
+    {
+        if ($value === null || $value < $max) {
+            return null;
+        }
+
+        $rollover = intdiv($value, $max);
+        $value = $value % $max;
+
+        return $rollover;
     }
 
     /**
