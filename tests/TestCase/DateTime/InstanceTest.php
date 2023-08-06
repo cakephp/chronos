@@ -60,16 +60,18 @@ class InstanceTest extends TestCase
      */
     public function testCreateFromFormatErrors($class)
     {
-        $class::createFromFormat('d/m/Y', '41/02/1900');
-        $errors = $class::getLastErrors();
-        $expected = [
-            'warning_count' => 1,
-            'warnings' => [
-                10 => 'The parsed date was invalid',
-            ],
-            'error_count' => 0,
-            'errors' => [],
-        ];
-        $this->assertSame($expected, $errors);
+        $this->deprecated(function () use ($class) {
+            $class::createFromFormat('d/m/Y', '41/02/1900');
+            $errors = $class::getLastErrors();
+            $expected = [
+                'warning_count' => 1,
+                'warnings' => [
+                    10 => 'The parsed date was invalid',
+                ],
+                'error_count' => 0,
+                'errors' => [],
+            ];
+            $this->assertSame($expected, $errors);
+        });
     }
 }

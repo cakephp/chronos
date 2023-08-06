@@ -50,6 +50,7 @@ use InvalidArgumentException;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @deprecated 2.4.0 Use immutable \Cake\Chronos\Chronos instead
  */
 class MutableDateTime extends DateTime implements ChronosInterface
 {

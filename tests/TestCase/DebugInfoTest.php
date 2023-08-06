@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 
@@ -43,7 +43,7 @@ class DebugInfoTest extends TestCase
             'date' => '2001-02-03',
         ];
 
-        $date = Date::create(2001, 2, 3, 10, 20, 30);
+        $date = ChronosDate::create(2001, 2, 3, 10, 20, 30);
         $this->assertSame($expected, $date->__debugInfo());
 
         $mutable = MutableDate::create(2001, 2, 3, 10, 20, 30);
@@ -74,8 +74,8 @@ class DebugInfoTest extends TestCase
             'date' => '2001-02-03',
         ];
 
-        Date::setTestNow(Chronos::now());
-        $date = Date::create(2001, 2, 3, 10, 20, 30);
+        ChronosDate::setTestNow(Chronos::now());
+        $date = ChronosDate::create(2001, 2, 3, 10, 20, 30);
         $this->assertSame($expected, $date->__debugInfo());
 
         MutableDate::setTestNow(Chronos::now());

@@ -185,8 +185,10 @@ class SettersTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Unknown or bad timezone');
 
-        $d = MutableDateTime::now();
-        $d->timezone = 'sdf';
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->timezone = 'sdf';
+        });
     }
 
     public function testTzWithInvalidTimezone()
@@ -194,8 +196,10 @@ class SettersTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Unknown or bad timezone');
 
-        $d = MutableDateTime::now();
-        $d->tz('sdf');
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->tz('sdf');
+        });
     }
 
     public function testSetTimezoneUsingString()
@@ -207,22 +211,26 @@ class SettersTest extends TestCase
 
     public function testTimezoneUsingString()
     {
-        $d = MutableDateTime::now();
-        $d->timezone = 'America/Toronto';
-        $this->assertSame('America/Toronto', $d->tzName);
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->timezone = 'America/Toronto';
+            $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->timezone('America/Vancouver');
-        $this->assertSame('America/Vancouver', $d->tzName);
+            $d->timezone('America/Vancouver');
+            $this->assertSame('America/Vancouver', $d->tzName);
+        });
     }
 
     public function testTzUsingString()
     {
-        $d = MutableDateTime::now();
-        $d->tz = 'America/Toronto';
-        $this->assertSame('America/Toronto', $d->tzName);
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->tz = 'America/Toronto';
+            $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->tz('America/Vancouver');
-        $this->assertSame('America/Vancouver', $d->tzName);
+            $d->tz('America/Vancouver');
+            $this->assertSame('America/Vancouver', $d->tzName);
+        });
     }
 
     public function testSetTimezoneUsingDateTimeZone()
@@ -234,22 +242,26 @@ class SettersTest extends TestCase
 
     public function testTimezoneUsingDateTimeZone()
     {
-        $d = MutableDateTime::now();
-        $d->timezone = new \DateTimeZone('America/Toronto');
-        $this->assertSame('America/Toronto', $d->tzName);
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->timezone = new \DateTimeZone('America/Toronto');
+            $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->timezone(new \DateTimeZone('America/Vancouver'));
-        $this->assertSame('America/Vancouver', $d->tzName);
+            $d->timezone(new \DateTimeZone('America/Vancouver'));
+            $this->assertSame('America/Vancouver', $d->tzName);
+        });
     }
 
     public function testTzUsingDateTimeZone()
     {
-        $d = MutableDateTime::now();
-        $d->tz = new \DateTimeZone('America/Toronto');
-        $this->assertSame('America/Toronto', $d->tzName);
+        $this->deprecated(function () {
+            $d = MutableDateTime::now();
+            $d->tz = new \DateTimeZone('America/Toronto');
+            $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->tz(new \DateTimeZone('America/Vancouver'));
-        $this->assertSame('America/Vancouver', $d->tzName);
+            $d->tz(new \DateTimeZone('America/Vancouver'));
+            $this->assertSame('America/Vancouver', $d->tzName);
+        });
     }
 
     public function testInvalidSetter()

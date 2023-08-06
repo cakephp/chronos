@@ -63,7 +63,6 @@ want to migrate, we could use the following to update files:
 
 ```
 # Replace imports
-find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\CarbonInterval/use Cake\\Chronos\\ChronosInterval/g' {} \;
 find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\CarbonImmutable/use Cake\\Chronos\\Chronos/g' {} \;
 find ./src -type f -name '*.php' -exec sed -i '' 's/use Carbon\\Carbon/use Cake\\Chronos\\Chronos/g' {} \;
 
@@ -104,7 +103,7 @@ In the case that you need a mutable instance you can get one:
 $time = new Chronos('2015-10-21 16:29:00');
 $mutable = $time->toMutable();
 
-$date = new Date('2015-10-21');
+$date = new ChronosDate('2015-10-21');
 $mutable = $date->toMutable();
 ```
 
@@ -130,9 +129,9 @@ set to the server default timezone. This makes them ideal when working with
 calendar dates as the time components will always match.
 
 ```php
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 
-$today = new Date();
+$today = new ChronosDate();
 echo $today;
 // Outputs '2015-10-21'
 

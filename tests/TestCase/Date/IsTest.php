@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Cake\Chronos\Test\TestCase\Date;
 
+use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 
 class IsTest extends TestCase
@@ -46,6 +47,13 @@ class IsTest extends TestCase
      */
     public function testIsTodayFalseWithYesterday($class)
     {
-        $this->assertFalse($class::now()->subDay()->endOfDay()->isToday());
+        $scenario = function () use ($class) {
+            $this->assertFalse($class::now()->subDays(1)->endOfDay()->isToday());
+        };
+        if ($class === MutableDate::class) {
+            $scenario();
+        } else {
+            $this->deprecated($scenario);
+        }
     }
 }

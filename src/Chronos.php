@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos;
 
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 
@@ -139,6 +140,8 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
      */
     public function toMutable(): MutableDateTime
     {
+        trigger_error('2.5 Mutable classes will be removed in 3.0', E_USER_DEPRECATED);
+
         return MutableDateTime::instance($this);
     }
 
@@ -198,6 +201,70 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
     }
 
     /**
+     * Create a new DateInterval instance from specified values.
+     *
+     * @param int|null $years The year to use.
+     * @param int|null $months The month to use.
+     * @param int|null $weeks The week to use.
+     * @param int|null $days The day to use.
+     * @param int|null $hours The hours to use.
+     * @param int|null $minutes The minutes to use.
+     * @param int|null $seconds The seconds to use.
+     * @param int|null $microseconds The microseconds to use.
+     * @return \DateInterval
+     */
+    public static function createInterval(
+        ?int $years = null,
+        ?int $months = null,
+        ?int $weeks = null,
+        ?int $days = null,
+        ?int $hours = null,
+        ?int $minutes = null,
+        ?int $seconds = null,
+        ?int $microseconds = null
+    ): DateInterval {
+        $spec = 'P';
+
+        if ($years) {
+            $spec .= $years . 'Y';
+        }
+        if ($months) {
+            $spec .= $months . 'M';
+        }
+        if ($weeks) {
+            $spec .= $weeks . 'W';
+        }
+        if ($days) {
+            $spec .= $days . 'D';
+        }
+
+        if ($hours || $minutes || $seconds) {
+            $spec .= 'T';
+            if ($hours) {
+                $spec .= $hours . 'H';
+            }
+            if ($minutes) {
+                $spec .= $minutes . 'M';
+            }
+            if ($seconds) {
+                $spec .= $seconds . 'S';
+            }
+        }
+
+        if ($microseconds && $spec === 'P') {
+            $spec .= 'T0S';
+        }
+
+        $instance = new DateInterval($spec);
+
+        if ($microseconds) {
+            $instance->f = $microseconds / 1000000;
+        }
+
+        return $instance;
+    }
+
+    /**
      * Return properties for debugging.
      *
      * @return array
@@ -211,5 +278,28 @@ class Chronos extends DateTimeImmutable implements ChronosInterface
         ];
 
         return $properties;
+    }
+
+    /**
+     * Deprecation helper to compare types
+     *
+     * Future versions of Chronos will not support comparing date/datetimes to each other.
+     *
+     * @param object $first The first object.
+     * @param object|null $second The second object
+     * @return void
+     * @internal
+     */
+    public static function checkTypes(object $first, $second): void
+    {
+        $firstClass = get_class($first);
+        $secondClass = $second !== null ? get_class($second) : null;
+        if ($second !== null && $firstClass !== $secondClass) {
+            trigger_error(
+                "2.5 Comparing {$firstClass} and {$secondClass} is deprecated. " .
+                'In 3.0 this functionality will be removed.',
+                E_USER_DEPRECATED
+            );
+        }
     }
 }

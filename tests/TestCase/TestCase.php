@@ -15,11 +15,13 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterval;
 use Cake\Chronos\Date;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 use Closure;
+use DateInterval;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -40,7 +42,7 @@ abstract class TestCase extends BaseTestCase
         MutableDateTime::setTestNow(null);
         Chronos::setTestNow(null);
         MutableDate::setTestNow(null);
-        Date::setTestNow(null);
+        ChronosDate::setTestNow(null);
     }
 
     public function classNameProvider()
@@ -55,7 +57,8 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             'mutable' => [MutableDate::class],
-            'immutable' => [Date::class],
+            'immutable' => [ChronosDate::class],
+            'immutableAlias' => [Date::class],
         ];
     }
 
@@ -125,6 +128,44 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
+    protected function assertDateInterval(DateInterval $interval, $years = null, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
+    {
+        if ($years !== null) {
+            $this->assertSame($years, $interval->y, 'DateInterval->y');
+        }
+
+        if ($months !== null) {
+            $this->assertSame($months, $interval->m, 'DateInterval->m');
+        }
+
+        if ($days !== null) {
+            $this->assertSame($days, $interval->d, 'DateInterval->d');
+        }
+
+        if ($hours !== null) {
+            $this->assertSame($hours, $interval->h, 'DateInterval->h');
+        }
+
+        if ($minutes !== null) {
+            $this->assertSame($minutes, $interval->i, 'DateInterval->i');
+        }
+
+        if ($seconds !== null) {
+            $this->assertSame($seconds, $interval->s, 'DateInterval->s');
+        }
+
+        if ($microseconds !== null) {
+            $this->assertSame($microseconds, $interval->f, 'DateInterval->f');
+        }
+    }
+
+    protected function assertDate($d, $year, $month, $day)
+    {
+        $this->assertSame($year, $d->year, 'ChronosDate->year');
+        $this->assertSame($month, $d->month, 'ChronosDate->month');
+        $this->assertSame($day, $d->day, 'ChronosDate->day');
+    }
+
     protected function wrapWithTestNow(Closure $func, $dt = null)
     {
         Chronos::setTestNow($dt ?? Chronos::now());
@@ -141,5 +182,38 @@ abstract class TestCase extends BaseTestCase
         } finally {
             date_default_timezone_set($restore);
         }
+    }
+
+    /**
+     * Helper method for check deprecation methods
+     *
+     * @param \Closure $callable callable function that will receive asserts
+     * @return void
+     */
+    public function deprecated(Closure $callable): void
+    {
+        /** @var bool $deprecation Expand type for psalm */
+        $deprecation = false;
+
+        $previousHandler = set_error_handler(
+            function ($code, $message, $file, $line, $context = null) use (&$previousHandler, &$deprecation): bool {
+                if ($code == E_USER_DEPRECATED) {
+                    $deprecation = true;
+
+                    return true;
+                }
+                if ($previousHandler) {
+                    return $previousHandler($code, $message, $file, $line, $context);
+                }
+
+                return false;
+            }
+        );
+        try {
+            $callable();
+        } finally {
+            restore_error_handler();
+        }
+        $this->assertTrue($deprecation, 'Should have at least one deprecation warning');
     }
 }

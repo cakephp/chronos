@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos\Traits;
 
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterface;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -120,6 +121,10 @@ trait FrozenTimeTrait
      */
     public function timezone($value)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 timezone() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this;
     }
 
@@ -133,6 +138,10 @@ trait FrozenTimeTrait
      */
     public function tz($value)
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 tz() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return $this;
     }
 
@@ -147,6 +156,24 @@ trait FrozenTimeTrait
     #[ReturnTypeWillChange]
     public function setTimezone($value)
     {
+        if (static::class === ChronosDate::class) {
+            $trace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 5);
+            $found = false;
+            foreach ($trace as $frame) {
+                $found = in_array(
+                    $frame['class'],
+                    ['PHPUnit\Framework\Assert', 'PHPUnit\Framework\Constraint\IsEqual'],
+                    true
+                );
+                if ($found) {
+                    break;
+                }
+            }
+            if (!$found) {
+                trigger_error('2.5 setTimezone() will be removed in 3.x.', E_USER_DEPRECATED);
+            }
+        }
+
         return $this;
     }
 
@@ -162,6 +189,10 @@ trait FrozenTimeTrait
     #[ReturnTypeWillChange]
     public function setTimestamp($value): ChronosInterface
     {
+        if (static::class === ChronosDate::class) {
+            trigger_error('2.5 setTimestamp() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
         return parent::setTimestamp($value)->setTime(0, 0, 0);
     }
 

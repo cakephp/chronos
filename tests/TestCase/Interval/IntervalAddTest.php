@@ -24,23 +24,29 @@ class IntervalAddTest extends TestCase
 {
     public function testAdd()
     {
-        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11)->add(new DateInterval('P2Y1M5DT22H33M44S'));
-        $this->assertDateTimeInterval($ci, 6, 4, 54, 30, 43, 55);
+        $this->deprecated(function () {
+            $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11)->add(new DateInterval('P2Y1M5DT22H33M44S'));
+            $this->assertDateTimeInterval($ci, 6, 4, 54, 30, 43, 55);
+        });
     }
 
     public function testAddWithDiffDateInterval()
     {
-        $now = Chronos::now();
-        $diff = $now->diff($now->addWeeks(3));
-        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
-        $this->assertDateTimeInterval($ci, 4, 3, 70, 8, 10, 11, 123);
+        $this->deprecated(function () {
+            $now = Chronos::now();
+            $diff = $now->diff($now->addWeeks(3));
+            $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
+            $this->assertDateTimeInterval($ci, 4, 3, 70, 8, 10, 11, 123);
+        });
     }
 
     public function testAddWithNegativeDiffDateInterval()
     {
-        $now = Chronos::now();
-        $diff = $now->diff($now->subWeeks(3));
-        $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
-        $this->assertDateTimeInterval($ci, 4, 3, 28, 8, 10, 11, 123);
+        $this->deprecated(function () {
+            $now = Chronos::now();
+            $diff = $now->diff($now->subWeeks(3));
+            $ci = ChronosInterval::create(4, 3, 6, 7, 8, 10, 11, 123)->add($diff);
+            $this->assertDateTimeInterval($ci, 4, 3, 28, 8, 10, 11, 123);
+        });
     }
 }

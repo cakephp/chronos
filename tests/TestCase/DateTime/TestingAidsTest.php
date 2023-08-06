@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\MutableDateTime;
 use Cake\Chronos\Test\TestCase\TestCase;
@@ -288,7 +288,7 @@ class TestingAidsTest extends TestCase
         $class::setTestNow($c);
 
         $this->assertSame($c, MutableDate::getTestNow());
-        $this->assertSame($c, Date::getTestNow());
+        $this->assertSame($c, ChronosDate::getTestNow());
         $this->assertSame($c, Chronos::getTestNow());
         $this->assertSame($c, MutableDateTime::getTestNow());
     }

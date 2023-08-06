@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\Date;
 
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\MutableDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeImmutable;
@@ -25,6 +25,19 @@ use DateTimeZone;
  */
 class ConstructTest extends TestCase
 {
+    public function testCreateFromTimestampDeprecated()
+    {
+        $this->deprecated(function () {
+            $date = ChronosDate::createFromTimestamp(time());
+            $this->assertGreaterThanOrEqual(2022, $date->year);
+        });
+
+        $this->deprecated(function () {
+            $date = ChronosDate::createFromTimestampUTC(time());
+            $this->assertGreaterThanOrEqual(2022, $date->year);
+        });
+    }
+
     /**
      * @dataProvider dateClassProvider
      * @return void
@@ -63,7 +76,7 @@ class ConstructTest extends TestCase
      */
     public function testCreateFromTimestamp($class)
     {
-        $this->withTimezone('Europe/Berlin', function () use ($class) {
+        $scenario = function () use ($class) {
             $ts = 1454284800;
 
             $date = $class::createFromTimestamp($ts);
@@ -73,7 +86,14 @@ class ConstructTest extends TestCase
             $date = new $class($ts);
             $this->assertSame('Europe/Berlin', $date->tzName);
             $this->assertSame('2016-02-01', $date->format('Y-m-d'));
-        });
+        };
+        $wrapped = $scenario;
+        if ($class != MutableDate::class) {
+            $wrapped = function () use ($scenario) {
+                $this->deprecated($scenario);
+            };
+        }
+        $this->withTimezone('Europe/Berlin', $wrapped);
     }
 
     /**
@@ -227,7 +247,7 @@ class ConstructTest extends TestCase
      */
     public function testConstructWithTimeParts($time)
     {
-        $dt = new Date($time);
+        $dt = new ChronosDate($time);
         $this->assertSame(8, $dt->month);
         $this->assertSame(0, $dt->hour);
         $this->assertSame(0, $dt->minute);
