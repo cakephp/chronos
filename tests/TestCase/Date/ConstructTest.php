@@ -19,6 +19,7 @@ use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use InvalidArgumentException;
 
 /**
  * Test constructors for Date objects.
@@ -206,5 +207,19 @@ class ConstructTest extends TestCase
     {
         $date = ChronosDate::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
         $this->assertSame('2014-02-01 00:00:00 America/Toronto', $date->format('Y-m-d H:i:s e'));
+    }
+
+    public function testCreateFromFormatInvalidFormat()
+    {
+        $parseException = null;
+        try {
+            ChronosDate::createFromFormat('Y-m-d', '1975-05');
+        } catch (InvalidArgumentException $e) {
+            $parseException = $e;
+        }
+
+        $this->assertNotNull($parseException);
+        $this->assertIsArray(ChronosDate::getLastErrors());
+        $this->assertNotEmpty(ChronosDate::getLastErrors()['errors']);
     }
 }

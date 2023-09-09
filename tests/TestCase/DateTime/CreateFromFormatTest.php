@@ -18,6 +18,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
+use InvalidArgumentException;
 
 class CreateFromFormatTest extends TestCase
 {
@@ -46,5 +47,19 @@ class CreateFromFormatTest extends TestCase
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
         $this->assertSame(254687, $d->micro);
+    }
+
+    public function testCreateFromFormatInvalidFormat()
+    {
+        $parseException = null;
+        try {
+            Chronos::createFromFormat('Y-m-d H:i:s.u', '1975-05-21');
+        } catch (InvalidArgumentException $e) {
+            $parseException = $e;
+        }
+
+        $this->assertNotNull($parseException);
+        $this->assertIsArray(Chronos::getLastErrors());
+        $this->assertNotEmpty(Chronos::getLastErrors()['errors']);
     }
 }
