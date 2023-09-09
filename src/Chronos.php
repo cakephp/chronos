@@ -216,6 +216,13 @@ class Chronos
     protected static string $relativePattern = '/this|next|last|tomorrow|yesterday|midnight|today|[+-]|first|last|ago/i';
 
     /**
+     * Errors from last time createFromFormat() was called.
+     *
+     * @var array|false
+     */
+    protected static array|false $lastErrors = false;
+
+    /**
      * @var \DateTimeImmutable
      */
     protected DateTimeImmutable $native;
@@ -656,9 +663,9 @@ class Chronos
             $dateTime = DateTimeImmutable::createFromFormat($format, $time);
         }
 
-        $errors = DateTimeImmutable::getLastErrors();
+        static::$lastErrors = DateTimeImmutable::getLastErrors();
         if (!$dateTime) {
-            $message = $errors ? implode(PHP_EOL, $errors['errors']) : 'Unknown error';
+            $message = static::$lastErrors ? implode(PHP_EOL, static::$lastErrors['errors']) : 'Unknown error';
 
             throw new InvalidArgumentException($message);
         }
@@ -666,6 +673,19 @@ class Chronos
         $dateTime = new static($dateTime->format('Y-m-d H:i:s.u'), $dateTime->getTimezone());
 
         return $dateTime;
+    }
+
+    /**
+     * Returns parse warnings and errors from the last ``createFromFormat()``
+     * call.
+     *
+     * Returns the same data as DateTimeImmutable::getLastErrors().
+     *
+     * @return array|false
+     */
+    public static function getLastErrors(): array|false
+    {
+        return static::$lastErrors;
     }
 
     /**

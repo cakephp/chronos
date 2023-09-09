@@ -76,6 +76,13 @@ class ChronosDate
     protected static ?DifferenceFormatterInterface $diffFormatter = null;
 
     /**
+     * Errors from last time createFromFormat() was called.
+     *
+     * @var array|false
+     */
+    protected static array|false $lastErrors = false;
+
+    /**
      * @var \DateTimeImmutable
      */
     protected DateTimeImmutable $native;
@@ -225,14 +232,27 @@ class ChronosDate
     ): static {
         $dateTime = DateTimeImmutable::createFromFormat($format, $time);
 
-        $errors = DateTimeImmutable::getLastErrors();
+        static::$lastErrors = DateTimeImmutable::getLastErrors();
         if (!$dateTime) {
-            $message = implode(PHP_EOL, $errors ? $errors['errors'] : ['Unknown error']);
+            $message = static::$lastErrors ? implode(PHP_EOL, static::$lastErrors['errors']) : 'Unknown error';
 
             throw new InvalidArgumentException($message);
         }
 
         return new static($dateTime);
+    }
+
+    /**
+     * Returns parse warnings and errors from the last ``createFromFormat()``
+     * call.
+     *
+     * Returns the same data as DateTimeImmutable::getLastErrors().
+     *
+     * @return array|false
+     */
+    public static function getLastErrors(): array|false
+    {
+        return static::$lastErrors;
     }
 
     /**
