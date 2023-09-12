@@ -102,7 +102,7 @@ interface ChronosInterface extends DateTimeInterface
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name.
      * @return static
      */
-    public static function now($tz): self;
+    public static function now($tz = null): self;
 
     /**
      * Get a copy of the instance
