@@ -19,6 +19,11 @@ use Cake\Chronos\Test\TestCase\TestCase;
 class StringsTest extends TestCase
 {
     /**
+     * @var string
+     */
+    protected $tz;
+
+    /**
      * Setup
      *
      * @return void
