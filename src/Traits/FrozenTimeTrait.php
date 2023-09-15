@@ -160,7 +160,7 @@ trait FrozenTimeTrait
             $trace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 5);
             $found = false;
             foreach ($trace as $frame) {
-                $found = in_array(
+                $found = isset($frame['class']) && in_array(
                     $frame['class'],
                     ['PHPUnit\Framework\Assert', 'PHPUnit\Framework\Constraint\IsEqual'],
                     true
