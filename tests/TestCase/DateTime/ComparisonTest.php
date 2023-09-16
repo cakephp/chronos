@@ -17,6 +17,8 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
+use DateTimeImmutable;
+use DateTimeZone;
 
 class ComparisonTest extends TestCase
 {
@@ -32,195 +34,169 @@ class ComparisonTest extends TestCase
         Chronos::setWeekendDays($expected);
     }
 
-    public function testEqualToTrue()
+    public function testEquals()
     {
-        $this->assertTrue(Chronos::create(2000, 1, 1, 0, 0, 0)->equals(Chronos::create(2000, 1, 1, 0, 0, 0)));
+        $left = Chronos::create(2000, 1, 1, 0, 0, 0);
+        $this->assertTrue($left == new Chronos('2000-01-01 00:00:00'));
+        $this->assertTrue($left->equals(new Chronos('2000-01-01 00:00:00')));
+        $this->assertTrue($left->equals(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $this->assertFalse($left == new Chronos('2000-01-02 00:00:00'));
+        $this->assertFalse($left->equals(new Chronos('2000-01-02 00:00:00')));
+        $this->assertFalse($left->equals(new DateTimeImmutable('2000-01-02 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left == new Chronos('2000-01-01 9:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->equals(new Chronos('2000-01-01 9:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->equals(new DateTimeImmutable('2000-01-01 9:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left == new Chronos('2000-01-01 12:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->equals(new Chronos('2000-01-01 12:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->equals(new DateTimeImmutable('2000-01-01 12:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testEqualToFalse()
+    public function testNotEquals()
     {
-        $this->assertFalse(Chronos::create(2000, 1, 1, 0, 0, 0)->equals(Chronos::create(2000, 1, 2, 0, 0, 0)));
+        $left = Chronos::create(2000, 1, 1, 0, 0, 0);
+        $this->assertTrue($left != new Chronos('2000-01-02 00:00:00'));
+        $this->assertTrue($left->notEquals(new Chronos('2000-01-02 00:00:00')));
+        $this->assertTrue($left->notEquals(new DateTimeImmutable('2000-01-02 00:00:00')));
+
+        $this->assertFalse($left != new Chronos('2000-01-01 00:00:00'));
+        $this->assertFalse($left->notEquals(new Chronos('2000-01-01 00:00:00')));
+        $this->assertFalse($left->notEquals(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left != new Chronos('2000-01-01 12:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->notEquals(new Chronos('2000-01-01 12:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->notEquals(new DateTimeImmutable('2000-01-01 12:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left != new Chronos('2000-01-01 9:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->notEquals(new Chronos('2000-01-01 9:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->notEquals(new DateTimeImmutable('2000-01-01 9:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testEqualWithTimezoneTrue()
+    public function testGreaterThan()
     {
-        $this->assertTrue(Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto')->equals(Chronos::create(
-            2000,
-            1,
-            1,
-            9,
-            0,
-            0,
-            0,
-            'America/Vancouver'
-        )));
+        $left = Chronos::create(2000, 1, 2, 0, 0, 0);
+        $this->assertTrue($left > new Chronos('2000-01-01 00:00:00'));
+        $this->assertTrue($left->greaterThan(new Chronos('2000-01-01 00:00:00')));
+        $this->assertTrue($left->greaterThan(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $this->assertFalse($left > new Chronos('2000-01-03 00:00:00'));
+        $this->assertFalse($left->greaterThan(new Chronos('2000-01-03 00:00:00')));
+        $this->assertFalse($left->greaterThan(new DateTimeImmutable('2000-01-03 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left > new Chronos('2000-01-01 08:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->greaterThan(new Chronos('2000-01-01 08:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->greaterThan(new DateTimeImmutable('2000-01-01 08:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left > new Chronos('2000-01-01 09:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->greaterThan(new Chronos('2000-01-01 09:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->greaterThan(new DateTimeImmutable('2000-01-01 09:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testEqualWithTimezoneFalse()
+    public function testGreaterThanOrEqual()
     {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1, 'America/Toronto')->equals(Chronos::createFromDate(
-            2000,
-            1,
-            1,
-            'America/Vancouver'
-        )));
+        $left = Chronos::create(2000, 1, 2, 0, 0, 0);
+        $this->assertTrue($left >= new Chronos('2000-01-01 00:00:00'));
+        $this->assertTrue($left->greaterThanOrEquals(new Chronos('2000-01-01 00:00:00')));
+        $this->assertTrue($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $this->assertTrue($left >= new Chronos('2000-01-02 00:00:00'));
+        $this->assertTrue($left->greaterThanOrEquals(new Chronos('2000-01-02 00:00:00')));
+        $this->assertTrue($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-02 00:00:00')));
+
+        $this->assertFalse($left >= new Chronos('2000-01-03 00:00:00'));
+        $this->assertFalse($left->greaterThanOrEquals(new Chronos('2000-01-03 00:00:00')));
+        $this->assertFalse($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-03 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left >= new Chronos('2000-01-01 09:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->greaterThanOrEquals(new Chronos('2000-01-01 09:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-01 09:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertTrue($left >= new Chronos('2000-01-01 08:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->greaterThanOrEquals(new Chronos('2000-01-01 08:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-01 08:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left >= new Chronos('2000-01-01 10:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->greaterThanOrEquals(new Chronos('2000-01-01 10:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->greaterThanOrEquals(new DateTimeImmutable('2000-01-01 10:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testNotEqualToTrue()
+    public function testLessThan()
     {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->notEquals(Chronos::createFromDate(2000, 1, 2)));
+        $left = Chronos::create(2000, 1, 1, 0, 0, 0);
+        $this->assertTrue($left < new Chronos('2000-01-02 00:00:00'));
+        $this->assertTrue($left->lessThan(new Chronos('2000-01-02 00:00:00')));
+        $this->assertTrue($left->lessThan(new DateTimeImmutable('2000-01-02 00:00:00')));
+
+        $this->assertFalse($left < new Chronos('2000-01-01 00:00:00'));
+        $this->assertFalse($left->lessThan(new Chronos('2000-01-01 00:00:00')));
+        $this->assertFalse($left->lessThan(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left < new Chronos('2000-01-01 12:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->lessThan(new Chronos('2000-01-01 12:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->lessThan(new DateTimeImmutable('2000-01-01 12:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left < new Chronos('2000-01-01 09:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->lessThan(new Chronos('2000-01-01 09:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->lessThan(new DateTimeImmutable('2000-01-01 09:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testNotEqualToFalse()
+    public function testLessThanOrEqual()
     {
-        $this->assertFalse(Chronos::create(2000, 1, 1, 0, 0, 0)->notEquals(Chronos::create(2000, 1, 1, 0, 0, 0)));
+        $left = Chronos::create(2000, 1, 2, 0, 0, 0);
+        $this->assertTrue($left <= new Chronos('2000-01-03 00:00:00'));
+        $this->assertTrue($left->lessThanOrEquals(new Chronos('2000-01-03 00:00:00')));
+        $this->assertTrue($left->lessThanOrEquals(new DateTimeImmutable('2000-01-03 00:00:00')));
+
+        $this->assertTrue($left <= new Chronos('2000-01-02 00:00:00'));
+        $this->assertTrue($left->lessThanOrEquals(new Chronos('2000-01-02 00:00:00')));
+        $this->assertTrue($left->lessThanOrEquals(new DateTimeImmutable('2000-01-02 00:00:00')));
+
+        $this->assertFalse($left <= new Chronos('2000-01-01 00:00:00'));
+        $this->assertFalse($left->lessThanOrEquals(new Chronos('2000-01-01 00:00:00')));
+        $this->assertFalse($left->lessThanOrEquals(new DateTimeImmutable('2000-01-01 00:00:00')));
+
+        $left = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
+        $this->assertTrue($left <= new Chronos('2000-01-01 10:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->lessThanOrEquals(new Chronos('2000-01-01 10:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->lessThanOrEquals(new DateTimeImmutable('2000-01-01 10:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertTrue($left <= new Chronos('2000-01-01 09:00:00', 'America/Vancouver'));
+        $this->assertTrue($left->lessThanOrEquals(new Chronos('2000-01-01 09:00:00', 'America/Vancouver')));
+        $this->assertTrue($left->lessThanOrEquals(new DateTimeImmutable('2000-01-01 09:00:00', new DateTimeZone('America/Vancouver'))));
+
+        $this->assertFalse($left <= new Chronos('2000-01-01 08:00:00', 'America/Vancouver'));
+        $this->assertFalse($left->lessThanOrEquals(new Chronos('2000-01-01 08:00:00', 'America/Vancouver')));
+        $this->assertFalse($left->lessThanOrEquals(new DateTimeImmutable('2000-01-01 08:00:00', new DateTimeZone('America/Vancouver'))));
     }
 
-    public function testNotEqualWithTimezone()
+    public function testBetween()
     {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1, 'America/Toronto')->notEquals(Chronos::createFromDate(
-            2000,
-            1,
-            1,
-            'America/Vancouver'
-        )));
-    }
+        $date = new Chronos('2000-01-15 00:00:00');
+        $this->assertTrue($date->between(new Chronos('2000-01-14 00:00:00'), new Chronos('2000-01-15 00:00:00')));
+        $this->assertTrue($date->between(new DateTimeImmutable('2000-01-14 00:00:00'), new DateTimeImmutable('2000-01-15 00:00:00')));
 
-    public function testGreaterThanTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->greaterThan(Chronos::createFromDate(1999, 12, 31)));
-    }
+        $this->assertTrue($date->between(new Chronos('2000-01-14 00:00:00'), new Chronos('2000-01-16 00:00:00'), false));
+        $this->assertTrue($date->between(new DateTimeImmutable('2000-01-14 00:00:00'), new DateTimeImmutable('2000-01-16 00:00:00'), false));
 
-    public function testGreaterThanFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->greaterThan(Chronos::createFromDate(2000, 1, 2)));
-    }
+        $this->assertFalse($date->between(new Chronos('2000-01-16 00:00:00'), new Chronos('2000-01-17 00:00:00')));
+        $this->assertFalse($date->between(new DateTimeImmutable('2000-01-16 00:00:00'), new DateTimeImmutable('2000-01-17 00:00:00')));
 
-    public function testGreaterThanWithTimezoneTrue()
-    {
-        $dt1 = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
-        $dt2 = Chronos::create(2000, 1, 1, 8, 59, 59, 0, 'America/Vancouver');
-        $this->assertTrue($dt1->greaterThan($dt2));
-    }
+        $this->assertFalse($date->between(new Chronos('2000-01-14 00:00:00'), new Chronos('2000-01-15 00:00:00'), false));
+        $this->assertFalse($date->between(new DateTimeImmutable('2000-01-14 00:00:00'), new DateTimeImmutable('2000-01-15 00:00:00'), false));
 
-    public function testGreaterThanWithTimezoneFalse()
-    {
-        $dt1 = Chronos::create(2000, 1, 1, 12, 0, 0, 0, 'America/Toronto');
-        $dt2 = Chronos::create(2000, 1, 1, 9, 0, 1, 0, 'America/Vancouver');
-        $this->assertFalse($dt1->greaterThan($dt2));
-        $this->assertFalse($dt1->greaterThan($dt2));
-    }
+        // switched
+        $this->assertTrue($date->between(new Chronos('2000-01-16 00:00:00'), new Chronos('2000-01-14 00:00:00'), false));
+        $this->assertTrue($date->between(new DateTimeImmutable('2000-01-16 00:00:00'), new DateTimeImmutable('2000-01-14 00:00:00'), false));
 
-    public function testGreaterThanOrEqualTrue()
-    {
-        $this->assertTrue(Chronos::create(2000, 1, 1)->greaterThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
-    }
-
-    public function testGreaterThanOrEqualTrueEqual()
-    {
-        $this->assertTrue(Chronos::create(2000, 1, 1, 0, 0, 0)->greaterThanOrEquals(Chronos::create(2000, 1, 1, 0, 0, 0)));
-    }
-
-    public function testGreaterThanOrEqualFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->greaterThanOrEquals(Chronos::createFromDate(2000, 1, 2)));
-    }
-
-    public function testLessThanTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThan(Chronos::createFromDate(2000, 1, 2)));
-    }
-
-    public function testLessThanFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
-    }
-
-    public function testLessThanOrEqualTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(2000, 1, 2)));
-    }
-
-    public function testLessThanOrEqualTrueEqual()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(2000, 1, 1)));
-    }
-
-    public function testLessThanOrEqualFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->lessThanOrEquals(Chronos::createFromDate(1999, 12, 31)));
-    }
-
-    public function testBetweenEqualTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
-            Chronos::createFromDate(2000, 1, 1),
-            Chronos::createFromDate(2000, 1, 31),
-            true
-        ));
-    }
-
-    public function testBetweenNotEqualTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
-            Chronos::createFromDate(2000, 1, 1),
-            Chronos::createFromDate(2000, 1, 31),
-            false
-        ));
-    }
-
-    public function testBetweenEqualFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(1999, 12, 31)->between(
-            Chronos::createFromDate(2000, 1, 1),
-            Chronos::createFromDate(2000, 1, 31),
-            true
-        ));
-    }
-
-    public function testBetweenNotEqualFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->between(
-            Chronos::createFromDate(2000, 1, 1),
-            Chronos::createFromDate(2000, 1, 31),
-            false
-        ));
-    }
-
-    public function testBetweenEqualSwitchTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
-            Chronos::createFromDate(2000, 1, 31),
-            Chronos::createFromDate(2000, 1, 1),
-            true
-        ));
-    }
-
-    public function testBetweenNotEqualSwitchTrue()
-    {
-        $this->assertTrue(Chronos::createFromDate(2000, 1, 15)->between(
-            Chronos::createFromDate(2000, 1, 31),
-            Chronos::createFromDate(2000, 1, 1),
-            false
-        ));
-    }
-
-    public function testBetweenEqualSwitchFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(1999, 12, 31)->between(
-            Chronos::createFromDate(2000, 1, 31),
-            Chronos::createFromDate(2000, 1, 1),
-            true
-        ));
-    }
-
-    public function testBetweenNotEqualSwitchFalse()
-    {
-        $this->assertFalse(Chronos::createFromDate(2000, 1, 1)->between(
-            Chronos::createFromDate(2000, 1, 31),
-            Chronos::createFromDate(2000, 1, 1),
-            false
-        ));
+        $this->assertFalse($date->between(new Chronos('2000-01-15 00:00:00'), new Chronos('2000-01-14 00:00:00'), false));
+        $this->assertFalse($date->between(new DateTimeImmutable('2000-01-15 00:00:00'), new DateTimeImmutable('2000-01-14 00:00:00'), false));
     }
 
     public function testMinIsFluid()
@@ -238,6 +214,10 @@ class ComparisonTest extends TestCase
     public function testMinWithInstance()
     {
         $dt1 = Chronos::create(2013, 12, 31, 23, 59, 59);
+        $dt2 = Chronos::create(2012, 1, 1, 0, 0, 0)->min($dt1);
+        $this->assertDateTime($dt2, 2012, 1, 1, 0, 0, 0);
+
+        $dt1 = new DateTimeImmutable('2013-12-31 23:59:59');
         $dt2 = Chronos::create(2012, 1, 1, 0, 0, 0)->min($dt1);
         $this->assertDateTime($dt2, 2012, 1, 1, 0, 0, 0);
     }
@@ -259,6 +239,10 @@ class ComparisonTest extends TestCase
         $dt1 = Chronos::create(2012, 1, 1, 0, 0, 0);
         $dt2 = Chronos::create(2099, 12, 31, 23, 59, 59)->max($dt1);
         $this->assertDateTime($dt2, 2099, 12, 31, 23, 59, 59);
+
+        $dt1 = new DateTimeImmutable('2012-01-01 00:00:00');
+        $dt2 = Chronos::create(2099, 12, 31, 23, 59, 59)->max($dt1);
+        $this->assertDateTime($dt2, 2099, 12, 31, 23, 59, 59);
     }
 
     public function testIsBirthday()
@@ -276,6 +260,9 @@ class ComparisonTest extends TestCase
         $dt3 = Chronos::createFromDate(2014, 4, 23);
         $this->assertFalse($dt2->isBirthday($dt1));
         $this->assertTrue($dt3->isBirthday($dt1));
+
+        $this->assertTrue($dt1->isBirthday(new DateTimeImmutable('2014-04-23 00:00:00')));
+        $this->assertFalse($dt1->isBirthday(new DateTimeImmutable('2014-04-22 00:00:00')));
     }
 
     public function testClosest()
@@ -285,6 +272,12 @@ class ComparisonTest extends TestCase
         $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
         $this->assertSame($dt1, $closest);
+
+        $dt1 = new DateTimeImmutable('2015-05-28 11:00:00');
+        $dt2 = new DateTimeImmutable('2015-05-28 14:00:00');
+        $closest = $instance->closest($dt1, $dt2);
+        $this->assertEquals($dt1, $closest);
+        $this->assertInstanceOf(Chronos::class, $closest);
     }
 
     public function testClosestWithEquals()
@@ -294,6 +287,12 @@ class ComparisonTest extends TestCase
         $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
         $this->assertSame($dt1, $closest);
+
+        $dt1 = new DateTimeImmutable('2015-05-28 11:00:00');
+        $dt2 = new DateTimeImmutable('2015-05-28 14:00:00');
+        $closest = $instance->closest($dt1, $dt2);
+        $this->assertEquals($dt1, $closest);
+        $this->assertInstanceOf(Chronos::class, $closest);
     }
 
     public function testClosestWithOthers(): void
@@ -314,6 +313,12 @@ class ComparisonTest extends TestCase
         $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
+
+        $dt1 = new DateTimeImmutable('2015-05-28 11:00:00');
+        $dt2 = new DateTimeImmutable('2015-05-28 14:00:00');
+        $farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $farthest);
+        $this->assertInstanceOf(Chronos::class, $farthest);
     }
 
     public function testFarthestWithEquals()
@@ -323,6 +328,12 @@ class ComparisonTest extends TestCase
         $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
+
+        $dt1 = new DateTimeImmutable('2015-05-28 12:00:00');
+        $dt2 = new DateTimeImmutable('2015-05-28 14:00:00');
+        $farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $farthest);
+        $this->assertInstanceOf(Chronos::class, $farthest);
     }
 
     public function testFarthestWithOthers(): void

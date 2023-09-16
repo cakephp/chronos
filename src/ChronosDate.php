@@ -100,11 +100,11 @@ class ChronosDate
      * are used when parsing relative date expressions like `today` and `yesterday`
      * but do not participate in parsing values like `2022-01-01`.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      */
     public function __construct(
-        Chronos|ChronosDate|DateTimeInterface|string $time = 'now',
+        ChronosDate|DateTimeInterface|string $time = 'now',
         DateTimeZone|string|null $timezone = null
     ) {
         $this->native = $this->createNative($time, $timezone);
@@ -113,12 +113,12 @@ class ChronosDate
     /**
      * Initializes the PHP DateTimeImmutable object.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      * @return \DateTimeImmutable
      */
     protected function createNative(
-        Chronos|ChronosDate|DateTimeInterface|string $time,
+        ChronosDate|DateTimeInterface|string $time,
         DateTimeZone|string|null $timezone
     ): DateTimeImmutable {
         if (!is_string($time)) {
@@ -193,10 +193,10 @@ class ChronosDate
      * Chronos::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The strtotime compatible string to parse
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The strtotime compatible string to parse
      * @return static
      */
-    public static function parse(Chronos|ChronosDate|DateTimeInterface|string $time): static
+    public static function parse(ChronosDate|DateTimeInterface|string $time): static
     {
         return new static($time);
     }
@@ -809,9 +809,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function next(?int $dayOfWeek = null): mixed
+    public function next(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -829,9 +829,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function previous(?int $dayOfWeek = null): mixed
+    public function previous(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -849,9 +849,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfMonth(?int $dayOfWeek = null): mixed
+    public function firstOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -865,9 +865,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfMonth(?int $dayOfWeek = null): mixed
+    public function lastOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -882,9 +882,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfMonth(int $nth, int $dayOfWeek): mixed
+    public function nthOfMonth(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfMonth();
         $check = $dateTime->format('Y-m');
@@ -900,9 +900,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfQuarter(?int $dayOfWeek = null): mixed
+    public function firstOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -917,9 +917,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfQuarter(?int $dayOfWeek = null): mixed
+    public function lastOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -935,9 +935,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfQuarter(int $nth, int $dayOfWeek): mixed
+    public function nthOfQuarter(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->day(1)->month($this->quarter * Chronos::MONTHS_PER_QUARTER);
         $lastMonth = $dateTime->month;
@@ -954,9 +954,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfYear(?int $dayOfWeek = null): mixed
+    public function firstOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -970,9 +970,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfYear(?int $dayOfWeek = null): mixed
+    public function lastOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -987,9 +987,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfYear(int $nth, int $dayOfWeek): mixed
+    public function nthOfYear(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
 
