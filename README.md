@@ -77,7 +77,7 @@ Like instances of `Chronos`, `ChronosDate` objects are also *immutable*.
 
 # Documentation
 
-A more descriptive documentation can be found at [book.cakephp.org/chronos/2/en/](https://book.cakephp.org/chronos/2/en/).
+A more descriptive documentation can be found at [book.cakephp.org/chronos/3/en/](https://book.cakephp.org/chronos/3/en/).
 
 # API Documentation
 

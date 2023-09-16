@@ -15,7 +15,7 @@ FROM ghcr.io/cakephp/docs-builder:runtime as runtime
 
 ENV LANGS="en fr ja pt"
 ENV SEARCH_SOURCE="/usr/share/nginx/html"
-ENV SEARCH_URL_PREFIX="/chronos/2"
+ENV SEARCH_URL_PREFIX="/chronos/3"
 
 COPY --from=builder /data/docs /data/docs
 COPY --from=builder /data/website /data/website
