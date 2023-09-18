@@ -1898,12 +1898,12 @@ class Chronos
      * Get the farthest date from the instance.
      *
      * @param \Cake\Chronos\Chronos $first The instance to compare with.
-     * @param \Cake\Chronos\Chronos $seocnd The instance to compare with.
+     * @param \Cake\Chronos\Chronos $second The instance to compare with.
      * @return self
      */
-    public function farthest(Chronos $first, Chronos $seocnd): Chronos
+    public function farthest(Chronos $first, Chronos $second): Chronos
     {
-        return $this->diffInSeconds($first) > $this->diffInSeconds($seocnd) ? $first : $seocnd;
+        return $this->diffInSeconds($first) > $this->diffInSeconds($second) ? $first : $second;
     }
 
     /**
