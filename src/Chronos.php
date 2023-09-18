@@ -29,24 +29,23 @@ use InvalidArgumentException;
  *
  * @property-read int $year
  * @property-read int $yearIso
- * @property-read int<1, 12> $month
- * @property-read int<1, 31> $day
- * @property-read int<0, 23> $hour
- * @property-read int<0, 59> $minute
- * @property-read int<0, 59> $second
- * @property-read int<0, 999999> $micro
- * @property-read int<0, 999999> $microsecond
+ * @property-read int $month
+ * @property-read int $day
+ * @property-read int $hour
+ * @property-read int $minute
+ * @property-read int $second
+ * @property-read int $micro
+ * @property-read int $microsecond
  * @property-read int $timestamp seconds since the Unix Epoch
  * @property-read \DateTimeZone $timezone the current timezone
  * @property-read \DateTimeZone $tz alias of timezone
- * @property-read int<1, 7> $dayOfWeek 1 (for Monday) through 7 (for Sunday)
- * @property-read int<0, 365> $dayOfYear 0 through 365
- * @property-read int<1, 5> $weekOfMonth 1 through 5
- * @property-read int<1, 53> $weekOfYear ISO-8601 week number of year, weeks starting on Monday
- * @property-read int<1, 31> $daysInMonth number of days in the given month
+ * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
+ * @property-read int $dayOfYear 0 through 365
+ * @property-read int $weekOfMonth 1 through 5
+ * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
+ * @property-read int $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
- * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
- * @property-read int<1, 2> $halfOfYear the half of year of this instance, 1 - 2
+ * @property-read int $quarter the quarter of this instance, 1 - 4
  * @property-read int $offset the timezone offset in seconds from UTC
  * @property-read int $offsetHours the timezone offset in hours from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
@@ -2057,26 +2056,6 @@ class Chronos
     }
 
     /**
-     * Determines if the instance is within the first half of year
-     *
-     * @return bool
-     */
-    public function isFirstHalfOfYear(): bool
-    {
-        return $this->halfOfYear === 1;
-    }
-
-    /**
-     * Determines if the instance is within the second half of year
-     *
-     * @return bool
-     */
-    public function isSecondHalfOfYear(): bool
-    {
-        return $this->halfOfYear === 2;
-    }
-
-    /**
      * Determines if the instance is in the future, ie. greater (after) than now
      *
      * @return bool
@@ -2612,9 +2591,6 @@ class Chronos
 
             case $name === 'quarter':
                 return (int)ceil($this->month / 3);
-
-            case $name === 'halfOfYear':
-                return $this->month <= 6 ? 1 : 2;
 
             case $name === 'offset':
                 return $this->getOffset();
