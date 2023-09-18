@@ -16,7 +16,9 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
+use PHPUnit\Framework\Attributes\TestWith;
 
 class IsTest extends TestCase
 {
@@ -439,5 +441,24 @@ class IsTest extends TestCase
         $this->assertTrue((new Chronos('+1 week'))->isWithinNext('7 day'));
         $this->assertTrue((new Chronos('+1 second'))->isWithinNext('1 minute'));
         $this->assertTrue((new Chronos('+1 month'))->isWithinNext('1 month'));
+    }
+
+    #[TestWith([1, true, false])]
+    #[TestWith([2, true, false])]
+    #[TestWith([3, true, false])]
+    #[TestWith([4, true, false])]
+    #[TestWith([5, true, false])]
+    #[TestWith([6, true, false])]
+    #[TestWith([7, false, true])]
+    #[TestWith([8, false, true])]
+    #[TestWith([9, false, true])]
+    #[TestWith([10, false, true])]
+    #[TestWith([11, false, true])]
+    #[TestWith([12, false, true])]
+    public function testIsFirstOrSecondHalfOfYear(int $month, bool $isFirstHalfOfYear, bool $isSecondHalfOfYear): void
+    {
+        $d = ChronosDate::create(2023, $month, 1);
+        $this->assertSame($isFirstHalfOfYear, $d->isFirstHalfOfYear());
+        $this->assertSame($isSecondHalfOfYear, $d->isSecondHalfOfYear());
     }
 }

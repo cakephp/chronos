@@ -47,6 +47,7 @@ class IssetTest extends TestCase
             'timezoneName',
             'tz',
             'tzName',
+            'halfOfYear',
         ];
 
         foreach ($properties as $property) {

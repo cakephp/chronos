@@ -18,6 +18,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\TestWith;
 
 class GettersTest extends TestCase
 {
@@ -160,6 +161,24 @@ class GettersTest extends TestCase
     {
         $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(4, $d->quarter);
+    }
+
+    #[TestWith([1, 1])]
+    #[TestWith([2, 1])]
+    #[TestWith([3, 1])]
+    #[TestWith([4, 1])]
+    #[TestWith([5, 1])]
+    #[TestWith([6, 1])]
+    #[TestWith([7, 2])]
+    #[TestWith([8, 2])]
+    #[TestWith([9, 2])]
+    #[TestWith([10, 2])]
+    #[TestWith([11, 2])]
+    #[TestWith([12, 2])]
+    public function testHalfOfYear(int $month, int $expectedHalfOfYear): void
+    {
+        $d = Chronos::createFromDate(2012, $month, 1);
+        $this->assertSame($expectedHalfOfYear, $d->halfOfYear);
     }
 
     public function testGetLocalTrue()
