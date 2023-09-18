@@ -180,6 +180,17 @@ class ComparisonTest extends TestCase
         $this->assertSame($dt1, $closest);
     }
 
+    public function testClosestWithOthers(): void
+    {
+        $instance = ChronosDate::create(2015, 5, 10);
+        $dt1 = ChronosDate::create(2015, 5, 4);
+        $dt2 = ChronosDate::create(2015, 5, 20);
+        $dt3 = ChronosDate::create(2015, 5, 21);
+        $dt4 = ChronosDate::create(2015, 5, 22);
+        $closest = $instance->closest($dt1, $dt2, $dt3, $dt4);
+        $this->assertSame($dt1, $closest);
+    }
+
     public function testFarthest()
     {
         $instance = ChronosDate::create(2015, 5, 10);
@@ -196,5 +207,17 @@ class ComparisonTest extends TestCase
         $dt2 = ChronosDate::create(2015, 5, 20);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
+    }
+
+    public function testFarthestWithOthers(): void
+    {
+        $instance = ChronosDate::create(2015, 5, 10);
+        $dt1 = ChronosDate::create(2015, 5, 4);
+        $dt2 = ChronosDate::create(2015, 5, 20);
+        $dt3 = ChronosDate::create(2015, 5, 21);
+        $dt4 = ChronosDate::create(2015, 5, 22);
+        $dt5 = ChronosDate::create(2015, 5, 23);
+        $Farthest = $instance->farthest($dt1, $dt2, $dt3, $dt4, $dt5);
+        $this->assertSame($dt5, $Farthest);
     }
 }

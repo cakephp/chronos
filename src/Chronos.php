@@ -1887,11 +1887,22 @@ class Chronos
      *
      * @param \Cake\Chronos\Chronos $first The instance to compare with.
      * @param \Cake\Chronos\Chronos $second The instance to compare with.
+     * @param \Cake\Chronos\Chronos ...$others Others instances to compare with.
      * @return self
      */
-    public function closest(Chronos $first, Chronos $second): Chronos
+    public function closest(Chronos $first, Chronos $second, Chronos ...$others): Chronos
     {
-        return $this->diffInSeconds($first) < $this->diffInSeconds($second) ? $first : $second;
+        $closest = $first;
+        $closestDiffInSeconds = $this->diffInSeconds($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInSeconds = $this->diffInSeconds($other);
+            if ($otherDiffInSeconds < $closestDiffInSeconds) {
+                $closest = $other;
+                $closestDiffInSeconds = $otherDiffInSeconds;
+            }
+        }
+
+        return $closest;
     }
 
     /**
@@ -1899,11 +1910,22 @@ class Chronos
      *
      * @param \Cake\Chronos\Chronos $first The instance to compare with.
      * @param \Cake\Chronos\Chronos $second The instance to compare with.
+     * @param \Cake\Chronos\Chronos ...$others Others instances to compare with.
      * @return self
      */
-    public function farthest(Chronos $first, Chronos $second): Chronos
+    public function farthest(Chronos $first, Chronos $second, Chronos ...$others): Chronos
     {
-        return $this->diffInSeconds($first) > $this->diffInSeconds($second) ? $first : $second;
+        $farthest = $first;
+        $farthestDiffInSeconds = $this->diffInSeconds($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInSeconds = $this->diffInSeconds($other);
+            if ($otherDiffInSeconds > $farthestDiffInSeconds) {
+                $farthest = $other;
+                $farthestDiffInSeconds = $otherDiffInSeconds;
+            }
+        }
+
+        return $farthest;
     }
 
     /**
