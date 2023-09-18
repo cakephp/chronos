@@ -187,7 +187,7 @@ class ComparisonTest extends TestCase
         $dt2 = ChronosDate::create(2015, 5, 20);
         $dt3 = ChronosDate::create(2015, 5, 21);
         $dt4 = ChronosDate::create(2015, 5, 22);
-        $closest = $instance->closest($dt1, $dt2, $dt3, $dt4);
+        $closest = $instance->closest($dt4, $dt3, $dt1, $dt2);
         $this->assertSame($dt1, $closest);
     }
 
