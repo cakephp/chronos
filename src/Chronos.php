@@ -46,7 +46,7 @@ use InvalidArgumentException;
  * @property-read int<1, 31> $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
  * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
- * @property-read int<1, 2> $halfOfYear the half of year of this instance, 1 - 2
+ * @property-read int<1, 2> $halfOfYear the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
  * @property-read int $offset the timezone offset in seconds from UTC
  * @property-read int $offsetHours the timezone offset in hours from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
