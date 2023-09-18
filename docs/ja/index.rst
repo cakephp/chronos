@@ -276,6 +276,7 @@ Chronos は、出力した日時オブジェクトを表示するための多く
 - daysInMonth
 - timestamp
 - quarter
+- halfOfYear
 
 テストの支援
 ------------
