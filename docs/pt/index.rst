@@ -258,6 +258,7 @@ Outras propriedades que podem ser acessadas são:
 - daysInMonth
 - timestamp
 - quarter
+- half
 
 Auxílio para testes
 -------------------
