@@ -1231,7 +1231,7 @@ class ChronosDate
      *
      * @return bool
      */
-    public function isFirstHalfOfYear(): bool
+    public function isFirstHalf(): bool
     {
         return $this->half === 1;
     }
@@ -1241,7 +1241,7 @@ class ChronosDate
      *
      * @return bool
      */
-    public function isSecondHalfOfYear(): bool
+    public function isSecondHalf(): bool
     {
         return $this->half === 2;
     }

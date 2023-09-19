@@ -381,7 +381,7 @@ class IsTest extends TestCase
     public function testIsFirstOrSecondHalfOfYear(int $month, bool $isFirstHalfOfYear, bool $isSecondHalfOfYear): void
     {
         $d = Chronos::createFromDate(2023, $month, 1);
-        $this->assertSame($isFirstHalfOfYear, $d->isFirstHalfOfYear());
-        $this->assertSame($isSecondHalfOfYear, $d->isSecondHalfOfYear());
+        $this->assertSame($isFirstHalfOfYear, $d->isFirstHalf());
+        $this->assertSame($isSecondHalfOfYear, $d->isSecondHalf());
     }
 }
