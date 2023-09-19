@@ -178,7 +178,7 @@ class GettersTest extends TestCase
     public function testHalfOfYear(int $month, int $expectedHalfOfYear): void
     {
         $d = Chronos::createFromDate(2012, $month, 1);
-        $this->assertSame($expectedHalfOfYear, $d->halfOfYear);
+        $this->assertSame($expectedHalfOfYear, $d->half);
     }
 
     public function testGetLocalTrue()

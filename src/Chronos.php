@@ -46,7 +46,7 @@ use InvalidArgumentException;
  * @property-read int<1, 31> $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
  * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
- * @property-read int<1, 2> $halfOfYear the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
+ * @property-read int<1, 2> $half the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
  * @property-read int $offset the timezone offset in seconds from UTC
  * @property-read int $offsetHours the timezone offset in hours from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
@@ -2063,7 +2063,7 @@ class Chronos
      */
     public function isFirstHalfOfYear(): bool
     {
-        return $this->halfOfYear === 1;
+        return $this->half === 1;
     }
 
     /**
@@ -2073,7 +2073,7 @@ class Chronos
      */
     public function isSecondHalfOfYear(): bool
     {
-        return $this->halfOfYear === 2;
+        return $this->half === 2;
     }
 
     /**
@@ -2613,7 +2613,7 @@ class Chronos
             case $name === 'quarter':
                 return (int)ceil($this->month / 3);
 
-            case $name === 'halfOfYear':
+            case $name === 'half':
                 return $this->month <= 6 ? 1 : 2;
 
             case $name === 'offset':

@@ -36,6 +36,6 @@ class GettersTest extends TestCase
     public function testHalfOfYear(int $month, int $expectedHalfOfYear): void
     {
         $d = ChronosDate::create(year: 2012, month: $month, day: 1);
-        $this->assertSame($expectedHalfOfYear, $d->halfOfYear);
+        $this->assertSame($expectedHalfOfYear, $d->half);
     }
 }

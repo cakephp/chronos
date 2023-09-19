@@ -302,7 +302,7 @@ Les autres propriétés accessibles sont:
 - daysInMonth
 - timestamp
 - quarter
-- halfOfYear
+- half
 
 Aides aux Tests
 ---------------

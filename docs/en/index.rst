@@ -290,7 +290,7 @@ Other properties that can be accessed are:
 - daysInMonth
 - timestamp
 - quarter
-- halfOfYear
+- half
 
 Testing Aids
 ------------
