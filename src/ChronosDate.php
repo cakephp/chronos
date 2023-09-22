@@ -1088,11 +1088,22 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
      * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
+     * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function closest(ChronosDate $first, ChronosDate $second): ChronosDate
+    public function closest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
     {
-        return $this->diffInDays($first) < $this->diffInDays($second) ? $first : $second;
+        $closest = $first;
+        $closestDiffInDays = $this->diffInDays($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInDays = $this->diffInDays($other);
+            if ($otherDiffInDays < $closestDiffInDays) {
+                $closest = $other;
+                $closestDiffInDays = $otherDiffInDays;
+            }
+        }
+
+        return $closest;
     }
 
     /**
@@ -1100,11 +1111,22 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
      * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
+     * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function farthest(ChronosDate $first, ChronosDate $second): ChronosDate
+    public function farthest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
     {
-        return $this->diffInDays($first) > $this->diffInDays($second) ? $first : $second;
+        $farthest = $first;
+        $farthestDiffInDays = $this->diffInDays($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInDays = $this->diffInDays($other);
+            if ($otherDiffInDays > $farthestDiffInDays) {
+                $farthest = $other;
+                $farthestDiffInDays = $otherDiffInDays;
+            }
+        }
+
+        return $farthest;
     }
 
     /**

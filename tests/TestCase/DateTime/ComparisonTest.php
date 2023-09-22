@@ -296,6 +296,17 @@ class ComparisonTest extends TestCase
         $this->assertSame($dt1, $closest);
     }
 
+    public function testClosestWithOthers(): void
+    {
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
+        $dt3 = Chronos::create(2015, 5, 28, 15, 0, 0);
+        $dt4 = Chronos::create(2015, 5, 28, 16, 0, 0);
+        $closest = $instance->closest($dt4, $dt3, $dt1, $dt2);
+        $this->assertSame($dt1, $closest);
+    }
+
     public function testFarthest()
     {
         $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
@@ -312,5 +323,16 @@ class ComparisonTest extends TestCase
         $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
         $Farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $Farthest);
+    }
+
+    public function testFarthestWithOthers(): void
+    {
+        $instance = Chronos::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Chronos::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = Chronos::create(2015, 5, 28, 14, 0, 0);
+        $dt3 = Chronos::create(2015, 5, 28, 15, 0, 0);
+        $dt4 = Chronos::create(2015, 5, 28, 16, 0, 0);
+        $Farthest = $instance->farthest($dt1, $dt2, $dt3, $dt4);
+        $this->assertSame($dt4, $Farthest);
     }
 }
