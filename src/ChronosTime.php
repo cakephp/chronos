@@ -60,11 +60,11 @@ class ChronosTime
      *
      * Defaults to server time.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
+     * @param \Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
      */
     public function __construct(
-        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        ChronosTime|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null
     ) {
         if ($time === null) {
@@ -87,12 +87,12 @@ class ChronosTime
      *
      * Defaults to server time.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
+     * @param \Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
      * @return static
      */
     public static function parse(
-        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        ChronosTime|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null
     ): static {
         return new static($time, $timezone);

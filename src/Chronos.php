@@ -20,6 +20,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use ReturnTypeWillChange;
 
 /**
  * An Immutable extension on the native DateTime object.
@@ -57,7 +58,7 @@ use InvalidArgumentException;
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class Chronos
+class Chronos extends DateTimeImmutable
 {
     use FormattingTrait;
 
@@ -224,39 +225,22 @@ class Chronos
     protected static array|false $lastErrors = false;
 
     /**
-     * @var \DateTimeImmutable
-     */
-    protected DateTimeImmutable $native;
-
-    /**
      * Create a new Chronos instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The timezone for the instance
      */
     public function __construct(
-        Chronos|ChronosDate|DateTimeInterface|string|int|null $time = 'now',
+        ChronosDate|DateTimeInterface|string|int|null $time = 'now',
         DateTimeZone|string|null $timezone = null
     ) {
-        $this->native = $this->createNative($time, $timezone);
-    }
-
-    /**
-     * Initializes the PHP DateTimeImmutable object.
-     *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time Fixed or relative time
-     * @param \DateTimeZone|string|null $timezone The timezone for the instance
-     * @return \DateTimeImmutable
-     */
-    protected function createNative(
-        Chronos|ChronosDate|DateTimeInterface|string|int|null $time,
-        DateTimeZone|string|null $timezone = null
-    ): DateTimeImmutable {
         if (is_int($time) || (is_string($time) && ctype_digit($time))) {
-            return new DateTimeImmutable("@{$time}");
+            parent::__construct("@{$time}");
+
+            return;
         }
 
         if ($timezone !== null) {
@@ -264,7 +248,7 @@ class Chronos
         }
 
         if (is_object($time)) {
-            if (!$time instanceof ChronosDate) {
+            if ($time instanceof DateTimeInterface) {
                 $timezone = $time->getTimezone();
             }
             $time = $time->format('Y-m-d H:i:s.u');
@@ -272,12 +256,16 @@ class Chronos
 
         $testNow = static::getTestNow();
         if ($testNow === null) {
-            return new DateTimeImmutable($time ?? 'now', $timezone);
+            parent::__construct($time ?? 'now', $timezone);
+
+            return;
         }
 
         $relative = static::hasRelativeKeywords($time);
         if ($time && $time !== 'now' && !$relative) {
-            return new DateTimeImmutable($time, $timezone);
+            parent::__construct($time, $timezone);
+
+            return;
         }
 
         $testNow = clone $testNow;
@@ -290,7 +278,7 @@ class Chronos
             $testNow = $testNow->modify($time ?? 'now');
         }
 
-        return new DateTimeImmutable($testNow->format('Y-m-d H:i:s.u'), $timezone);
+        parent::__construct($testNow->format('Y-m-d H:i:s.u'), $timezone);
     }
 
     /**
@@ -464,7 +452,7 @@ class Chronos
      */
     public static function instance(DateTimeInterface $other): static
     {
-        return new static($other->format('Y-m-d H:i:s.u'), $other->getTimezone());
+        return new static($other);
     }
 
     /**
@@ -473,12 +461,12 @@ class Chronos
      * Chronos::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time The strtotime compatible string to parse
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time The strtotime compatible string to parse
      * @param \DateTimeZone|string|null $timezone The DateTimeZone object or timezone name.
      * @return static
      */
     public static function parse(
-        Chronos|ChronosDate|DateTimeInterface|string|int|null $time = 'now',
+        ChronosDate|DateTimeInterface|string|int|null $time = 'now',
         DateTimeZone|string|null $timezone = null
     ): static {
         return new static($time, $timezone);
@@ -659,9 +647,9 @@ class Chronos
         DateTimeZone|string|null $timezone = null
     ): static {
         if ($timezone !== null) {
-            $dateTime = DateTimeImmutable::createFromFormat($format, $time, static::safeCreateDateTimeZone($timezone));
+            $dateTime = parent::createFromFormat($format, $time, $timezone ? static::safeCreateDateTimeZone($timezone) : null);
         } else {
-            $dateTime = DateTimeImmutable::createFromFormat($format, $time);
+            $dateTime = parent::createFromFormat($format, $time);
         }
 
         static::$lastErrors = DateTimeImmutable::getLastErrors();
@@ -670,8 +658,6 @@ class Chronos
 
             throw new InvalidArgumentException($message);
         }
-
-        $dateTime = new static($dateTime->format('Y-m-d H:i:s.u'), $dateTime->getTimezone());
 
         return $dateTime;
     }
@@ -907,10 +893,7 @@ class Chronos
      */
     public function setDate(int $year, int $month, int $day): static
     {
-        $new = clone $this;
-        $new->native = $new->native->setDate($year, $month, $day);
-
-        return $new;
+        return parent::setDate($year, $month, $day);
     }
 
     /**
@@ -923,10 +906,7 @@ class Chronos
      */
     public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
     {
-        $new = clone $this;
-        $new->native = $new->native->setISODate($year, $week, $dayOfWeek);
-
-        return $new;
+        return parent::setISODate($year, $week, $dayOfWeek);
     }
 
     /**
@@ -940,10 +920,7 @@ class Chronos
      */
     public function setTime(int $hours, int $minutes, int $seconds = 0, int $microseconds = 0): static
     {
-        $new = clone $this;
-        $new->native = $new->native->setTime($hours, $minutes, $seconds, $microseconds);
-
-        return $new;
+        return parent::setTime($hours, $minutes, $seconds, $microseconds);
     }
 
     /**
@@ -956,13 +933,10 @@ class Chronos
      */
     public function modify(string $modifier): static
     {
-        $native = $this->native->modify($modifier);
-        if ($native === false) {
+        $new = parent::modify($modifier);
+        if ($new === false) {
             throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
         }
-
-        $new = clone $this;
-        $new->native = $native;
 
         return $new;
     }
@@ -970,15 +944,13 @@ class Chronos
     /**
      * Returns the difference between this instance and target.
      *
-     * @param \Cake\Chronos\Chronos|\DateTimeInterface $target Target instance
+     * @param \DateTimeInterface $target Target instance
      * @param bool $absolute Whether the interval is forced to be positive
      * @return \DateInterval
      */
-    public function diff(Chronos|DateTimeInterface $target, bool $absolute = false): DateInterval
+    public function diff(DateTimeInterface $target, bool $absolute = false): DateInterval
     {
-        $target = $target instanceof DateTimeInterface ? $target : $target->native;
-
-        return $this->native->diff($target, $absolute);
+        return parent::diff($target, $absolute);
     }
 
     /**
@@ -989,7 +961,7 @@ class Chronos
      */
     public function format(string $format): string
     {
-        return $this->native->format($format);
+        return parent::format($format);
     }
 
     /**
@@ -999,7 +971,7 @@ class Chronos
      */
     public function getOffset(): int
     {
-        return $this->native->getOffset();
+        return parent::getOffset();
     }
 
     /**
@@ -1010,10 +982,7 @@ class Chronos
      */
     public function setTimestamp(int $timestamp): static
     {
-        $new = clone $this;
-        $new->native = $new->native->setTimestamp($timestamp);
-
-        return $new;
+        return parent::setTimestamp($timestamp);
     }
 
     /**
@@ -1023,7 +992,7 @@ class Chronos
      */
     public function getTimestamp(): int
     {
-        return $this->native->getTimestamp();
+        return parent::getTimestamp();
     }
 
     /**
@@ -1034,10 +1003,7 @@ class Chronos
      */
     public function setTimezone(DateTimeZone|string $value): static
     {
-        $new = clone $this;
-        $new->native = $new->native->setTimezone(static::safeCreateDateTimeZone($value));
-
-        return $new;
+        return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
     /**
@@ -1045,12 +1011,10 @@ class Chronos
      *
      * @return \DateTimeZone|null
      */
+    #[ReturnTypeWillChange]
     public function getTimezone(): ?DateTimeZone
     {
-        /** @var \DateTimeZone|false $timezone */
-        $timezone = $this->native->getTimezone();
-
-        return $timezone ?: null;
+        return parent::getTimezone() ?: null;
     }
 
     /**
@@ -1609,9 +1573,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function next(?int $dayOfWeek = null): mixed
+    public function next(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -1629,9 +1593,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function previous(?int $dayOfWeek = null): mixed
+    public function previous(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -1649,9 +1613,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfMonth(?int $dayOfWeek = null): mixed
+    public function firstOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -1665,9 +1629,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfMonth(?int $dayOfWeek = null): mixed
+    public function lastOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -1682,9 +1646,9 @@ class Chronos
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfMonth(int $nth, int $dayOfWeek): mixed
+    public function nthOfMonth(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfMonth();
         $check = $dateTime->format('Y-m');
@@ -1700,9 +1664,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfQuarter(?int $dayOfWeek = null): mixed
+    public function firstOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -1717,9 +1681,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfQuarter(?int $dayOfWeek = null): mixed
+    public function lastOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -1735,9 +1699,9 @@ class Chronos
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfQuarter(int $nth, int $dayOfWeek): mixed
+    public function nthOfQuarter(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->day(1)->month($this->quarter * Chronos::MONTHS_PER_QUARTER);
         $lastMonth = $dateTime->month;
@@ -1754,9 +1718,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfYear(?int $dayOfWeek = null): mixed
+    public function firstOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -1770,9 +1734,9 @@ class Chronos
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfYear(?int $dayOfWeek = null): mixed
+    public function lastOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -1787,9 +1751,9 @@ class Chronos
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfYear(int $nth, int $dayOfWeek): mixed
+    public function nthOfYear(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
 
@@ -1799,21 +1763,21 @@ class Chronos
     /**
      * Determines if the instance is equal to another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function equals(Chronos $other): bool
+    public function equals(DateTimeInterface $other): bool
     {
-        return $this->native == $other->native;
+        return $this == $other;
     }
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function notEquals(Chronos $other): bool
+    public function notEquals(DateTimeInterface $other): bool
     {
         return !$this->equals($other);
     }
@@ -1821,58 +1785,58 @@ class Chronos
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function greaterThan(Chronos $other): bool
+    public function greaterThan(DateTimeInterface $other): bool
     {
-        return $this->native > $other->native;
+        return $this > $other;
     }
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(Chronos $other): bool
+    public function greaterThanOrEquals(DateTimeInterface $other): bool
     {
-        return $this->native >= $other->native;
+        return $this >= $other;
     }
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function lessThan(Chronos $other): bool
+    public function lessThan(DateTimeInterface $other): bool
     {
-        return $this->native < $other->native;
+        return $this < $other;
     }
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param \Cake\Chronos\Chronos $other The instance to compare with.
+     * @param \DateTimeInterface $other The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(Chronos $other): bool
+    public function lessThanOrEquals(DateTimeInterface $other): bool
     {
-        return $this->native <= $other->native;
+        return $this <= $other;
     }
 
     /**
      * Determines if the instance is between two others
      *
-     * @param \Cake\Chronos\Chronos $start Start of target range
-     * @param \Cake\Chronos\Chronos $end End of target range
+     * @param \DateTimeInterface $start Start of target range
+     * @param \DateTimeInterface $end End of target range
      * @param bool $equals Whether to include the beginning and end of range
      * @return bool
      */
-    public function between(Chronos $start, Chronos $end, bool $equals = true): bool
+    public function between(DateTimeInterface $start, DateTimeInterface $end, bool $equals = true): bool
     {
-        if ($start->greaterThan($end)) {
+        if ($start > $end) {
             [$start, $end] = [$end, $start];
         }
 
@@ -1886,82 +1850,98 @@ class Chronos
     /**
      * Get the closest date from the instance.
      *
-     * @param \Cake\Chronos\Chronos $first The instance to compare with.
-     * @param \Cake\Chronos\Chronos $second The instance to compare with.
-     * @param \Cake\Chronos\Chronos ...$others Others instances to compare with.
-     * @return self
+     * @param \DateTimeInterface $first The instance to compare with.
+     * @param \DateTimeInterface $second The instance to compare with.
+     * @param \DateTimeInterface ...$others Others instances to compare with.
+     * @return static
      */
-    public function closest(Chronos $first, Chronos $second, Chronos ...$others): Chronos
+    public function closest(DateTimeInterface $first, DateTimeInterface $second, DateTimeInterface ...$others): static
     {
-        $closest = $first;
+        $winner = $first;
         $closestDiffInSeconds = $this->diffInSeconds($first);
         foreach ([$second, ...$others] as $other) {
             $otherDiffInSeconds = $this->diffInSeconds($other);
             if ($otherDiffInSeconds < $closestDiffInSeconds) {
-                $closest = $other;
+                $winner = $other;
                 $closestDiffInSeconds = $otherDiffInSeconds;
             }
         }
 
-        return $closest;
+        if ($winner instanceof static) {
+            return $winner;
+        }
+
+        return new static($winner);
     }
 
     /**
      * Get the farthest date from the instance.
      *
-     * @param \Cake\Chronos\Chronos $first The instance to compare with.
-     * @param \Cake\Chronos\Chronos $second The instance to compare with.
-     * @param \Cake\Chronos\Chronos ...$others Others instances to compare with.
-     * @return self
+     * @param \DateTimeInterface $first The instance to compare with.
+     * @param \DateTimeInterface $second The instance to compare with.
+     * @param \DateTimeInterface ...$others Others instances to compare with.
+     * @return static
      */
-    public function farthest(Chronos $first, Chronos $second, Chronos ...$others): Chronos
+    public function farthest(DateTimeInterface $first, DateTimeInterface $second, DateTimeInterface ...$others): static
     {
-        $farthest = $first;
+        $winner = $first;
         $farthestDiffInSeconds = $this->diffInSeconds($first);
         foreach ([$second, ...$others] as $other) {
             $otherDiffInSeconds = $this->diffInSeconds($other);
             if ($otherDiffInSeconds > $farthestDiffInSeconds) {
-                $farthest = $other;
+                $winner = $other;
                 $farthestDiffInSeconds = $otherDiffInSeconds;
             }
         }
 
-        return $farthest;
+        if ($winner instanceof static) {
+            return $winner;
+        }
+
+        return new static($winner);
     }
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to compare with.
-     * @return self
+     * @param \DateTimeInterface|null $other The instance to compare with.
+     * @return static
      */
-    public function min(?Chronos $other = null): Chronos
+    public function min(?DateTimeInterface $other = null): static
     {
         $other = $other ?? static::now($this->tz);
+        $winner = $this->lessThan($other) ? $this : $other;
+        if ($winner instanceof static) {
+            return $winner;
+        }
 
-        return $this->lessThan($other) ? $this : $other;
+        return new static($winner);
     }
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to compare with.
-     * @return self
+     * @param \DateTimeInterface|null $other The instance to compare with.
+     * @return static
      */
-    public function max(?Chronos $other = null): Chronos
+    public function max(?DateTimeInterface $other = null): static
     {
         $other = $other ?? static::now($this->tz);
+        $winner = $this->greaterThan($other) ? $this : $other;
+        if ($winner instanceof static) {
+            return $winner;
+        }
 
-        return $this->greaterThan($other) ? $this : $other;
+        return new static($winner);
     }
 
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to compare with.
+     * @param \DateTimeInterface|null $other The instance to compare with.
      * @return static
      */
-    public function average(?Chronos $other = null): static
+    public function average(?DateTimeInterface $other = null): static
     {
         $other ??= static::now($this->tz);
 
@@ -2131,21 +2111,25 @@ class Chronos
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Cake\Chronos\Chronos $other The instance to check against.
+     * @param \DateTimeInterface $other The instance to check against.
      * @return bool
      */
-    public function isSameDay(Chronos $other): bool
+    public function isSameDay(DateTimeInterface $other): bool
     {
+        if (!$other instanceof static) {
+            $other = new static($other);
+        }
+
         return $this->toDateString() === $other->toDateString();
     }
 
     /**
      * Returns whether the passed in date is the same month and year.
      *
-     * @param \Cake\Chronos\Chronos $other The instance to check against.
+     * @param \DateTimeInterface $other The instance to check against.
      * @return bool
      */
-    public function isSameMonth(Chronos $other): bool
+    public function isSameMonth(DateTimeInterface $other): bool
     {
         return $this->format('Y-m') === $other->format('Y-m');
     }
@@ -2153,10 +2137,10 @@ class Chronos
     /**
      * Returns whether passed in date is the same year.
      *
-     * @param \Cake\Chronos\Chronos $other The instance to check against.
+     * @param \DateTimeInterface $other The instance to check against.
      * @return bool
      */
-    public function isSameYear(Chronos $other): bool
+    public function isSameYear(DateTimeInterface $other): bool
     {
         return $this->format('Y') === $other->format('Y');
     }
@@ -2264,10 +2248,10 @@ class Chronos
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to compare with or null to use current day.
+     * @param \DateTimeInterface|null $other The instance to compare with or null to use current day.
      * @return bool
      */
-    public function isBirthday(?Chronos $other = null): bool
+    public function isBirthday(?DateTimeInterface $other = null): bool
     {
         $other ??= static::now($this->tz);
 
@@ -2311,14 +2295,14 @@ class Chronos
      *
      * @param \DateInterval $interval An interval to traverse by
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffFiltered(
         DateInterval $interval,
         callable $callback,
-        ?Chronos $other = null,
+        ?DateTimeInterface $other = null,
         bool $absolute = true
     ): int {
         $start = $this;
@@ -2331,7 +2315,7 @@ class Chronos
             $inverse = true;
         }
 
-        $period = new DatePeriod($start->native, $interval, $end->native);
+        $period = new DatePeriod($start, $interval, $end);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return $callback(static::instance($date));
         });
@@ -2344,11 +2328,11 @@ class Chronos
     /**
      * Get the difference in years
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInYears(?Chronos $other = null, bool $absolute = true): int
+    public function diffInYears(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? static::now($this->tz), $absolute);
 
@@ -2358,11 +2342,11 @@ class Chronos
     /**
      * Get the difference in months
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMonths(?Chronos $other = null, bool $absolute = true): int
+    public function diffInMonths(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? static::now($this->tz), $absolute);
         $months = $diff->y * Chronos::MONTHS_PER_YEAR + $diff->m;
@@ -2378,11 +2362,11 @@ class Chronos
      * For example, if comparing `2019-06-01 Asia/Tokyo` and `2019-10-01 Asia/Tokyo`,
      * the result would be 4 months instead of 3 when using normal `DateTime::diff()`.
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMonthsIgnoreTimezone(?Chronos $other = null, bool $absolute = true): int
+    public function diffInMonthsIgnoreTimezone(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         $utcTz = new DateTimeZone('UTC');
         $source = new static($this->format('Y-m-d H:i:s.u'), $utcTz);
@@ -2396,11 +2380,11 @@ class Chronos
     /**
      * Get the difference in weeks
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeeks(?Chronos $other = null, bool $absolute = true): int
+    public function diffInWeeks(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         return (int)($this->diffInDays($other, $absolute) / Chronos::DAYS_PER_WEEK);
     }
@@ -2408,11 +2392,11 @@ class Chronos
     /**
      * Get the difference in days
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInDays(?Chronos $other = null, bool $absolute = true): int
+    public function diffInDays(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? static::now($this->tz), $absolute);
 
@@ -2423,13 +2407,13 @@ class Chronos
      * Get the difference in days using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffInDaysFiltered(
         callable $callback,
-        ?Chronos $other = null,
+        ?DateTimeInterface $other = null,
         bool $absolute = true
     ): int {
         return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute);
@@ -2439,13 +2423,13 @@ class Chronos
      * Get the difference in hours using a filter callable
      *
      * @param callable $callback The callback to use for filtering.
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
     public function diffInHoursFiltered(
         callable $callback,
-        ?Chronos $other = null,
+        ?DateTimeInterface $other = null,
         bool $absolute = true
     ): int {
         return $this->diffFiltered(new DateInterval('PT1H'), $callback, $other, $absolute);
@@ -2454,13 +2438,13 @@ class Chronos
     /**
      * Get the difference in weekdays
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekdays(?Chronos $other = null, bool $absolute = true): int
+    public function diffInWeekdays(?DateTimeInterface $other = null, bool $absolute = true): int
     {
-        return $this->diffInDaysFiltered(function (Chronos|ChronosDate $date) {
+        return $this->diffInDaysFiltered(function (Chronos $date) {
             return $date->isWeekday();
         }, $other, $absolute);
     }
@@ -2468,13 +2452,13 @@ class Chronos
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeekendDays(?Chronos $other = null, bool $absolute = true): int
+    public function diffInWeekendDays(?DateTimeInterface $other = null, bool $absolute = true): int
     {
-        return $this->diffInDaysFiltered(function (Chronos|ChronosDate $date) {
+        return $this->diffInDaysFiltered(function (Chronos $date) {
             return $date->isWeekend();
         }, $other, $absolute);
     }
@@ -2482,11 +2466,11 @@ class Chronos
     /**
      * Get the difference in hours
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInHours(?Chronos $other = null, bool $absolute = true): int
+    public function diffInHours(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         return (int)(
             $this->diffInSeconds($other, $absolute)
@@ -2498,11 +2482,11 @@ class Chronos
     /**
      * Get the difference in minutes
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMinutes(?Chronos $other = null, bool $absolute = true): int
+    public function diffInMinutes(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         return (int)($this->diffInSeconds($other, $absolute) / Chronos::SECONDS_PER_MINUTE);
     }
@@ -2510,11 +2494,11 @@ class Chronos
     /**
      * Get the difference in seconds
      *
-     * @param \Cake\Chronos\Chronos|null $other The instance to difference from.
+     * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInSeconds(?Chronos $other = null, bool $absolute = true): int
+    public function diffInSeconds(?DateTimeInterface $other = null, bool $absolute = true): int
     {
         $other ??= static::now($this->tz);
         $value = $other->getTimestamp() - $this->getTimestamp();
@@ -2545,10 +2529,10 @@ class Chronos
     /**
      * Convenience method for getting the remaining time from a given time.
      *
-     * @param \Cake\Chronos\Chronos|\DateTimeInterface $other The date to get the remaining time from.
+     * @param \DateTimeInterface $other The date to get the remaining time from.
      * @return \DateInterval|bool The DateInterval object representing the difference between the two dates or FALSE on failure.
      */
-    public static function fromNow(Chronos|DateTimeInterface $other): DateInterval|bool
+    public static function fromNow(DateTimeInterface $other): DateInterval|bool
     {
         $timeNow = new static();
 
@@ -2574,23 +2558,13 @@ class Chronos
      * 1 hour after
      * 5 months after
      *
-     * @param \Cake\Chronos\Chronos|null $other The datetime to compare with.
+     * @param \DateTimeInterface|null $other The datetime to compare with.
      * @param bool $absolute removes time difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForHumans(?Chronos $other = null, bool $absolute = false): string
+    public function diffForHumans(?DateTimeInterface $other = null, bool $absolute = false): string
     {
         return static::diffFormatter()->diffForHumans($this, $other, $absolute);
-    }
-
-    /**
-     * Returns the time as a DateTimeImmutable instance.
-     *
-     * @return \DateTimeImmutable
-     */
-    public function toNative(): DateTimeImmutable
-    {
-        return $this->native;
     }
 
     /**

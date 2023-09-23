@@ -14,6 +14,8 @@ declare(strict_types=1);
  */
 namespace Cake\Chronos;
 
+use DateTimeInterface;
+
 /**
  * Handles formatting differences in text.
  *
@@ -45,8 +47,8 @@ class DifferenceFormatter implements DifferenceFormatterInterface
      * @inheritDoc
      */
     public function diffForHumans(
-        Chronos|ChronosDate $first,
-        Chronos|ChronosDate|null $second = null,
+        ChronosDate|DateTimeInterface $first,
+        ChronosDate|DateTimeInterface|null $second = null,
         bool $absolute = false
     ): string {
         $isNow = $second === null;
@@ -57,6 +59,11 @@ class DifferenceFormatter implements DifferenceFormatterInterface
                 $second = Chronos::now($first->getTimezone());
             }
         }
+        assert(
+            ($first instanceof ChronosDate && $second instanceof ChronosDate) ||
+            ($first instanceof DateTimeInterface && $second instanceof DateTimeInterface)
+        );
+
         $diffInterval = $first->diff($second);
 
         switch (true) {
