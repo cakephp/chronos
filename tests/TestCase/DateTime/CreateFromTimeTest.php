@@ -24,7 +24,7 @@ class CreateFromTimeTest extends TestCase
     public function testCreateFromDateWithDefaults()
     {
         $d = Chronos::createFromTime();
-        $this->assertSame($d->timestamp, Chronos::create(null, null, null, null, null, null)->timestamp);
+        $this->assertSame($d->timestamp, Chronos::create(null, null, null)->timestamp);
     }
 
     public function testCreateFromDate()

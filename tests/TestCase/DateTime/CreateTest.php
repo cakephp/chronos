@@ -31,7 +31,10 @@ class CreateTest extends TestCase
     public function testCreateWithDefaults()
     {
         $d = Chronos::create();
-        $this->assertSame($d->timestamp, Chronos::now()->timestamp);
+        $this->assertSame($d->timestamp, Chronos::now()->setTime(0, 0)->timestamp);
+
+        $d = Chronos::create(2023, 1, 1, minute: 1);
+        $this->assertSame($d->timestamp, Chronos::parse('2023-01-01 00:01:00')->timestamp);
     }
 
     public function testCreateWithYear()

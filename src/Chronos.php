@@ -563,10 +563,10 @@ class Chronos extends DateTimeImmutable
         ?int $year = null,
         ?int $month = null,
         ?int $day = null,
-        ?int $hour = null,
-        ?int $minute = null,
-        ?int $second = null,
-        ?int $microsecond = null,
+        ?int $hour = 0,
+        ?int $minute = 0,
+        ?int $second = 0,
+        ?int $microsecond = 0,
         DateTimeZone|string|null $timezone = null
     ): static {
         $now = static::now();
@@ -574,16 +574,10 @@ class Chronos extends DateTimeImmutable
         $month = $month ?? $now->format('m');
         $day = $day ?? $now->format('d');
 
-        if ($hour === null) {
-            $hour = $now->format('H');
-            $minute = $minute ?? $now->format('i');
-            $second = $second ?? $now->format('s');
-            $microsecond = $microsecond ?? $now->format('u');
-        } else {
-            $minute = $minute ?? 0;
-            $second = $second ?? 0;
-            $microsecond = $microsecond ?? 0;
-        }
+        $hour = $hour ?? $now->format('H');
+        $minute = $minute ?? $now->format('i');
+        $second = $second ?? $now->format('s');
+        $microsecond = $microsecond ?? $now->format('u');
 
         $instance = static::createFromFormat(
             'Y-m-d H:i:s.u',
@@ -595,7 +589,7 @@ class Chronos extends DateTimeImmutable
     }
 
     /**
-     * Create an instance from just a date. The time portion is set to now.
+     * Create an instance from just a date. The time portion is set to 00:00:00.000000.
      *
      * @param int|null $year The year to create an instance with.
      * @param int|null $month The month to create an instance with.
@@ -609,7 +603,7 @@ class Chronos extends DateTimeImmutable
         ?int $day = null,
         DateTimeZone|string|null $timezone = null
     ): static {
-        return static::create($year, $month, $day, null, null, null, null, $timezone);
+        return static::create($year, $month, $day, timezone: $timezone);
     }
 
     /**
@@ -623,10 +617,10 @@ class Chronos extends DateTimeImmutable
      * @return static
      */
     public static function createFromTime(
-        ?int $hour = null,
-        ?int $minute = null,
-        ?int $second = null,
-        ?int $microsecond = null,
+        ?int $hour = 0,
+        ?int $minute = 0,
+        ?int $second = 0,
+        ?int $microsecond = 0,
         DateTimeZone|string|null $timezone = null
     ): static {
         return static::create(null, null, null, $hour, $minute, $second, $microsecond, $timezone);
