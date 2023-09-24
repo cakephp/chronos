@@ -413,4 +413,16 @@ class ChronosTime
             $this->getMicroseconds()
         );
     }
+
+    /**
+     * Returns an `DateTimeImmutable` instance set to this clock time.
+     *
+     * Alias of `toDateTimeImmutable()`.
+     *
+     * @return \DateTimeImmutable
+     */
+    public function toNative(): DateTimeImmutable
+    {
+        return $this->toDateTimeImmutable();
+    }
 }
