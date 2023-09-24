@@ -20,7 +20,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use ReturnTypeWillChange;
+use RuntimeException;
 
 /**
  * An Immutable extension on the native DateTime object.
@@ -1009,12 +1009,16 @@ class Chronos extends DateTimeImmutable
     /**
      * Return time zone set for this instance.
      *
-     * @return \DateTimeZone|null
+     * @return \DateTimeZone
      */
-    #[ReturnTypeWillChange]
-    public function getTimezone(): ?DateTimeZone
+    public function getTimezone(): DateTimeZone
     {
-        return parent::getTimezone() ?: null;
+        $tz = parent::getTimezone();
+        if ($tz === false) {
+            throw new RuntimeException('Time zone could not be retrieved.');
+        }
+
+        return $tz;
     }
 
     /**
@@ -2628,13 +2632,9 @@ class Chronos extends DateTimeImmutable
                 return $this->offset === 0;
 
             case $name === 'timezone' || $name === 'tz':
-                assert($this->getTimezone() !== null, 'Timezone is not set');
-
                 return $this->getTimezone();
 
             case $name === 'timezoneName' || $name === 'tzName':
-                assert($this->getTimezone() !== null, 'Timezone is not set');
-
                 return $this->getTimezone()->getName();
 
             default:
