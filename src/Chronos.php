@@ -230,11 +230,11 @@ class Chronos extends DateTimeImmutable
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|int|null $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The timezone for the instance
      */
     public function __construct(
-        ChronosDate|DateTimeInterface|string|int|null $time = 'now',
+        ChronosDate|ChronosTime|DateTimeInterface|string|int|null $time = 'now',
         DateTimeZone|string|null $timezone = null
     ) {
         if (is_int($time) || (is_string($time) && ctype_digit($time))) {
@@ -461,12 +461,12 @@ class Chronos extends DateTimeImmutable
      * Chronos::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string|int|null $time The strtotime compatible string to parse
+     * @param \Cake\Chronos\ChronosDate|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|int|null $time The strtotime compatible string to parse
      * @param \DateTimeZone|string|null $timezone The DateTimeZone object or timezone name.
      * @return static
      */
     public static function parse(
-        ChronosDate|DateTimeInterface|string|int|null $time = 'now',
+        ChronosDate|ChronosTime|DateTimeInterface|string|int|null $time = 'now',
         DateTimeZone|string|null $timezone = null
     ): static {
         return new static($time, $timezone);
