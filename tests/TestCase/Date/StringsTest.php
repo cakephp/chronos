@@ -68,7 +68,7 @@ class StringsTest extends TestCase
         $d = ChronosDate::parse(Chronos::now());
         ChronosDate::setToStringFormat('123');
         ChronosDate::resetToStringFormat();
-        $this->assertSame($d->toDateTimeString(), '' . $d);
+        $this->assertSame($d->toDateString(), '' . $d);
     }
 
     public function testToDateString()

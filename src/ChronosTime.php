@@ -18,12 +18,13 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use Stringable;
 
 /**
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class ChronosTime
+class ChronosTime implements Stringable
 {
     /**
      * @var int
@@ -49,6 +50,20 @@ class ChronosTime
      * @var int
      */
     protected const TICKS_PER_DAY = self::TICKS_PER_HOUR * 24;
+
+    /**
+     * Default format to use for __toString method.
+     *
+     * @var string
+     */
+    public const DEFAULT_TO_STRING_FORMAT = 'H:i:s';
+
+    /**
+     * Format to use for __toString method.
+     *
+     * @var string
+     */
+    protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * @var int
@@ -321,6 +336,37 @@ class ChronosTime
     public function format(string $format): string
     {
         return $this->toDateTimeImmutable()->format($format);
+    }
+
+    /**
+     * Reset the format used to the default when converting to a string
+     *
+     * @return void
+     */
+    public static function resetToStringFormat(): void
+    {
+        static::setToStringFormat(static::DEFAULT_TO_STRING_FORMAT);
+    }
+
+    /**
+     * Set the default format used when converting to a string
+     *
+     * @param string $format The format to use in future __toString() calls.
+     * @return void
+     */
+    public static function setToStringFormat(string $format): void
+    {
+        static::$toStringFormat = $format;
+    }
+
+    /**
+     * Format the instance as a string using the set format
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->format(static::$toStringFormat);
     }
 
     /**

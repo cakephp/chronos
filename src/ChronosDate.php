@@ -20,6 +20,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use Stringable;
 
 /**
  * An immutable date object.
@@ -43,16 +44,23 @@ use InvalidArgumentException;
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class ChronosDate
+class ChronosDate implements Stringable
 {
     use FormattingTrait;
+
+    /**
+     * Default format to use for __toString method when type juggling occurs.
+     *
+     * @var string
+     */
+    public const DEFAULT_TO_STRING_FORMAT = 'Y-m-d';
 
     /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
      */
-    protected static string $toStringFormat = 'Y-m-d';
+    protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * Names of days of the week.

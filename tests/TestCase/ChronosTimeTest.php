@@ -268,4 +268,16 @@ class ChronosTimeTest extends TestCase
         $native = ChronosTime::parse('23:59:59.999999')->toNative();
         $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
     }
+
+    public function testToString(): void
+    {
+        $t = new ChronosTime('12:13:14.123456');
+        $this->assertSame('12:13:14', (string)$t);
+
+        ChronosTime::setToStringFormat('H:i:s.u');
+        $this->assertSame('12:13:14.123456', (string)$t);
+
+        ChronosTime::resetToStringFormat();
+        $this->assertSame('12:13:14', (string)$t);
+    }
 }
