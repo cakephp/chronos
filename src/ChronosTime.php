@@ -320,7 +320,7 @@ class ChronosTime
      */
     public function format(string $format): string
     {
-        return $this->toNative()->format($format);
+        return $this->toDateTimeImmutable()->format($format);
     }
 
     /**
@@ -404,7 +404,7 @@ class ChronosTime
      *
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toDateTimeImmutable(): DateTimeImmutable
     {
         return (new DateTimeImmutable())->setTime(
             $this->getHours(),

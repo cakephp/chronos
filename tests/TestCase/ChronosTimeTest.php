@@ -260,9 +260,9 @@ class ChronosTimeTest extends TestCase
         $this->assertFalse($t3->between($t1, $t2));
     }
 
-    public function testToNative(): void
+    public function testToDateTimeImmutable(): void
     {
-        $native = ChronosTime::parse('23:59:59.999999')->toNative();
+        $native = ChronosTime::parse('23:59:59.999999')->toDateTimeImmutable();
         $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
     }
 }

@@ -1564,11 +1564,11 @@ class ChronosDate
     }
 
     /**
-     * Returns the date as a DateTimeImmutable instance.
+     * Returns the date as a `DateTimeImmutable` instance.
      *
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toDateTimeImmutable(): DateTimeImmutable
     {
         return $this->native;
     }
