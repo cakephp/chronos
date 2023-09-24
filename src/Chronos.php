@@ -2301,13 +2301,15 @@ class Chronos extends DateTimeImmutable
      * @param callable $callback The callback to use for filtering.
      * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffFiltered(
         DateInterval $interval,
         callable $callback,
         ?DateTimeInterface $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
         $start = $this;
         $end = $other ?? static::now($this->tz);
@@ -2319,7 +2321,7 @@ class Chronos extends DateTimeImmutable
             $inverse = true;
         }
 
-        $period = new DatePeriod($start, $interval, $end);
+        $period = new DatePeriod($start, $interval, $end, $options);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return $callback(static::instance($date));
         });
@@ -2413,14 +2415,16 @@ class Chronos extends DateTimeImmutable
      * @param callable $callback The callback to use for filtering.
      * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffInDaysFiltered(
         callable $callback,
         ?DateTimeInterface $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
-        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute);
+        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute, $options);
     }
 
     /**
@@ -2429,14 +2433,16 @@ class Chronos extends DateTimeImmutable
      * @param callable $callback The callback to use for filtering.
      * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffInHoursFiltered(
         callable $callback,
         ?DateTimeInterface $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
-        return $this->diffFiltered(new DateInterval('PT1H'), $callback, $other, $absolute);
+        return $this->diffFiltered(new DateInterval('PT1H'), $callback, $other, $absolute, $options);
     }
 
     /**
@@ -2444,13 +2450,14 @@ class Chronos extends DateTimeImmutable
      *
      * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekdays(?DateTimeInterface $other = null, bool $absolute = true): int
+    public function diffInWeekdays(?DateTimeInterface $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (Chronos $date) {
             return $date->isWeekday();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
@@ -2458,13 +2465,14 @@ class Chronos extends DateTimeImmutable
      *
      * @param \DateTimeInterface|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekendDays(?DateTimeInterface $other = null, bool $absolute = true): int
+    public function diffInWeekendDays(?DateTimeInterface $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (Chronos $date) {
             return $date->isWeekend();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
