@@ -32,7 +32,7 @@ trait FormattingTrait
      */
     public static function resetToStringFormat(): void
     {
-        static::setToStringFormat(Chronos::DEFAULT_TO_STRING_FORMAT);
+        static::setToStringFormat(static::DEFAULT_TO_STRING_FORMAT);
     }
 
     /**

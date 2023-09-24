@@ -21,6 +21,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use RuntimeException;
+use Stringable;
 
 /**
  * An Immutable extension on the native DateTime object.
@@ -58,7 +59,7 @@ use RuntimeException;
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class Chronos extends DateTimeImmutable
+class Chronos extends DateTimeImmutable implements Stringable
 {
     use FormattingTrait;
 
