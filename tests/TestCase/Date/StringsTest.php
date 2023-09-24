@@ -173,9 +173,9 @@ class StringsTest extends TestCase
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toW3cString());
     }
 
-    public function testToNative(): void
+    public function testToDateTimeImmutable(): void
     {
         $d = ChronosDate::now();
-        $this->assertSame($d->format('Y-m-d'), $d->toNative()->format('Y-m-d'));
+        $this->assertSame($d->format('Y-m-d'), $d->toDateTimeImmutable()->format('Y-m-d'));
     }
 }
