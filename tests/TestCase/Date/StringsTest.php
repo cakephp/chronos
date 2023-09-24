@@ -177,5 +177,8 @@ class StringsTest extends TestCase
     {
         $d = ChronosDate::now();
         $this->assertSame($d->format('Y-m-d'), $d->toDateTimeImmutable()->format('Y-m-d'));
+
+        $d = ChronosDate::now();
+        $this->assertSame($d->format('Y-m-d'), $d->toNative()->format('Y-m-d'));
     }
 }

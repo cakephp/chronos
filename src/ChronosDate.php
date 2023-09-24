@@ -1574,6 +1574,18 @@ class ChronosDate
     }
 
     /**
+     * Returns an `DateTimeImmutable` instance set to this clock time.
+     *
+     * Alias of `toDateTimeImmutable()`.
+     *
+     * @return \DateTimeImmutable
+     */
+    public function toNative(): DateTimeImmutable
+    {
+        return $this->toDateTimeImmutable();
+    }
+
+    /**
      * Get a part of the object
      *
      * @param string $name The property name to read.
