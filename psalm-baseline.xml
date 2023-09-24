@@ -148,14 +148,4 @@
         ];]]></code>
     </ImpureStaticVariable>
   </file>
-  <file src="src/ChronosTime.php">
-    <ImpureMethodCall>
-      <code>format</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-    </ImpureMethodCall>
-  </file>
 </files>

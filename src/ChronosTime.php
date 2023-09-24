@@ -21,7 +21,6 @@ use InvalidArgumentException;
 use Stringable;
 
 /**
- * @psalm-immutable
  * @psalm-consistent-constructor
  */
 class ChronosTime implements Stringable
