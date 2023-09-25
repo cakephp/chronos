@@ -18,6 +18,7 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\DifferenceFormatter;
 use Cake\Chronos\Test\TestCase\TestCase;
 use Closure;
+use DatePeriod;
 use DateTimeZone;
 
 class DiffTest extends TestCase
@@ -283,6 +284,21 @@ class DiffTest extends TestCase
         $this->assertSame(-12, $dt1->diffFiltered($interval, function ($date) {
             return $date->year === 2000;
         }, $dt2, false));
+    }
+
+    public function testDiffFilteredWithOptions()
+    {
+        $dt1 = Chronos::create(2000, 1, 1);
+        $dt2 = Chronos::create(2000, 1, 2);
+        $interval = Chronos::createInterval(days: 1);
+
+        $this->assertSame(1, $dt1->diffFiltered($interval, function ($dt) {
+            return $dt->day === 1;
+        }, $dt2));
+
+        $this->assertSame(0, $dt1->diffFiltered($interval, function ($dt) {
+            return $dt->day === 1;
+        }, $dt2, options: DatePeriod::EXCLUDE_START_DATE));
     }
 
     public function testBug188DiffWithSameDates()

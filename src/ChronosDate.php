@@ -1417,13 +1417,15 @@ class ChronosDate implements Stringable
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffFiltered(
         DateInterval $interval,
         callable $callback,
         ?ChronosDate $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
         $start = $this;
         $end = $other ?? new ChronosDate(Chronos::now());
@@ -1438,7 +1440,7 @@ class ChronosDate implements Stringable
         // within the range. Sadly INCLUDE_END_DATE doesn't land until 8.2
         $endTime = $end->native->modify('+1 second');
 
-        $period = new DatePeriod($start->native, $interval, $endTime);
+        $period = new DatePeriod($start->native, $interval, $endTime, $options);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return $callback(static::parse($date));
         });
@@ -1509,14 +1511,16 @@ class ChronosDate implements Stringable
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffInDaysFiltered(
         callable $callback,
         ?ChronosDate $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
-        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute);
+        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute, $options);
     }
 
     /**
@@ -1524,13 +1528,14 @@ class ChronosDate implements Stringable
      *
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekdays(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInWeekdays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (ChronosDate $date) {
             return $date->isWeekday();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
@@ -1538,13 +1543,14 @@ class ChronosDate implements Stringable
      *
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekendDays(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInWeekendDays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (ChronosDate $date) {
             return $date->isWeekend();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
