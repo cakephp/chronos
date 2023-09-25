@@ -1,13 +1,21 @@
 Chronos
 #######
 
-Chronos provides a zero-dependency collection of extensions to the ``DateTime``
-object. In addition to convenience methods, Chronos provides:
+Chronos provides a zero-dependency set of ``DateTimeImmutable`` extension, Date-only and Time-only classes:
 
-* ``Date`` objects for representing calendar dates.
-* Immutable date and datetime objects.
+* ``Cake\Chronos\Chronos`` extends ``DateTimeImmutable`` and provides many helpers.
+* ``Cake\Chronos\ChronosDate`` represents calendar dates unaffected by time or time zones.
+* ``Cake\Chronos\ChronosTime`` represents clock times independent of date or time zones.
+* Only safe, immutable objects.
 * A pluggable translation system. Only English translations are included in the
   library. However, ``cakephp/i18n`` can be used for full language support.
+
+The ``Chronos`` class extends ``DateTimeImmutable`` and implements ``DateTimeInterface``
+which allows users to use type declarations that support either.
+
+ ``ChronoDate`` and ``ChronosTime`` do not extend ``DateTimeImmutable`` and do not
+ share an interface. However, they can be converted to a ``DateTimeImmutable`` instance
+ using ``toDateTimeImmutable()``.
 
 Installation
 ------------
@@ -17,22 +25,6 @@ application's ROOT directory (where composer.json file is located) run the
 following::
 
     php composer.phar require "cakephp/chronos:^3.0"
-
-Overview
---------
-
-Chronos provides a number of extensions to the DateTime objects provided by PHP.
-Chronos provides extensions to PHP's immutable datetime and dateinterval
-objects.
-
-* ``Cake\Chronos\Chronos`` is an immutable *date and time* object.
-* ``Cake\Chronos\ChronosDate`` is a immutable *date* object.
-* ``Cake\Chronos\ChronosInterval`` is an extension to the ``DateInterval``
-  object.
-
-Lastly, if you want to typehint against Chronos-provided date/time objects you
-should use ``Cake\Chronos\ChronosInterface``. Both the date and time objects
-implement this interface.
 
 Creating Instances
 ------------------
@@ -63,23 +55,26 @@ factory methods that work with different argument sets::
 Working with Immutable Objects
 ------------------------------
 
-If you've used PHP's ``DateTime`` objects, you're comfortable with *mutable*
-objects. However, Chronos offers provides *immutable* objects. Immutable objects create
-copies of an object each time a change is made. Because modifier methods
+Chronos provides only *immutable* objects.
+
+If you've used PHP ``DateTimeImmutable`` and ``DateTime`` classes, then you understand
+the difference between *mutable* and *immutable* objects.
+
+Immutable objects create copies of an object each time a change is made. Because modifier methods
 around datetimes are not always easy to identify, data can be modified accidentally
 or without the developer knowing. Immutable objects prevent accidental changes
 to data, and make code free of order-based dependency issues. Immutability does
 mean that you will need to remember to replace variables when using modifiers::
 
     // This code doesn't work with immutable objects
-    $time->addDay(1);
-    doSomething($time);
-    return $time;
+    $chronos->addDay(1);
+    doSomething($chronos);
+    return $chronos;
 
     // This works like you'd expect
-    $time = $time->addDay(1);
-    $time = doSomething($time);
-    return $time;
+    $chronos = $chronos->addDay(1);
+    $chronos = doSomething($chronos);
+    return $chronos;
 
 By capturing the return value of each modification your code will work as
 expected.
@@ -87,12 +82,12 @@ expected.
 Date Objects
 ------------
 
-PHP only provides a single DateTime object that combines both dates and time.
-Representing calendar dates can be a bit awkward with `DateTime` as it includes
+PHP provides only date-time classes that combines both dates and time parts.
+Representing calendar dates can be a bit awkward with ``DateTimeImmutable`` as it includes
 time and timezones, which aren't part of a 'date'. Chronos provides
-``ChronosDate`` that allows you to represent dates. The time and timezone for
-these objects is always fixed to ``00:00:00 UTC`` and all formatting/difference
-methods operate at the day resolution::
+``ChronosDate`` that allows you to represent dates. The time these objects
+these objects is always fixed to ``00:00:00`` and not affeced by the server time zone
+or modify helpers::
 
     use Cake\Chronos\ChronosDate;
 
@@ -104,18 +99,13 @@ methods operate at the day resolution::
     // Outputs '2015-12-20'
     echo $today;
 
-Although ``Date`` uses a fixed time zone internally, you can specify which
+Although ``ChronosDate`` uses a fixed time zone internally, you can specify which
 time zone to use for current time such as ``now()`` or ``today()``::
 
     use Cake\Chronos\ChronosDate:
 
     // Takes the current date from Asia/Tokyo time zone
     $today = ChronosDate::today('Asia/Tokyo');
-
-The API of ``ChronosDate`` is mostly the same as ``Chronos`` with exceptions for
-modifying with expressions or mutating time attributes. While the interfaces are
-generally consistent, there isn't a common interface between ``ChronosDate`` and
-``Chronos`` as combining date and datetime objects is not type-safe.
 
 Modifier Methods
 ----------------
@@ -154,8 +144,8 @@ It is also possible to make big jumps to defined points in time::
 
 Or jump to specific days of the week::
 
-    $time->next(ChronosInterface::TUESDAY);
-    $time->previous(ChronosInterface::MONDAY);
+    $time->next(Chronos::TUESDAY);
+    $time->previous(Chronos::MONDAY);
 
 When modifying dates/times across :abbr:`DST (Daylight Savings Time)` transitions
 your operations may gain/lose an additional hours resulting in hour values that

@@ -26,7 +26,7 @@ use DateTime;
 trait FormattingTrait
 {
     /**
-     * Reset the format used to the default when type juggling a ChronosInterface instance to a string
+     * Resets the __toString() format to ``DEFAULT_TO_STRING_FORMAT``.
      *
      * @return void
      */
@@ -36,9 +36,9 @@ trait FormattingTrait
     }
 
     /**
-     * Set the default format used when type juggling a ChronosInterface instance to a string
+     * Sets the __toString() format.
      *
-     * @param string $format The format to use in future __toString() calls.
+     * @param string $format See ``format()`` for accepted specifiers.
      * @return void
      */
     public static function setToStringFormat(string $format): void
@@ -47,7 +47,8 @@ trait FormattingTrait
     }
 
     /**
-     * Format the instance as a string using the set format
+     * Returns a formatted string specified by ``setToStringFormat()``
+     * or the default ``DEFAULT_TO_STRING_FORMAT`` format.
      *
      * @return string
      */
