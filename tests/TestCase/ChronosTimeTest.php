@@ -262,11 +262,20 @@ class ChronosTimeTest extends TestCase
 
     public function testToDateTimeImmutable(): void
     {
-        $native = ChronosTime::parse('23:59:59.999999')->toDateTimeImmutable();
+        $time = ChronosTime::parse('23:59:59.999999');
+        $native = $time->toDateTimeImmutable();
         $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
 
-        $native = ChronosTime::parse('23:59:59.999999')->toNative();
+        $native = $time->toNative();
         $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+
+        $native = $time->toDateTimeImmutable('Asia/Tokyo');
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
+
+        $native = $time->toNative('Asia/Tokyo');
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
     }
 
     public function testToString(): void

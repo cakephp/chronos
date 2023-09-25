@@ -176,9 +176,15 @@ class StringsTest extends TestCase
     public function testToDateTimeImmutable(): void
     {
         $d = ChronosDate::now();
-        $this->assertSame($d->format('Y-m-d'), $d->toDateTimeImmutable()->format('Y-m-d'));
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d->toDateTimeImmutable()->format('Y-m-d H:i:s.u'));
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d->toNative()->format('Y-m-d H:i:s.u'));
 
-        $d = ChronosDate::now();
-        $this->assertSame($d->format('Y-m-d'), $d->toNative()->format('Y-m-d'));
+        $native = $d->toDateTimeImmutable('Asia/Tokyo');
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $native->format('Y-m-d H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
+
+        $native = $d->toNative('Asia/Tokyo');
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $native->format('Y-m-d H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
     }
 }

@@ -1578,25 +1578,33 @@ class ChronosDate implements Stringable
     }
 
     /**
-     * Returns the date as a `DateTimeImmutable` instance.
+     * Returns the date as a `DateTimeImmutable` instance at midnight.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toDateTimeImmutable(): DateTimeImmutable
+    public function toDateTimeImmutable(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return $this->native;
+        if ($timezone === null) {
+            return $this->native;
+        }
+
+        $timezone = is_string($timezone) ? new DateTimeZone($timezone) : $timezone;
+
+        return new DateTimeImmutable($this->native->format('Y-m-d H:i:s.u'), $timezone);
     }
 
     /**
-     * Returns an `DateTimeImmutable` instance set to this clock time.
+     * Returns the date as a `DateTimeImmutable` instance at midnight.
      *
      * Alias of `toDateTimeImmutable()`.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return $this->toDateTimeImmutable();
+        return $this->toDateTimeImmutable($timezone);
     }
 
     /**
