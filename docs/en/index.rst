@@ -1,7 +1,7 @@
 Chronos
 #######
 
-Chronos provides a zero-dependency set of ``DateTimeImmutable`` extension, Date-only and Time-only classes:
+Chronos provides a zero-dependency ``DateTimeImmutable`` extension, Date-only and Time-only classes:
 
 * ``Cake\Chronos\Chronos`` extends ``DateTimeImmutable`` and provides many helpers.
 * ``Cake\Chronos\ChronosDate`` represents calendar dates unaffected by time or time zones.
@@ -13,7 +13,7 @@ Chronos provides a zero-dependency set of ``DateTimeImmutable`` extension, Date-
 The ``Chronos`` class extends ``DateTimeImmutable`` and implements ``DateTimeInterface``
 which allows users to use type declarations that support either.
 
- ``ChronoDate`` and ``ChronosTime`` do not extend ``DateTimeImmutable`` and do not
+ ``ChronosDate`` and ``ChronosTime`` do not extend ``DateTimeImmutable`` and do not
  share an interface. However, they can be converted to a ``DateTimeImmutable`` instance
  using ``toDateTimeImmutable()``.
 
