@@ -447,11 +447,14 @@ class ChronosTime implements Stringable
     /**
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toDateTimeImmutable(): DateTimeImmutable
+    public function toDateTimeImmutable(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return (new DateTimeImmutable())->setTime(
+        $timezone = is_string($timezone) ? new DateTimeZone($timezone) : $timezone;
+
+        return (new DateTimeImmutable(timezone: $timezone))->setTime(
             $this->getHours(),
             $this->getMinutes(),
             $this->getSeconds(),
@@ -464,10 +467,11 @@ class ChronosTime implements Stringable
      *
      * Alias of `toDateTimeImmutable()`.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return $this->toDateTimeImmutable();
+        return $this->toDateTimeImmutable($timezone);
     }
 }
