@@ -17,6 +17,7 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
+use Cake\Chronos\ChronosTime;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTime;
 use DateTimeImmutable;
@@ -149,6 +150,24 @@ class ConstructTest extends TestCase
         $date = new ChronosDate('2021-01-01');
         $chronos = new Chronos($date);
         $this->assertSame('2021-01-01 00:00:00', $chronos->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFromChronosTime()
+    {
+        $time = new ChronosTime('20:14:12.123456');
+        $chronos = new Chronos($time);
+        $this->assertSame((string)Chronos::parse('20:14:12.123456'), (string)$chronos);
+
+        $chronos = new Chronos($time, 'Asia/Tokyo');
+        $this->assertSame((string)Chronos::parse('20:14:12.123456'), (string)$chronos);
+        $this->assertSame('Asia/Tokyo', $chronos->tzName);
+
+        $chronos = Chronos::parse($time);
+        $this->assertSame((string)Chronos::parse('20:14:12.123456'), (string)$chronos);
+
+        $chronos = Chronos::parse($time, 'Asia/Tokyo');
+        $this->assertSame((string)Chronos::parse('20:14:12.123456'), (string)$chronos);
+        $this->assertSame('Asia/Tokyo', $chronos->tzName);
     }
 
     public function testCreateFromDateTimeInterface()
