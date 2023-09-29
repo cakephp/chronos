@@ -32,10 +32,6 @@ cobrem variantes de data/hora mutáveis e imutáveis e uma extensão do objeto
 * ``Cake\Chronos\MutableDate`` é um objeto *date* mutável.
 * ``Cake\Chronos\ChronosInterval`` é uma extensão do objeto ``DateInterval``.
 
-Por último, se você quiser usar o *typehint* em objetos do Chronos, será preciso
-usar a interface ``Cake\Chronos\ChronosInterface``. Todos os objetos de data e
-hora implementam essa interface.
-
 Criando instâncias
 ------------------
 
@@ -146,8 +142,8 @@ Também é possível realizar grandes saltos para períodos definidos no tempo::
 
 Ou ainda para dias específicos da semana::
 
-    $time->next(ChronosInterface::TUESDAY);
-    $time->previous(ChronosInterface::MONDAY);
+    $time->next(Chronos::TUESDAY);
+    $time->previous(Chronos::MONDAY);
 
 Métodos de comparação
 ---------------------

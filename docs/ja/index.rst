@@ -31,10 +31,6 @@ Chronos は ``DateInterval`` の拡張機能および、ミュータブル（変
 * ``Cake\Chronos\MutableDate`` はミュータブルな *日付* オブジェクト。
 * ``Cake\Chronos\ChronosInterval`` は ``DateInterval`` の拡張機能。
 
-最後に、もしあなたが Chronos が提供する 日付/時刻 のオブジェクトに対して型宣言を行ないたい場合、
-``Cake\Chronos\ChronosInterface`` を使用することができます。
-全ての日付と時間のオブジェクトはこのインターフェイスを実装しています。
-
 インスタンスの作成
 ------------------
 
@@ -146,8 +142,8 @@ Chronos オブジェクトは細やかに値を変更できるメソッドを提
 
 また、1週間中の特定の日にも飛べます。 ::
 
-    $time->next(ChronosInterface::TUESDAY);
-    $time->previous(ChronosInterface::MONDAY);
+    $time->next(Chronos::TUESDAY);
+    $time->previous(Chronos::MONDAY);
 
 :abbr:`DST (夏時間)` の遷移の前後で日付/時間を変更すると、
 あなたの操作で時間が増減するかもしれませんが、その結果、意図しない時間の値になります。
