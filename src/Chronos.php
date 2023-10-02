@@ -2581,6 +2581,18 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Returns a DateTimeImmutable instance
+     *
+     * This method returns a PHP DateTimeImmutable without Chronos extensions.
+     *
+     * @return \DateTimeImmutable
+     */
+    public function toNative(): DateTimeImmutable
+    {
+        return new DateTimeImmutable($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
      * Get a part of the object
      *
      * @param string $name The property name to read.

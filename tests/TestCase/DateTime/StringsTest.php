@@ -213,4 +213,13 @@ class StringsTest extends TestCase
     {
         $this->assertSame($expected, (new Chronos($date))->toWeek());
     }
+
+    public function testToNative(): void
+    {
+        $c = Chronos::now();
+        $native = $c->toNative();
+        $this->assertSame($c->format(DATE_ATOM), $native->format(DATE_ATOM));
+        $this->assertEquals($c->getTimezone(), $native->getTimezone());
+        $this->assertEquals($c->format('u'), $native->format('u'));
+    }
 }
