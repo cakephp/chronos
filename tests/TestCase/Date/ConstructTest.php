@@ -297,6 +297,26 @@ class ConstructTest extends TestCase
     /**
      * @dataProvider dateClassProvider
      */
+    public function testCreateWithTestNowNoParams($class)
+    {
+        $class::setTestNow($class::create(2001, 1, 1));
+        $date = $class::create();
+        $this->assertDate($date, 2001, 1, 1);
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
+    public function testCreateWithSomeParams($class)
+    {
+        $now = $class::today();
+        $date = $class::create(2022, 1);
+        $this->assertDate($date, 2022, 1, (int)$now->format('d'));
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     */
     public function testConstructWithRelative($class)
     {
         $c = new $class('+7 days');
