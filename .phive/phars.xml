@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+  <phar name="phpstan" version="1.8.0" installed="1.8.0" location="./tools/phpstan" copy="false"/>
+</phive>
