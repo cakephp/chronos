@@ -21,22 +21,7 @@ parameters:
 			path: src/Chronos.php
 
 		-
-			message: "#^Parameter \\#1 \\$year of static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/ChronosDate.php
-
-		-
-			message: "#^Parameter \\#2 \\$month of static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/ChronosDate.php
-
-		-
-			message: "#^Parameter \\#3 \\$day of static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/ChronosDate.php
-
-		-
-			message: "#^Static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) invoked with 8 parameters, 3 required\\.$#"
+			message: "#^Static method Cake\\\\Chronos\\\\ChronosDate\\:\\:create\\(\\) invoked with 8 parameters, 0-3 required\\.$#"
 			count: 2
 			path: src/ChronosDate.php
 

@@ -146,13 +146,18 @@ class ChronosDate extends DateTimeImmutable implements ChronosInterface
     /**
      * Create an instance from a specific date.
      *
-     * @param int $year The year to create an instance with.
-     * @param int $month The month to create an instance with.
-     * @param int $day The day to create an instance with.
+     * @param ?int $year The year to create an instance with.
+     * @param ?int $month The month to create an instance with.
+     * @param ?int $day The day to create an instance with.
      * @return static
      */
-    public static function create(int $year, int $month, int $day)
+    public static function create(?int $year = null, ?int $month = null, ?int $day = null)
     {
+        $now = static::today();
+        $year = $year ?? (int)$now->format('Y');
+        $month = $month ?? $now->format('m');
+        $day = $day ?? $now->format('d');
+
         $instance = static::createFromFormat(
             'Y-m-d',
             sprintf('%s-%s-%s', 0, $month, $day)
