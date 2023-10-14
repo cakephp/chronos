@@ -173,6 +173,22 @@ class ChronosTime implements Stringable
     }
 
     /**
+     * Returns instance set to end of day - either
+     * 23:59:59 or 23:59:59.999999 if `$microseconds` is true
+     *
+     * @param bool $microseconds Whether to set microseconds or not
+     * @return static
+     */
+    public static function endOfDay(bool $microseconds = false): static
+    {
+        if ($microseconds) {
+            return new static('23:59:59.999999');
+        }
+
+        return new static('23:59:59');
+    }
+
+    /**
      * Returns clock microseconds.
      *
      * @return int
