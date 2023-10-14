@@ -4,7 +4,7 @@ Chronos
 O Chronos oferece uma coleção independente de extensões para lidar com o objeto
 ``DateTime``. Além de métodos de conveniência, o Chronos oferece:
 
-* Objetos ``Date`` para representar datas de calendário.
+* Objetos ``ChronosDate`` para representar datas de calendário.
 * Objetos *date* e *datetime* imutáveis.
 * Um sistema de tradução acoplável. Apenas traduções em inglês estão incluídas
   na biblioteca. Todavia, ``cakephp/i18n`` pode ser usado para suporte completo
@@ -97,7 +97,7 @@ Objetos Date
 O PHP disponibiliza um único objeto DateTime. Representar datas de calendário
 pode ser um pouco desconfortável por essa classe, uma vez que ela inclui
 *timezones* e componentes de hora que realmente não se encaixam no conceito de
-'dia'. O Chronos oferece um objeto ``Date`` para representar datas. A hora e a
+'dia'. O Chronos oferece um objeto ``ChronosDate`` para representar datas. A hora e a
 zona desse objeto é sempre fixado em ``00:00:00 UTC`` e todos os métodos de
 formatação/diferença operam sob a resolução de dia::
 
