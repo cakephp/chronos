@@ -40,7 +40,11 @@ class StartEndOfTest extends TestCase
         $now = $class::now();
         $dt = $now->endOfDay();
         $this->assertTrue($dt instanceof $class);
-        $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
+        $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 0);
+
+        $dt = $now->endOfDay(true);
+        $this->assertTrue($dt instanceof $class);
+        $this->assertDateTime($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
     }
 
     /**
