@@ -128,6 +128,15 @@ class ChronosTimeTest extends TestCase
         $this->assertSame('12:00:00.000000', $t->format('H:i:s.u'));
     }
 
+    public function testEndOfDay(): void
+    {
+        $t = ChronosTime::endOfDay();
+        $this->assertSame('23:59:59.000000', $t->format('H:i:s.u'));
+
+        $t = ChronosTime::endOfDay(microseconds: true);
+        $this->assertSame('23:59:59.999999', $t->format('H:i:s.u'));
+    }
+
     public function testSetters(): void
     {
         $t = ChronosTime::midnight()->setHours(24);
