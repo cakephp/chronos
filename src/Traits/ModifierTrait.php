@@ -894,7 +894,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the time to 00:00:00
+     * Sets the time to 00:00:00
      *
      * @return static
      */
@@ -908,21 +908,27 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the time to 23:59:59
+     * Sets the time to end of day - either
+     * 23:59:59 or 23:59:59.999999 if `$microseconds` is true.
      *
+     * @param bool $microseconds Whether to set microseconds
      * @return static
      */
-    public function endOfDay(): ChronosInterface
+    public function endOfDay(bool $microseconds = false): ChronosInterface
     {
         if (static::class === ChronosDate::class) {
             trigger_error('2.5 endOfDay() will be removed in 3.x.', E_USER_DEPRECATED);
+        }
+
+        if ($microseconds) {
+            return $this->modify('23:59:59.999999');
         }
 
         return $this->modify('23:59:59');
     }
 
     /**
-     * Resets the date to the first day of the month and the time to 00:00:00
+     * Sets the date to the first day of the month and the time to 00:00:00
      *
      * @return static
      */
@@ -936,7 +942,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to end of the month and time to 23:59:59
+     * Sets the date to end of the month and time to 23:59:59
      *
      * @return static
      */
@@ -950,7 +956,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to the first day of the year and the time to 00:00:00
+     * Sets the date to the first day of the year and the time to 00:00:00
      *
      * @return static
      */
@@ -964,7 +970,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to end of the year and time to 23:59:59
+     * Sets the date to end of the year and time to 23:59:59
      *
      * @return static
      */
@@ -978,7 +984,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to the first day of the decade and the time to 00:00:00
+     * Sets the date to the first day of the decade and the time to 00:00:00
      *
      * @return static
      */
@@ -990,7 +996,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to end of the decade and time to 23:59:59
+     * Sets the date to end of the decade and time to 23:59:59
      *
      * @return static
      */
@@ -1002,7 +1008,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to the first day of the century and the time to 00:00:00
+     * Sets the date to the first day of the century and the time to 00:00:00
      *
      * @return static
      */
@@ -1016,7 +1022,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to end of the century and time to 23:59:59
+     * Sets the date to end of the century and time to 23:59:59
      *
      * @return static
      */
@@ -1035,7 +1041,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
+     * Sets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
      *
      * @return static
      */
@@ -1050,7 +1056,7 @@ trait ModifierTrait
     }
 
     /**
-     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
+     * Sets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
      *
      * @return static
      */
