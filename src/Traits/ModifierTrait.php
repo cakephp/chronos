@@ -908,8 +908,8 @@ trait ModifierTrait
     }
 
     /**
-     * Sets the time to end of day - either
-     * 23:59:59 or 23:59:59.999999 if `$microseconds` is true.
+     * Sets the time to 23:59:59 or 23:59:59.999999
+     * if `$microseconds` is true.
      *
      * @param bool $microseconds Whether to set microseconds
      * @return static
