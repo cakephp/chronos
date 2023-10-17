@@ -4,7 +4,7 @@ Chronos
 Chronos provides a zero-dependency collection of extensions to the ``DateTime``
 object. In addition to convenience methods, Chronos provides:
 
-* ``Date`` objects for representing calendar dates.
+* ``ChronosDate`` objects for representing calendar dates.
 * Immutable date and datetime objects.
 * A pluggable translation system. Only English translations are included in the
   library. However, ``cakephp/i18n`` can be used for full language support.
@@ -94,7 +94,7 @@ Date Objects
 
 PHP only provides a single DateTime object. Representing calendar dates can be
 a bit awkward with this class as it includes timezones, and time components that
-don't really belong in the concept of a 'day'. Chronos provides a ``Date``
+don't really belong in the concept of a 'day'. Chronos provides a ``ChronosDate``
 object that allows you to represent dates. The time for date objects is always
 fixed to ``00:00:00``, and the timezone is set to the server local timezone. All
 formatting/difference methods operate at the day resolution::
@@ -109,10 +109,10 @@ formatting/difference methods operate at the day resolution::
     // Outputs '2015-12-20'
     echo $today;
 
-Although ``Date`` uses a fixed time zone internally, you can specify which
+Although ``ChronosDate`` uses a fixed time zone internally, you can specify which
 time zone to use for current time such as ``now()`` or ``today()``::
 
-    use Cake\Chronos\Date:
+    use Cake\Chronos\ChronosDate;
 
     // Takes the current date from Asia/Tokyo time zone
     $today = ChronosDate::today('Asia/Tokyo');
