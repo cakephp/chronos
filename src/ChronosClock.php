@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Cake\Chronos;
 
@@ -25,7 +26,7 @@ class ChronosClock implements ClockInterface
     /**
      * Returns the current time as a Chronos Object
      *
-     * @return Chronos The current time
+     * @return \Cake\Chronos\Chronos The current time
      */
     public function now(): DateTimeImmutable
     {
