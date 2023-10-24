@@ -16,6 +16,7 @@ namespace Cake\Chronos;
  */
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Psr\Clock\ClockInterface;
 
 /**
@@ -23,6 +24,18 @@ use Psr\Clock\ClockInterface;
  */
 class ChronosClock implements ClockInterface
 {
+    private DateTimeZone|string|null $timezone;
+
+    /**
+     * Constructor.
+     *
+     * @param DateTimeZone|string|null $timezone
+     */
+    public function __construct(DateTimeZone|string|null $timezone = null)
+    {
+        $this->timezone = $timezone;
+    }
+
     /**
      * Returns the current time as a Chronos Object
      *
@@ -30,6 +43,6 @@ class ChronosClock implements ClockInterface
      */
     public function now(): DateTimeImmutable
     {
-        return Chronos::now();
+        return Chronos::now($this->timezone);
     }
 }

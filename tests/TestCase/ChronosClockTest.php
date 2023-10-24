@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -17,6 +18,7 @@ namespace Cake\Chronos\Test\TestCase;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosClock;
 use DateTimeImmutable;
+use DateTimeZone;
 
 class ChronosClockTest extends TestCase
 {
@@ -30,5 +32,19 @@ class ChronosClockTest extends TestCase
         $this->assertInstanceOf(DateTimeImmutable::class, $now);
         $this->assertInstanceOf(Chronos::class, $now);
         $this->assertSame('2001-01-31', $now->toDateString());
+    }
+
+    public function testConstructWithTimezone(): void
+    {
+        Chronos::setTestNow('2024-01-31 12:13:14.123456');
+
+        $londonTimezone = new DateTimeZone('Europe/London');
+        $clock = new ChronosClock($londonTimezone);
+        $now = $clock->now();
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $now);
+        $this->assertInstanceOf(Chronos::class, $now);
+        $this->assertSame('2024-01-31', $now->toDateString());
+        $this->assertSame('Europe/London', $now->getTimezone()->getName());
     }
 }
