@@ -29,7 +29,7 @@ class ChronosClock implements ClockInterface
     /**
      * Constructor.
      *
-     * @param DateTimeZone|string|null $timezone The timezone
+     * @param \DateTimeZone|string|null $timezone The timezone
      */
     public function __construct(DateTimeZone|string|null $timezone = null)
     {
