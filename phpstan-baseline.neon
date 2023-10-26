@@ -17,7 +17,7 @@ parameters:
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 15
+			count: 11
 			path: src/Chronos.php
 
 		-

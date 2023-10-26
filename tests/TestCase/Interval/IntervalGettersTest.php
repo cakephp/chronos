@@ -22,83 +22,63 @@ class IntervalGettersTest extends TestCase
 {
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        $this->deprecated(function () {
-            $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
-            ChronosInterval::year()->sdfsdfss;
-        });
+        ChronosInterval::year()->sdfsdfss;
     }
 
     public function testYearsGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(4, $d->years);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(4, $d->years);
     }
 
     public function testMonthsGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(5, $d->months);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(5, $d->months);
     }
 
     public function testWeeksGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(6, $d->weeks);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(6, $d->weeks);
     }
 
     public function testDayzExcludingWeeksGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(5, $d->daysExcludeWeeks);
-            $this->assertSame(5, $d->dayzExcludeWeeks);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(5, $d->daysExcludeWeeks);
+        $this->assertSame(5, $d->dayzExcludeWeeks);
     }
 
     public function testDayzGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(6 * 7 + 5, $d->dayz);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(6 * 7 + 5, $d->dayz);
     }
 
     public function testHoursGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(8, $d->hours);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(8, $d->hours);
     }
 
     public function testMinutesGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
-            $this->assertSame(9, $d->minutes);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(9, $d->minutes);
     }
 
     public function testSecondsGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
-            $this->assertSame(10, $d->seconds);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
+        $this->assertSame(10, $d->seconds);
     }
 
     public function testMicrosecondsGetter()
     {
-        $this->deprecated(function () {
-            $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
-            $this->assertSame(123, $d->microseconds);
-        });
+        $d = ChronosInterval::create(4, 5, 6, 5, 8, 9, 10, 123);
+        $this->assertSame(123, $d->microseconds);
     }
 }
