@@ -191,7 +191,7 @@ trait DifferenceTrait
 
         $period = new DatePeriod($start, $ci, $end);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
-            return $callback(static::instance($date));
+            return $callback(static::parse($date));
         });
 
         $diff = count($vals);
