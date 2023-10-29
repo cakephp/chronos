@@ -17,7 +17,6 @@ namespace Cake\Chronos\Test\TestCase\Date;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 use Closure;
-use DateTimeZone;
 
 class DiffTest extends TestCase
 {
