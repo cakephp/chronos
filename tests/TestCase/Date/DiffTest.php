@@ -271,7 +271,7 @@ class DiffTest extends TestCase
      */
     public function testBug188DiffWithSameDates($class)
     {
-        $start = $class::create(2014, 10, 8, 15, 20, 0);
+        $start = $class::create(2014, 10, 8);
         $end = clone $start;
 
         $this->assertSame(0, $start->diffInDays($end));
@@ -284,7 +284,7 @@ class DiffTest extends TestCase
      */
     public function testBug188DiffWithSameDates1DayApart($class)
     {
-        $start = $class::create(2014, 10, 8, 15, 20, 0);
+        $start = $class::create(2014, 10, 8);
         $end = (clone $start)->addDays(1);
 
         $this->assertSame(1, $start->diffInDays($end));
@@ -295,9 +295,22 @@ class DiffTest extends TestCase
      * @dataProvider dateClassProvider
      * @return void
      */
+    public function testDiffInDaysTwoWeeks($class)
+    {
+        $start = $class::create(2014, 10, 8);
+        for ($i = 1; $i <= 14; $i++) {
+            $end = (clone $start)->addDays($i);
+            $this->assertSame($i, $start->diffInDays($end));
+        }
+    }
+
+    /**
+     * @dataProvider dateClassProvider
+     * @return void
+     */
     public function testBug188DiffWithDatesOnTheWeekend($class)
     {
-        $start = $class::create(2014, 1, 1, 0, 0, 0);
+        $start = $class::create(2014, 1, 1);
         $start = $start->next($class::SATURDAY);
         $end = (clone $start)->addDays(1);
 
