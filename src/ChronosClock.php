@@ -37,9 +37,9 @@ class ChronosClock implements ClockInterface
     }
 
     /**
-     * Returns the current time as a Chronos Object
+     * Returns the current time object.
      *
-     * @return \Cake\Chronos\Chronos The current time
+     * @return \DateTimeImmutable The current time
      */
     public function now(): DateTimeImmutable
     {

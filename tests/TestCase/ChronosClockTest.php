@@ -28,8 +28,6 @@ class ChronosClockTest extends TestCase
         $clock = new ChronosClock();
         $now = $clock->now();
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $now);
-        $this->assertInstanceOf(Chronos::class, $now);
         $this->assertSame('2001-01-31', $now->toDateString());
     }
 
@@ -41,8 +39,6 @@ class ChronosClockTest extends TestCase
         $clock = new ChronosClock($londonTimezone);
         $now = $clock->now();
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $now);
-        $this->assertInstanceOf(Chronos::class, $now);
         $this->assertSame('2024-01-31', $now->toDateString());
         $this->assertSame('Europe/London', $now->getTimezone()->getName());
     }
