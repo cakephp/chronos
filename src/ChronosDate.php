@@ -356,7 +356,7 @@ class ChronosDate implements Stringable
         $new = clone $this;
         $new->native = $new->native->modify($modifier);
         if ($new->native === false) {
-            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
         }
 
         if ($new->format('H:i:s') !== '00:00:00') {
@@ -1647,7 +1647,7 @@ class ChronosDate implements Stringable
                 return $this->month <= 6 ? 1 : 2;
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new InvalidArgumentException(sprintf('Unknown getter `%s`', $name));
         }
     }
 
@@ -1655,7 +1655,7 @@ class ChronosDate implements Stringable
      * Check if an attribute exists on the object
      *
      * @param string $name The property name to check.
-     * @return bool Whether or not the property exists.
+     * @return bool Whether the property exists.
      */
     public function __isset(string $name): bool
     {

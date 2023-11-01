@@ -936,7 +936,7 @@ class Chronos extends DateTimeImmutable implements Stringable
     {
         $new = parent::modify($modifier);
         if ($new === false) {
-            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s', $modifier));
         }
 
         return $new;
@@ -2665,7 +2665,7 @@ class Chronos extends DateTimeImmutable implements Stringable
                 return $this->getTimezone()->getName();
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new InvalidArgumentException(sprintf('Unknown getter `%s`', $name));
         }
     }
 
@@ -2673,7 +2673,7 @@ class Chronos extends DateTimeImmutable implements Stringable
      * Check if an attribute exists on the object
      *
      * @param string $name The property name to check.
-     * @return bool Whether or not the property exists.
+     * @return bool Whether the property exists.
      */
     public function __isset(string $name): bool
     {
