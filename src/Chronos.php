@@ -936,7 +936,7 @@ class Chronos extends DateTimeImmutable implements Stringable
     {
         $new = parent::modify($modifier);
         if ($new === false) {
-            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s', $modifier));
+            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
         }
 
         return $new;
