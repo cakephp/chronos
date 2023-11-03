@@ -50,7 +50,7 @@ class Translator
      * Check if a translation key exists.
      *
      * @param string $key The key to check.
-     * @return bool Whether or not the key exists.
+     * @return bool Whether the key exists.
      */
     public function exists(string $key): bool
     {
