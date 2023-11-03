@@ -124,8 +124,8 @@ a granular way::
 You can also modify parts of the datetime relatively::
 
     $future = Chronos::create()
-        ->addYear(1)
-        ->subMonth(2)
+        ->addYears(1)
+        ->subMonths(2)
         ->addDays(15)
         ->addHours(20)
         ->subMinutes(2);
