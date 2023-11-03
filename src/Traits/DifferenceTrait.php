@@ -182,16 +182,10 @@ trait DifferenceTrait
             $end = $this;
             $inverse = true;
         }
-        // Hack around DatePeriod not including end values.
-        // When handling dates we need to convert to a DateTime
-        // and offset by 1 second.
-        if ($end instanceof ChronosDate) {
-            $end = (new Chronos($end))->modify('+1 second');
-        }
 
         $period = new DatePeriod($start, $ci, $end);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
-            return $callback(static::instance($date));
+            return $callback(static::parse($date));
         });
 
         $diff = count($vals);
