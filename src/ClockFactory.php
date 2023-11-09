@@ -22,7 +22,7 @@ use Psr\Clock\ClockInterface;
 /**
  * PSR-20 Clock implementation.
  */
-class ChronosClock implements ClockInterface
+class ClockFactory implements ClockInterface
 {
     private DateTimeZone|string|null $timezone;
 
