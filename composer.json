@@ -1,14 +1,13 @@
 {
     "name": "cakephp/chronos",
-    "type": "library",
     "description": "A simple API extension for DateTime.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "date",
         "time",
         "DateTime"
     ],
-    "homepage": "https://cakephp.org",
-    "license": "MIT",
     "authors": [
         {
             "name": "Brian Nesbitt",
@@ -20,6 +19,7 @@
             "homepage": "https://cakephp.org"
         }
     ],
+    "homepage": "https://cakephp.org",
     "support": {
         "issues": "https://github.com/cakephp/chronos/issues",
         "source": "https://github.com/cakephp/chronos"
@@ -45,6 +45,11 @@
             "Cake\\Chronos\\Test\\": "tests/"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
     "scripts": {
         "check": [
             "@test",
@@ -55,18 +60,13 @@
         "cs-fix": "phpcbf --colors --parallel=16 -p",
         "phpstan": "tools/phpstan analyse",
         "psalm": "tools/psalm --show-info=false",
+        "psalm-baseline": "tools/psalm  --set-baseline=psalm-baseline.xml",
         "stan": [
             "@phpstan",
             "@psalm"
         ],
         "stan-baseline": "tools/phpstan --generate-baseline",
-        "psalm-baseline": "tools/psalm  --set-baseline=psalm-baseline.xml",
         "stan-setup": "phive install",
         "test": "phpunit"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
     }
 }
