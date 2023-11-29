@@ -196,7 +196,7 @@ trait ComparisonTrait
      */
     public function lte(ChronosInterface $dt): bool
     {
-        trigger_error('2.5 lte() is deprecated. Use lessthanOrEquals() instead.', E_USER_DEPRECATED);
+        trigger_error('2.5 lte() is deprecated. Use lessThanOrEquals() instead.', E_USER_DEPRECATED);
 
         return $this->lessThanOrEquals($dt);
     }
