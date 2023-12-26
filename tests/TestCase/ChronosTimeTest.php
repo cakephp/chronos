@@ -128,6 +128,15 @@ class ChronosTimeTest extends TestCase
         $this->assertSame('12:00:00.000000', $t->format('H:i:s.u'));
     }
 
+    public function testEndOfDay(): void
+    {
+        $t = ChronosTime::endOfDay();
+        $this->assertSame('23:59:59.000000', $t->format('H:i:s.u'));
+
+        $t = ChronosTime::endOfDay(microseconds: true);
+        $this->assertSame('23:59:59.999999', $t->format('H:i:s.u'));
+    }
+
     public function testSetters(): void
     {
         $t = ChronosTime::midnight()->setHours(24);
@@ -260,9 +269,33 @@ class ChronosTimeTest extends TestCase
         $this->assertFalse($t3->between($t1, $t2));
     }
 
-    public function testToNative(): void
+    public function testToDateTimeImmutable(): void
     {
-        $native = ChronosTime::parse('23:59:59.999999')->toNative();
+        $time = ChronosTime::parse('23:59:59.999999');
+        $native = $time->toDateTimeImmutable();
         $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+
+        $native = $time->toNative();
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+
+        $native = $time->toDateTimeImmutable('Asia/Tokyo');
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
+
+        $native = $time->toNative('Asia/Tokyo');
+        $this->assertSame('23:59:59.999999', $native->format('H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
+    }
+
+    public function testToString(): void
+    {
+        $t = new ChronosTime('12:13:14.123456');
+        $this->assertSame('12:13:14', (string)$t);
+
+        ChronosTime::setToStringFormat('H:i:s.u');
+        $this->assertSame('12:13:14.123456', (string)$t);
+
+        ChronosTime::resetToStringFormat();
+        $this->assertSame('12:13:14', (string)$t);
     }
 }

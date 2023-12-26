@@ -217,6 +217,9 @@ class StringsTest extends TestCase
     public function testToNative(): void
     {
         $c = Chronos::now();
-        $this->assertSame($c->format(DATE_ATOM), $c->toNative()->format(DATE_ATOM));
+        $native = $c->toNative();
+        $this->assertSame($c->format(DATE_ATOM), $native->format(DATE_ATOM));
+        $this->assertEquals($c->getTimezone(), $native->getTimezone());
+        $this->assertEquals($c->format('u'), $native->format('u'));
     }
 }

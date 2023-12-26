@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.10.0@a5effd2d2dddd1a7ea7a0f6a051ce63ff979e356">
+<files psalm-version="5.13.1@086b94371304750d1c673315321a55d15fc59015">
   <file src="src/Chronos.php">
     <ImpureFunctionCall>
       <code>array_filter</code>
@@ -11,12 +11,15 @@
       <code>diffForHumans</code>
       <code>diffFormatter</code>
       <code>format</code>
-      <code>getTestNow</code>
+      <code>format</code>
+      <code>format</code>
+      <code>format</code>
+      <code>format</code>
+      <code>format</code>
+      <code>getTimestamp</code>
       <code>getTimezone</code>
       <code>getWeekendDays</code>
-      <code>hasRelativeKeywords</code>
       <code>hasTestNow</code>
-      <code>isTimeExpression</code>
       <code>now</code>
       <code>now</code>
       <code>now</code>
@@ -40,7 +43,6 @@
       <code>now</code>
       <code>now</code>
       <code>safeCreateDateTimeZone</code>
-      <code>toDateString</code>
       <code>toDateString</code>
       <code>toDateString</code>
       <code>toDateString</code>
@@ -87,6 +89,9 @@
     <InaccessibleProperty>
       <code><![CDATA[$instance->f]]></code>
     </InaccessibleProperty>
+    <MissingImmutableAnnotation>
+      <code>public static function createFromFormat(</code>
+    </MissingImmutableAnnotation>
   </file>
   <file src="src/ChronosDate.php">
     <ImpureFunctionCall>
@@ -143,15 +148,5 @@
             'daysInMonth' => 't',
         ];]]></code>
     </ImpureStaticVariable>
-  </file>
-  <file src="src/ChronosTime.php">
-    <ImpureMethodCall>
-      <code>format</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-      <code>mod</code>
-    </ImpureMethodCall>
   </file>
 </files>

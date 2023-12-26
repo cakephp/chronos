@@ -68,7 +68,7 @@ class StringsTest extends TestCase
         $d = ChronosDate::parse(Chronos::now());
         ChronosDate::setToStringFormat('123');
         ChronosDate::resetToStringFormat();
-        $this->assertSame($d->toDateTimeString(), '' . $d);
+        $this->assertSame($d->toDateString(), '' . $d);
     }
 
     public function testToDateString()
@@ -173,9 +173,18 @@ class StringsTest extends TestCase
         $this->assertSame('1975-12-25T00:00:00+00:00', $d->toW3cString());
     }
 
-    public function testToNative(): void
+    public function testToDateTimeImmutable(): void
     {
         $d = ChronosDate::now();
-        $this->assertSame($d->format('Y-m-d'), $d->toNative()->format('Y-m-d'));
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d->toDateTimeImmutable()->format('Y-m-d H:i:s.u'));
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d->toNative()->format('Y-m-d H:i:s.u'));
+
+        $native = $d->toDateTimeImmutable('Asia/Tokyo');
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $native->format('Y-m-d H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
+
+        $native = $d->toNative('Asia/Tokyo');
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $native->format('Y-m-d H:i:s.u'));
+        $this->assertSame('Asia/Tokyo', $native->getTimezone()->getName());
     }
 }

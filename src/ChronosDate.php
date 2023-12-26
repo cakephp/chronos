@@ -20,6 +20,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use Stringable;
 
 /**
  * An immutable date object.
@@ -30,28 +31,36 @@ use InvalidArgumentException;
  *
  * @property-read int $year
  * @property-read int $yearIso
- * @property-read int $month
- * @property-read int $day
- * @property-read int $dayOfWeek 1 (for Monday) through 7 (for Sunday)
- * @property-read int $dayOfYear 0 through 365
- * @property-read int $weekOfMonth 1 through 5
- * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
- * @property-read int $daysInMonth number of days in the given month
+ * @property-read int<1, 12> $month
+ * @property-read int<1, 31> $day
+ * @property-read int<1, 7> $dayOfWeek 1 (for Monday) through 7 (for Sunday)
+ * @property-read int<0, 365> $dayOfYear 0 through 365
+ * @property-read int<1, 5> $weekOfMonth 1 through 5
+ * @property-read int<1, 53> $weekOfYear ISO-8601 week number of year, weeks starting on Monday
+ * @property-read int<1, 31> $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
- * @property-read int $quarter the quarter of this instance, 1 - 4
+ * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
+ * @property-read int<1, 2> $half the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class ChronosDate
+class ChronosDate implements Stringable
 {
     use FormattingTrait;
+
+    /**
+     * Default format to use for __toString method when type juggling occurs.
+     *
+     * @var string
+     */
+    public const DEFAULT_TO_STRING_FORMAT = 'Y-m-d';
 
     /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
      */
-    protected static string $toStringFormat = 'Y-m-d';
+    protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * Names of days of the week.
@@ -99,11 +108,11 @@ class ChronosDate
      * are used when parsing relative date expressions like `today` and `yesterday`
      * but do not participate in parsing values like `2022-01-01`.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      */
     public function __construct(
-        Chronos|ChronosDate|DateTimeInterface|string $time = 'now',
+        ChronosDate|DateTimeInterface|string $time = 'now',
         DateTimeZone|string|null $timezone = null
     ) {
         $this->native = $this->createNative($time, $timezone);
@@ -112,12 +121,12 @@ class ChronosDate
     /**
      * Initializes the PHP DateTimeImmutable object.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time Fixed or relative time
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      * @return \DateTimeImmutable
      */
     protected function createNative(
-        Chronos|ChronosDate|DateTimeInterface|string $time,
+        ChronosDate|DateTimeInterface|string $time,
         DateTimeZone|string|null $timezone
     ): DateTimeImmutable {
         if (!is_string($time)) {
@@ -192,10 +201,10 @@ class ChronosDate
      * Chronos::parse('Monday next week')->fn() rather than
      * (new Chronos('Monday next week'))->fn()
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The strtotime compatible string to parse
+     * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The strtotime compatible string to parse
      * @return static
      */
-    public static function parse(Chronos|ChronosDate|DateTimeInterface|string $time): static
+    public static function parse(ChronosDate|DateTimeInterface|string $time): static
     {
         return new static($time);
     }
@@ -347,7 +356,7 @@ class ChronosDate
         $new = clone $this;
         $new->native = $new->native->modify($modifier);
         if ($new->native === false) {
-            throw new InvalidArgumentException('Unable to modify date using: ' . $modifier);
+            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
         }
 
         if ($new->format('H:i:s') !== '00:00:00') {
@@ -808,9 +817,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function next(?int $dayOfWeek = null): mixed
+    public function next(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -828,9 +837,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function previous(?int $dayOfWeek = null): mixed
+    public function previous(?int $dayOfWeek = null): static
     {
         if ($dayOfWeek === null) {
             $dayOfWeek = $this->dayOfWeek;
@@ -848,9 +857,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfMonth(?int $dayOfWeek = null): mixed
+    public function firstOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -864,9 +873,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfMonth(?int $dayOfWeek = null): mixed
+    public function lastOfMonth(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -881,9 +890,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfMonth(int $nth, int $dayOfWeek): mixed
+    public function nthOfMonth(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfMonth();
         $check = $dateTime->format('Y-m');
@@ -899,9 +908,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfQuarter(?int $dayOfWeek = null): mixed
+    public function firstOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -916,9 +925,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfQuarter(?int $dayOfWeek = null): mixed
+    public function lastOfQuarter(?int $dayOfWeek = null): static
     {
         return $this
             ->day(1)
@@ -934,9 +943,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfQuarter(int $nth, int $dayOfWeek): mixed
+    public function nthOfQuarter(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->day(1)->month($this->quarter * Chronos::MONTHS_PER_QUARTER);
         $lastMonth = $dateTime->month;
@@ -953,9 +962,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function firstOfYear(?int $dayOfWeek = null): mixed
+    public function firstOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -969,9 +978,9 @@ class ChronosDate
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
      * @param int|null $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static
      */
-    public function lastOfYear(?int $dayOfWeek = null): mixed
+    public function lastOfYear(?int $dayOfWeek = null): static
     {
         $day = $dayOfWeek === null ? 'day' : static::$days[$dayOfWeek];
 
@@ -986,9 +995,9 @@ class ChronosDate
      *
      * @param int $nth The offset to use.
      * @param int $dayOfWeek The day of the week to move to.
-     * @return mixed
+     * @return static|false
      */
-    public function nthOfYear(int $nth, int $dayOfWeek): mixed
+    public function nthOfYear(int $nth, int $dayOfWeek): static|false
     {
         $dateTime = $this->firstOfYear()->modify("+$nth " . static::$days[$dayOfWeek]);
 
@@ -1087,11 +1096,22 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
      * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
+     * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function closest(ChronosDate $first, ChronosDate $second): ChronosDate
+    public function closest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
     {
-        return $this->diffInDays($first) < $this->diffInDays($second) ? $first : $second;
+        $closest = $first;
+        $closestDiffInDays = $this->diffInDays($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInDays = $this->diffInDays($other);
+            if ($otherDiffInDays < $closestDiffInDays) {
+                $closest = $other;
+                $closestDiffInDays = $otherDiffInDays;
+            }
+        }
+
+        return $closest;
     }
 
     /**
@@ -1099,11 +1119,22 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate $first The instance to compare with.
      * @param \Cake\Chronos\ChronosDate $second The instance to compare with.
+     * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function farthest(ChronosDate $first, ChronosDate $second): ChronosDate
+    public function farthest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
     {
-        return $this->diffInDays($first) > $this->diffInDays($second) ? $first : $second;
+        $farthest = $first;
+        $farthestDiffInDays = $this->diffInDays($first);
+        foreach ([$second, ...$others] as $other) {
+            $otherDiffInDays = $this->diffInDays($other);
+            if ($otherDiffInDays > $farthestDiffInDays) {
+                $farthest = $other;
+                $farthestDiffInDays = $otherDiffInDays;
+            }
+        }
+
+        return $farthest;
     }
 
     /**
@@ -1223,6 +1254,26 @@ class ChronosDate
     public function isLastYear(DateTimeZone|string|null $timezone = null): bool
     {
         return $this->year === static::now($timezone)->subYears(1)->year;
+    }
+
+    /**
+     * Determines if the instance is within the first half of year
+     *
+     * @return bool
+     */
+    public function isFirstHalf(): bool
+    {
+        return $this->half === 1;
+    }
+
+    /**
+     * Determines if the instance is within the second half of year
+     *
+     * @return bool
+     */
+    public function isSecondHalf(): bool
+    {
+        return $this->half === 2;
     }
 
     /**
@@ -1366,13 +1417,15 @@ class ChronosDate
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffFiltered(
         DateInterval $interval,
         callable $callback,
         ?ChronosDate $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
         $start = $this;
         $end = $other ?? new ChronosDate(Chronos::now());
@@ -1387,7 +1440,7 @@ class ChronosDate
         // within the range. Sadly INCLUDE_END_DATE doesn't land until 8.2
         $endTime = $end->native->modify('+1 second');
 
-        $period = new DatePeriod($start->native, $interval, $endTime);
+        $period = new DatePeriod($start->native, $interval, $endTime, $options);
         $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return $callback(static::parse($date));
         });
@@ -1458,14 +1511,16 @@ class ChronosDate
      * @param callable $callback The callback to use for filtering.
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
     public function diffInDaysFiltered(
         callable $callback,
         ?ChronosDate $other = null,
-        bool $absolute = true
+        bool $absolute = true,
+        int $options = 0
     ): int {
-        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute);
+        return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute, $options);
     }
 
     /**
@@ -1473,13 +1528,14 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekdays(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInWeekdays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (ChronosDate $date) {
             return $date->isWeekday();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
@@ -1487,13 +1543,14 @@ class ChronosDate
      *
      * @param \Cake\Chronos\ChronosDate|null $other The instance to difference from.
      * @param bool $absolute Get the absolute of the difference
+     * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekendDays(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInWeekendDays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
     {
         return $this->diffInDaysFiltered(function (ChronosDate $date) {
             return $date->isWeekend();
-        }, $other, $absolute);
+        }, $other, $absolute, $options);
     }
 
     /**
@@ -1521,13 +1578,33 @@ class ChronosDate
     }
 
     /**
-     * Returns the date as a DateTimeImmutable instance.
+     * Returns the date as a `DateTimeImmutable` instance at midnight.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toDateTimeImmutable(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return $this->native;
+        if ($timezone === null) {
+            return $this->native;
+        }
+
+        $timezone = is_string($timezone) ? new DateTimeZone($timezone) : $timezone;
+
+        return new DateTimeImmutable($this->native->format('Y-m-d H:i:s.u'), $timezone);
+    }
+
+    /**
+     * Returns the date as a `DateTimeImmutable` instance at midnight.
+     *
+     * Alias of `toDateTimeImmutable()`.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
+     * @return \DateTimeImmutable
+     */
+    public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
+    {
+        return $this->toDateTimeImmutable($timezone);
     }
 
     /**
@@ -1566,8 +1643,11 @@ class ChronosDate
             case $name === 'quarter':
                 return (int)ceil($this->month / 3);
 
+            case $name === 'half':
+                return $this->month <= 6 ? 1 : 2;
+
             default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new InvalidArgumentException(sprintf('Unknown getter `%s`', $name));
         }
     }
 
@@ -1575,7 +1655,7 @@ class ChronosDate
      * Check if an attribute exists on the object
      *
      * @param string $name The property name to check.
-     * @return bool Whether or not the property exists.
+     * @return bool Whether the property exists.
      */
     public function __isset(string $name): bool
     {

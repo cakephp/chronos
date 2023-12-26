@@ -18,12 +18,12 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use Stringable;
 
 /**
- * @psalm-immutable
  * @psalm-consistent-constructor
  */
-class ChronosTime
+class ChronosTime implements Stringable
 {
     /**
      * @var int
@@ -51,6 +51,20 @@ class ChronosTime
     protected const TICKS_PER_DAY = self::TICKS_PER_HOUR * 24;
 
     /**
+     * Default format to use for __toString method.
+     *
+     * @var string
+     */
+    public const DEFAULT_TO_STRING_FORMAT = 'H:i:s';
+
+    /**
+     * Format to use for __toString method.
+     *
+     * @var string
+     */
+    protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+
+    /**
      * @var int
      */
     protected int $ticks;
@@ -60,11 +74,11 @@ class ChronosTime
      *
      * Defaults to server time.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
+     * @param \Cake\Chronos\ChronosTime|\DateTimeInterface|string|null $time Time
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
      */
     public function __construct(
-        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        ChronosTime|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null
     ) {
         if ($time === null) {
@@ -87,12 +101,12 @@ class ChronosTime
      *
      * Defaults to server time.
      *
-     * @param \Cake\Chronos\Chronos|\Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
+     * @param \Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
      * @return static
      */
     public static function parse(
-        Chronos|ChronosTime|DateTimeInterface|string|null $time = null,
+        ChronosTime|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null
     ): static {
         return new static($time, $timezone);
@@ -106,7 +120,7 @@ class ChronosTime
     {
         if (!preg_match('/^\s*(\d{1,2})[:.](\d{1,2})(?|[:.](\d{1,2})[.](\d+)|[:.](\d{1,2}))?\s*$/', $time, $matches)) {
             throw new InvalidArgumentException(
-                'Time string is not in expected format: "HH[:.]mm" or "HH[:.]mm[:.]ss.u".'
+                sprintf('Time string `%s` is not in expected format `HH[:.]mm` or `HH[:.]mm[:.]ss.u`.', $time)
             );
         }
 
@@ -116,7 +130,7 @@ class ChronosTime
         $microseconds = (int)substr($matches[4] ?? '', 0, 6);
 
         if ($hours > 24 || $minutes > 59 || $seconds > 59 || $microseconds > 999_999) {
-            throw new InvalidArgumentException('Time string contains invalid values.');
+            throw new InvalidArgumentException(sprintf('Time string `%s` contains invalid values.', $time));
         }
 
         $ticks = $hours * self::TICKS_PER_HOUR;
@@ -156,6 +170,22 @@ class ChronosTime
     public static function noon(): static
     {
         return new static('12:00:00');
+    }
+
+    /**
+     * Returns instance set to end of day - either
+     * 23:59:59 or 23:59:59.999999 if `$microseconds` is true
+     *
+     * @param bool $microseconds Whether to set microseconds or not
+     * @return static
+     */
+    public static function endOfDay(bool $microseconds = false): static
+    {
+        if ($microseconds) {
+            return new static('23:59:59.999999');
+        }
+
+        return new static('23:59:59');
     }
 
     /**
@@ -320,7 +350,38 @@ class ChronosTime
      */
     public function format(string $format): string
     {
-        return $this->toNative()->format($format);
+        return $this->toDateTimeImmutable()->format($format);
+    }
+
+    /**
+     * Reset the format used to the default when converting to a string
+     *
+     * @return void
+     */
+    public static function resetToStringFormat(): void
+    {
+        static::setToStringFormat(static::DEFAULT_TO_STRING_FORMAT);
+    }
+
+    /**
+     * Set the default format used when converting to a string
+     *
+     * @param string $format The format to use in future __toString() calls.
+     * @return void
+     */
+    public static function setToStringFormat(string $format): void
+    {
+        static::$toStringFormat = $format;
+    }
+
+    /**
+     * Format the instance as a string using the set format
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->format(static::$toStringFormat);
     }
 
     /**
@@ -402,15 +463,31 @@ class ChronosTime
     /**
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
      * @return \DateTimeImmutable
      */
-    public function toNative(): DateTimeImmutable
+    public function toDateTimeImmutable(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
-        return (new DateTimeImmutable())->setTime(
+        $timezone = is_string($timezone) ? new DateTimeZone($timezone) : $timezone;
+
+        return (new DateTimeImmutable(timezone: $timezone))->setTime(
             $this->getHours(),
             $this->getMinutes(),
             $this->getSeconds(),
             $this->getMicroseconds()
         );
+    }
+
+    /**
+     * Returns an `DateTimeImmutable` instance set to this clock time.
+     *
+     * Alias of `toDateTimeImmutable()`.
+     *
+     * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
+     * @return \DateTimeImmutable
+     */
+    public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
+    {
+        return $this->toDateTimeImmutable($timezone);
     }
 }

@@ -33,10 +33,6 @@ immutables de date/time et les extensions de ``DateInterval``.
 * ``Cake\Chronos\ChronosInterval`` est une extension pour l'objet
   ``DateInterval``.
 
-Enfin si vous voulez typer selon les objets date/time fournis par Chronos,
-vous devez utiliser ``Cake\Chronos\ChronosInterface``. Tous les objets date et
-time implémentent cette interface.
-
 Créer des Instances
 -------------------
 
@@ -163,8 +159,8 @@ temps::
 
 Ou de sauter à un jour spécifique de la semaine::
 
-    $time->next(ChronosInterface::TUESDAY);
-    $time->previous(ChronosInterface::MONDAY);
+    $time->next(Chronos::TUESDAY);
+    $time->previous(Chronos::MONDAY);
 
 Quand vous modifiez des dates/heures au-delà d'un passage à l'heure d'été ou à
 l'heure d'hiver, vous opérations peuvent gagner/perdre une heure de plus, de
@@ -302,6 +298,7 @@ Les autres propriétés accessibles sont:
 - daysInMonth
 - timestamp
 - quarter
+- half
 
 Aides aux Tests
 ---------------
