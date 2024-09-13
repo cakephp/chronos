@@ -152,9 +152,9 @@ Uma vez que você possui 2 instâncias de objetos data/hora do Chronos, é poss�
 compará-los de várias maneiras::
 
     // Coleção completa de comparadores
-    // ne, gt, lt, lte.
-    $first->eq($second);
-    $first->gte($second);
+    // equals, notEquals, greaterThan, greaterThanOrEquals, lessThan, lessThanOrEquals
+    $first->equals($second);
+    $first->greaterThanOrEquals($second);
 
     // Veja se o objeto atual está entre outros
     $now->between($start, $end);

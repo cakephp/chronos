@@ -170,9 +170,9 @@ Once you have 2 instances of Chronos date/time objects you can compare them in
 a variety of ways::
 
     // Full suite of comparators exist
-    // ne, gt, lt, lte.
-    $first->eq($second);
-    $first->gte($second);
+    // equals, notEquals, greaterThan, greaterThanOrEquals, lessThan, lessThanOrEquals
+    $first->equals($second);
+    $first->greaterThanOrEquals($second);
 
     // See if the current object is between two others.
     $now->between($start, $end);

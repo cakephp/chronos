@@ -184,10 +184,10 @@ Méthodes de Comparaison
 Une fois que vous avez 2 instances d'objets date/time de Chronos, vous pouvez
 les comparer de plusieurs façons::
 
-    // Il exste une suite complète de comparateurs
-    // ne, gt, lt, lte.
-    $first->eq($second);
-    $first->gte($second);
+    // Il existe une suite complète de comparateurs
+    // equals, notEquals, greaterThan, greaterThanOrEquals, lessThan, lessThanOrEquals
+    $first->equals($second);
+    $first->greaterThanOrEquals($second);
 
     // Regarder si l'objet courant est entre deux autres.
     $now->between($start, $end);

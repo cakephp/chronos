@@ -165,9 +165,9 @@ Chronos オブジェクトは細やかに値を変更できるメソッドを提
 Chronos の日付/時間オブジェクトの2つのインスタンスを様々な方法で比較することができます。 ::
 
     // 比較のフルセットが存在します
-    // ne, gt, lt, lte.
-    $first->eq($second);
-    $first->gte($second);
+    // equals, notEquals, greaterThan, greaterThanOrEquals, lessThan, lessThanOrEquals
+    $first->equals($second);
+    $first->greaterThanOrEquals($second);
 
     // カレントオブジェクトが2つのオブジェクトの間にあるかどうかを確認します。
     $now->between($start, $end);
