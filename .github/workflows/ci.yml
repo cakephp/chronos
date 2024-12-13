@@ -64,7 +64,7 @@ jobs:
 
     - name: Code Coverage Report
       if: success() && matrix.php-version == '8.1' && matrix.dependencies == 'highest'
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
 
   cs-stan:
     uses: cakephp/.github/.github/workflows/cs-stan.yml@5.x

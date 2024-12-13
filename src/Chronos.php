@@ -752,7 +752,6 @@ class Chronos extends DateTimeImmutable implements Stringable
      *
      * @param \DateTimeZone|string|null $object The value to convert.
      * @return \DateTimeZone
-     * @throws \InvalidArgumentException
      */
     protected static function safeCreateDateTimeZone(DateTimeZone|string|null $object): DateTimeZone
     {
