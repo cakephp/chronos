@@ -18,7 +18,9 @@ Installing with composer:
 $ composer require cakephp/chronos
 ```
 
-You can then use Chronos:
+For details on the (minimum/maximum) PHP version see [version map](https://github.com/cakephp/cakephp/wiki#version-map).
+
+# Usage
 
 ```php
 <?php
