@@ -8,7 +8,7 @@
 
 Chronos focuses on providing immutable date/datetime objects.
 Immutable objects help ensure that datetime objects aren't accidentally
-modified keeping data more predictable.
+ modified, keeping data more predictable.
 
 # Installation
 
