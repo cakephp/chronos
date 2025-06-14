@@ -113,7 +113,7 @@ class ChronosDate implements Stringable
      */
     public function __construct(
         ChronosDate|DateTimeInterface|string $time = 'now',
-        DateTimeZone|string|null $timezone = null
+        DateTimeZone|string|null $timezone = null,
     ) {
         $this->native = $this->createNative($time, $timezone);
     }
@@ -127,7 +127,7 @@ class ChronosDate implements Stringable
      */
     protected function createNative(
         ChronosDate|DateTimeInterface|string $time,
-        DateTimeZone|string|null $timezone
+        DateTimeZone|string|null $timezone,
     ): DateTimeImmutable {
         if (!is_string($time)) {
             return new DateTimeImmutable($time->format('Y-m-d 00:00:00'));
@@ -1425,7 +1425,7 @@ class ChronosDate implements Stringable
         callable $callback,
         ?ChronosDate $other = null,
         bool $absolute = true,
-        int $options = 0
+        int $options = 0,
     ): int {
         $start = $this;
         $end = $other ?? new ChronosDate(Chronos::now());
@@ -1518,7 +1518,7 @@ class ChronosDate implements Stringable
         callable $callback,
         ?ChronosDate $other = null,
         bool $absolute = true,
-        int $options = 0
+        int $options = 0,
     ): int {
         return $this->diffFiltered(new DateInterval('P1D'), $callback, $other, $absolute, $options);
     }
