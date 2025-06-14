@@ -8,7 +8,7 @@
 
 Chronos focuses on providing immutable date/datetime objects.
 Immutable objects help ensure that datetime objects aren't accidentally
-modified keeping data more predictable.
+ modified, keeping data more predictable.
 
 # Installation
 
@@ -18,7 +18,9 @@ Installing with composer:
 $ composer require cakephp/chronos
 ```
 
-You can then use Chronos:
+For details on the (minimum/maximum) PHP version see [version map](https://github.com/cakephp/chronos/wiki#version-map).
+
+# Usage
 
 ```php
 <?php
