@@ -49,7 +49,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
     public function diffForHumans(
         ChronosDate|DateTimeInterface $first,
         ChronosDate|DateTimeInterface|null $second = null,
-        bool $absolute = false
+        bool $absolute = false,
     ): string {
         $isNow = $second === null;
         if ($second === null) {
@@ -61,7 +61,7 @@ class DifferenceFormatter implements DifferenceFormatterInterface
         }
         assert(
             ($first instanceof ChronosDate && $second instanceof ChronosDate) ||
-            ($first instanceof DateTimeInterface && $second instanceof DateTimeInterface)
+            ($first instanceof DateTimeInterface && $second instanceof DateTimeInterface),
         );
 
         $diffInterval = $first->diff($second);

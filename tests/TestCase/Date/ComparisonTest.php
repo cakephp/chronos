@@ -95,7 +95,7 @@ class ComparisonTest extends TestCase
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 1),
             ChronosDate::create(2000, 1, 31),
-            true
+            true,
         ));
     }
 
@@ -104,7 +104,7 @@ class ComparisonTest extends TestCase
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 1),
             ChronosDate::create(2000, 1, 31),
-            false
+            false,
         ));
     }
 
@@ -113,7 +113,7 @@ class ComparisonTest extends TestCase
         $this->assertFalse(ChronosDate::create(1999, 12, 31)->between(
             ChronosDate::create(2000, 1, 1),
             ChronosDate::create(2000, 1, 31),
-            true
+            true,
         ));
     }
 
@@ -122,7 +122,7 @@ class ComparisonTest extends TestCase
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->between(
             ChronosDate::create(2000, 1, 1),
             ChronosDate::create(2000, 1, 31),
-            false
+            false,
         ));
     }
 
@@ -131,7 +131,7 @@ class ComparisonTest extends TestCase
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 31),
             ChronosDate::create(2000, 1, 1),
-            true
+            true,
         ));
     }
 
@@ -140,7 +140,7 @@ class ComparisonTest extends TestCase
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 31),
             ChronosDate::create(2000, 1, 1),
-            false
+            false,
         ));
     }
 
@@ -149,7 +149,7 @@ class ComparisonTest extends TestCase
         $this->assertFalse(ChronosDate::create(1999, 12, 31)->between(
             ChronosDate::create(2000, 1, 31),
             ChronosDate::create(2000, 1, 1),
-            true
+            true,
         ));
     }
 
@@ -158,7 +158,7 @@ class ComparisonTest extends TestCase
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->between(
             ChronosDate::create(2000, 1, 31),
             ChronosDate::create(2000, 1, 1),
-            false
+            false,
         ));
     }
 
