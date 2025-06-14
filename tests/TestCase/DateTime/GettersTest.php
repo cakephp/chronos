@@ -121,7 +121,7 @@ class GettersTest extends TestCase
         $age = intval(substr(
             (string)(date('Ymd') - date('Ymd', $d->timestamp)),
             0,
-            -4
+            -4,
         ));
 
         $this->assertSame($age, $d->age);

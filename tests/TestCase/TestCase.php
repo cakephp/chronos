@@ -153,7 +153,7 @@ abstract class TestCase extends BaseTestCase
                 }
 
                 return false;
-            }
+            },
         );
         try {
             $callable();

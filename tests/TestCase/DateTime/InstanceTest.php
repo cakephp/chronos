@@ -32,7 +32,7 @@ class InstanceTest extends TestCase
     {
         $dating = Chronos::instance(DateTime::createFromFormat(
             'Y-m-d H:i:s',
-            '1975-05-21 22:32:11'
+            '1975-05-21 22:32:11',
         )->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
