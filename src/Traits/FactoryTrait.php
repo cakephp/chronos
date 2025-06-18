@@ -332,11 +332,11 @@ trait FactoryTrait
     /**
      * Create a ChronosInterface instance from a timestamp
      *
-     * @param int $timestamp The timestamp to create an instance from.
+     * @param float|int $timestamp The timestamp to create an instance from.
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
-    public static function createFromTimestamp(int $timestamp, $tz = null): ChronosInterface
+    public static function createFromTimestamp(float|int $timestamp, $tz = null): ChronosInterface
     {
         $instance = static::now($tz)->setTimestamp($timestamp);
         if (get_class($instance) === ChronosDate::class) {
