@@ -17,11 +17,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.4', '8.0', '8.1', '8.2']
+        php-version: ['8.4']
         prefer-lowest: ['']
-        include:
-          - php-version: '7.2'
-            prefer-lowest: 'prefer-lowest'
 
     steps:
     - uses: actions/checkout@v4
@@ -56,19 +53,19 @@ jobs:
         fi
 
     - name: Setup problem matchers for PHPUnit
-      if: matrix.php-version == '7.4'
+      if: matrix.php-version == '8.4'
       run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
     - name: Run PHPUnit
       run: |
-        if [[ ${{ matrix.php-version }} == '7.4' ]]; then
+        if [[ ${{ matrix.php-version }} == '8.4' ]]; then
           export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
         else
           vendor/bin/phpunit
         fi
 
     - name: Submit code coverage
-      if: matrix.php-version == '7.4'
+      if: matrix.php-version == '8.4'
       uses: codecov/codecov-action@v3
 
   cs-stan:
