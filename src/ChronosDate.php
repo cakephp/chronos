@@ -41,8 +41,8 @@ use Stringable;
  * @property-read int $age does a diffInYears() with default parameters
  * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
  * @property-read int<1, 2> $half the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
- * @psalm-immutable
- * @psalm-consistent-constructor
+ * @immutable
+ * @phpstan-consistent-constructor
  */
 class ChronosDate implements Stringable
 {

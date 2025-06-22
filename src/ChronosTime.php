@@ -21,7 +21,7 @@ use InvalidArgumentException;
 use Stringable;
 
 /**
- * @psalm-consistent-constructor
+ * @phpstan-consistent-constructor
  */
 class ChronosTime implements Stringable
 {

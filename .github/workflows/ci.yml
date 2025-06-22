@@ -15,56 +15,8 @@ permissions:
 
 jobs:
   testsuite:
-    runs-on: ubuntu-22.04
-    continue-on-error: ${{ matrix.unstable }}
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: ['8.1']
-        dependencies: [highest]
-        unstable: [false]
-        include:
-          - php-version: '8.1'
-            dependencies: lowest
-            unstable: false
-          - php-version: '8.2'
-            dependencies: highest
-            unstable: false
-          - php-version: '8.3'
-            dependencies: highest
-            unstable: false
-          - php-version: '8.4'
-            dependencies: highest
-            unstable: true
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl
-        ini-values: zend.assertions=1
-        coverage: pcov
-
-    - name: Composer install
-      uses: ramsey/composer-install@v3
-      with:
-        dependency-versions: ${{ matrix.dependencies }}
-        composer-options: ${{ matrix.composer-options }}
-
-    - name: Run PHPUnit
-      run: |
-        if [[ ${{ matrix.php-version }} == '8.1' && ${{ matrix.dependencies }} == 'highest' ]]; then
-          export CODECOVERAGE=1 && vendor/bin/phpunit --display-deprecations --display-warnings --display-incomplete --display-skipped --coverage-clover=coverage.xml
-        else
-          vendor/bin/phpunit --display-deprecations --display-warnings
-        fi
-
-    - name: Code Coverage Report
-      if: success() && matrix.php-version == '8.1' && matrix.dependencies == 'highest'
-      uses: codecov/codecov-action@v5
+    uses: cakephp/.github/.github/workflows/testsuite-with-db.yml@5.x
+    secrets: inherit
 
   cs-stan:
     uses: cakephp/.github/.github/workflows/cs-stan.yml@5.x
