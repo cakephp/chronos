@@ -354,10 +354,11 @@ class ChronosDate implements Stringable
         }
 
         $new = clone $this;
-        $new->native = $new->native->modify($modifier);
-        if ($new->native === false) {
+        $native = $new->native->modify($modifier);
+        if ($native === false) {
             throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
         }
+        $new->native = $native;
 
         if ($new->format('H:i:s') !== '00:00:00') {
             $new->native = $new->native->setTime(0, 0, 0);
