@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   testsuite:
-    uses: cakephp/.github/.github/workflows/testsuite-with-db.yml@5.x
+    uses: cakephp/.github/.github/workflows/testsuite-without-db.yml@5.x
     secrets: inherit
 
   cs-stan:
