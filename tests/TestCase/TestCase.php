@@ -138,7 +138,6 @@ abstract class TestCase extends BaseTestCase
      */
     public function deprecated(Closure $callable): void
     {
-        /** @var bool $deprecation Expand type for psalm */
         $deprecation = false;
 
         $previousHandler = set_error_handler(

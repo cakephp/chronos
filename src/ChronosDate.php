@@ -41,8 +41,8 @@ use Stringable;
  * @property-read int $age does a diffInYears() with default parameters
  * @property-read int<1, 4> $quarter the quarter of this instance, 1 - 4
  * @property-read int<1, 2> $half the half of the year, with 1 for months Jan...Jun and 2 for Jul...Dec.
- * @psalm-immutable
- * @psalm-consistent-constructor
+ * @immutable
+ * @phpstan-consistent-constructor
  */
 class ChronosDate implements Stringable
 {
@@ -354,10 +354,11 @@ class ChronosDate implements Stringable
         }
 
         $new = clone $this;
-        $new->native = $new->native->modify($modifier);
-        if ($new->native === false) {
+        $native = $new->native->modify($modifier);
+        if ($native === false) {
             throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
         }
+        $new->native = $native;
 
         if ($new->format('H:i:s') !== '00:00:00') {
             $new->native = $new->native->setTime(0, 0, 0);
