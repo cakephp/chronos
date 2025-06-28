@@ -13,3 +13,11 @@ parameters:
 			message: "#^Call to an undefined static method DateTimeImmutable\\:\\:createFromTimestamp\\(\\)\\.$#"
 			count: 1
 			path: src/Chronos.php
+		-
+			message: "#with generic class DatePeriod but does not specify its types: TDate, TEnd, TRecurrences$#"
+			count: 1
+			path: src/ChronosPeriod.php
+		-
+			message: "#with generic class DatePeriod but does not specify its types: TDate, TEnd, TRecurrences$#"
+			count: 1
+			path: src/ChronosDatePeriod.php
