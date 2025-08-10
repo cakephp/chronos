@@ -236,9 +236,10 @@ trait FormattingTrait
     /**
      * Returns the quarter
      *
+     * Deprecated 3.3.0: The $range parameter is deprecated. Use toQuarterRange() for quarter ranges.
+     *
      * @param bool $range Range.
      * @return array|int 1, 2, 3, or 4 quarter of year or array if $range true
-     * @deprecated 3.3.0 The $range parameter is deprecated. Use toQuarterRange() for quarter ranges.
      */
     public function toQuarter(bool $range = false): int|array
     {
