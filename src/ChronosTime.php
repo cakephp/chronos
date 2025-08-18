@@ -59,14 +59,9 @@ class ChronosTime implements Stringable
 
     /**
      * Format to use for __toString method.
-     *
-     * @var string
      */
     protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
-    /**
-     * @var int
-     */
     protected int $ticks;
 
     /**
@@ -103,7 +98,6 @@ class ChronosTime implements Stringable
      *
      * @param \Cake\Chronos\ChronosTime|\DateTimeInterface|string $time Time
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
-     * @return static
      */
     public static function parse(
         ChronosTime|DateTimeInterface|string|null $time = null,
@@ -114,7 +108,6 @@ class ChronosTime implements Stringable
 
     /**
      * @param string $time Time string in the format HH[:.]mm or HH[:.]mm[:.]ss.u
-     * @return int
      */
     protected static function parseString(string $time): int
     {
@@ -145,7 +138,6 @@ class ChronosTime implements Stringable
      * Returns instance set to server time.
      *
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
-     * @return static
      */
     public static function now(DateTimeZone|string|null $timezone = null): static
     {
@@ -154,8 +146,6 @@ class ChronosTime implements Stringable
 
     /**
      * Returns instance set to midnight.
-     *
-     * @return static
      */
     public static function midnight(): static
     {
@@ -164,8 +154,6 @@ class ChronosTime implements Stringable
 
     /**
      * Returns instance set to noon.
-     *
-     * @return static
      */
     public static function noon(): static
     {
@@ -177,7 +165,6 @@ class ChronosTime implements Stringable
      * 23:59:59 or 23:59:59.999999 if `$microseconds` is true
      *
      * @param bool $microseconds Whether to set microseconds or not
-     * @return static
      */
     public static function endOfDay(bool $microseconds = false): static
     {
@@ -190,8 +177,6 @@ class ChronosTime implements Stringable
 
     /**
      * Returns clock microseconds.
-     *
-     * @return int
      */
     public function getMicroseconds(): int
     {
@@ -202,7 +187,6 @@ class ChronosTime implements Stringable
      * Sets clock microseconds.
      *
      * @param int $microseconds Clock microseconds
-     * @return static
      */
     public function setMicroseconds(int $microseconds): static
     {
@@ -217,8 +201,6 @@ class ChronosTime implements Stringable
 
     /**
      * Return clock seconds.
-     *
-     * @return int
      */
     public function getSeconds(): int
     {
@@ -231,7 +213,6 @@ class ChronosTime implements Stringable
      * Set clock seconds.
      *
      * @param int $seconds Clock seconds
-     * @return static
      */
     public function setSeconds(int $seconds): static
     {
@@ -246,8 +227,6 @@ class ChronosTime implements Stringable
 
     /**
      * Returns clock minutes.
-     *
-     * @return int
      */
     public function getMinutes(): int
     {
@@ -260,7 +239,6 @@ class ChronosTime implements Stringable
      * Set clock minutes.
      *
      * @param int $minutes Clock minutes
-     * @return static
      */
     public function setMinutes(int $minutes): static
     {
@@ -275,8 +253,6 @@ class ChronosTime implements Stringable
 
     /**
      * Returns clock hours.
-     *
-     * @return int
      */
     public function getHours(): int
     {
@@ -289,7 +265,6 @@ class ChronosTime implements Stringable
      * Set clock hours.
      *
      * @param int $hours Clock hours
-     * @return static
      */
     public function setHours(int $hours): static
     {
@@ -309,7 +284,6 @@ class ChronosTime implements Stringable
      * @param int $minutes Clock minutes
      * @param int $seconds Clock seconds
      * @param int $microseconds Clock microseconds
-     * @return static
      */
     public function setTime(int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0): static
     {
@@ -328,7 +302,6 @@ class ChronosTime implements Stringable
     /**
      * @param int $a Left side
      * @param int $a Right side
-     * @return int
      */
     protected static function mod(int $a, int $b): int
     {
@@ -346,7 +319,6 @@ class ChronosTime implements Stringable
      * will still be interpreted. Be sure to escape those characters first.
      *
      * @param string $format Format string
-     * @return string
      */
     public function format(string $format): string
     {
@@ -355,8 +327,6 @@ class ChronosTime implements Stringable
 
     /**
      * Reset the format used to the default when converting to a string
-     *
-     * @return void
      */
     public static function resetToStringFormat(): void
     {
@@ -367,7 +337,6 @@ class ChronosTime implements Stringable
      * Set the default format used when converting to a string
      *
      * @param string $format The format to use in future __toString() calls.
-     * @return void
      */
     public static function setToStringFormat(string $format): void
     {
@@ -376,8 +345,6 @@ class ChronosTime implements Stringable
 
     /**
      * Format the instance as a string using the set format
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -388,7 +355,6 @@ class ChronosTime implements Stringable
      * Returns whether time is equal to target time.
      *
      * @param \Cake\Chronos\ChronosTime $target Target time
-     * @return bool
      */
     public function equals(ChronosTime $target): bool
     {
@@ -399,7 +365,6 @@ class ChronosTime implements Stringable
      * Returns whether time is greater than target time.
      *
      * @param \Cake\Chronos\ChronosTime $target Target time
-     * @return bool
      */
     public function greaterThan(ChronosTime $target): bool
     {
@@ -410,7 +375,6 @@ class ChronosTime implements Stringable
      * Returns whether time is greater than or equal to target time.
      *
      * @param \Cake\Chronos\ChronosTime $target Target time
-     * @return bool
      */
     public function greaterThanOrEquals(ChronosTime $target): bool
     {
@@ -421,7 +385,6 @@ class ChronosTime implements Stringable
      * Returns whether time is less than target time.
      *
      * @param \Cake\Chronos\ChronosTime $target Target time
-     * @return bool
      */
     public function lessThan(ChronosTime $target): bool
     {
@@ -432,7 +395,6 @@ class ChronosTime implements Stringable
      * Returns whether time is less than or equal to target time.
      *
      * @param \Cake\Chronos\ChronosTime $target Target time
-     * @return bool
      */
     public function lessThanOrEquals(ChronosTime $target): bool
     {
@@ -445,7 +407,6 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $start Start of target range
      * @param \Cake\Chronos\ChronosTime $end End of target range
      * @param bool $equals Whether to include the beginning and end of range
-     * @return bool
      */
     public function between(ChronosTime $start, ChronosTime $end, bool $equals = true): bool
     {
@@ -464,7 +425,6 @@ class ChronosTime implements Stringable
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
      * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
-     * @return \DateTimeImmutable
      */
     public function toDateTimeImmutable(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
@@ -484,7 +444,6 @@ class ChronosTime implements Stringable
      * Alias of `toDateTimeImmutable()`.
      *
      * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
-     * @return \DateTimeImmutable
      */
     public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {

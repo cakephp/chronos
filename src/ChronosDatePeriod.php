@@ -31,9 +31,6 @@ class ChronosDatePeriod implements Iterator
      */
     protected Iterator $iterator;
 
-    /**
-     * @param \DatePeriod $period
-     */
     public function __construct(DatePeriod $period)
     {
         /** @var \Iterator<int, \DateTimeInterface> $iterator */
@@ -41,41 +38,26 @@ class ChronosDatePeriod implements Iterator
         $this->iterator = $iterator;
     }
 
-    /**
-     * @return \Cake\Chronos\ChronosDate
-     */
     public function current(): ChronosDate
     {
         return new ChronosDate($this->iterator->current());
     }
 
-    /**
-     * @return int
-     */
     public function key(): int
     {
         return $this->iterator->key();
     }
 
-    /**
-     * @return void
-     */
     public function next(): void
     {
         $this->iterator->next();
     }
 
-    /**
-     * @return void
-     */
     public function rewind(): void
     {
         $this->iterator->rewind();
     }
 
-    /**
-     * @return bool
-     */
     public function valid(): bool
     {
         return $this->iterator->valid();

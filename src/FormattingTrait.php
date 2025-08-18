@@ -27,8 +27,6 @@ trait FormattingTrait
 {
     /**
      * Resets the __toString() format to ``DEFAULT_TO_STRING_FORMAT``.
-     *
-     * @return void
      */
     public static function resetToStringFormat(): void
     {
@@ -39,7 +37,6 @@ trait FormattingTrait
      * Sets the __toString() format.
      *
      * @param string $format See ``format()`` for accepted specifiers.
-     * @return void
      */
     public static function setToStringFormat(string $format): void
     {
@@ -49,8 +46,6 @@ trait FormattingTrait
     /**
      * Returns a formatted string specified by ``setToStringFormat()``
      * or the default ``DEFAULT_TO_STRING_FORMAT`` format.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -59,8 +54,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as date
-     *
-     * @return string
      */
     public function toDateString(): string
     {
@@ -69,8 +62,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as a readable date
-     *
-     * @return string
      */
     public function toFormattedDateString(): string
     {
@@ -79,8 +70,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as time
-     *
-     * @return string
      */
     public function toTimeString(): string
     {
@@ -89,8 +78,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as date and time
-     *
-     * @return string
      */
     public function toDateTimeString(): string
     {
@@ -99,8 +86,6 @@ trait FormattingTrait
 
     /**
      * Format the instance with day, date and time
-     *
-     * @return string
      */
     public function toDayDateTimeString(): string
     {
@@ -109,8 +94,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as ATOM
-     *
-     * @return string
      */
     public function toAtomString(): string
     {
@@ -119,8 +102,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as COOKIE
-     *
-     * @return string
      */
     public function toCookieString(): string
     {
@@ -129,8 +110,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as ISO8601
-     *
-     * @return string
      */
     public function toIso8601String(): string
     {
@@ -140,7 +119,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC822
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc822
      */
     public function toRfc822String(): string
@@ -151,7 +129,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC850
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc850
      */
     public function toRfc850String(): string
@@ -162,7 +139,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC1036
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc1036
      */
     public function toRfc1036String(): string
@@ -173,7 +149,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC1123
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc1123
      */
     public function toRfc1123String(): string
@@ -184,7 +159,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC2822
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc2822
      */
     public function toRfc2822String(): string
@@ -195,7 +169,6 @@ trait FormattingTrait
     /**
      * Format the instance as RFC3339
      *
-     * @return string
      * @link https://tools.ietf.org/html/rfc3339
      */
     public function toRfc3339String(): string
@@ -205,8 +178,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as RSS
-     *
-     * @return string
      */
     public function toRssString(): string
     {
@@ -215,8 +186,6 @@ trait FormattingTrait
 
     /**
      * Format the instance as W3C
-     *
-     * @return string
      */
     public function toW3cString(): string
     {
