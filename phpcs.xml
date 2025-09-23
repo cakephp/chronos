@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
-    <config name="installed_paths" value="../../cakephp/cakephp-codesniffer" />
-
     <rule ref="CakePHP" />
 
     <!-- Necessary for class aliases used for backwards compat -->
