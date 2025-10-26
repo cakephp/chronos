@@ -177,10 +177,6 @@ class StringsTest extends TestCase
             ['2007-12-25', 4],
             ['2007-9-25', 3],
             ['2007-3-25', 1],
-            ['2007-3-25', ['2007-01-01', '2007-03-31'], true],
-            ['2007-5-25', ['2007-04-01', '2007-06-30'], true],
-            ['2007-8-25', ['2007-07-01', '2007-09-30'], true],
-            ['2007-12-25', ['2007-10-01', '2007-12-31'], true],
         ];
     }
 
@@ -192,7 +188,26 @@ class StringsTest extends TestCase
     #[DataProvider('toQuarterProvider')]
     public function testToQuarter($date, $expected, $range = false)
     {
-        $this->assertSame($expected, (new Chronos($date))->toQuarter($range));
+        $this->assertSame($expected, (new Chronos($date))->toQuarter());
+    }
+
+    public static function toQuarterRangeProvider()
+    {
+        return [
+            ['2007-3-25', ['2007-01-01', '2007-03-31']],
+            ['2007-5-25', ['2007-04-01', '2007-06-30']],
+            ['2007-8-25', ['2007-07-01', '2007-09-30']],
+            ['2007-12-25', ['2007-10-01', '2007-12-31']],
+        ];
+    }
+
+    #[DataProvider('toQuarterRangeProvider')]
+    public function testToQuarterRange($date, $expected)
+    {
+        $this->assertSame($expected, (new Chronos($date))->toQuarterRange());
+        $this->deprecated(function() use ($date, $expected) {
+            $this->assertSame($expected, (new Chronos($date))->toQuarter(true));
+        });
     }
 
     /**
