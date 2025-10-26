@@ -336,6 +336,7 @@ trait FactoryTrait
      * @param \DateTimeZone|string|null $tz The DateTimeZone object or timezone name the new instance should use.
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public static function createFromTimestamp(float|int $timestamp, $tz = null): ChronosInterface
     {
         $instance = static::now($tz)->setTimestamp($timestamp);

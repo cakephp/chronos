@@ -11,4 +11,9 @@
             <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
+
+    <php>
+        <!-- E_ALL (32767) -->
+        <ini name="error_reporting" value="32767"/>
+    </php>
 </phpunit>
