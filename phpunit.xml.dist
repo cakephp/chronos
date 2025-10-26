@@ -2,7 +2,9 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
          bootstrap="tests/bootstrap.php"
-         colors="true">
+         colors="true"
+         failOnDeprecation="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true">
     <testsuites>
         <testsuite name="Chronos Test Suite">
             <directory>tests</directory>
@@ -13,4 +15,9 @@
             <directory suffix=".php">src/</directory>
         </include>
     </source>
+
+    <php>
+        <!-- E_ALL (32767) -->
+        <ini name="error_reporting" value="32767"/>
+    </php>
 </phpunit>
