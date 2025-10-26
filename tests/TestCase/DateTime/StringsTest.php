@@ -160,6 +160,12 @@ class StringsTest extends TestCase
         $this->assertSame('1639224001', $time->toUnixString());
     }
 
+    public function testToRfc7231String()
+    {
+        $time = Chronos::parse('2014-04-20 08:00:00', 'America/Toronto');
+        $this->assertSame('Sun, 20 Apr 2014 12:00:00 GMT', $time->toRfc7231String());
+    }
+
     /**
      * Provides values and expectations for the toQuarter method
      *

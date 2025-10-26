@@ -2588,6 +2588,17 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Converts the time zone to UTC and returns a string in RFC7231 format.
+     * This replaced the deprecated and broken ``DATE_RFC7231`` formatting constant.
+     *
+     * @return string
+     */
+    public function toRfc7231String(): string
+    {
+        return $this->setTimezone('UTC')->format('D, d M Y H:i:s \G\M\T');
+    }
+
+    /**
      * Returns a DateTimeImmutable instance
      *
      * This method returns a PHP DateTimeImmutable without Chronos extensions.
