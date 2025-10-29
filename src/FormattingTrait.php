@@ -250,7 +250,7 @@ trait FormattingTrait
 
         trigger_error(
             'Using toQuarter() with `$range=true` is deprecated. Use `toQuarterRange()` instead.',
-            E_USER_DEPRECATED
+            E_USER_DEPRECATED,
         );
 
         return $this->toQuarterRange();
@@ -259,23 +259,19 @@ trait FormattingTrait
     /**
      * Returns the quarter range
      *
-     * @return array<string> Array with start and end date of quarter in Y-m-d format
+     * @return array{0: string, 1: string} Array with start and end date of quarter in Y-m-d format
      */
     public function toQuarterRange(): array
     {
         $quarter = (int)ceil((int)$this->format('m') / 3);
         $year = $this->format('Y');
 
-        switch ($quarter) {
-            case 1:
-                return [$year . '-01-01', $year . '-03-31'];
-            case 2:
-                return [$year . '-04-01', $year . '-06-30'];
-            case 3:
-                return [$year . '-07-01', $year . '-09-30'];
-            default:
-                return [$year . '-10-01', $year . '-12-31'];
-        }
+        return match ($quarter) {
+            1 => [$year . '-01-01', $year . '-03-31'],
+            2 => [$year . '-04-01', $year . '-06-30'],
+            3 => [$year . '-07-01', $year . '-09-30'],
+            default => [$year . '-10-01', $year . '-12-31'],
+        };
     }
 
     /**
