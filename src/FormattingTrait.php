@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Cake\Chronos;
 
 use DateTime;
+use UnexpectedValueException;
 
 /**
  * Provides string formatting methods for datetime instances.
@@ -270,7 +271,8 @@ trait FormattingTrait
             1 => [$year . '-01-01', $year . '-03-31'],
             2 => [$year . '-04-01', $year . '-06-30'],
             3 => [$year . '-07-01', $year . '-09-30'],
-            default => [$year . '-10-01', $year . '-12-31'],
+            4 => [$year . '-10-01', $year . '-12-31'],
+            default => throw new UnexpectedValueException('Quarter can only be a value between 1-4'),
         };
     }
 
