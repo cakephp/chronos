@@ -205,7 +205,7 @@ class StringsTest extends TestCase
     public function testToQuarterRange($date, $expected)
     {
         $this->assertSame($expected, (new Chronos($date))->toQuarterRange());
-        $this->deprecated(function() use ($date, $expected) {
+        $this->deprecated(function () use ($date, $expected) {
             $this->assertSame($expected, (new Chronos($date))->toQuarter(true));
         });
     }
