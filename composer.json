@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0",
-        "phpunit/phpunit": "^10.5.58 || ^11.1.3"
+        "phpunit/phpunit": "^10.5.58 || ^11.5.3 || ^12.1.3"
     },
     "provide": {
         "psr/clock-implementation": "1.0"
