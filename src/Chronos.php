@@ -1619,6 +1619,89 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Get the next occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `next()`, this method considers both the day AND the time. If
+     * today is the target day and the specified time hasn't passed yet,
+     * it returns today at that time. Otherwise, it returns next week.
+     *
+     * This is useful when you need a relative date that always points to
+     * the next future occurrence of a specific day and time.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (today)
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (next week)
+     * $date = Chronos::now()->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function nextOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time hasn't passed yet, return today
+            if ($todayAtTime->greaterThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get next week's occurrence
+        return $this->next($dayOfWeek)->setTime($hour, $minute, $second);
+    }
+
+    /**
+     * Get the previous occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `previous()`, this method considers both the day AND the time.
+     * If today is the target day and the specified time has already passed,
+     * it returns today at that time. Otherwise, it returns last week.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (today, already passed)
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (last week)
+     * $date = Chronos::now()->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function previousOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time has already passed, return today
+            if ($todayAtTime->lessThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get last week's occurrence
+        return $this->previous($dayOfWeek)->setTime($hour, $minute, $second);
+    }
+
+    /**
      * Modify to the first occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
