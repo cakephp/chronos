@@ -31,6 +31,7 @@ use Stringable;
  * @property-read float $f Microseconds as a fraction of a second
  * @property-read int $invert 1 if the interval is negative
  * @property-read int|false $days Total days if created from diff(), false otherwise
+ * @phpstan-consistent-constructor
  */
 class ChronosInterval implements Stringable
 {
