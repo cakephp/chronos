@@ -19,7 +19,9 @@ use DateTime;
 /**
  * Provides string formatting methods for datetime instances.
  *
- * Expects implementing classes to define static::$toStringFormat
+ * Expects implementing classes to define static::$toStringFormat as `array|string|int`.
+ * The widened type allows subclasses (like CakePHP I18n classes) to use
+ * IntlDateFormatter constants while maintaining backward compatibility.
  *
  * @internal
  */
@@ -54,6 +56,8 @@ trait FormattingTrait
      */
     public function __toString(): string
     {
+        assert(is_string(static::$toStringFormat));
+
         return $this->format(static::$toStringFormat);
     }
 
