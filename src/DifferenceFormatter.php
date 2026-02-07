@@ -96,6 +96,11 @@ class DifferenceFormatter implements DifferenceFormatterInterface
                 $unit = 'second';
                 break;
         }
+
+        if ($count === 0 && $unit === 'second') {
+            return $this->translate->singular('just_now');
+        }
+
         $time = $this->translate->plural($unit, $count, ['count' => $count]);
         if ($absolute) {
             return $time;

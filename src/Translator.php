@@ -40,6 +40,7 @@ class Translator
         'minute_plural' => '{count} minutes',
         'second' => '1 second',
         'second_plural' => '{count} seconds',
+        'just_now' => 'just now',
         'ago' => '{time} ago',
         'from_now' => '{time} from now',
         'after' => '{time} after',
