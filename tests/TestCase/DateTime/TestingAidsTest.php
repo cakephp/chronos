@@ -19,6 +19,7 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateTimeZone;
+use RuntimeException;
 
 class TestingAidsTest extends TestCase
 {
@@ -230,5 +231,90 @@ class TestingAidsTest extends TestCase
         Chronos::setTestNow($c);
 
         $this->assertSame($c, Chronos::getTestNow());
+    }
+
+    public function testWithTestNowSetsAndRestoresNull()
+    {
+        $this->assertNull(Chronos::getTestNow());
+
+        $result = Chronos::withTestNow('2023-06-15 12:00:00', function () {
+            $this->assertNotNull(Chronos::getTestNow());
+            $this->assertSame('2023-06-15', Chronos::now()->format('Y-m-d'));
+
+            return 'callback result';
+        });
+
+        $this->assertSame('callback result', $result);
+        $this->assertNull(Chronos::getTestNow());
+    }
+
+    public function testWithTestNowRestoresPreviousTestNow()
+    {
+        $original = new Chronos('2020-01-01 00:00:00');
+        Chronos::setTestNow($original);
+
+        Chronos::withTestNow('2023-06-15 12:00:00', function () {
+            $this->assertSame('2023-06-15', Chronos::now()->format('Y-m-d'));
+        });
+
+        $this->assertSame($original, Chronos::getTestNow());
+        $this->assertSame('2020-01-01', Chronos::now()->format('Y-m-d'));
+    }
+
+    public function testWithTestNowNested()
+    {
+        Chronos::setTestNow('2020-01-01 00:00:00');
+
+        Chronos::withTestNow('2021-06-15 00:00:00', function () {
+            $this->assertSame('2021-06-15', Chronos::now()->format('Y-m-d'));
+
+            Chronos::withTestNow('2022-12-25 00:00:00', function () {
+                $this->assertSame('2022-12-25', Chronos::now()->format('Y-m-d'));
+            });
+
+            $this->assertSame('2021-06-15', Chronos::now()->format('Y-m-d'));
+        });
+
+        $this->assertSame('2020-01-01', Chronos::now()->format('Y-m-d'));
+    }
+
+    public function testWithTestNowRestoresOnException()
+    {
+        $original = new Chronos('2020-01-01 00:00:00');
+        Chronos::setTestNow($original);
+
+        try {
+            Chronos::withTestNow('2023-06-15 12:00:00', function () {
+                throw new RuntimeException('Test exception');
+            });
+            $this->fail('Exception should have been thrown');
+        } catch (RuntimeException $e) {
+            $this->assertSame('Test exception', $e->getMessage());
+        }
+
+        $this->assertSame($original, Chronos::getTestNow());
+    }
+
+    public function testWithTestNowWithChronosInstance()
+    {
+        $testTime = new Chronos('2023-06-15 14:30:00');
+
+        $result = Chronos::withTestNow($testTime, function () {
+            return Chronos::now()->format('Y-m-d H:i:s');
+        });
+
+        $this->assertSame('2023-06-15 14:30:00', $result);
+        $this->assertNull(Chronos::getTestNow());
+    }
+
+    public function testWithTestNowWithNull()
+    {
+        Chronos::setTestNow('2020-01-01 00:00:00');
+
+        Chronos::withTestNow(null, function () {
+            $this->assertNull(Chronos::getTestNow());
+        });
+
+        $this->assertSame('2020-01-01', Chronos::now()->format('Y-m-d'));
     }
 }
