@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Cake\Chronos;
 
+use DateInterval;
 use DatePeriod;
+use InvalidArgumentException;
 use Iterator;
 
 /**
@@ -32,13 +34,37 @@ class ChronosDatePeriod implements Iterator
     protected Iterator $iterator;
 
     /**
-     * @param \DatePeriod $period
+     * @param \DatePeriod $period The DatePeriod to wrap.
+     * @throws \InvalidArgumentException If the period has a zero interval which would cause an infinite loop.
      */
     public function __construct(DatePeriod $period)
     {
+        if (static::isZeroInterval($period->getDateInterval())) {
+            throw new InvalidArgumentException(
+                'Cannot create a period with a zero interval. This would cause an infinite loop when iterating.',
+            );
+        }
+
         /** @var \Iterator<int, \DateTimeInterface> $iterator */
         $iterator = $period->getIterator();
         $this->iterator = $iterator;
+    }
+
+    /**
+     * Check if a DateInterval is effectively zero.
+     *
+     * @param \DateInterval $interval The interval to check.
+     * @return bool True if the interval is zero.
+     */
+    protected static function isZeroInterval(DateInterval $interval): bool
+    {
+        return $interval->y === 0
+            && $interval->m === 0
+            && $interval->d === 0
+            && $interval->h === 0
+            && $interval->i === 0
+            && $interval->s === 0
+            && (int)($interval->f * 1_000_000) === 0;
     }
 
     /**
