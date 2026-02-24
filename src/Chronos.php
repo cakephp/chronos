@@ -328,6 +328,38 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Temporarily sets "now" to the given value and executes the callback.
+     *
+     * After the callback is executed, the previous value of "now" is restored.
+     * This is useful for testing time-sensitive code without affecting other tests.
+     *
+     * ### Example:
+     *
+     * ```
+     * $result = Chronos::withTestNow('2023-06-15 12:00:00', function () {
+     *     return Chronos::now()->format('Y-m-d');
+     * });
+     * // $result === '2023-06-15'
+     * ```
+     *
+     * @template T
+     * @param \Cake\Chronos\Chronos|string|null $testNow The instance to use as "now".
+     * @param callable(): T $callback The callback to execute.
+     * @return T The return value of the callback.
+     */
+    public static function withTestNow(Chronos|string|null $testNow, callable $callback): mixed
+    {
+        $previous = static::getTestNow();
+        static::setTestNow($testNow);
+
+        try {
+            return $callback();
+        } finally {
+            static::setTestNow($previous);
+        }
+    }
+
+    /**
      * Determine if there is just a time in the time string
      *
      * @param string|null $time The time string to check.
