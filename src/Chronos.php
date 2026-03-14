@@ -2643,6 +2643,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Returns the date and time as an associative array.
+     *
+     * @return array{year: int, month: int, day: int, hour: int, minute: int, second: int, microsecond: int, timezone: string}
+     */
+    public function toArray(): array
+    {
+        return [
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'microsecond' => $this->microsecond,
+            'timezone' => $this->timezone->getName(),
+        ];
+    }
+
+    /**
      * Get a part of the object
      *
      * @param string $name The property name to read.

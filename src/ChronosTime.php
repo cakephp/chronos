@@ -490,4 +490,19 @@ class ChronosTime implements Stringable
     {
         return $this->toDateTimeImmutable($timezone);
     }
+
+    /**
+     * Returns the time as an associative array.
+     *
+     * @return array{hour: int, minute: int, second: int, microsecond: int}
+     */
+    public function toArray(): array
+    {
+        return [
+            'hour' => $this->getHours(),
+            'minute' => $this->getMinutes(),
+            'second' => $this->getSeconds(),
+            'microsecond' => $this->getMicroseconds(),
+        ];
+    }
 }
