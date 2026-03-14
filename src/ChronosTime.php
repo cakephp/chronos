@@ -326,6 +326,37 @@ class ChronosTime implements Stringable
     }
 
     /**
+     * Resets time to the start of the current hour.
+     *
+     * @return static
+     */
+    public function startOfHour(): static
+    {
+        $hourTicks = $this->ticks - $this->ticks % self::TICKS_PER_HOUR;
+
+        $clone = clone $this;
+        $clone->ticks = $hourTicks;
+
+        return $clone;
+    }
+
+    /**
+     * Sets time to the end of the current hour.
+     *
+     * @return static
+     */
+    public function endOfHour(): static
+    {
+        $hourTicks = $this->ticks - $this->ticks % self::TICKS_PER_HOUR;
+        $endTicks = $hourTicks + self::TICKS_PER_HOUR - 1;
+
+        $clone = clone $this;
+        $clone->ticks = $endTicks;
+
+        return $clone;
+    }
+
+    /**
      * @param int $a Left side
      * @param int $a Right side
      * @return int

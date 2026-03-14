@@ -193,6 +193,36 @@ class ChronosTimeTest extends TestCase
         $this->assertSame('01:00:00.000001', $t->format('H:i:s.u'));
     }
 
+    public function testStartOfHour(): void
+    {
+        $t = ChronosTime::parse('12:30:45.123456');
+        $start = $t->startOfHour();
+
+        $this->assertNotSame($t, $start);
+        $this->assertSame('12:00:00.000000', $start->format('H:i:s.u'));
+
+        $t = ChronosTime::parse('00:59:59.999999');
+        $this->assertSame('00:00:00.000000', $t->startOfHour()->format('H:i:s.u'));
+
+        $t = ChronosTime::parse('23:01:01');
+        $this->assertSame('23:00:00.000000', $t->startOfHour()->format('H:i:s.u'));
+    }
+
+    public function testEndOfHour(): void
+    {
+        $t = ChronosTime::parse('12:30:45.123456');
+        $end = $t->endOfHour();
+
+        $this->assertNotSame($t, $end);
+        $this->assertSame('12:59:59.999999', $end->format('H:i:s.u'));
+
+        $t = ChronosTime::parse('00:00:00');
+        $this->assertSame('00:59:59.999999', $t->endOfHour()->format('H:i:s.u'));
+
+        $t = ChronosTime::parse('23:30:00');
+        $this->assertSame('23:59:59.999999', $t->endOfHour()->format('H:i:s.u'));
+    }
+
     public function testFormat(): void
     {
         $t = new ChronosTime('23:59:59.999999');
