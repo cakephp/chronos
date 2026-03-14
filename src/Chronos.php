@@ -726,9 +726,11 @@ class Chronos extends DateTimeImmutable implements Stringable
         $hasMicro = (bool)array_intersect($formatChars, ['u', 'v']);
 
         // If the format includes '!' or '|', PHP resets unspecified components to Unix epoch or zero
-        // In that case, we should not override with testNow
+        // If 'U' is present, all components are set from the Unix timestamp
+        // In these cases, we should not override with testNow
         $hasReset = in_array('!', $formatChars, true) || in_array('|', $formatChars, true);
-        if ($hasReset) {
+        $hasUnixTimestamp = in_array('U', $formatChars, true);
+        if ($hasReset || $hasUnixTimestamp) {
             return $dateTime;
         }
 
