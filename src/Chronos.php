@@ -668,6 +668,12 @@ class Chronos extends DateTimeImmutable implements Stringable
     /**
      * Create an instance from a specific format
      *
+     * Unlike PHP's native DateTimeImmutable::createFromFormat(), this method
+     * automatically appends the `|` modifier if no reset modifier (`|` or `!`)
+     * is present. This ensures that unparsed components are reset to zero
+     * instead of being filled from the current time, providing more predictable
+     * and deterministic behavior.
+     *
      * @param string $format The date() compatible format string.
      * @param string $time The formatted date string to interpret.
      * @param \DateTimeZone|string|null $timezone The DateTimeZone object or timezone name the new instance should use.
@@ -679,6 +685,12 @@ class Chronos extends DateTimeImmutable implements Stringable
         string $time,
         DateTimeZone|string|null $timezone = null,
     ): static {
+        // Auto-append | modifier if no reset modifier is present
+        // This ensures unparsed components are zero instead of current time
+        if (!str_contains($format, '|') && !str_contains($format, '!')) {
+            $format .= '|';
+        }
+
         if ($timezone !== null) {
             $dateTime = parent::createFromFormat($format, $time, $timezone ? static::safeCreateDateTimeZone($timezone) : null);
         } else {
