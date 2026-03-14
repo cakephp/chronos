@@ -29,104 +29,6 @@ class CreateFromFormatTest extends TestCase
         $this->assertTrue($d instanceof Chronos);
     }
 
-    public function testCreateFromFormatWithTestNowMissingYear()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('m-d H:i:s', '10-05 09:15:30');
-        $this->assertDateTime($d, 2020, 10, 5, 9, 15, 30);
-    }
-
-    public function testCreateFromFormatWithTestNowMissingDate()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('H:i:s', '09:15:30');
-        $this->assertDateTime($d, 2020, 12, 1, 9, 15, 30);
-    }
-
-    public function testCreateFromFormatWithTestNowMissingTime()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('Y-m-d', '2021-06-15');
-        $this->assertDateTime($d, 2021, 6, 15, 14, 30, 45);
-    }
-
-    public function testCreateFromFormatWithTestNowPartialDate()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 00:00:00'));
-        $d = Chronos::createFromFormat('m-d', '10-05');
-        $this->assertDateTime($d, 2020, 10, 5, 0, 0, 0);
-    }
-
-    public function testCreateFromFormatWithTestNowDayOnly()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 00:00:00'));
-        $d = Chronos::createFromFormat('d', '05');
-        $this->assertDateTime($d, 2020, 12, 5, 0, 0, 0);
-    }
-
-    public function testCreateFromFormatWithTestNowComplete()
-    {
-        // When format is complete, testNow should not affect the result
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
-        $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
-    }
-
-    public function testCreateFromFormatWithTestNowResetModifier()
-    {
-        // The '!' modifier resets to Unix epoch, should not use testNow
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('!Y-m-d', '2021-06-15');
-        $this->assertDateTime($d, 2021, 6, 15, 0, 0, 0);
-    }
-
-    public function testCreateFromFormatWithTestNowPipeModifier()
-    {
-        // The '|' modifier resets unspecified components to zero, should not use testNow
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('Y-m-d|', '2021-06-15');
-        $this->assertDateTime($d, 2021, 6, 15, 0, 0, 0);
-    }
-
-    public function testCreateFromFormatWithoutTestNow()
-    {
-        // Without testNow set, behavior should use real current time for missing components
-        Chronos::setTestNow(null);
-        $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
-        $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
-    }
-
-    public function testCreateFromFormatWithTestNowEscapedCharacters()
-    {
-        // Escaped format characters should not be treated as format specifiers
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('\Y\-m-d', 'Y-10-05');
-        $this->assertDateTime($d, 2020, 10, 5, 14, 30, 45);
-    }
-
-    public function testCreateFromFormatWithTestNowMicroseconds()
-    {
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45.123456'));
-        $d = Chronos::createFromFormat('Y-m-d H:i:s', '2021-06-15 09:15:30');
-        $this->assertSame(123456, $d->micro);
-    }
-
-    public function testCreateFromFormatWithTestNowUnixTimestamp()
-    {
-        // Unix timestamp ('U' format) sets all components, should not use testNow
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('U', '0');
-        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
-    }
-
-    public function testCreateFromFormatWithTestNowNegativeUnixTimestamp()
-    {
-        // Negative Unix timestamp should also not use testNow
-        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
-        $d = Chronos::createFromFormat('U', '-1000');
-        $this->assertDateTime($d, 1969, 12, 31, 23, 43, 20);
-    }
-
     public function testCreateFromFormatWithTimezoneString()
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
@@ -159,5 +61,13 @@ class CreateFromFormatTest extends TestCase
         $this->assertNotNull($parseException);
         $this->assertIsArray(Chronos::getLastErrors());
         $this->assertNotEmpty(Chronos::getLastErrors()['errors']);
+    }
+
+    public function testCreateFromFormatDoesNotUseTestNow()
+    {
+        // createFromFormat should not use testNow - it should behave like PHP's native method
+        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
+        $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
+        $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
     }
 }
