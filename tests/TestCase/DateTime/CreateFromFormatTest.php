@@ -111,6 +111,22 @@ class CreateFromFormatTest extends TestCase
         $this->assertSame(123456, $d->micro);
     }
 
+    public function testCreateFromFormatWithTestNowUnixTimestamp()
+    {
+        // Unix timestamp ('U' format) sets all components, should not use testNow
+        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
+        $d = Chronos::createFromFormat('U', '0');
+        $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
+    }
+
+    public function testCreateFromFormatWithTestNowNegativeUnixTimestamp()
+    {
+        // Negative Unix timestamp should also not use testNow
+        Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));
+        $d = Chronos::createFromFormat('U', '-1000');
+        $this->assertDateTime($d, 1969, 12, 31, 23, 43, 20);
+    }
+
     public function testCreateFromFormatWithTimezoneString()
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
