@@ -163,9 +163,12 @@ class Chronos extends DateTimeImmutable implements Stringable
     /**
      * Format to use for __toString method when type juggling occurs.
      *
-     * @var string
+     * The widened type allows subclasses (like CakePHP I18n classes) to use
+     * IntlDateFormatter constants while maintaining backward compatibility.
+     *
+     * @var array|string|int
      */
-    protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+    protected static array|string|int $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * Days of weekend

@@ -19,7 +19,9 @@ use DateTime;
 /**
  * Provides string formatting methods for datetime instances.
  *
- * Expects implementing classes to define static::$toStringFormat
+ * Expects implementing classes to define static::$toStringFormat as `array|string|int`.
+ * The widened type allows subclasses (like CakePHP I18n classes) to use
+ * IntlDateFormatter constants while maintaining backward compatibility.
  *
  * @internal
  */
@@ -54,6 +56,8 @@ trait FormattingTrait
      */
     public function __toString(): string
     {
+        assert(is_string(static::$toStringFormat));
+
         return $this->format(static::$toStringFormat);
     }
 
@@ -236,24 +240,11 @@ trait FormattingTrait
     /**
      * Returns the quarter
      *
-     * Deprecated 3.3.0: The $range parameter is deprecated. Use toQuarterRange() for quarter ranges.
-     *
-     * @param bool $range Range.
-     * @return array|int 1, 2, 3, or 4 quarter of year or array if $range true
+     * @return int 1, 2, 3, or 4 quarter of year
      */
-    public function toQuarter(bool $range = false): int|array
+    public function toQuarter(): int
     {
-        $quarter = (int)ceil((int)$this->format('m') / 3);
-        if ($range === false) {
-            return $quarter;
-        }
-
-        trigger_error(
-            'Using toQuarter() with `$range=true` is deprecated. Use `toQuarterRange()` instead.',
-            E_USER_DEPRECATED,
-        );
-
-        return $this->toQuarterRange();
+        return (int)ceil((int)$this->format('m') / 3);
     }
 
     /**
