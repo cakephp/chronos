@@ -46,7 +46,7 @@ jobs:
 
       - name: Run phpcs
         if: always()
-        run: tools/phpcs --report=checkstyle | cs2pr
+        run: vendor/bin/phpcs --report=checkstyle | cs2pr
 
       - name: Run phpstan
         if: always()
