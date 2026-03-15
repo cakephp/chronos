@@ -56,8 +56,8 @@
             "@cs-check",
             "@stan"
         ],
-        "cs-check": "phpcs --colors --parallel=16 -p",
-        "cs-fix": "phpcbf --colors --parallel=16 -p",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
         "phpstan": "tools/phpstan analyse",
         "stan": "@phpstan",
         "stan-baseline": "tools/phpstan --generate-baseline",

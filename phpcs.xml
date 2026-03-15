@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
     <rule ref="CakePHP" />
+    <arg value="nps"/>
+    <arg name="colors"/>
+    <arg name="parallel" value="4"/>
+    <arg name="cache" value=".phpcs.cache"/>
 
     <!-- Necessary for class aliases used for backwards compat -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
