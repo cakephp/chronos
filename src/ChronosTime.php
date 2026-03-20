@@ -492,6 +492,54 @@ class ChronosTime implements Stringable
     }
 
     /**
+     * Returns whether time is start of day.
+     *
+     * @return bool
+     */
+    public function isStartOfDay(): bool
+    {
+        return $this->ticks === 0;
+    }
+
+    /**
+     * Returns whether time is end of day.
+     *
+     * Compares against 23:59:59, ignoring microseconds.
+     *
+     * @return bool
+     */
+    public function isEndOfDay(): bool
+    {
+        $endOfDayTicks = 23 * self::TICKS_PER_HOUR
+            + 59 * self::TICKS_PER_MINUTE
+            + 59 * self::TICKS_PER_SECOND;
+
+        $ticksWithoutMicroseconds = $this->ticks - $this->ticks % self::TICKS_PER_SECOND;
+
+        return $ticksWithoutMicroseconds === $endOfDayTicks;
+    }
+
+    /**
+     * Returns whether time is midnight.
+     *
+     * @return bool
+     */
+    public function isMidnight(): bool
+    {
+        return $this->isStartOfDay();
+    }
+
+    /**
+     * Returns whether time is midday.
+     *
+     * @return bool
+     */
+    public function isMidday(): bool
+    {
+        return $this->ticks === 12 * self::TICKS_PER_HOUR;
+    }
+
+    /**
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
      * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in

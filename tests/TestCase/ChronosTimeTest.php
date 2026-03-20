@@ -299,6 +299,42 @@ class ChronosTimeTest extends TestCase
         $this->assertFalse($t3->between($t1, $t2));
     }
 
+    public function testIsStartOfDay(): void
+    {
+        $this->assertTrue(ChronosTime::parse('00:00:00')->isStartOfDay());
+        $this->assertTrue(ChronosTime::midnight()->isStartOfDay());
+        $this->assertFalse(ChronosTime::parse('00:00:00.000001')->isStartOfDay());
+        $this->assertFalse(ChronosTime::parse('00:00:01')->isStartOfDay());
+        $this->assertFalse(ChronosTime::noon()->isStartOfDay());
+    }
+
+    public function testIsEndOfDay(): void
+    {
+        $this->assertTrue(ChronosTime::parse('23:59:59')->isEndOfDay());
+        $this->assertTrue(ChronosTime::endOfDay()->isEndOfDay());
+        $this->assertTrue(ChronosTime::parse('23:59:59.999999')->isEndOfDay());
+        $this->assertFalse(ChronosTime::parse('23:59:58')->isEndOfDay());
+        $this->assertFalse(ChronosTime::midnight()->isEndOfDay());
+        $this->assertFalse(ChronosTime::noon()->isEndOfDay());
+    }
+
+    public function testIsMidnight(): void
+    {
+        $this->assertTrue(ChronosTime::midnight()->isMidnight());
+        $this->assertTrue(ChronosTime::parse('00:00:00')->isMidnight());
+        $this->assertFalse(ChronosTime::parse('00:00:00.000001')->isMidnight());
+        $this->assertFalse(ChronosTime::noon()->isMidnight());
+    }
+
+    public function testIsMidday(): void
+    {
+        $this->assertTrue(ChronosTime::noon()->isMidday());
+        $this->assertTrue(ChronosTime::parse('12:00:00')->isMidday());
+        $this->assertFalse(ChronosTime::parse('12:00:00.000001')->isMidday());
+        $this->assertFalse(ChronosTime::parse('12:00:01')->isMidday());
+        $this->assertFalse(ChronosTime::midnight()->isMidday());
+    }
+
     public function testToDateTimeImmutable(): void
     {
         $time = ChronosTime::parse('23:59:59.999999');
