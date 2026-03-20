@@ -306,4 +306,102 @@ class DayOfWeekModifiersTest extends TestCase
         $d = Chronos::createFromDate(1975, 8, 5)->nthOfYear(3, 3);
         $this->assertDateTime($d, 1975, 1, 15, 0, 0, 0);
     }
+
+    /**
+     * Test nextOccurrenceOf when today is the target day and time hasn't passed.
+     */
+    public function testNextOccurrenceOfSameDayBeforeTime()
+    {
+        // It's Tuesday 9am, looking for Tuesday 12pm -> should be today
+        $d = Chronos::create(2024, 1, 9, 9, 0, 0); // Tuesday
+        $result = $d->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 9, 12, 0, 0);
+    }
+
+    /**
+     * Test nextOccurrenceOf when today is the target day but time has passed.
+     */
+    public function testNextOccurrenceOfSameDayAfterTime()
+    {
+        // It's Tuesday 4pm, looking for Tuesday 12pm -> should be next Tuesday
+        $d = Chronos::create(2024, 1, 9, 16, 0, 0); // Tuesday
+        $result = $d->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 16, 12, 0, 0);
+    }
+
+    /**
+     * Test nextOccurrenceOf when today is not the target day.
+     */
+    public function testNextOccurrenceOfDifferentDay()
+    {
+        // It's Monday, looking for Tuesday 12pm -> should be tomorrow
+        $d = Chronos::create(2024, 1, 8, 9, 0, 0); // Monday
+        $result = $d->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 9, 12, 0, 0);
+    }
+
+    /**
+     * Test nextOccurrenceOf with seconds.
+     */
+    public function testNextOccurrenceOfWithSeconds()
+    {
+        $d = Chronos::create(2024, 1, 8, 9, 0, 0); // Monday
+        $result = $d->nextOccurrenceOf(Chronos::WEDNESDAY, 14, 30, 45);
+        $this->assertDateTime($result, 2024, 1, 10, 14, 30, 45);
+    }
+
+    /**
+     * Test nextOccurrenceOf at exact same time returns next week.
+     */
+    public function testNextOccurrenceOfAtExactTime()
+    {
+        // It's Tuesday 12pm exactly, looking for Tuesday 12pm -> should be next week
+        $d = Chronos::create(2024, 1, 9, 12, 0, 0); // Tuesday 12pm
+        $result = $d->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 16, 12, 0, 0);
+    }
+
+    /**
+     * Test previousOccurrenceOf when today is the target day and time has passed.
+     */
+    public function testPreviousOccurrenceOfSameDayAfterTime()
+    {
+        // It's Tuesday 4pm, looking for previous Tuesday 12pm -> should be today
+        $d = Chronos::create(2024, 1, 9, 16, 0, 0); // Tuesday
+        $result = $d->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 9, 12, 0, 0);
+    }
+
+    /**
+     * Test previousOccurrenceOf when today is the target day but time hasn't passed.
+     */
+    public function testPreviousOccurrenceOfSameDayBeforeTime()
+    {
+        // It's Tuesday 9am, looking for previous Tuesday 12pm -> should be last Tuesday
+        $d = Chronos::create(2024, 1, 9, 9, 0, 0); // Tuesday
+        $result = $d->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 2, 12, 0, 0);
+    }
+
+    /**
+     * Test previousOccurrenceOf when today is not the target day.
+     */
+    public function testPreviousOccurrenceOfDifferentDay()
+    {
+        // It's Wednesday, looking for previous Tuesday 12pm -> should be yesterday
+        $d = Chronos::create(2024, 1, 10, 9, 0, 0); // Wednesday
+        $result = $d->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 9, 12, 0, 0);
+    }
+
+    /**
+     * Test previousOccurrenceOf at exact same time returns last week.
+     */
+    public function testPreviousOccurrenceOfAtExactTime()
+    {
+        // It's Tuesday 12pm exactly, looking for previous Tuesday 12pm -> should be last week
+        $d = Chronos::create(2024, 1, 9, 12, 0, 0); // Tuesday 12pm
+        $result = $d->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+        $this->assertDateTime($result, 2024, 1, 2, 12, 0, 0);
+    }
 }
