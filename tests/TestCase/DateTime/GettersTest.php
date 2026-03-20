@@ -333,4 +333,19 @@ class GettersTest extends TestCase
         $d = Chronos::now();
         $d->doesNotExit;
     }
+
+    public function testToArray(): void
+    {
+        $d = Chronos::create(2024, 1, 15, 12, 30, 45, 123456, 'America/Toronto');
+        $array = $d->toArray();
+
+        $this->assertSame(2024, $array['year']);
+        $this->assertSame(1, $array['month']);
+        $this->assertSame(15, $array['day']);
+        $this->assertSame(12, $array['hour']);
+        $this->assertSame(30, $array['minute']);
+        $this->assertSame(45, $array['second']);
+        $this->assertSame(123456, $array['microsecond']);
+        $this->assertSame('America/Toronto', $array['timezone']);
+    }
 }

@@ -328,4 +328,16 @@ class ChronosTimeTest extends TestCase
         ChronosTime::resetToStringFormat();
         $this->assertSame('12:13:14', (string)$t);
     }
+
+    public function testToArray(): void
+    {
+        $t = new ChronosTime('12:30:45.123456');
+        $array = $t->toArray();
+
+        $this->assertSame(12, $array['hour']);
+        $this->assertSame(30, $array['minute']);
+        $this->assertSame(45, $array['second']);
+        $this->assertSame(123456, $array['microsecond']);
+        $this->assertCount(4, $array);
+    }
 }
