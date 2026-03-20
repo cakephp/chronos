@@ -1041,6 +1041,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Change the timezone while keeping the local time.
+     *
+     * Unlike `setTimezone()` which converts the time to the new timezone,
+     * this method keeps the same wall clock time but changes the timezone.
+     *
+     * For example, if you have 10:00 AM in New York and shift to Chicago,
+     * you'll get 10:00 AM in Chicago (not 9:00 AM as setTimezone would give).
+     *
+     * @param \DateTimeZone|string $timezone The new timezone
+     * @return static
+     */
+    public function shiftTimezone(DateTimeZone|string $timezone): static
+    {
+        $timezone = static::safeCreateDateTimeZone($timezone);
+
+        return new static($this->format('Y-m-d H:i:s.u'), $timezone);
+    }
+
+    /**
      * Return time zone set for this instance.
      *
      * @return \DateTimeZone
