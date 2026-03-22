@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cake\Chronos;
 
 use DateInterval;
+use InvalidArgumentException;
 use Stringable;
 
 /**
@@ -126,7 +127,7 @@ class ChronosInterval implements Stringable
     {
         $interval = DateInterval::createFromDateString($datetime);
         if ($interval === false) {
-            throw new \InvalidArgumentException("Unable to parse interval string: {$datetime}");
+            throw new InvalidArgumentException("Unable to parse interval string: {$datetime}");
         }
 
         return new static($interval);
