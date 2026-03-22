@@ -112,6 +112,27 @@ class ChronosInterval implements Stringable
     }
 
     /**
+     * Create an interval from a relative date string.
+     *
+     * This wraps DateInterval::createFromDateString() which accepts
+     * relative date/time formats like "1 year + 2 days" or "3 months".
+     *
+     * @param string $datetime A relative date/time string.
+     * @return static
+     * @throws \InvalidArgumentException If the string cannot be parsed.
+     * @see https://www.php.net/manual/en/dateinterval.createfromdatestring.php
+     */
+    public static function createFromDateString(string $datetime): static
+    {
+        $interval = DateInterval::createFromDateString($datetime);
+        if ($interval === false) {
+            throw new \InvalidArgumentException("Unable to parse interval string: {$datetime}");
+        }
+
+        return new static($interval);
+    }
+
+    /**
      * Get the underlying DateInterval instance.
      *
      * Use this when you need to pass the interval to code that expects
@@ -251,6 +272,102 @@ class ChronosInterval implements Stringable
             && $this->interval->i === 0
             && $this->interval->s === 0
             && $this->interval->f === 0.0;
+    }
+
+    /**
+     * Add another interval to this one.
+     *
+     * Returns a new ChronosInterval with the combined values.
+     * Note: This performs simple addition of each component and does not
+     * normalize overflow (e.g., 70 minutes stays as 70 minutes).
+     *
+     * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to add.
+     * @return static
+     */
+    public function add(DateInterval|ChronosInterval $interval): static
+    {
+        if ($interval instanceof ChronosInterval) {
+            $interval = $interval->toNative();
+        }
+
+        $result = new DateInterval('P0D');
+        $result->y = $this->interval->y + $interval->y;
+        $result->m = $this->interval->m + $interval->m;
+        $result->d = $this->interval->d + $interval->d;
+        $result->h = $this->interval->h + $interval->h;
+        $result->i = $this->interval->i + $interval->i;
+        $result->s = $this->interval->s + $interval->s;
+        $result->f = $this->interval->f + $interval->f;
+
+        return new static($result);
+    }
+
+    /**
+     * Subtract another interval from this one.
+     *
+     * Returns a new ChronosInterval with the subtracted values.
+     * Note: This performs simple subtraction of each component. If any
+     * component becomes negative, the result may be unexpected.
+     *
+     * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to subtract.
+     * @return static
+     */
+    public function sub(DateInterval|ChronosInterval $interval): static
+    {
+        if ($interval instanceof ChronosInterval) {
+            $interval = $interval->toNative();
+        }
+
+        $result = new DateInterval('P0D');
+        $result->y = $this->interval->y - $interval->y;
+        $result->m = $this->interval->m - $interval->m;
+        $result->d = $this->interval->d - $interval->d;
+        $result->h = $this->interval->h - $interval->h;
+        $result->i = $this->interval->i - $interval->i;
+        $result->s = $this->interval->s - $interval->s;
+        $result->f = $this->interval->f - $interval->f;
+
+        return new static($result);
+    }
+
+    /**
+     * Format the interval as a strtotime()-compatible string.
+     *
+     * Returns a relative date/time string that can be used with strtotime()
+     * or DateInterval::createFromDateString().
+     *
+     * @return string
+     */
+    public function toDateString(): string
+    {
+        $parts = [];
+
+        if ($this->interval->y) {
+            $parts[] = $this->interval->y . ' ' . ($this->interval->y === 1 ? 'year' : 'years');
+        }
+        if ($this->interval->m) {
+            $parts[] = $this->interval->m . ' ' . ($this->interval->m === 1 ? 'month' : 'months');
+        }
+        if ($this->interval->d) {
+            $parts[] = $this->interval->d . ' ' . ($this->interval->d === 1 ? 'day' : 'days');
+        }
+        if ($this->interval->h) {
+            $parts[] = $this->interval->h . ' ' . ($this->interval->h === 1 ? 'hour' : 'hours');
+        }
+        if ($this->interval->i) {
+            $parts[] = $this->interval->i . ' ' . ($this->interval->i === 1 ? 'minute' : 'minutes');
+        }
+        if ($this->interval->s) {
+            $parts[] = $this->interval->s . ' ' . ($this->interval->s === 1 ? 'second' : 'seconds');
+        }
+
+        if ($parts === []) {
+            return '0 seconds';
+        }
+
+        $result = implode(' ', $parts);
+
+        return $this->interval->invert ? '-' . $result : $result;
     }
 
     /**

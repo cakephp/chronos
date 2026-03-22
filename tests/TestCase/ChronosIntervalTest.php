@@ -192,4 +192,125 @@ class ChronosIntervalTest extends TestCase
         $interval = ChronosInterval::createFromValues(seconds: 1, microseconds: 123456);
         $this->assertSame('PT1.123456S', $interval->toIso8601String());
     }
+
+    public function testCreateFromDateString(): void
+    {
+        $interval = ChronosInterval::createFromDateString('1 year + 2 months');
+        $this->assertSame(1, $interval->y);
+        $this->assertSame(2, $interval->m);
+    }
+
+    public function testCreateFromDateStringComplex(): void
+    {
+        $interval = ChronosInterval::createFromDateString('3 days 4 hours');
+        $this->assertSame(3, $interval->d);
+        $this->assertSame(4, $interval->h);
+    }
+
+    public function testAdd(): void
+    {
+        $interval1 = ChronosInterval::create('P1Y2M');
+        $interval2 = ChronosInterval::create('P2Y3M');
+
+        $result = $interval1->add($interval2);
+
+        $this->assertSame(3, $result->y);
+        $this->assertSame(5, $result->m);
+        // Original should be unchanged
+        $this->assertSame(1, $interval1->y);
+    }
+
+    public function testAddWithDateInterval(): void
+    {
+        $interval = ChronosInterval::create('P1D');
+        $native = new DateInterval('P2D');
+
+        $result = $interval->add($native);
+
+        $this->assertSame(3, $result->d);
+    }
+
+    public function testAddAllComponents(): void
+    {
+        $interval1 = ChronosInterval::create('P1Y2M3DT4H5M6S');
+        $interval2 = ChronosInterval::create('P1Y1M1DT1H1M1S');
+
+        $result = $interval1->add($interval2);
+
+        $this->assertSame(2, $result->y);
+        $this->assertSame(3, $result->m);
+        $this->assertSame(4, $result->d);
+        $this->assertSame(5, $result->h);
+        $this->assertSame(6, $result->i);
+        $this->assertSame(7, $result->s);
+    }
+
+    public function testSub(): void
+    {
+        $interval1 = ChronosInterval::create('P3Y5M');
+        $interval2 = ChronosInterval::create('P1Y2M');
+
+        $result = $interval1->sub($interval2);
+
+        $this->assertSame(2, $result->y);
+        $this->assertSame(3, $result->m);
+        // Original should be unchanged
+        $this->assertSame(3, $interval1->y);
+    }
+
+    public function testSubWithDateInterval(): void
+    {
+        $interval = ChronosInterval::create('P5D');
+        $native = new DateInterval('P2D');
+
+        $result = $interval->sub($native);
+
+        $this->assertSame(3, $result->d);
+    }
+
+    public function testToDateString(): void
+    {
+        $interval = ChronosInterval::create('P1Y2M3DT4H5M6S');
+        $this->assertSame('1 year 2 months 3 days 4 hours 5 minutes 6 seconds', $interval->toDateString());
+    }
+
+    public function testToDateStringSingular(): void
+    {
+        $interval = ChronosInterval::create('P1Y1M1DT1H1M1S');
+        $this->assertSame('1 year 1 month 1 day 1 hour 1 minute 1 second', $interval->toDateString());
+    }
+
+    public function testToDateStringPartial(): void
+    {
+        $interval = ChronosInterval::create('P2M');
+        $this->assertSame('2 months', $interval->toDateString());
+    }
+
+    public function testToDateStringEmpty(): void
+    {
+        $interval = ChronosInterval::create('P0D');
+        $this->assertSame('0 seconds', $interval->toDateString());
+    }
+
+    public function testToDateStringNegative(): void
+    {
+        $past = new Chronos('2020-01-01');
+        $future = new Chronos('2020-01-02');
+        $diff = $future->diff($past);
+
+        $interval = ChronosInterval::instance($diff);
+        $this->assertStringStartsWith('-', $interval->toDateString());
+    }
+
+    public function testToDateStringRoundTrip(): void
+    {
+        $original = ChronosInterval::create('P1Y2M3D');
+        $dateString = $original->toDateString();
+
+        $recreated = ChronosInterval::createFromDateString($dateString);
+
+        $this->assertSame($original->y, $recreated->y);
+        $this->assertSame($original->m, $recreated->m);
+        $this->assertSame($original->d, $recreated->d);
+    }
 }
