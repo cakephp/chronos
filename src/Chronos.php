@@ -1600,7 +1600,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function next(?int $dayOfWeek = null): static
@@ -1620,7 +1621,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function previous(?int $dayOfWeek = null): static
@@ -1640,7 +1642,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfMonth(?int $dayOfWeek = null): static
@@ -1656,7 +1659,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfMonth(?int $dayOfWeek = null): static
@@ -1699,7 +1703,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfQuarter(?int $dayOfWeek = null): static
@@ -1716,7 +1721,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfQuarter(?int $dayOfWeek = null): static
@@ -1759,7 +1765,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfYear(?int $dayOfWeek = null): static
@@ -1775,7 +1782,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfYear(?int $dayOfWeek = null): static
@@ -1951,10 +1959,13 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Get the minimum instance between a given instance (default now) and the current instance.
+     * Get the earlier of this instance and another.
      *
-     * @param \DateTimeInterface|null $other The instance to compare with.
-     * @return static
+     * Returns whichever datetime comes first chronologically.
+     * If no other instance is provided, compares against the current time.
+     *
+     * @param \DateTimeInterface|null $other The instance to compare with. Defaults to now.
+     * @return static The earlier of the two datetimes.
      */
     public function min(?DateTimeInterface $other = null): static
     {
@@ -1968,10 +1979,13 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Get the maximum instance between a given instance (default now) and the current instance.
+     * Get the later of this instance and another.
      *
-     * @param \DateTimeInterface|null $other The instance to compare with.
-     * @return static
+     * Returns whichever datetime comes last chronologically.
+     * If no other instance is provided, compares against the current time.
+     *
+     * @param \DateTimeInterface|null $other The instance to compare with. Defaults to now.
+     * @return static The later of the two datetimes.
      */
     public function max(?DateTimeInterface $other = null): static
     {

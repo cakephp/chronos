@@ -817,7 +817,8 @@ class ChronosDate implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function next(?int $dayOfWeek = null): static
@@ -837,7 +838,8 @@ class ChronosDate implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function previous(?int $dayOfWeek = null): static
@@ -857,7 +859,8 @@ class ChronosDate implements Stringable
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfMonth(?int $dayOfWeek = null): static
@@ -873,7 +876,8 @@ class ChronosDate implements Stringable
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfMonth(?int $dayOfWeek = null): static
@@ -916,7 +920,8 @@ class ChronosDate implements Stringable
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfQuarter(?int $dayOfWeek = null): static
@@ -933,7 +938,8 @@ class ChronosDate implements Stringable
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfQuarter(?int $dayOfWeek = null): static
@@ -976,7 +982,8 @@ class ChronosDate implements Stringable
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfYear(?int $dayOfWeek = null): static
@@ -992,7 +999,8 @@ class ChronosDate implements Stringable
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfYear(?int $dayOfWeek = null): static
