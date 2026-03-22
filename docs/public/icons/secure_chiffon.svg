@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="98.728" height="85.616" viewBox="0 0 98.728 85.616">
+  <g id="Group_86" data-name="Group 86" transform="translate(-892.007 -1983.653)">
+    <path id="Rectangle_16" data-name="Rectangle 16" d="M0,0H98.728a0,0,0,0,1,0,0V42.176A26.292,26.292,0,0,1,72.437,68.467H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(892.007 1994.814)" fill="#d6b967"/>
+    <path id="Path_64" data-name="Path 64" d="M970.866,2001.235l-.448,5.827-8.629,1.009,9.077.56.725,9.077.732-8.853,8.634-1.457s-8.522-.224-8.634-.56S970.866,2001.235,970.866,2001.235Z" fill="#d23d44"/>
+    <g id="Group_68" data-name="Group 68">
+      <path id="Rectangle_59" data-name="Rectangle 59" d="M2.952,0H44.284a2.952,2.952,0,0,1,2.952,2.952v26.57a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2.952A2.952,2.952,0,0,1,2.952,0Z" transform="translate(900.414 1983.653)" fill="#d23d44"/>
+      <path id="Rectangle_60" data-name="Rectangle 60" d="M0,0H47.236a0,0,0,0,1,0,0V47.236a2.952,2.952,0,0,1-2.952,2.952H2.952A2.952,2.952,0,0,1,0,47.236V0A0,0,0,0,1,0,0Z" transform="translate(900.414 2013.176)" fill="#d23d44"/>
+      <rect id="Rectangle_61" data-name="Rectangle 61" width="11.809" height="5.905" transform="translate(903.366 2063.365)" fill="#7e8387"/>
+      <rect id="Rectangle_62" data-name="Rectangle 62" width="11.809" height="5.905" transform="translate(932.889 2063.365)" fill="#7e8387"/>
+      <path id="Path_190" data-name="Path 190" d="M912.223,2013.176h-5.905v-17.713a2.953,2.953,0,0,1,2.952-2.953h0a2.953,2.953,0,0,1,2.953,2.953Z" fill="#9e2e33"/>
+      <path id="Rectangle_63" data-name="Rectangle 63" d="M0,0H5.9a0,0,0,0,1,0,0V23.618A2.952,2.952,0,0,1,2.952,26.57h0A2.952,2.952,0,0,1,0,23.618V0A0,0,0,0,1,0,0Z" transform="translate(906.318 2013.176)" fill="#9e2e33"/>
+      <rect id="Rectangle_64" data-name="Rectangle 64" width="47.236" height="2.952" transform="translate(900.414 2010.224)" fill="#9e2e33"/>
+    </g>
+    <path id="Path_191" data-name="Path 191" d="M957.715,2055.669l.82-10.662,15.787-1.845-16.607-1.025-1.326-16.607-1.339,16.2-15.8,2.665s15.592.41,15.8,1.025S957.715,2055.669,957.715,2055.669Z" fill="#fff"/>
+  </g>
+</svg>
