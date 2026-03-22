@@ -1,8 +1,6 @@
 # Generate the HTML output.
 FROM ghcr.io/cakephp/docs-builder as builder
 
-RUN pip install git+https://github.com/sphinx-contrib/video.git@master
-
 COPY docs /data/docs
 ENV LANGS="en fr ja pt"
 
