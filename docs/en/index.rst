@@ -6,6 +6,7 @@ Chronos provides a zero-dependency ``DateTimeImmutable`` extension, Date-only an
 * ``Cake\Chronos\Chronos`` extends ``DateTimeImmutable`` and provides many helpers.
 * ``Cake\Chronos\ChronosDate`` represents calendar dates unaffected by time or time zones.
 * ``Cake\Chronos\ChronosTime`` represents clock times independent of date or time zones.
+* ``Cake\Chronos\ChronosInterval`` wraps ``DateInterval`` with ISO 8601 formatting and convenience methods.
 * Only safe, immutable objects.
 * A pluggable translation system. Only English translations are included in the
   library. However, ``cakephp/i18n`` can be used for full language support.
@@ -222,6 +223,105 @@ timeline::
 
     // Difference from another point in time.
     echo $date->diffForHumans($other); // 1 hour ago;
+
+Interval Objects
+----------------
+
+PHP's ``DateInterval`` class represents a duration of time, but lacks convenient
+methods for formatting and manipulation. Chronos provides ``ChronosInterval``
+which wraps ``DateInterval`` using the decorator pattern, adding ISO 8601 duration
+formatting and useful convenience methods::
+
+    use Cake\Chronos\ChronosInterval;
+
+    // Create from an ISO 8601 duration spec
+    $interval = ChronosInterval::create('P1Y2M3D');
+    echo $interval; // "P1Y2M3D"
+
+    // Create from individual values using named arguments
+    $interval = ChronosInterval::createFromValues(hours: 2, minutes: 30);
+    echo $interval; // "PT2H30M"
+
+    // Create from a relative date string
+    $interval = ChronosInterval::createFromDateString('1 year + 3 days');
+
+    // Wrap an existing DateInterval
+    $diff = $date1->diff($date2);
+    $interval = ChronosInterval::instance($diff);
+
+``ChronosInterval`` proxies all standard ``DateInterval`` properties::
+
+    $interval = ChronosInterval::create('P1Y2M3DT4H5M6S');
+    echo $interval->y;      // 1
+    echo $interval->m;      // 2
+    echo $interval->d;      // 3
+    echo $interval->h;      // 4
+    echo $interval->i;      // 5
+    echo $interval->s;      // 6
+    echo $interval->invert; // 0
+
+When working with code that requires a native ``DateInterval``, use ``toNative()``::
+
+    $interval = ChronosInterval::create('P1D');
+    someFunctionExpectingDateInterval($interval->toNative());
+
+Formatting Intervals
+~~~~~~~~~~~~~~~~~~~~
+
+``ChronosInterval`` provides multiple ways to format intervals::
+
+    $interval = ChronosInterval::createFromValues(years: 1, months: 2, days: 3, hours: 4);
+
+    // ISO 8601 duration (also used by __toString)
+    echo $interval->toIso8601String(); // "P1Y2M3DT4H"
+    echo $interval;                    // "P1Y2M3DT4H"
+
+    // Standard DateInterval formatting
+    echo $interval->format('%y years, %m months, %d days');
+
+    // Human-readable relative format
+    echo $interval->toDateString(); // "1 year 2 months 3 days 4 hours"
+
+Interval Calculations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can get totals from intervals::
+
+    $interval = ChronosInterval::createFromValues(days: 2, hours: 12);
+
+    // Approximate total seconds (uses 30 days/month, 365 days/year)
+    echo $interval->totalSeconds(); // 216000
+
+    // Total days (exact if created from diff(), otherwise approximated)
+    echo $interval->totalDays(); // 2
+
+Interval State
+~~~~~~~~~~~~~~
+
+Check the state of an interval::
+
+    $interval = ChronosInterval::create('PT0S');
+    $interval->isZero();     // true
+
+    $past = Chronos::now()->diff(Chronos::yesterday());
+    ChronosInterval::instance($past)->isNegative(); // depends on order of diff
+
+Interval Arithmetic
+~~~~~~~~~~~~~~~~~~~
+
+You can add and subtract intervals::
+
+    $interval1 = ChronosInterval::createFromValues(hours: 2);
+    $interval2 = ChronosInterval::createFromValues(hours: 1, minutes: 30);
+
+    $sum = $interval1->add($interval2);
+    echo $sum; // "PT3H30M"
+
+    $diff = $interval1->sub($interval2);
+    echo $diff; // "PT0H30M"
+
+Note: Arithmetic performs simple component addition/subtraction without
+normalization (e.g., 70 minutes stays as 70 minutes rather than 1 hour 10 minutes).
 
 Formatting Strings
 ------------------
