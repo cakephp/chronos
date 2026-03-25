@@ -328,6 +328,38 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Temporarily sets "now" to the given value and executes the callback.
+     *
+     * After the callback is executed, the previous value of "now" is restored.
+     * This is useful for testing time-sensitive code without affecting other tests.
+     *
+     * ### Example:
+     *
+     * ```
+     * $result = Chronos::withTestNow('2023-06-15 12:00:00', function () {
+     *     return Chronos::now()->format('Y-m-d');
+     * });
+     * // $result === '2023-06-15'
+     * ```
+     *
+     * @template T
+     * @param \Cake\Chronos\Chronos|string|null $testNow The instance to use as "now".
+     * @param callable(): T $callback The callback to execute.
+     * @return T The return value of the callback.
+     */
+    public static function withTestNow(Chronos|string|null $testNow, callable $callback): mixed
+    {
+        $previous = static::getTestNow();
+        static::setTestNow($testNow);
+
+        try {
+            return $callback();
+        } finally {
+            static::setTestNow($previous);
+        }
+    }
+
+    /**
      * Determine if there is just a time in the time string
      *
      * @param string|null $time The time string to check.
@@ -1025,6 +1057,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Change the timezone while keeping the local time.
+     *
+     * Unlike `setTimezone()` which converts the time to the new timezone,
+     * this method keeps the same wall clock time but changes the timezone.
+     *
+     * For example, if you have 10:00 AM in New York and shift to Chicago,
+     * you'll get 10:00 AM in Chicago (not 9:00 AM as setTimezone would give).
+     *
+     * @param \DateTimeZone|string $timezone The new timezone
+     * @return static
+     */
+    public function shiftTimezone(DateTimeZone|string $timezone): static
+    {
+        $timezone = static::safeCreateDateTimeZone($timezone);
+
+        return new static($this->format('Y-m-d H:i:s.u'), $timezone);
+    }
+
+    /**
      * Return time zone set for this instance.
      *
      * @return \DateTimeZone
@@ -1634,6 +1685,89 @@ class Chronos extends DateTimeImmutable implements Stringable
         $day = static::$days[$dayOfWeek];
 
         return $this->modify("last $day, midnight");
+    }
+
+    /**
+     * Get the next occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `next()`, this method considers both the day AND the time. If
+     * today is the target day and the specified time hasn't passed yet,
+     * it returns today at that time. Otherwise, it returns next week.
+     *
+     * This is useful when you need a relative date that always points to
+     * the next future occurrence of a specific day and time.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (today)
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (next week)
+     * $date = Chronos::now()->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function nextOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time hasn't passed yet, return today
+            if ($todayAtTime->greaterThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get next week's occurrence
+        return $this->next($dayOfWeek)->setTime($hour, $minute, $second);
+    }
+
+    /**
+     * Get the previous occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `previous()`, this method considers both the day AND the time.
+     * If today is the target day and the specified time has already passed,
+     * it returns today at that time. Otherwise, it returns last week.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (today, already passed)
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (last week)
+     * $date = Chronos::now()->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function previousOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time has already passed, return today
+            if ($todayAtTime->lessThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get last week's occurrence
+        return $this->previous($dayOfWeek)->setTime($hour, $minute, $second);
     }
 
     /**
@@ -2687,6 +2821,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     public function toNative(): DateTimeImmutable
     {
         return new DateTimeImmutable($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
+     * Returns the date and time as an associative array.
+     *
+     * @return array{year: int, month: int, day: int, hour: int, minute: int, second: int, microsecond: int, timezone: string}
+     */
+    public function toArray(): array
+    {
+        return [
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'microsecond' => $this->microsecond,
+            'timezone' => $this->timezone->getName(),
+        ];
     }
 
     /**

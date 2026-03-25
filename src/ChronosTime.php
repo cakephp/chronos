@@ -326,6 +326,37 @@ class ChronosTime implements Stringable
     }
 
     /**
+     * Resets time to the start of the current hour.
+     *
+     * @return static
+     */
+    public function startOfHour(): static
+    {
+        $hourTicks = $this->ticks - $this->ticks % self::TICKS_PER_HOUR;
+
+        $clone = clone $this;
+        $clone->ticks = $hourTicks;
+
+        return $clone;
+    }
+
+    /**
+     * Sets time to the end of the current hour.
+     *
+     * @return static
+     */
+    public function endOfHour(): static
+    {
+        $hourTicks = $this->ticks - $this->ticks % self::TICKS_PER_HOUR;
+        $endTicks = $hourTicks + self::TICKS_PER_HOUR - 1;
+
+        $clone = clone $this;
+        $clone->ticks = $endTicks;
+
+        return $clone;
+    }
+
+    /**
      * @param int $a Left side
      * @param int $a Right side
      * @return int
@@ -461,6 +492,54 @@ class ChronosTime implements Stringable
     }
 
     /**
+     * Returns whether time is start of day.
+     *
+     * @return bool
+     */
+    public function isStartOfDay(): bool
+    {
+        return $this->ticks === 0;
+    }
+
+    /**
+     * Returns whether time is end of day.
+     *
+     * Compares against 23:59:59, ignoring microseconds.
+     *
+     * @return bool
+     */
+    public function isEndOfDay(): bool
+    {
+        $endOfDayTicks = 23 * self::TICKS_PER_HOUR
+            + 59 * self::TICKS_PER_MINUTE
+            + 59 * self::TICKS_PER_SECOND;
+
+        $ticksWithoutMicroseconds = $this->ticks - $this->ticks % self::TICKS_PER_SECOND;
+
+        return $ticksWithoutMicroseconds === $endOfDayTicks;
+    }
+
+    /**
+     * Returns whether time is midnight.
+     *
+     * @return bool
+     */
+    public function isMidnight(): bool
+    {
+        return $this->isStartOfDay();
+    }
+
+    /**
+     * Returns whether time is midday.
+     *
+     * @return bool
+     */
+    public function isMidday(): bool
+    {
+        return $this->ticks === 12 * self::TICKS_PER_HOUR;
+    }
+
+    /**
      * Returns an `DateTimeImmutable` instance set to this clock time.
      *
      * @param \DateTimeZone|string|null $timezone Time zone the DateTimeImmutable instance will be in
@@ -489,5 +568,20 @@ class ChronosTime implements Stringable
     public function toNative(DateTimeZone|string|null $timezone = null): DateTimeImmutable
     {
         return $this->toDateTimeImmutable($timezone);
+    }
+
+    /**
+     * Returns the time as an associative array.
+     *
+     * @return array{hour: int, minute: int, second: int, microsecond: int}
+     */
+    public function toArray(): array
+    {
+        return [
+            'hour' => $this->getHours(),
+            'minute' => $this->getMinutes(),
+            'second' => $this->getSeconds(),
+            'microsecond' => $this->getMicroseconds(),
+        ];
     }
 }

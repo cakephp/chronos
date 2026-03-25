@@ -1655,6 +1655,20 @@ class ChronosDate implements Stringable
     }
 
     /**
+     * Returns the date as an associative array.
+     *
+     * @return array{year: int, month: int, day: int}
+     */
+    public function toArray(): array
+    {
+        return [
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+        ];
+    }
+
+    /**
      * Get a part of the object
      *
      * @param string $name The property name to read.
