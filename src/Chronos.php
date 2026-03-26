@@ -1011,11 +1011,11 @@ class Chronos extends DateTimeImmutable implements Stringable
      *
      * @param \DateTimeInterface $target Target instance
      * @param bool $absolute Whether the interval is forced to be positive
-     * @return \DateInterval
+     * @return \Cake\Chronos\ChronosInterval
      */
-    public function diff(DateTimeInterface $target, bool $absolute = false): DateInterval
+    public function diff(DateTimeInterface $target, bool $absolute = false): ChronosInterval
     {
-        return parent::diff($target, $absolute);
+        return new ChronosInterval(parent::diff($target, $absolute));
     }
 
     /**
@@ -2778,9 +2778,9 @@ class Chronos extends DateTimeImmutable implements Stringable
      * Convenience method for getting the remaining time from a given time.
      *
      * @param \DateTimeInterface $other The date to get the remaining time from.
-     * @return \DateInterval|bool The DateInterval object representing the difference between the two dates or FALSE on failure.
+     * @return \Cake\Chronos\ChronosInterval The ChronosInterval object representing the difference between the two dates.
      */
-    public static function fromNow(DateTimeInterface $other): DateInterval|bool
+    public static function fromNow(DateTimeInterface $other): ChronosInterval
     {
         $timeNow = new static();
 

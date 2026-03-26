@@ -407,11 +407,11 @@ class ChronosDate implements Stringable
      *
      * @param \Cake\Chronos\ChronosDate $target Target instance
      * @param bool $absolute Whether the interval is forced to be positive
-     * @return \DateInterval
+     * @return \Cake\Chronos\ChronosInterval
      */
-    public function diff(ChronosDate $target, bool $absolute = false): DateInterval
+    public function diff(ChronosDate $target, bool $absolute = false): ChronosInterval
     {
-        return $this->native->diff($target->native, $absolute);
+        return new ChronosInterval($this->native->diff($target->native, $absolute));
     }
 
     /**
