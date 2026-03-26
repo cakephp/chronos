@@ -1,3 +1,9 @@
+---
+prev:
+  text: 'Introduction'
+  link: '/'
+---
+
 # Creating Instances
 
 There are many ways to get an instance of Chronos or ChronosDate. There are a number of
