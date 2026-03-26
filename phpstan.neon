@@ -17,3 +17,6 @@ parameters:
 			message: "#with generic class DatePeriod but does not specify its types: TDate, TEnd, TRecurrences$#"
 			count: 1
 			path: src/ChronosDatePeriod.php
+		-
+			identifier: method.childReturnType
+			path: src/Chronos.php
