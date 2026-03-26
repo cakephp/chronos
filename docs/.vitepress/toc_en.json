@@ -4,7 +4,6 @@
       "text": "Getting Started",
       "collapsed": false,
       "items": [
-        { "text": "Introduction", "link": "/index" },
         { "text": "Creating Instances", "link": "/creating-instances" },
         { "text": "3.x Migration Guide", "link": "/3-x-migration-guide" }
       ]
