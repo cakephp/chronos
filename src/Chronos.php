@@ -20,6 +20,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use ReturnTypeWillChange;
 use RuntimeException;
 use Stringable;
 
@@ -1013,7 +1014,7 @@ class Chronos extends DateTimeImmutable implements Stringable
      * @param bool $absolute Whether the interval is forced to be positive
      * @return \Cake\Chronos\ChronosInterval
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function diff(DateTimeInterface $target, bool $absolute = false): ChronosInterval
     {
         return new ChronosInterval(parent::diff($target, $absolute));
