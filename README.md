@@ -77,9 +77,67 @@ echo $today->modify('+3 hours');
 
 Like instances of `Chronos`, `ChronosDate` objects are also *immutable*.
 
+# Time-only Values
+
+When you need to work with just times (without dates), use `ChronosTime`:
+
+```php
+use Cake\Chronos\ChronosTime;
+
+$time = new ChronosTime('14:30:00');
+echo $time->format('g:i A'); // 2:30 PM
+
+// Create from components
+$time = ChronosTime::create(14, 30, 0);
+
+// Arithmetic
+$later = $time->addHours(2)->addMinutes(15);
+```
+
+`ChronosTime` is useful for recurring schedules, business hours, or any scenario
+where the date is irrelevant.
+
+# Testing with Chronos
+
+Chronos provides `setTestNow()` to freeze time during testing:
+
+```php
+use Cake\Chronos\Chronos;
+
+// Freeze time for predictable tests
+Chronos::setTestNow('2024-01-15 10:00:00');
+
+$now = Chronos::now(); // Always 2024-01-15 10:00:00
+
+// Reset to real time
+Chronos::setTestNow(null);
+```
+
+# PSR-20 Clock Interface
+
+For dependency injection, use `ClockFactory` which implements PSR-20:
+
+```php
+use Cake\Chronos\ClockFactory;
+
+$clock = new ClockFactory('UTC');
+$now = $clock->now(); // Returns Chronos instance
+
+// In your service
+class OrderService
+{
+    public function __construct(private ClockInterface $clock) {}
+
+    public function createOrder(): Order
+    {
+        return new Order(createdAt: $this->clock->now());
+    }
+}
+```
+
 # Documentation
 
-A more descriptive documentation can be found at [book.cakephp.org/chronos/3/en/](https://book.cakephp.org/chronos/3/en/).
+A more descriptive documentation can be found at [book.cakephp.org/chronos/3/](https://book.cakephp.org/chronos/3/).
 
 # API Documentation
 

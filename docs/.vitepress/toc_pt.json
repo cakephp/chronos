@@ -1,0 +1,12 @@
+{
+  "/pt/": [
+    {
+      "text": "CakePHP Chronos",
+      "collapsed": false,
+      "items": [
+        { "text": "Introdução", "link": "/pt/index" },
+        { "text": "API", "link": "https://api.cakephp.org/chronos" }
+      ]
+    }
+  ]
+}

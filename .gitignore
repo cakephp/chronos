@@ -2,6 +2,7 @@
 *.iml
 .hhconfig
 .phpunit.result.cache
+.phpcs.cache
 vendor
 composer.phar
 composer.lock

@@ -816,6 +816,22 @@ class Chronos extends DateTimeImmutable implements Stringable
     /**
      * Create a new DateInterval instance from specified values.
      *
+     * Values that exceed their natural limits will automatically roll over
+     * to the next higher unit. For example, 90 minutes becomes 1 hour and
+     * 30 minutes, 25 hours becomes 1 day and 1 hour.
+     *
+     * Rollover cascades upward: microseconds -> seconds -> minutes -> hours -> days.
+     * Years, months, and weeks do not roll over.
+     *
+     * Example:
+     * ```
+     * // 90 seconds becomes 1 minute 30 seconds
+     * $interval = Chronos::createInterval(seconds: 90);
+     *
+     * // 25 hours becomes 1 day 1 hour
+     * $interval = Chronos::createInterval(hours: 25);
+     * ```
+     *
      * @param int|null $years The year to use.
      * @param int|null $months The month to use.
      * @param int|null $weeks The week to use.
@@ -1053,6 +1069,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     public function setTimezone(DateTimeZone|string $value): static
     {
         return parent::setTimezone(static::safeCreateDateTimeZone($value));
+    }
+
+    /**
+     * Change the timezone while keeping the local time.
+     *
+     * Unlike `setTimezone()` which converts the time to the new timezone,
+     * this method keeps the same wall clock time but changes the timezone.
+     *
+     * For example, if you have 10:00 AM in New York and shift to Chicago,
+     * you'll get 10:00 AM in Chicago (not 9:00 AM as setTimezone would give).
+     *
+     * @param \DateTimeZone|string $timezone The new timezone
+     * @return static
+     */
+    public function shiftTimezone(DateTimeZone|string $timezone): static
+    {
+        $timezone = static::safeCreateDateTimeZone($timezone);
+
+        return new static($this->format('Y-m-d H:i:s.u'), $timezone);
     }
 
     /**
@@ -1631,7 +1666,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function next(?int $dayOfWeek = null): static
@@ -1651,7 +1687,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function previous(?int $dayOfWeek = null): static
@@ -1666,12 +1703,96 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Get the next occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `next()`, this method considers both the day AND the time. If
+     * today is the target day and the specified time hasn't passed yet,
+     * it returns today at that time. Otherwise, it returns next week.
+     *
+     * This is useful when you need a relative date that always points to
+     * the next future occurrence of a specific day and time.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (today)
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (next week)
+     * $date = Chronos::now()->nextOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function nextOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time hasn't passed yet, return today
+            if ($todayAtTime->greaterThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get next week's occurrence
+        return $this->next($dayOfWeek)->setTime($hour, $minute, $second);
+    }
+
+    /**
+     * Get the previous occurrence of a given day of the week at a specific time.
+     *
+     * Unlike `previous()`, this method considers both the day AND the time.
+     * If today is the target day and the specified time has already passed,
+     * it returns today at that time. Otherwise, it returns last week.
+     *
+     * ### Example
+     *
+     * ```
+     * // If it's Tuesday 4pm, get "Tuesday 12pm" (today, already passed)
+     * // If it's Tuesday 9am, get "Tuesday 12pm" (last week)
+     * $date = Chronos::now()->previousOccurrenceOf(Chronos::TUESDAY, 12, 0);
+     * ```
+     *
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.)
+     * @param int $hour The hour (0-23)
+     * @param int $minute The minute (0-59)
+     * @param int $second The second (0-59)
+     * @return static
+     */
+    public function previousOccurrenceOf(
+        int $dayOfWeek,
+        int $hour,
+        int $minute = 0,
+        int $second = 0,
+    ): static {
+        // If today is the target day
+        if ($this->dayOfWeek === $dayOfWeek) {
+            $todayAtTime = $this->setTime($hour, $minute, $second);
+            // If the time has already passed, return today
+            if ($todayAtTime->lessThan($this)) {
+                return $todayAtTime;
+            }
+        }
+
+        // Otherwise, get last week's occurrence
+        return $this->previous($dayOfWeek)->setTime($hour, $minute, $second);
+    }
+
+    /**
      * Modify to the first occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfMonth(?int $dayOfWeek = null): static
@@ -1687,7 +1808,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfMonth(?int $dayOfWeek = null): static
@@ -1698,14 +1820,22 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Modify to the given occurrence of a given day of the week
-     * in the current month. If the calculated occurrence is outside the scope
-     * of the current month, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
+     * Get the nth occurrence of a day of the week in the current month.
      *
-     * @param int $nth The offset to use.
-     * @param int $dayOfWeek The day of the week to move to.
-     * @return static|false
+     * Returns false if the requested occurrence doesn't exist in the month.
+     * For example, requesting the 5th Monday will return false for months
+     * that only have 4 Mondays.
+     *
+     * Example:
+     * ```
+     * $date = new Chronos('2024-01-15');
+     * $date->nthOfMonth(2, Chronos::TUESDAY); // 2nd Tuesday of January
+     * $date->nthOfMonth(5, Chronos::MONDAY);  // false if no 5th Monday
+     * ```
+     *
+     * @param int $nth The occurrence number (1 = first, 2 = second, etc.).
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.).
+     * @return static|false The date of the nth occurrence, or false if it doesn't exist.
      */
     public function nthOfMonth(int $nth, int $dayOfWeek): static|false
     {
@@ -1722,7 +1852,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfQuarter(?int $dayOfWeek = null): static
@@ -1739,7 +1870,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfQuarter(?int $dayOfWeek = null): static
@@ -1751,14 +1883,20 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Modify to the given occurrence of a given day of the week
-     * in the current quarter. If the calculated occurrence is outside the scope
-     * of the current quarter, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
+     * Get the nth occurrence of a day of the week in the current quarter.
      *
-     * @param int $nth The offset to use.
-     * @param int $dayOfWeek The day of the week to move to.
-     * @return static|false
+     * Returns false if the requested occurrence doesn't exist in the quarter.
+     * Quarters are: Q1 (Jan-Mar), Q2 (Apr-Jun), Q3 (Jul-Sep), Q4 (Oct-Dec).
+     *
+     * Example:
+     * ```
+     * $date = new Chronos('2024-02-15'); // Q1
+     * $date->nthOfQuarter(5, Chronos::FRIDAY); // 5th Friday of Q1
+     * ```
+     *
+     * @param int $nth The occurrence number (1 = first, 2 = second, etc.).
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.).
+     * @return static|false The date of the nth occurrence, or false if it doesn't exist.
      */
     public function nthOfQuarter(int $nth, int $dayOfWeek): static|false
     {
@@ -1776,7 +1914,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function firstOfYear(?int $dayOfWeek = null): static
@@ -1792,7 +1931,8 @@ class Chronos extends DateTimeImmutable implements Stringable
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
      *
-     * @param int|null $dayOfWeek The day of the week to move to.
+     * @param int|null $dayOfWeek The day of the week (use Chronos::MONDAY through
+     *   Chronos::SUNDAY), or null for a sensible default.
      * @return static
      */
     public function lastOfYear(?int $dayOfWeek = null): static
@@ -1803,13 +1943,20 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Modify to the given occurrence of a given day of the week
-     * in the current year. If the calculated occurrence is outside the scope
-     * of the current year, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. Chronos::MONDAY.
+     * Get the nth occurrence of a day of the week in the current year.
      *
-     * @param int $nth The offset to use.
-     * @param int $dayOfWeek The day of the week to move to.
+     * Returns false if the requested occurrence doesn't exist in the year
+     * (e.g., requesting the 53rd Monday in a year with only 52).
+     *
+     * Example:
+     * ```
+     * $date = new Chronos('2024-06-15');
+     * $date->nthOfYear(1, Chronos::MONDAY);  // First Monday of the year
+     * $date->nthOfYear(52, Chronos::FRIDAY); // 52nd Friday of the year
+     * ```
+     *
+     * @param int $nth The occurrence number (1 = first, 2 = second, etc.).
+     * @param int $dayOfWeek The day of the week (use Chronos::MONDAY, etc.).
      * @return static|false
      */
     public function nthOfYear(int $nth, int $dayOfWeek): static|false
@@ -1961,10 +2108,13 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Get the minimum instance between a given instance (default now) and the current instance.
+     * Get the earlier of this instance and another.
      *
-     * @param \DateTimeInterface|null $other The instance to compare with.
-     * @return static
+     * Returns whichever datetime comes first chronologically.
+     * If no other instance is provided, compares against the current time.
+     *
+     * @param \DateTimeInterface|null $other The instance to compare with. Defaults to now.
+     * @return static The earlier of the two datetimes.
      */
     public function min(?DateTimeInterface $other = null): static
     {
@@ -1978,10 +2128,13 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Get the maximum instance between a given instance (default now) and the current instance.
+     * Get the later of this instance and another.
      *
-     * @param \DateTimeInterface|null $other The instance to compare with.
-     * @return static
+     * Returns whichever datetime comes last chronologically.
+     * If no other instance is provided, compares against the current time.
+     *
+     * @param \DateTimeInterface|null $other The instance to compare with. Defaults to now.
+     * @return static The later of the two datetimes.
      */
     public function max(?DateTimeInterface $other = null): static
     {
@@ -1995,10 +2148,21 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Modify the current instance to the average of a given instance (default now) and the current instance.
+     * Get the midpoint between this instance and another.
      *
-     * @param \DateTimeInterface|null $other The instance to compare with.
-     * @return static
+     * Calculates the datetime that is exactly halfway between the current
+     * instance and the given instance. If no other instance is provided,
+     * uses the current time (now).
+     *
+     * Example:
+     * ```
+     * $jan1 = new Chronos('2024-01-01 00:00:00');
+     * $jan3 = new Chronos('2024-01-03 00:00:00');
+     * $midpoint = $jan1->average($jan3); // 2024-01-02 00:00:00
+     * ```
+     *
+     * @param \DateTimeInterface|null $other The instance to find midpoint with. Defaults to now.
+     * @return static The datetime exactly between this instance and the other.
      */
     public function average(?DateTimeInterface $other = null): static
     {
@@ -2350,14 +2514,31 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
-     * Get the difference by the given interval using a filter callable
+     * Get the difference by the given interval using a filter callback.
      *
-     * @param \DateInterval $interval An interval to traverse by
-     * @param callable $callback The callback to use for filtering.
-     * @param \DateTimeInterface|null $other The instance to difference from.
-     * @param bool $absolute Get the absolute of the difference
+     * Iterates through the date range at the given interval and counts
+     * how many times the callback returns true.
+     *
+     * Example:
+     * ```
+     * // Count weekdays between two dates
+     * $start = new Chronos('2024-01-01');
+     * $end = new Chronos('2024-01-31');
+     * $weekdays = $start->diffFiltered(
+     *     new DateInterval('P1D'),
+     *     fn($date) => !$date->isWeekend(),
+     *     $end
+     * );
+     * ```
+     *
+     * @param \DateInterval $interval An interval to traverse by (e.g., P1D for daily).
+     * @param callable $callback Filter function that receives each date in the range.
+     *   Should return true to count the date, false to skip it.
+     *   Signature: `function(Chronos $date): bool`
+     * @param \DateTimeInterface|null $other The end date. Defaults to now.
+     * @param bool $absolute Get the absolute of the difference.
      * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
-     * @return int
+     * @return int The count of intervals where the callback returned true.
      */
     public function diffFiltered(
         DateInterval $interval,
@@ -2655,6 +2836,25 @@ class Chronos extends DateTimeImmutable implements Stringable
     public function toNative(): DateTimeImmutable
     {
         return new DateTimeImmutable($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
+     * Returns the date and time as an associative array.
+     *
+     * @return array{year: int, month: int, day: int, hour: int, minute: int, second: int, microsecond: int, timezone: string}
+     */
+    public function toArray(): array
+    {
+        return [
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'microsecond' => $this->microsecond,
+            'timezone' => $this->timezone->getName(),
+        ];
     }
 
     /**

@@ -1,0 +1,13 @@
+{
+  "/": [
+    {
+      "text": "CakePHP Chronos",
+      "collapsed": false,
+      "items": [
+        { "text": "Introduction", "link": "/index" },
+        { "text": "3.x Migration Guide", "link": "/3-x-migration-guide" },
+        { "text": "API", "link": "https://api.cakephp.org/chronos" }
+      ]
+    }
+  ]
+}

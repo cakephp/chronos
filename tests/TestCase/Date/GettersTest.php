@@ -26,4 +26,15 @@ class GettersTest extends TestCase
         $d = ChronosDate::create(year: 2012, month: $month, day: 1);
         $this->assertSame($expectedHalfOfYear, $d->half);
     }
+
+    public function testToArray(): void
+    {
+        $d = ChronosDate::create(2024, 1, 15);
+        $array = $d->toArray();
+
+        $this->assertSame(2024, $array['year']);
+        $this->assertSame(1, $array['month']);
+        $this->assertSame(15, $array['day']);
+        $this->assertCount(3, $array);
+    }
 }

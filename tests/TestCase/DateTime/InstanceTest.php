@@ -44,4 +44,45 @@ class InstanceTest extends TestCase
         $carbon = Chronos::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
+
+    public function testShiftTimezone(): void
+    {
+        $dt = Chronos::create(2024, 6, 15, 10, 30, 0, 0, 'America/New_York');
+        $shifted = $dt->shiftTimezone('America/Chicago');
+
+        // Same wall clock time
+        $this->assertSame(10, $shifted->hour);
+        $this->assertSame(30, $shifted->minute);
+        $this->assertSame(0, $shifted->second);
+
+        // Different timezone
+        $this->assertSame('America/Chicago', $shifted->tzName);
+
+        // Different UTC time (Chicago is 1 hour behind NY in summer)
+        $this->assertNotEquals($dt->getTimestamp(), $shifted->getTimestamp());
+    }
+
+    public function testShiftTimezoneVsSetTimezone(): void
+    {
+        $dt = Chronos::create(2024, 6, 15, 10, 0, 0, 0, 'America/New_York');
+
+        // setTimezone converts - same moment, different wall clock
+        $converted = $dt->setTimezone('America/Chicago');
+        $this->assertSame(9, $converted->hour);
+        $this->assertSame($dt->getTimestamp(), $converted->getTimestamp());
+
+        // shiftTimezone keeps wall clock - different moment
+        $shifted = $dt->shiftTimezone('America/Chicago');
+        $this->assertSame(10, $shifted->hour);
+        $this->assertNotEquals($dt->getTimestamp(), $shifted->getTimestamp());
+    }
+
+    public function testShiftTimezonePreservesMicroseconds(): void
+    {
+        $dt = Chronos::create(2024, 6, 15, 10, 30, 45, 123456, 'America/New_York');
+        $shifted = $dt->shiftTimezone('Europe/London');
+
+        $this->assertSame(123456, $shifted->microsecond);
+        $this->assertSame(45, $shifted->second);
+    }
 }

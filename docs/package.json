@@ -1,0 +1,19 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cakephp/docs-skeleton": "git+ssh://git@github.com:cakephp/docs-skeleton.git#node-package",
+    "vitepress": "^2.0.0-alpha.16"
+  }
+}
