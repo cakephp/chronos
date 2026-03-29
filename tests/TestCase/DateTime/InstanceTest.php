@@ -22,13 +22,13 @@ use DateTimeZone;
 
 class InstanceTest extends TestCase
 {
-    public function testInstanceFromDateTime()
+    public function testInstanceFromDateTime(): void
     {
         $dating = Chronos::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
         $this->assertDateTime($dating, 1975, 5, 21, 22, 32, 11);
     }
 
-    public function testInstanceFromDateTimeKeepsTimezoneName()
+    public function testInstanceFromDateTimeKeepsTimezoneName(): void
     {
         $dating = Chronos::instance(DateTime::createFromFormat(
             'Y-m-d H:i:s',
@@ -37,7 +37,7 @@ class InstanceTest extends TestCase
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
-    public function testInstanceFromDateTimeKeepsMicros()
+    public function testInstanceFromDateTimeKeepsMicros(): void
     {
         $micro = 254687;
         $datetime = DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);

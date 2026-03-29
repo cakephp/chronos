@@ -27,19 +27,19 @@ use PHPUnit\Framework\Attributes\DataProvider;
  */
 class ConstructTest extends TestCase
 {
-    public function testWithFancyString()
+    public function testWithFancyString(): void
     {
         $c = new ChronosDate('first day of January 2008');
-        $this->assertDate($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertDate($c, 2008, 1, 1);
     }
 
-    public function testParseWithFancyString()
+    public function testParseWithFancyString(): void
     {
         $c = ChronosDate::parse('first day of January 2008');
-        $this->assertDate($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertDate($c, 2008, 1, 1);
     }
 
-    public function testParseWithMicroSeconds()
+    public function testParseWithMicroSeconds(): void
     {
         $date = ChronosDate::parse('2016-12-08 18:06:46.510954');
         $this->assertNotNull($date);
@@ -50,7 +50,7 @@ class ConstructTest extends TestCase
      *
      * @return array
      */
-    public static function inputTimeProvider()
+    public static function inputTimeProvider(): array
     {
         return [
             ['@' . strtotime('2015-08-19 22:24:32')],
@@ -72,13 +72,13 @@ class ConstructTest extends TestCase
      * @return void
      */
     #[DataProvider('inputTimeProvider')]
-    public function testConstructWithTimeParts($time)
+    public function testConstructWithTimeParts(string $time): void
     {
         $date = new ChronosDate($time);
         $this->assertNotNull($date);
     }
 
-    public function testConstructWithTestNow()
+    public function testConstructWithTestNow(): void
     {
         Chronos::setTestNow(Chronos::create(2001, 1, 1));
         $date = new ChronosDate('+2 days');
@@ -88,7 +88,7 @@ class ConstructTest extends TestCase
         $this->assertDate($date, 2015, 12, 12);
     }
 
-    public function testConstructWithRelative()
+    public function testConstructWithRelative(): void
     {
         $c = new ChronosDate('+7 days');
         $this->assertSame('00:00:00', $c->format('H:i:s'));
@@ -173,7 +173,7 @@ class ConstructTest extends TestCase
         $this->assertSame($samoa->format('Y-m-d'), $c->format('Y-m-d'));
     }
 
-    public function testCreateFromExistingInstance()
+    public function testCreateFromExistingInstance(): void
     {
         $existingClass = new ChronosDate(new Chronos());
         $this->assertInstanceOf(ChronosDate::class, $existingClass);
@@ -184,14 +184,14 @@ class ConstructTest extends TestCase
         $this->assertSame((string)$existingClass, (string)$newClass);
     }
 
-    public function testCreateFromChronos()
+    public function testCreateFromChronos(): void
     {
         $chronos = new Chronos('2021-01-01 01:01:01');
         $date = new ChronosDate($chronos);
         $this->assertSame('2021-01-01 00:00:00', $date->format('Y-m-d H:i:s'));
     }
 
-    public function testCreateFromDateTimeInterface()
+    public function testCreateFromDateTimeInterface(): void
     {
         $existingClass = new DateTimeImmutable();
         $newClass = new ChronosDate($existingClass);
@@ -204,13 +204,13 @@ class ConstructTest extends TestCase
         $this->assertSame($existingClass->format('Y-m-d 00:00:00'), $newClass->format('Y-m-d H:i:s'));
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $date = ChronosDate::createFromFormat('Y-m-d P', '2014-02-01 Asia/Tokyo');
         $this->assertSame('2014-02-01 00:00:00 America/Toronto', $date->format('Y-m-d H:i:s e'));
     }
 
-    public function testCreateFromFormatInvalidFormat()
+    public function testCreateFromFormatInvalidFormat(): void
     {
         $parseException = null;
         try {

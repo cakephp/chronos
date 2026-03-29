@@ -28,7 +28,7 @@ class ChronosTimeTest extends TestCase
         $t = new ChronosTime();
         $this->assertSame('12:13:14.123456', $t->format('H:i:s.u'));
 
-        $t = new ChronosTime(null);
+        $t = new ChronosTime();
         $this->assertSame('12:13:14.123456', $t->format('H:i:s.u'));
     }
 
