@@ -20,77 +20,77 @@ use Cake\Chronos\Test\TestCase\TestCase;
 
 class ComparisonTest extends TestCase
 {
-    public function testEqualToTrue()
+    public function testEqualToTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->equals(ChronosDate::create(2000, 1, 1)));
     }
 
-    public function testEqualToFalse()
+    public function testEqualToFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->equals(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testNotEqualToTrue()
+    public function testNotEqualToTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->notEquals(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testNotEqualToFalse()
+    public function testNotEqualToFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->notEquals(ChronosDate::create(2000, 1, 1)));
     }
 
-    public function testGreaterThanTrue()
+    public function testGreaterThanTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->greaterThan(ChronosDate::create(1999, 12, 31)));
     }
 
-    public function testGreaterThanFalse()
+    public function testGreaterThanFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->greaterThan(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testGreaterThanOrEqualTrue()
+    public function testGreaterThanOrEqualTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->greaterThanOrEquals(ChronosDate::create(1999, 12, 31)));
     }
 
-    public function testGreaterThanOrEqualTrueEqual()
+    public function testGreaterThanOrEqualTrueEqual(): void
     {
-        $this->assertTrue(ChronosDate::create(2000, 1, 1, 0, 0, 0)->greaterThanOrEquals(ChronosDate::create(2000, 1, 1, 0, 0, 0)));
+        $this->assertTrue(ChronosDate::create(2000, 1, 1)->greaterThanOrEquals(ChronosDate::create(2000, 1, 1)));
     }
 
-    public function testGreaterThanOrEqualFalse()
+    public function testGreaterThanOrEqualFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->greaterThanOrEquals(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testLessThanTrue()
+    public function testLessThanTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->lessThan(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testLessThanFalse()
+    public function testLessThanFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->lessThanOrEquals(ChronosDate::create(1999, 12, 31)));
     }
 
-    public function testLessThanOrEqualTrue()
+    public function testLessThanOrEqualTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->lessThanOrEquals(ChronosDate::create(2000, 1, 2)));
     }
 
-    public function testLessThanOrEqualTrueEqual()
+    public function testLessThanOrEqualTrueEqual(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 1)->lessThanOrEquals(ChronosDate::create(2000, 1, 1)));
     }
 
-    public function testLessThanOrEqualFalse()
+    public function testLessThanOrEqualFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->lessThanOrEquals(ChronosDate::create(1999, 12, 31)));
     }
 
-    public function testBetweenEqualTrue()
+    public function testBetweenEqualTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 1),
@@ -99,7 +99,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenNotEqualTrue()
+    public function testBetweenNotEqualTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 1),
@@ -108,7 +108,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenEqualFalse()
+    public function testBetweenEqualFalse(): void
     {
         $this->assertFalse(ChronosDate::create(1999, 12, 31)->between(
             ChronosDate::create(2000, 1, 1),
@@ -117,7 +117,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenNotEqualFalse()
+    public function testBetweenNotEqualFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->between(
             ChronosDate::create(2000, 1, 1),
@@ -126,7 +126,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenEqualSwitchTrue()
+    public function testBetweenEqualSwitchTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 31),
@@ -135,7 +135,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenNotEqualSwitchTrue()
+    public function testBetweenNotEqualSwitchTrue(): void
     {
         $this->assertTrue(ChronosDate::create(2000, 1, 15)->between(
             ChronosDate::create(2000, 1, 31),
@@ -144,7 +144,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenEqualSwitchFalse()
+    public function testBetweenEqualSwitchFalse(): void
     {
         $this->assertFalse(ChronosDate::create(1999, 12, 31)->between(
             ChronosDate::create(2000, 1, 31),
@@ -153,7 +153,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testBetweenNotEqualSwitchFalse()
+    public function testBetweenNotEqualSwitchFalse(): void
     {
         $this->assertFalse(ChronosDate::create(2000, 1, 1)->between(
             ChronosDate::create(2000, 1, 31),
@@ -162,7 +162,7 @@ class ComparisonTest extends TestCase
         ));
     }
 
-    public function testClosest()
+    public function testClosest(): void
     {
         $instance = ChronosDate::create(2015, 5, 10);
         $dt1 = ChronosDate::create(2015, 5, 4);
@@ -171,7 +171,7 @@ class ComparisonTest extends TestCase
         $this->assertSame($dt1, $closest);
     }
 
-    public function testClosestWithEquals()
+    public function testClosestWithEquals(): void
     {
         $instance = ChronosDate::create(2015, 5, 10);
         $dt1 = ChronosDate::create(2015, 5, 10);
@@ -191,7 +191,7 @@ class ComparisonTest extends TestCase
         $this->assertSame($dt1, $closest);
     }
 
-    public function testFarthest()
+    public function testFarthest(): void
     {
         $instance = ChronosDate::create(2015, 5, 10);
         $dt1 = ChronosDate::create(2015, 5, 4);
@@ -200,7 +200,7 @@ class ComparisonTest extends TestCase
         $this->assertSame($dt2, $Farthest);
     }
 
-    public function testFarthestWithEquals()
+    public function testFarthestWithEquals(): void
     {
         $instance = ChronosDate::create(2015, 5, 10);
         $dt1 = ChronosDate::create(2015, 5, 10);

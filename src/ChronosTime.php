@@ -59,14 +59,9 @@ class ChronosTime implements Stringable
 
     /**
      * Format to use for __toString method.
-     *
-     * @var string
      */
     protected static string $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
-    /**
-     * @var int
-     */
     protected int $ticks;
 
     /**

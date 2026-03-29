@@ -22,81 +22,81 @@ use InvalidArgumentException;
 
 class CreateTest extends TestCase
 {
-    public function testCreateReturnsDatingInstance()
+    public function testCreateReturnsDatingInstance(): void
     {
         $d = Chronos::create();
         $this->assertTrue($d instanceof Chronos);
     }
 
-    public function testCreateWithDefaults()
+    public function testCreateWithDefaults(): void
     {
         $d = Chronos::create();
         $this->assertSame($d->timestamp, Chronos::now()->timestamp);
     }
 
-    public function testCreateWithYear()
+    public function testCreateWithYear(): void
     {
         $d = Chronos::create(2012);
         $this->assertSame(2012, $d->year);
     }
 
-    public function testCreateHandlesNegativeYear()
+    public function testCreateHandlesNegativeYear(): void
     {
         $d = Chronos::create(-1, 10, 12, 1, 2, 3);
         $this->assertDateTime($d, -1, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateHandlesFiveDigitsPositiveYears()
+    public function testCreateHandlesFiveDigitsPositiveYears(): void
     {
         $c = Chronos::create(999999999, 10, 12, 1, 2, 3);
         $this->assertDateTime($c, 999999999, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateHandlesFiveDigitsNegativeYears()
+    public function testCreateHandlesFiveDigitsNegativeYears(): void
     {
         $c = Chronos::create(-999999999, 10, 12, 1, 2, 3);
         $this->assertDateTime($c, -999999999, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateWithMonth()
+    public function testCreateWithMonth(): void
     {
         $d = Chronos::create(null, 3);
         $this->assertSame(3, $d->month);
     }
 
-    public function testCreateWithInvalidMonth()
+    public function testCreateWithInvalidMonth(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(null, -5);
     }
 
-    public function testCreateMonthWraps()
+    public function testCreateMonthWraps(): void
     {
         $d = Chronos::create(2011, 0, 1, 0, 0, 0);
         $this->assertDateTime($d, 2010, 12, 1, 0, 0, 0);
     }
 
-    public function testCreateWithDay()
+    public function testCreateWithDay(): void
     {
         $d = Chronos::create(null, null, 21);
         $this->assertSame(21, $d->day);
     }
 
-    public function testCreateWithInvalidDay()
+    public function testCreateWithInvalidDay(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(null, null, -4);
     }
 
-    public function testCreateDayWraps()
+    public function testCreateDayWraps(): void
     {
         $d = Chronos::create(2011, 1, 40, 0, 0, 0);
         $this->assertDateTime($d, 2011, 2, 9, 0, 0, 0);
     }
 
-    public function testCreateWithHourAndDefaultMinSecToZero()
+    public function testCreateWithHourAndDefaultMinSecToZero(): void
     {
         $d = Chronos::create(null, null, null, 14);
         $this->assertSame(14, $d->hour);
@@ -104,72 +104,72 @@ class CreateTest extends TestCase
         $this->assertSame(0, $d->second);
     }
 
-    public function testCreateWithInvalidHour()
+    public function testCreateWithInvalidHour(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(null, null, null, -1);
     }
 
-    public function testCreateHourWraps()
+    public function testCreateHourWraps(): void
     {
         $d = Chronos::create(2011, 1, 1, 24, 0, 0);
         $this->assertDateTime($d, 2011, 1, 2, 0, 0, 0);
     }
 
-    public function testCreateWithMinute()
+    public function testCreateWithMinute(): void
     {
         $d = Chronos::create(null, null, null, null, 58);
         $this->assertSame(58, $d->minute);
     }
 
-    public function testCreateWithInvalidMinute()
+    public function testCreateWithInvalidMinute(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(2011, 1, 1, 0, -2, 0);
     }
 
-    public function testCreateMinuteWraps()
+    public function testCreateMinuteWraps(): void
     {
         $d = Chronos::create(2011, 1, 1, 0, 62, 0);
         $this->assertDateTime($d, 2011, 1, 1, 1, 2, 0);
     }
 
-    public function testCreateWithSecond()
+    public function testCreateWithSecond(): void
     {
         $d = Chronos::create(null, null, null, null, null, 59);
         $this->assertSame(59, $d->second);
     }
 
-    public function testCreateWithInvalidSecond()
+    public function testCreateWithInvalidSecond(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(null, null, null, null, null, -2);
     }
 
-    public function testCreateSecondsWrap()
+    public function testCreateSecondsWrap(): void
     {
         $d = Chronos::create(2012, 1, 1, 0, 0, 61);
         $this->assertDateTime($d, 2012, 1, 1, 0, 1, 1);
     }
 
-    public function testCreateWithDateTimeZone()
+    public function testCreateWithDateTimeZone(): void
     {
         $d = Chronos::create(2012, 1, 1, 0, 0, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateWithTimeZoneString()
+    public function testCreateWithTimeZoneString(): void
     {
         $d = Chronos::create(2012, 1, 1, 0, 0, 0, 0, 'Europe/London');
         $this->assertDateTime($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromArray()
+    public function testCreateFromArray(): void
     {
         $values = [
             'year' => 2012,
@@ -186,7 +186,7 @@ class CreateTest extends TestCase
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
-    public function testCreateFromArrayDateOnly()
+    public function testCreateFromArrayDateOnly(): void
     {
         $values = [
             'year' => 2012,
@@ -198,7 +198,7 @@ class CreateTest extends TestCase
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
-    public function testCreateFromArrayTimeOnly()
+    public function testCreateFromArrayTimeOnly(): void
     {
         $values = [
             'hour' => 12,
