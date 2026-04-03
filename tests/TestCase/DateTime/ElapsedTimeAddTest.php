@@ -18,77 +18,77 @@ namespace Cake\Chronos\Test\TestCase\DateTime;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Test\TestCase\TestCase;
 
-class TimestampAddTest extends TestCase
+class ElapsedTimeAddTest extends TestCase
 {
-    public function testAddSecondsWithTimestamp(): void
+    public function testAddElapsedSeconds(): void
     {
         $time = Chronos::parse('2024-01-15 12:00:00', 'UTC');
-        $result = $time->addSecondsWithTimestamp(30);
+        $result = $time->addElapsedSeconds(30);
         $this->assertSame('2024-01-15 12:00:30', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testAddSecondsWithTimestampNegative(): void
+    public function testAddElapsedSecondsNegative(): void
     {
         $time = Chronos::parse('2024-01-15 12:00:30', 'UTC');
-        $result = $time->addSecondsWithTimestamp(-30);
+        $result = $time->addElapsedSeconds(-30);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testSubSecondsWithTimestamp(): void
+    public function testSubElapsedSeconds(): void
     {
         $time = Chronos::parse('2024-01-15 12:00:30', 'UTC');
-        $result = $time->subSecondsWithTimestamp(30);
+        $result = $time->subElapsedSeconds(30);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testAddMinutesWithTimestamp(): void
+    public function testAddElapsedMinutes(): void
     {
         $time = Chronos::parse('2024-01-15 12:00:00', 'UTC');
-        $result = $time->addMinutesWithTimestamp(30);
+        $result = $time->addElapsedMinutes(30);
         $this->assertSame('2024-01-15 12:30:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testAddMinutesWithTimestampNegative(): void
+    public function testAddElapsedMinutesNegative(): void
     {
         $time = Chronos::parse('2024-01-15 12:30:00', 'UTC');
-        $result = $time->addMinutesWithTimestamp(-30);
+        $result = $time->addElapsedMinutes(-30);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testSubMinutesWithTimestamp(): void
+    public function testSubElapsedMinutes(): void
     {
         $time = Chronos::parse('2024-01-15 12:30:00', 'UTC');
-        $result = $time->subMinutesWithTimestamp(30);
+        $result = $time->subElapsedMinutes(30);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testAddHoursWithTimestamp(): void
+    public function testAddElapsedHours(): void
     {
         $time = Chronos::parse('2024-01-15 12:00:00', 'UTC');
-        $result = $time->addHoursWithTimestamp(2);
+        $result = $time->addElapsedHours(2);
         $this->assertSame('2024-01-15 14:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testAddHoursWithTimestampNegative(): void
+    public function testAddElapsedHoursNegative(): void
     {
         $time = Chronos::parse('2024-01-15 14:00:00', 'UTC');
-        $result = $time->addHoursWithTimestamp(-2);
+        $result = $time->addElapsedHours(-2);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
-    public function testSubHoursWithTimestamp(): void
+    public function testSubElapsedHours(): void
     {
         $time = Chronos::parse('2024-01-15 14:00:00', 'UTC');
-        $result = $time->subHoursWithTimestamp(2);
+        $result = $time->subElapsedHours(2);
         $this->assertSame('2024-01-15 12:00:00', $result->format('Y-m-d H:i:s'));
     }
 
     /**
      * Test DST transition when clocks go BACK (fall back).
-     * Australia/Melbourne changes out of daylight savings on 5th April 2026
+     * Australia/Melbourne changes out of daylight saving on 5th April 2026
      * at 3:00 AM AEDT (+11) -> 2:00 AM AEST (+10)
      */
-    public function testAddMinutesWithTimestampAcrossDstFallBack(): void
+    public function testAddElapsedMinutesAcrossDstFallBack(): void
     {
         $time = Chronos::parse('2026-04-05 09:00:00', 'Australia/Melbourne');
 
@@ -98,8 +98,8 @@ class TimestampAddTest extends TestCase
         $diff = $time->diffInMinutes($time->startOfDay());
         $this->assertSame(600, $diff);
 
-        // Using timestamp arithmetic should correctly account for DST
-        $result = $time->startOfDay()->addMinutesWithTimestamp(600);
+        // Using elapsed time should correctly account for DST
+        $result = $time->startOfDay()->addElapsedMinutes(600);
         $this->assertSame('2026-04-05T09:00:00+10:00', $result->toIso8601String());
     }
 
@@ -108,24 +108,24 @@ class TimestampAddTest extends TestCase
      * America/New_York springs forward on 2nd Sunday of March 2025
      * at 2:00 AM EST (-05) -> 3:00 AM EDT (-04)
      */
-    public function testAddMinutesWithTimestampAcrossDstSpringForward(): void
+    public function testAddElapsedMinutesAcrossDstSpringForward(): void
     {
         // March 9, 2025 is the 2nd Sunday of March (DST starts)
         $beforeDst = Chronos::parse('2025-03-09 01:00:00', 'America/New_York');
         $this->assertSame('-05:00', $beforeDst->format('P'));
 
-        // Add 2 hours (120 minutes) using timestamp arithmetic
+        // Add 2 hours (120 minutes) using elapsed time
         // Wall clock would show 3:00 AM (skipping 2:00-3:00)
-        $result = $beforeDst->addMinutesWithTimestamp(120);
+        $result = $beforeDst->addElapsedMinutes(120);
 
         // Should be 04:00 AM EDT (not 03:00 AM)
         $this->assertSame('2025-03-09T04:00:00-04:00', $result->toIso8601String());
     }
 
     /**
-     * Test that addMinutes and addMinutesWithTimestamp differ during DST
+     * Test that addMinutes and addElapsedMinutes differ during DST
      */
-    public function testAddMinutesVsAddMinutesWithTimestampDuringDst(): void
+    public function testAddMinutesVsAddElapsedMinutesDuringDst(): void
     {
         // Australia/Melbourne DST ends April 5, 2026 at 3am
         $startOfDay = Chronos::parse('2026-04-05 00:00:00', 'Australia/Melbourne');
@@ -133,8 +133,8 @@ class TimestampAddTest extends TestCase
         // Wall clock addition (regular addMinutes)
         $wallClock = $startOfDay->addMinutes(600);
 
-        // Timestamp addition
-        $elapsed = $startOfDay->addMinutesWithTimestamp(600);
+        // Elapsed time addition
+        $elapsed = $startOfDay->addElapsedMinutes(600);
 
         // These should differ by 1 hour due to DST transition
         $this->assertSame('2026-04-05T10:00:00+10:00', $wallClock->toIso8601String());
@@ -142,42 +142,42 @@ class TimestampAddTest extends TestCase
     }
 
     /**
-     * Test addHoursWithTimestamp across DST
+     * Test addElapsedHours across DST
      */
-    public function testAddHoursWithTimestampAcrossDst(): void
+    public function testAddElapsedHoursAcrossDst(): void
     {
         $startOfDay = Chronos::parse('2026-04-05 00:00:00', 'Australia/Melbourne');
 
-        $result = $startOfDay->addHoursWithTimestamp(10);
+        $result = $startOfDay->addElapsedHours(10);
 
         // 10 actual hours from midnight should be 09:00 (since we gain an hour at 3am)
         $this->assertSame('2026-04-05T09:00:00+10:00', $result->toIso8601String());
     }
 
     /**
-     * Test addSecondsWithTimestamp across DST
+     * Test addElapsedSeconds across DST
      */
-    public function testAddSecondsWithTimestampAcrossDst(): void
+    public function testAddElapsedSecondsAcrossDst(): void
     {
         $startOfDay = Chronos::parse('2026-04-05 00:00:00', 'Australia/Melbourne');
 
         // 10 hours in seconds = 36000
-        $result = $startOfDay->addSecondsWithTimestamp(36000);
+        $result = $startOfDay->addElapsedSeconds(36000);
 
         $this->assertSame('2026-04-05T09:00:00+10:00', $result->toIso8601String());
     }
 
     /**
-     * Test that diffInMinutes and addMinutesWithTimestamp are inverses
+     * Test that diffInMinutes and addElapsedMinutes are inverses
      */
-    public function testDiffInMinutesIsInverseOfAddMinutesWithTimestamp(): void
+    public function testDiffInMinutesIsInverseOfAddElapsedMinutes(): void
     {
         $time = Chronos::parse('2026-04-05 09:00:00', 'Australia/Melbourne');
         $startOfDay = $time->startOfDay();
 
         $diff = $time->diffInMinutes($startOfDay);
 
-        $reconstructed = $startOfDay->addMinutesWithTimestamp($diff);
+        $reconstructed = $startOfDay->addElapsedMinutes($diff);
 
         $this->assertSame($time->toIso8601String(), $reconstructed->toIso8601String());
     }
