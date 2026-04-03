@@ -1471,6 +1471,90 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Add hours to the instance using timestamp arithmetic.
+     *
+     * Unlike `addHours()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of hours to add.
+     * @return static
+     */
+    public function addHoursWithTimestamp(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + ($value * 3600));
+    }
+
+    /**
+     * Remove hours from the instance using timestamp arithmetic.
+     *
+     * @param int $value The number of hours to remove.
+     * @return static
+     * @see addHoursWithTimestamp()
+     */
+    public function subHoursWithTimestamp(int $value): static
+    {
+        return $this->addHoursWithTimestamp(-$value);
+    }
+
+    /**
+     * Add minutes to the instance using timestamp arithmetic.
+     *
+     * Unlike `addMinutes()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of minutes to add.
+     * @return static
+     */
+    public function addMinutesWithTimestamp(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + ($value * 60));
+    }
+
+    /**
+     * Remove minutes from the instance using timestamp arithmetic.
+     *
+     * @param int $value The number of minutes to remove.
+     * @return static
+     * @see addMinutesWithTimestamp()
+     */
+    public function subMinutesWithTimestamp(int $value): static
+    {
+        return $this->addMinutesWithTimestamp(-$value);
+    }
+
+    /**
+     * Add seconds to the instance using timestamp arithmetic.
+     *
+     * Unlike `addSeconds()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of seconds to add.
+     * @return static
+     */
+    public function addSecondsWithTimestamp(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + $value);
+    }
+
+    /**
+     * Remove seconds from the instance using timestamp arithmetic.
+     *
+     * @param int $value The number of seconds to remove.
+     * @return static
+     * @see addSecondsWithTimestamp()
+     */
+    public function subSecondsWithTimestamp(int $value): static
+    {
+        return $this->addSecondsWithTimestamp(-$value);
+    }
+
+    /**
      * Sets the time to 00:00:00
      *
      * @return static

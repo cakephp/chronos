@@ -42,6 +42,12 @@ Available add/sub methods:
 - `addMinutes()` / `subMinutes()`
 - `addSeconds()` / `subSeconds()`
 
+For DST-safe operations that add actual elapsed time (see [DST Considerations](#dst-considerations)):
+
+- `addHoursWithTimestamp()` / `subHoursWithTimestamp()`
+- `addMinutesWithTimestamp()` / `subMinutesWithTimestamp()`
+- `addSecondsWithTimestamp()` / `subSecondsWithTimestamp()`
+
 ### Month Overflow Handling
 
 By default, adding months will clamp the day if it would overflow:
@@ -169,8 +175,53 @@ information and you need to assign the correct timezone.
 
 When modifying dates/times across DST (Daylight Savings Time) transitions,
 your operations may gain/lose an additional hour resulting in values that
-don't add up. You can avoid these issues by first changing your timezone to
-UTC, modifying the time, then converting back:
+don't add up. Methods like `addHours()`, `addMinutes()`, and `addSeconds()`
+add "wall clock" time, which can produce unexpected results during DST
+transitions.
+
+### Timestamp-Based Methods
+
+For operations that need to add actual elapsed time (not wall clock time),
+use the timestamp-based variants:
+
+- `addHoursWithTimestamp()` / `subHoursWithTimestamp()`
+- `addMinutesWithTimestamp()` / `subMinutesWithTimestamp()`
+- `addSecondsWithTimestamp()` / `subSecondsWithTimestamp()`
+
+These methods manipulate the Unix timestamp directly, ensuring that adding
+600 minutes always means exactly 36000 seconds of elapsed time:
+
+```php
+// Australia/Melbourne DST ends April 5, 2026 at 3:00 AM
+// Clocks go back from 3:00 AM AEDT (+11) to 2:00 AM AEST (+10)
+$startOfDay = Chronos::parse('2026-04-05 00:00:00', 'Australia/Melbourne');
+
+// Wall clock addition - adds 10 hours of "clock time"
+$wallClock = $startOfDay->addMinutes(600);
+// Result: 2026-04-05T10:00:00+10:00
+
+// Timestamp addition - adds 10 hours of elapsed time
+$elapsed = $startOfDay->addMinutesWithTimestamp(600);
+// Result: 2026-04-05T09:00:00+10:00
+```
+
+The timestamp-based methods ensure that `diffInMinutes()` and
+`addMinutesWithTimestamp()` are true inverses of each other:
+
+```php
+$time = Chronos::parse('2026-04-05 09:00:00', 'Australia/Melbourne');
+$startOfDay = $time->startOfDay();
+
+$diff = $time->diffInMinutes($startOfDay); // 600
+
+// Reconstructing the original time works correctly
+$reconstructed = $startOfDay->addMinutesWithTimestamp($diff);
+// $reconstructed equals $time
+```
+
+### Manual UTC Conversion
+
+Alternatively, you can manually convert to UTC, modify, then convert back:
 
 ```php
 // Additional hour gained
