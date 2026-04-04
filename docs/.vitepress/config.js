@@ -28,6 +28,8 @@ export default {
     hostname: 'https://book.cakephp.org/chronos/3/',
   },
   themeConfig: {
+    siteTitle: false,
+    pluginName: "Chronos",
     socialLinks: [
       { icon: 'github', link: 'https://github.com/cakephp/chronos' },
     ],
