@@ -1471,6 +1471,90 @@ class Chronos extends DateTimeImmutable implements Stringable
     }
 
     /**
+     * Add hours to the instance using elapsed time.
+     *
+     * Unlike `addHours()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of hours to add.
+     * @return static
+     */
+    public function addElapsedHours(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + ($value * 3600));
+    }
+
+    /**
+     * Remove hours from the instance using elapsed time.
+     *
+     * @param int $value The number of hours to remove.
+     * @return static
+     * @see addElapsedHours()
+     */
+    public function subElapsedHours(int $value): static
+    {
+        return $this->addElapsedHours(-$value);
+    }
+
+    /**
+     * Add minutes to the instance using elapsed time.
+     *
+     * Unlike `addMinutes()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of minutes to add.
+     * @return static
+     */
+    public function addElapsedMinutes(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + ($value * 60));
+    }
+
+    /**
+     * Remove minutes from the instance using elapsed time.
+     *
+     * @param int $value The number of minutes to remove.
+     * @return static
+     * @see addElapsedMinutes()
+     */
+    public function subElapsedMinutes(int $value): static
+    {
+        return $this->addElapsedMinutes(-$value);
+    }
+
+    /**
+     * Add seconds to the instance using elapsed time.
+     *
+     * Unlike `addSeconds()` which uses wall clock time, this method
+     * adds actual elapsed time by manipulating the Unix timestamp.
+     * This is important when working across DST transitions where
+     * wall clock time and elapsed time differ.
+     *
+     * @param int $value The number of seconds to add.
+     * @return static
+     */
+    public function addElapsedSeconds(int $value): static
+    {
+        return $this->setTimestamp($this->getTimestamp() + $value);
+    }
+
+    /**
+     * Remove seconds from the instance using elapsed time.
+     *
+     * @param int $value The number of seconds to remove.
+     * @return static
+     * @see addElapsedSeconds()
+     */
+    public function subElapsedSeconds(int $value): static
+    {
+        return $this->addElapsedSeconds(-$value);
+    }
+
+    /**
      * Sets the time to 00:00:00
      *
      * @return static
