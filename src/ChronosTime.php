@@ -20,7 +20,6 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use Stringable;
-use Throwable;
 
 /**
  * @phpstan-consistent-constructor
@@ -444,15 +443,7 @@ class ChronosTime implements Stringable
         }
 
         $base = (new DateTimeImmutable('1970-01-01 00:00:00'))->setTime(0, 0, 0, 0);
-        try {
-            $modified = $base->modify($modifier);
-        } catch (Throwable $e) {
-            throw new InvalidArgumentException(
-                sprintf('Modifier `%s` could not be applied: %s', $modifier, $e->getMessage()),
-                0,
-                $e,
-            );
-        }
+        $modified = $base->modify($modifier);
 
         $deltaSeconds = $modified->getTimestamp() - $base->getTimestamp();
         $deltaMicros = (int)$modified->format('u') - (int)$base->format('u');
