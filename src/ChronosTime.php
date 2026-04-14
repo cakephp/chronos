@@ -369,6 +369,8 @@ class ChronosTime implements Stringable
     /**
      * Returns a new instance with the given number of hours subtracted.
      *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
      * @param int $value Hours to subtract
      * @return static
      */
@@ -379,6 +381,8 @@ class ChronosTime implements Stringable
 
     /**
      * Returns a new instance with the given number of minutes added.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
      *
      * @param int $value Minutes to add
      * @return static
@@ -391,6 +395,8 @@ class ChronosTime implements Stringable
     /**
      * Returns a new instance with the given number of minutes subtracted.
      *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
      * @param int $value Minutes to subtract
      * @return static
      */
@@ -402,6 +408,8 @@ class ChronosTime implements Stringable
     /**
      * Returns a new instance with the given number of seconds added.
      *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
      * @param int $value Seconds to add
      * @return static
      */
@@ -412,6 +420,8 @@ class ChronosTime implements Stringable
 
     /**
      * Returns a new instance with the given number of seconds subtracted.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
      *
      * @param int $value Seconds to subtract
      * @return static
@@ -442,8 +452,13 @@ class ChronosTime implements Stringable
             );
         }
 
-        $base = (new DateTimeImmutable('1970-01-01 00:00:00'))->setTime(0, 0, 0, 0);
+        $base = new DateTimeImmutable('1970-01-01 00:00:00', new DateTimeZone('UTC'));
         $modified = $base->modify($modifier);
+        if ($modified === false) {
+            throw new InvalidArgumentException(
+                sprintf('Unable to apply modifier `%s` to ChronosTime.', $modifier),
+            );
+        }
 
         $deltaSeconds = $modified->getTimestamp() - $base->getTimestamp();
         $deltaMicros = (int)$modified->format('u') - (int)$base->format('u');
@@ -474,8 +489,9 @@ class ChronosTime implements Stringable
      */
     public function diff(ChronosTime $target, bool $absolute = false): DateInterval
     {
-        $a = new DateTimeImmutable('1970-01-01 ' . $this->format('H:i:s.u'));
-        $b = new DateTimeImmutable('1970-01-01 ' . $target->format('H:i:s.u'));
+        $timezone = new DateTimeZone('UTC');
+        $a = new DateTimeImmutable('1970-01-01 ' . $this->format('H:i:s.u'), $timezone);
+        $b = new DateTimeImmutable('1970-01-01 ' . $target->format('H:i:s.u'), $timezone);
 
         return $a->diff($b, $absolute);
     }
@@ -578,7 +594,7 @@ class ChronosTime implements Stringable
     {
         $other ??= static::now();
 
-        return $this->lessThan($other) ? clone $this : (clone $this)->withTicks($other->ticks);
+        return $this->lessThan($other) ? $this : $this->withTicks($other->ticks);
     }
 
     /**
@@ -591,7 +607,7 @@ class ChronosTime implements Stringable
     {
         $other ??= static::now();
 
-        return $this->greaterThan($other) ? clone $this : (clone $this)->withTicks($other->ticks);
+        return $this->greaterThan($other) ? $this : $this->withTicks($other->ticks);
     }
 
     /**
