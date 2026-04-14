@@ -581,6 +581,16 @@ class ChronosTimeTest extends TestCase
         $this->assertTrue($a->equals($base->closest($a, $b, $c)));
     }
 
+    public function testClosestFirstWinsOnTie(): void
+    {
+        $base = ChronosTime::parse('10:00:00');
+        $before = ChronosTime::parse('09:30:00');
+        $after = ChronosTime::parse('10:30:00');
+
+        // Equal distance — first argument wins.
+        $this->assertTrue($before->equals($base->closest($before, $after)));
+    }
+
     public function testFarthest(): void
     {
         $base = ChronosTime::parse('10:00:00');
@@ -589,6 +599,15 @@ class ChronosTimeTest extends TestCase
         $c = ChronosTime::parse('12:00:00');
 
         $this->assertTrue($c->equals($base->farthest($a, $b, $c)));
+    }
+
+    public function testFarthestFirstWinsOnTie(): void
+    {
+        $base = ChronosTime::parse('10:00:00');
+        $before = ChronosTime::parse('09:00:00');
+        $after = ChronosTime::parse('11:00:00');
+
+        $this->assertTrue($before->equals($base->farthest($before, $after)));
     }
 
     public function testMin(): void
@@ -600,6 +619,19 @@ class ChronosTimeTest extends TestCase
         $this->assertTrue($t1->equals($t2->min($t1)));
     }
 
+    public function testMinDefaultsToNow(): void
+    {
+        Chronos::setTestNow(new Chronos('2001-01-01 12:00:00'));
+
+        $earlier = ChronosTime::parse('10:00:00');
+        $later = ChronosTime::parse('14:00:00');
+
+        // $earlier vs now (12:00) → earlier is smaller.
+        $this->assertTrue($earlier->equals($earlier->min()));
+        // $later vs now (12:00) → now is smaller.
+        $this->assertTrue(ChronosTime::parse('12:00:00')->equals($later->min()));
+    }
+
     public function testMax(): void
     {
         $t1 = ChronosTime::parse('10:00:00');
@@ -607,5 +639,42 @@ class ChronosTimeTest extends TestCase
 
         $this->assertTrue($t2->equals($t1->max($t2)));
         $this->assertTrue($t2->equals($t2->max($t1)));
+    }
+
+    public function testMaxDefaultsToNow(): void
+    {
+        Chronos::setTestNow(new Chronos('2001-01-01 12:00:00'));
+
+        $earlier = ChronosTime::parse('10:00:00');
+        $later = ChronosTime::parse('14:00:00');
+
+        // $earlier vs now (12:00) → now is larger.
+        $this->assertTrue(ChronosTime::parse('12:00:00')->equals($earlier->max()));
+        // $later vs now (12:00) → later is larger.
+        $this->assertTrue($later->equals($later->max()));
+    }
+
+    public function testDiffInHoursDefaultsToNow(): void
+    {
+        Chronos::setTestNow(new Chronos('2001-01-01 12:00:00'));
+
+        // Sign convention (matches Chronos::diffInSeconds): $other - $this.
+        $this->assertSame(2, ChronosTime::parse('10:00:00')->diffInHours());
+        $this->assertSame(2, ChronosTime::parse('10:00:00')->diffInHours(absolute: false));
+        $this->assertSame(-3, ChronosTime::parse('15:00:00')->diffInHours(absolute: false));
+    }
+
+    public function testDiffInMinutesDefaultsToNow(): void
+    {
+        Chronos::setTestNow(new Chronos('2001-01-01 12:00:00'));
+
+        $this->assertSame(30, ChronosTime::parse('11:30:00')->diffInMinutes());
+    }
+
+    public function testDiffInSecondsDefaultsToNow(): void
+    {
+        Chronos::setTestNow(new Chronos('2001-01-01 12:00:00'));
+
+        $this->assertSame(45, ChronosTime::parse('11:59:15')->diffInSeconds());
     }
 }
