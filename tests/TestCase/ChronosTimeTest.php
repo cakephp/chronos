@@ -16,6 +16,7 @@ namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosTime;
+use DateInterval;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
@@ -375,5 +376,236 @@ class ChronosTimeTest extends TestCase
         $this->assertSame(45, $array['second']);
         $this->assertSame(123456, $array['microsecond']);
         $this->assertCount(4, $array);
+    }
+
+    public function testAddHours(): void
+    {
+        $t = ChronosTime::parse('10:20:30.123456');
+        $new = $t->addHours(2);
+
+        $this->assertNotSame($t, $new);
+        $this->assertSame('10:20:30.123456', $t->format('H:i:s.u'));
+        $this->assertSame('12:20:30.123456', $new->format('H:i:s.u'));
+
+        // Wraparound past midnight.
+        $this->assertSame(
+            '01:00:00.000000',
+            ChronosTime::parse('23:00:00')->addHours(2)->format('H:i:s.u'),
+        );
+
+        // Negative addition.
+        $this->assertSame(
+            '22:00:00.000000',
+            ChronosTime::parse('00:00:00')->addHours(-2)->format('H:i:s.u'),
+        );
+    }
+
+    public function testSubHours(): void
+    {
+        $t = ChronosTime::parse('10:20:30.123456');
+        $new = $t->subHours(2);
+
+        $this->assertNotSame($t, $new);
+        $this->assertSame('08:20:30.123456', $new->format('H:i:s.u'));
+
+        // Wraparound before midnight.
+        $this->assertSame(
+            '23:00:00.000000',
+            ChronosTime::parse('01:00:00')->subHours(2)->format('H:i:s.u'),
+        );
+    }
+
+    public function testAddMinutes(): void
+    {
+        $this->assertSame(
+            '10:25:00.000000',
+            ChronosTime::parse('10:20:00')->addMinutes(5)->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '00:05:00.000000',
+            ChronosTime::parse('23:55:00')->addMinutes(10)->format('H:i:s.u'),
+        );
+    }
+
+    public function testSubMinutes(): void
+    {
+        $this->assertSame(
+            '10:15:00.000000',
+            ChronosTime::parse('10:20:00')->subMinutes(5)->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '23:55:00.000000',
+            ChronosTime::parse('00:05:00')->subMinutes(10)->format('H:i:s.u'),
+        );
+    }
+
+    public function testAddSeconds(): void
+    {
+        $this->assertSame(
+            '10:20:35.000000',
+            ChronosTime::parse('10:20:30')->addSeconds(5)->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '00:00:05.000000',
+            ChronosTime::parse('23:59:55')->addSeconds(10)->format('H:i:s.u'),
+        );
+    }
+
+    public function testSubSeconds(): void
+    {
+        $this->assertSame(
+            '10:20:25.000000',
+            ChronosTime::parse('10:20:30')->subSeconds(5)->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '23:59:55.000000',
+            ChronosTime::parse('00:00:05')->subSeconds(10)->format('H:i:s.u'),
+        );
+    }
+
+    public function testModify(): void
+    {
+        $t = ChronosTime::parse('10:20:30.123456');
+        $new = $t->modify('+2 hours');
+
+        $this->assertNotSame($t, $new);
+        $this->assertSame('10:20:30.123456', $t->format('H:i:s.u'));
+        $this->assertSame('12:20:30.123456', $new->format('H:i:s.u'));
+
+        $this->assertSame(
+            '10:25:30.123456',
+            ChronosTime::parse('10:20:30.123456')->modify('+5 minutes')->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '10:20:35.123456',
+            ChronosTime::parse('10:20:30.123456')->modify('+5 seconds')->format('H:i:s.u'),
+        );
+
+        // Wraparound past midnight.
+        $this->assertSame(
+            '01:00:00.000000',
+            ChronosTime::parse('23:00:00')->modify('+2 hours')->format('H:i:s.u'),
+        );
+    }
+
+    public function testModifyInvalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        ChronosTime::parse('10:00:00')->modify('+1 day');
+    }
+
+    public function testModifyInvalidString(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        ChronosTime::parse('10:00:00')->modify('not a valid modifier');
+    }
+
+    public function testSecondsSinceMidnight(): void
+    {
+        $this->assertSame(0, ChronosTime::midnight()->secondsSinceMidnight());
+        $this->assertSame(
+            12 * 3600 + 30 * 60 + 45,
+            ChronosTime::parse('12:30:45')->secondsSinceMidnight(),
+        );
+        $this->assertSame(
+            23 * 3600 + 59 * 60 + 59,
+            ChronosTime::parse('23:59:59.999999')->secondsSinceMidnight(),
+        );
+    }
+
+    public function testDiff(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('12:30:45');
+        $interval = $t1->diff($t2);
+
+        $this->assertInstanceOf(DateInterval::class, $interval);
+        $this->assertSame(2, $interval->h);
+        $this->assertSame(30, $interval->i);
+        $this->assertSame(45, $interval->s);
+        $this->assertSame(0, $interval->invert);
+
+        // Reverse order keeps sign by default (matches DateTimeInterface::diff).
+        $interval = $t2->diff($t1);
+        $this->assertSame(2, $interval->h);
+        $this->assertSame(30, $interval->i);
+        $this->assertSame(45, $interval->s);
+        $this->assertSame(1, $interval->invert);
+
+        // Absolute mode drops the sign.
+        $interval = $t2->diff($t1, true);
+        $this->assertSame(2, $interval->h);
+        $this->assertSame(30, $interval->i);
+        $this->assertSame(45, $interval->s);
+        $this->assertSame(0, $interval->invert);
+    }
+
+    public function testDiffInHours(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('12:30:00');
+
+        $this->assertSame(2, $t1->diffInHours($t2));
+        $this->assertSame(2, $t2->diffInHours($t1));
+        $this->assertSame(-2, $t2->diffInHours($t1, false));
+        $this->assertSame(2, $t1->diffInHours($t2, false));
+    }
+
+    public function testDiffInMinutes(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('10:05:30');
+
+        $this->assertSame(5, $t1->diffInMinutes($t2));
+        $this->assertSame(5, $t2->diffInMinutes($t1));
+        $this->assertSame(-5, $t2->diffInMinutes($t1, false));
+    }
+
+    public function testDiffInSeconds(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('10:00:45');
+
+        $this->assertSame(45, $t1->diffInSeconds($t2));
+        $this->assertSame(45, $t2->diffInSeconds($t1));
+        $this->assertSame(-45, $t2->diffInSeconds($t1, false));
+    }
+
+    public function testClosest(): void
+    {
+        $base = ChronosTime::parse('10:00:00');
+        $a = ChronosTime::parse('09:50:00');
+        $b = ChronosTime::parse('10:30:00');
+        $c = ChronosTime::parse('11:00:00');
+
+        $this->assertTrue($a->equals($base->closest($a, $b, $c)));
+    }
+
+    public function testFarthest(): void
+    {
+        $base = ChronosTime::parse('10:00:00');
+        $a = ChronosTime::parse('09:50:00');
+        $b = ChronosTime::parse('10:30:00');
+        $c = ChronosTime::parse('12:00:00');
+
+        $this->assertTrue($c->equals($base->farthest($a, $b, $c)));
+    }
+
+    public function testMin(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('12:00:00');
+
+        $this->assertTrue($t1->equals($t1->min($t2)));
+        $this->assertTrue($t1->equals($t2->min($t1)));
+    }
+
+    public function testMax(): void
+    {
+        $t1 = ChronosTime::parse('10:00:00');
+        $t2 = ChronosTime::parse('12:00:00');
+
+        $this->assertTrue($t2->equals($t1->max($t2)));
+        $this->assertTrue($t2->equals($t2->max($t1)));
     }
 }
