@@ -25,7 +25,7 @@ use DateTimeZone;
 
 class ConstructTest extends TestCase
 {
-    public function testCreateFromTimestamp()
+    public function testCreateFromTimestamp(): void
     {
         $ts = 1454284800;
         $time = new Chronos($ts);
@@ -40,7 +40,7 @@ class ConstructTest extends TestCase
         $this->assertSame((int)$ts, $time->getTimestamp());
     }
 
-    public function testCreatesAnInstanceDefaultToNow()
+    public function testCreatesAnInstanceDefaultToNow(): void
     {
         $c = new Chronos();
         $now = Chronos::now();
@@ -49,7 +49,7 @@ class ConstructTest extends TestCase
         $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    public function testParseCreatesAnInstanceDefaultToNow()
+    public function testParseCreatesAnInstanceDefaultToNow(): void
     {
         $c = Chronos::parse();
         $now = Chronos::now();
@@ -58,25 +58,25 @@ class ConstructTest extends TestCase
         $this->assertDateTime($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
-    public function testWithFancyString()
+    public function testWithFancyString(): void
     {
         $c = new Chronos('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    public function testParseWithFancyString()
+    public function testParseWithFancyString(): void
     {
         $c = Chronos::parse('first day of January 2008');
         $this->assertDateTime($c, 2008, 1, 1, 0, 0, 0);
     }
 
-    public function testDefaultTimezone()
+    public function testDefaultTimezone(): void
     {
         $c = new Chronos('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    public function testConstructWithMicrosecondsAndOffset()
+    public function testConstructWithMicrosecondsAndOffset(): void
     {
         $c = new Chronos('2014-09-29 18:24:54.591767+02:00');
         $this->assertDateTime($c, 2014, 9, 29, 18, 24, 54);
@@ -84,13 +84,13 @@ class ConstructTest extends TestCase
         $this->assertSame('+02:00', $c->getTimezone()->getName());
     }
 
-    public function testParseWithDefaultTimezone()
+    public function testParseWithDefaultTimezone(): void
     {
         $c = Chronos::parse('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
 
-    public function testSettingTimezone()
+    public function testSettingTimezone(): void
     {
         $timezone = 'Europe/London';
         $dtz = new DateTimeZone($timezone);
@@ -102,7 +102,7 @@ class ConstructTest extends TestCase
         $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testParseSettingTimezone()
+    public function testParseSettingTimezone(): void
     {
         $timezone = 'Europe/London';
         $dtz = new DateTimeZone($timezone);
@@ -114,7 +114,7 @@ class ConstructTest extends TestCase
         $this->assertSame($dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testSettingTimezoneWithString()
+    public function testSettingTimezoneWithString(): void
     {
         $timezone = 'Asia/Tokyo';
         $dtz = new DateTimeZone($timezone);
@@ -126,7 +126,7 @@ class ConstructTest extends TestCase
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testParseSettingTimezoneWithString()
+    public function testParseSettingTimezoneWithString(): void
     {
         $timezone = 'Asia/Tokyo';
         $dtz = new DateTimeZone($timezone);
@@ -138,21 +138,21 @@ class ConstructTest extends TestCase
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
-    public function testCreateFromExistingInstance()
+    public function testCreateFromExistingInstance(): void
     {
         $existingClass = new Chronos();
         $newClass = new Chronos($existingClass);
         $this->assertSame((string)$existingClass, (string)$newClass);
     }
 
-    public function testCreateFromChronosDate()
+    public function testCreateFromChronosDate(): void
     {
         $date = new ChronosDate('2021-01-01');
         $chronos = new Chronos($date);
         $this->assertSame('2021-01-01 00:00:00', $chronos->format('Y-m-d H:i:s'));
     }
 
-    public function testCreateFromChronosTime()
+    public function testCreateFromChronosTime(): void
     {
         $time = new ChronosTime('20:14:12.123456');
         $chronos = new Chronos($time);
@@ -170,7 +170,7 @@ class ConstructTest extends TestCase
         $this->assertSame('Asia/Tokyo', $chronos->tzName);
     }
 
-    public function testCreateFromDateTimeInterface()
+    public function testCreateFromDateTimeInterface(): void
     {
         $existingClass = new DateTimeImmutable();
         $newClass = new Chronos($existingClass);

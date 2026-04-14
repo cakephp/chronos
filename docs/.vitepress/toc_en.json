@@ -1,11 +1,37 @@
 {
   "/": [
     {
-      "text": "CakePHP Chronos",
+      "text": "Getting Started",
       "collapsed": false,
       "items": [
-        { "text": "Introduction", "link": "/index" },
-        { "text": "3.x Migration Guide", "link": "/3-x-migration-guide" },
+        { "text": "Creating Instances", "link": "/creating-instances" },
+        { "text": "3.x Migration Guide", "link": "/3-x-migration-guide" }
+      ]
+    },
+    {
+      "text": "Working with Chronos",
+      "collapsed": false,
+      "items": [
+        { "text": "Modifying Values", "link": "/modifying" },
+        { "text": "Comparing Values", "link": "/comparing" },
+        { "text": "Formatting & Output", "link": "/formatting" }
+      ]
+    },
+    {
+      "text": "Other Classes",
+      "collapsed": false,
+      "items": [
+        { "text": "ChronosDate", "link": "/chronos-date" },
+        { "text": "ChronosTime", "link": "/chronos-time" },
+        { "text": "Periods & Intervals", "link": "/periods-and-intervals" }
+      ]
+    },
+    {
+      "text": "Advanced",
+      "collapsed": false,
+      "items": [
+        { "text": "Testing", "link": "/testing" },
+        { "text": "Configuration", "link": "/configuration" },
         { "text": "API", "link": "https://api.cakephp.org/chronos" }
       ]
     }

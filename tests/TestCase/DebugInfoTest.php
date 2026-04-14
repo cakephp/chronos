@@ -19,7 +19,7 @@ use Cake\Chronos\ChronosDate;
 
 class DebugInfoTest extends TestCase
 {
-    public function testDateTime()
+    public function testDateTime(): void
     {
         $expected = [
             'hasFixedNow' => false,
@@ -31,18 +31,18 @@ class DebugInfoTest extends TestCase
         $this->assertSame($expected, $chronos->__debugInfo());
     }
 
-    public function testDate()
+    public function testDate(): void
     {
         $expected = [
             'hasFixedNow' => false,
             'date' => '2001-02-03',
         ];
 
-        $date = ChronosDate::create(2001, 2, 3, 10, 20, 30);
+        $date = ChronosDate::create(2001, 2, 3);
         $this->assertSame($expected, $date->__debugInfo());
     }
 
-    public function testDateTimeWithNow()
+    public function testDateTimeWithNow(): void
     {
         $expected = [
             'hasFixedNow' => true,
@@ -55,7 +55,7 @@ class DebugInfoTest extends TestCase
         $this->assertSame($expected, $chronos->__debugInfo());
     }
 
-    public function testDateWithNow()
+    public function testDateWithNow(): void
     {
         $expected = [
             'hasFixedNow' => true,
@@ -63,7 +63,7 @@ class DebugInfoTest extends TestCase
         ];
 
         Chronos::setTestNow(Chronos::now());
-        $date = ChronosDate::create(2001, 2, 3, 10, 20, 30);
+        $date = ChronosDate::create(2001, 2, 3);
         $this->assertSame($expected, $date->__debugInfo());
     }
 }

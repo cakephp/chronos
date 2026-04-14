@@ -19,3 +19,4 @@ jobs:
         with:
           git_remote_url: 'ssh://dokku@apps.cakephp.org:22/chronos-docs-3'
           ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+          branch: '3.x'

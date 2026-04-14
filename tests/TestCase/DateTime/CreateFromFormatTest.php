@@ -22,34 +22,34 @@ use InvalidArgumentException;
 
 class CreateFromFormatTest extends TestCase
 {
-    public function testCreateFromFormatReturnsInstance()
+    public function testCreateFromFormatReturnsInstance(): void
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
         $this->assertTrue($d instanceof Chronos);
     }
 
-    public function testCreateFromFormatWithTimezoneString()
+    public function testCreateFromFormatWithTimezoneString(): void
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithTimezone()
+    public function testCreateFromFormatWithTimezone(): void
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithMillis()
+    public function testCreateFromFormatWithMillis(): void
     {
         $d = Chronos::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
         $this->assertSame(254687, $d->micro);
     }
 
-    public function testCreateFromFormatInvalidFormat()
+    public function testCreateFromFormatInvalidFormat(): void
     {
         $parseException = null;
         try {
@@ -63,7 +63,7 @@ class CreateFromFormatTest extends TestCase
         $this->assertNotEmpty(Chronos::getLastErrors()['errors']);
     }
 
-    public function testCreateFromFormatDoesNotUseTestNow()
+    public function testCreateFromFormatDoesNotUseTestNow(): void
     {
         // createFromFormat should not use testNow - it should behave like PHP's native method
         Chronos::setTestNow(new Chronos('2020-12-01 14:30:45'));

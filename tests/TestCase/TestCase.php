@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    private $saveTz;
+    private string $saveTz;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         date_default_timezone_set($this->saveTz);
-        Chronos::setTestNow(null);
+        Chronos::setTestNow();
     }
 
     protected function assertTime($d, $hour, $minute, $second = null, $microsecond = null)
@@ -142,12 +142,12 @@ abstract class TestCase extends BaseTestCase
 
         $previousHandler = set_error_handler(
             function ($code, $message, $file, $line, $context = null) use (&$previousHandler, &$deprecation): bool {
-                if ($code == E_USER_DEPRECATED) {
+                if ($code === E_USER_DEPRECATED) {
                     $deprecation = true;
 
                     return true;
                 }
-                if ($previousHandler) {
+                if ($previousHandler !== null) {
                     return $previousHandler($code, $message, $file, $line, $context);
                 }
 
