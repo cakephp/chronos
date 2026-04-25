@@ -445,24 +445,26 @@ class ChronosTime implements Stringable
      */
     public function modify(string $modifier): static
     {
-        $pattern = '/^(?:\s*[+-]?\s*\d+\s*(?:hour|minute|second|microsecond)s?\s*)+$/i';
-        if (!preg_match($pattern, $modifier)) {
+        if (!preg_match('/^(?:\s*[+-]?\s*\d+\s*(?:hour|minute|second|microsecond)s?\s*)+$/i', $modifier)) {
             throw new InvalidArgumentException(
                 sprintf('Modifier `%s` is not a valid ChronosTime modifier.', $modifier),
             );
         }
 
-        $base = new DateTimeImmutable('1970-01-01 00:00:00', new DateTimeZone('UTC'));
-        $modified = $base->modify($modifier);
-        if ($modified === false) {
-            throw new InvalidArgumentException(
-                sprintf('Unable to apply modifier `%s` to ChronosTime.', $modifier),
-            );
-        }
+        $unitTicks = [
+            'hour' => self::TICKS_PER_HOUR,
+            'minute' => self::TICKS_PER_MINUTE,
+            'second' => self::TICKS_PER_SECOND,
+            'microsecond' => self::TICKS_PER_MICROSECOND,
+        ];
 
-        $deltaSeconds = $modified->getTimestamp() - $base->getTimestamp();
-        $deltaMicros = (int)$modified->format('u') - (int)$base->format('u');
-        $deltaTicks = $deltaSeconds * self::TICKS_PER_SECOND + $deltaMicros * self::TICKS_PER_MICROSECOND;
+        preg_match_all('/([+-]?\s*\d+)\s*(hour|minute|second|microsecond)s?/i', $modifier, $matches, PREG_SET_ORDER);
+
+        $deltaTicks = 0;
+        foreach ($matches as $match) {
+            $value = (int)preg_replace('/\s+/', '', $match[1]);
+            $deltaTicks += $value * $unitTicks[strtolower($match[2])];
+        }
 
         return $this->addTicks($deltaTicks);
     }

@@ -488,6 +488,29 @@ class ChronosTimeTest extends TestCase
         );
     }
 
+    public function testModifyCompound(): void
+    {
+        $this->assertSame(
+            '11:50:00.000000',
+            ChronosTime::parse('10:00:00')->modify('+2 hours -10 minutes')->format('H:i:s.u'),
+        );
+        $this->assertSame(
+            '10:20:30.654321',
+            ChronosTime::parse('10:20:30.123456')->modify('+530865 microseconds')->format('H:i:s.u'),
+        );
+    }
+
+    public function testModifyDoesNotOverflowOn32Bit(): void
+    {
+        // A modifier exceeding 2^31 seconds (~68 years) would overflow
+        // DateTimeImmutable::getTimestamp() on 32-bit PHP. Parsing the
+        // modifier directly avoids the round-trip entirely.
+        $this->assertSame(
+            '00:00:00.000000',
+            ChronosTime::midnight()->modify('+2400000 hours')->format('H:i:s.u'),
+        );
+    }
+
     public function testModifyInvalid(): void
     {
         $this->expectException(InvalidArgumentException::class);
