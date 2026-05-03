@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Cake\Chronos;
 
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -349,6 +350,307 @@ class ChronosTime implements Stringable
         $clone->ticks = $endTicks;
 
         return $clone;
+    }
+
+    /**
+     * Returns a new instance with the given number of hours added.
+     *
+     * Arithmetic wraps around midnight: adding 2 hours to 23:00:00
+     * yields 01:00:00; subtracting 2 hours from 00:00:00 yields 22:00:00.
+     *
+     * @param int $value Hours to add
+     * @return static
+     */
+    public function addHours(int $value): static
+    {
+        return $this->addTicks($value * self::TICKS_PER_HOUR);
+    }
+
+    /**
+     * Returns a new instance with the given number of hours subtracted.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
+     * @param int $value Hours to subtract
+     * @return static
+     */
+    public function subHours(int $value): static
+    {
+        return $this->addTicks(-$value * self::TICKS_PER_HOUR);
+    }
+
+    /**
+     * Returns a new instance with the given number of minutes added.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
+     * @param int $value Minutes to add
+     * @return static
+     */
+    public function addMinutes(int $value): static
+    {
+        return $this->addTicks($value * self::TICKS_PER_MINUTE);
+    }
+
+    /**
+     * Returns a new instance with the given number of minutes subtracted.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
+     * @param int $value Minutes to subtract
+     * @return static
+     */
+    public function subMinutes(int $value): static
+    {
+        return $this->addTicks(-$value * self::TICKS_PER_MINUTE);
+    }
+
+    /**
+     * Returns a new instance with the given number of seconds added.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
+     * @param int $value Seconds to add
+     * @return static
+     */
+    public function addSeconds(int $value): static
+    {
+        return $this->addTicks($value * self::TICKS_PER_SECOND);
+    }
+
+    /**
+     * Returns a new instance with the given number of seconds subtracted.
+     *
+     * Wraps around midnight like {@see self::addHours()}.
+     *
+     * @param int $value Seconds to subtract
+     * @return static
+     */
+    public function subSeconds(int $value): static
+    {
+        return $this->addTicks(-$value * self::TICKS_PER_SECOND);
+    }
+
+    /**
+     * Applies a date/time modifier string.
+     *
+     * Only time-component modifiers are accepted: combinations of signed
+     * integers followed by `hour(s)`, `minute(s)`, `second(s)`, or
+     * `microsecond(s)`. Date components (`day`, `week`, `month`, `year`)
+     * are not allowed and will throw. The result wraps around midnight.
+     *
+     * @param string $modifier Modifier string (e.g. `+2 hours`, `-30 minutes`)
+     * @return static
+     * @throws \InvalidArgumentException When the modifier is invalid or contains date units.
+     */
+    public function modify(string $modifier): static
+    {
+        if (!preg_match('/^(?:\s*[+-]?\s*\d+\s*(?:hour|minute|second|microsecond)s?\s*)+$/i', $modifier)) {
+            throw new InvalidArgumentException(
+                sprintf('Modifier `%s` is not a valid ChronosTime modifier.', $modifier),
+            );
+        }
+
+        $unitTicks = [
+            'hour' => self::TICKS_PER_HOUR,
+            'minute' => self::TICKS_PER_MINUTE,
+            'second' => self::TICKS_PER_SECOND,
+            'microsecond' => self::TICKS_PER_MICROSECOND,
+        ];
+
+        preg_match_all('/([+-]?\s*\d+)\s*(hour|minute|second|microsecond)s?/i', $modifier, $matches, PREG_SET_ORDER);
+
+        $deltaTicks = 0;
+        foreach ($matches as $match) {
+            $value = (int)preg_replace('/\s+/', '', $match[1]);
+            $deltaTicks += $value * $unitTicks[strtolower($match[2])];
+        }
+
+        return $this->addTicks($deltaTicks);
+    }
+
+    /**
+     * Returns the number of whole seconds since midnight.
+     *
+     * @return int
+     */
+    public function secondsSinceMidnight(): int
+    {
+        return intdiv($this->ticks, self::TICKS_PER_SECOND);
+    }
+
+    /**
+     * Returns the difference between this time and a target time as a DateInterval.
+     *
+     * Matches the signature of `DateTimeInterface::diff()` — defaults to a
+     * signed interval. Pass `$absolute = true` to drop the sign.
+     *
+     * @param \Cake\Chronos\ChronosTime $target Target time
+     * @param bool $absolute Whether to return an absolute interval
+     * @return \DateInterval
+     */
+    public function diff(ChronosTime $target, bool $absolute = false): DateInterval
+    {
+        $timezone = new DateTimeZone('UTC');
+        $a = new DateTimeImmutable('1970-01-01 ' . $this->format('H:i:s.u'), $timezone);
+        $b = new DateTimeImmutable('1970-01-01 ' . $target->format('H:i:s.u'), $timezone);
+
+        return $a->diff($b, $absolute);
+    }
+
+    /**
+     * Returns the difference in whole hours between this time and another.
+     *
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @param bool $absolute Whether to return an absolute value
+     * @return int
+     */
+    public function diffInHours(?ChronosTime $other = null, bool $absolute = true): int
+    {
+        return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_HOUR);
+    }
+
+    /**
+     * Returns the difference in whole minutes between this time and another.
+     *
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @param bool $absolute Whether to return an absolute value
+     * @return int
+     */
+    public function diffInMinutes(?ChronosTime $other = null, bool $absolute = true): int
+    {
+        return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_MINUTE);
+    }
+
+    /**
+     * Returns the difference in whole seconds between this time and another.
+     *
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @param bool $absolute Whether to return an absolute value
+     * @return int
+     */
+    public function diffInSeconds(?ChronosTime $other = null, bool $absolute = true): int
+    {
+        return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_SECOND);
+    }
+
+    /**
+     * Returns the ChronosTime closest to this instance.
+     *
+     * @param \Cake\Chronos\ChronosTime $first First candidate
+     * @param \Cake\Chronos\ChronosTime $second Second candidate
+     * @param \Cake\Chronos\ChronosTime ...$others Additional candidates
+     * @return static
+     */
+    public function closest(ChronosTime $first, ChronosTime $second, ChronosTime ...$others): static
+    {
+        $closest = $first;
+        $distance = abs($this->ticks - $first->ticks);
+        foreach ([$second, ...$others] as $candidate) {
+            $candidateDistance = abs($this->ticks - $candidate->ticks);
+            if ($candidateDistance < $distance) {
+                $closest = $candidate;
+                $distance = $candidateDistance;
+            }
+        }
+
+        $clone = clone $this;
+        $clone->ticks = $closest->ticks;
+
+        return $clone;
+    }
+
+    /**
+     * Returns the ChronosTime farthest from this instance.
+     *
+     * @param \Cake\Chronos\ChronosTime $first First candidate
+     * @param \Cake\Chronos\ChronosTime $second Second candidate
+     * @param \Cake\Chronos\ChronosTime ...$others Additional candidates
+     * @return static
+     */
+    public function farthest(ChronosTime $first, ChronosTime $second, ChronosTime ...$others): static
+    {
+        $farthest = $first;
+        $distance = abs($this->ticks - $first->ticks);
+        foreach ([$second, ...$others] as $candidate) {
+            $candidateDistance = abs($this->ticks - $candidate->ticks);
+            if ($candidateDistance > $distance) {
+                $farthest = $candidate;
+                $distance = $candidateDistance;
+            }
+        }
+
+        $clone = clone $this;
+        $clone->ticks = $farthest->ticks;
+
+        return $clone;
+    }
+
+    /**
+     * Returns the smaller of this instance and the other.
+     *
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @return static
+     */
+    public function min(?ChronosTime $other = null): static
+    {
+        $other ??= static::now();
+
+        return $this->lessThan($other) ? $this : $this->withTicks($other->ticks);
+    }
+
+    /**
+     * Returns the larger of this instance and the other.
+     *
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @return static
+     */
+    public function max(?ChronosTime $other = null): static
+    {
+        $other ??= static::now();
+
+        return $this->greaterThan($other) ? $this : $this->withTicks($other->ticks);
+    }
+
+    /**
+     * Adds a tick (microsecond) delta and wraps into [0, TICKS_PER_DAY).
+     *
+     * @param int $delta Delta to add
+     * @return static
+     */
+    protected function addTicks(int $delta): static
+    {
+        $clone = clone $this;
+        $clone->ticks = static::mod($this->ticks + $delta, self::TICKS_PER_DAY);
+
+        return $clone;
+    }
+
+    /**
+     * Returns a clone with the given absolute tick value.
+     *
+     * @param int $ticks Ticks value
+     * @return static
+     */
+    protected function withTicks(int $ticks): static
+    {
+        $clone = clone $this;
+        $clone->ticks = $ticks;
+
+        return $clone;
+    }
+
+    /**
+     * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
+     * @param bool $absolute Whether to return an absolute value
+     * @return int
+     */
+    protected function diffInTicks(?ChronosTime $other, bool $absolute): int
+    {
+        $other ??= static::now();
+        $delta = $other->ticks - $this->ticks;
+
+        return $absolute ? abs($delta) : $delta;
     }
 
     /**

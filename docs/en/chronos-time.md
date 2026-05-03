@@ -58,6 +58,115 @@ $time->startOfHour();  // 14:00:00
 $time->endOfHour();    // 14:59:59
 ```
 
+## Arithmetic
+
+`ChronosTime` supports adding and subtracting hours, minutes and seconds.
+All operations return a new instance (ChronosTime is immutable) and **wrap
+around midnight** — adding 2 hours to 23:00 yields 01:00, and subtracting
+2 hours from 00:00 yields 22:00. This matches the existing setter
+behavior.
+
+```php
+$time = ChronosTime::parse('10:20:30');
+
+$time->addHours(2);     // 12:20:30
+$time->subHours(2);     // 08:20:30
+$time->addMinutes(15);  // 10:35:30
+$time->subMinutes(15);  // 10:05:30
+$time->addSeconds(30);  // 10:21:00
+$time->subSeconds(30);  // 10:20:00
+
+// Wraps around midnight
+ChronosTime::parse('23:00:00')->addHours(2);  // 01:00:00
+ChronosTime::parse('00:00:00')->subHours(2);  // 22:00:00
+```
+
+## Modifying
+
+`modify()` accepts the same kind of relative string PHP's
+`DateTimeImmutable::modify()` does, but **only** for time-of-day units
+(`hour`, `minute`, `second`, `microsecond`). Date units like `day`,
+`week`, `month` or keywords like `next monday` throw
+`InvalidArgumentException` — they don't have a meaning on a date-less
+value.
+
+```php
+$time = ChronosTime::parse('10:20:30');
+
+$time->modify('+2 hours');    // 12:20:30
+$time->modify('-30 minutes'); // 09:50:30
+$time->modify('+5 seconds');  // 10:20:35
+
+// Throws InvalidArgumentException
+$time->modify('+1 day');
+$time->modify('next monday');
+```
+
+## Differences
+
+Compute the difference between two times as either a `DateInterval` or an
+integer count of hours/minutes/seconds.
+
+`diff()` mirrors `DateTimeInterface::diff()` — the default is a **signed**
+interval; pass `$absolute = true` to drop the sign. The `diffIn*()`
+methods, matching the Chronos convention, default to **absolute** and
+return the sign relative to `$this` (positive when the target is later).
+
+```php
+$t1 = ChronosTime::parse('10:00:00');
+$t2 = ChronosTime::parse('12:30:45');
+
+$interval = $t1->diff($t2);         // DateInterval: 2h 30m 45s
+$interval = $t2->diff($t1);         // DateInterval: 2h 30m 45s, invert=1
+$interval = $t2->diff($t1, true);   // DateInterval: 2h 30m 45s, invert=0
+
+$t1->diffInHours($t2);              // 2
+$t1->diffInMinutes($t2);            // 150
+$t1->diffInSeconds($t2);            // 9045
+
+// Signed difference relative to $this
+$t1->diffInHours($t2, absolute: false);   //  2
+$t2->diffInHours($t1, absolute: false);   // -2
+
+// $other defaults to now()
+$time = ChronosTime::parse('10:00:00');
+$time->diffInMinutes();                   // minutes between 10:00:00 and now
+```
+
+`secondsSinceMidnight()` returns the whole-second offset from the start
+of the day:
+
+```php
+ChronosTime::parse('12:30:45')->secondsSinceMidnight();  // 45045
+```
+
+## Finding closest / smallest / largest
+
+```php
+$base = ChronosTime::parse('10:00:00');
+
+$base->closest(
+    ChronosTime::parse('09:50:00'),
+    ChronosTime::parse('10:30:00'),
+    ChronosTime::parse('11:00:00'),
+);  // 09:50:00
+
+$base->farthest(
+    ChronosTime::parse('09:50:00'),
+    ChronosTime::parse('10:30:00'),
+    ChronosTime::parse('12:00:00'),
+);  // 12:00:00
+
+$a = ChronosTime::parse('10:00:00');
+$b = ChronosTime::parse('12:00:00');
+
+$a->min($b);  // 10:00:00
+$a->max($b);  // 12:00:00
+```
+
+`min()` and `max()` default their argument to `ChronosTime::now()` when
+called without one.
+
 ## Comparisons
 
 ChronosTime provides comparison methods similar to Chronos:

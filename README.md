@@ -87,10 +87,11 @@ use Cake\Chronos\ChronosTime;
 $time = new ChronosTime('14:30:00');
 echo $time->format('g:i A'); // 2:30 PM
 
-// Create from components
-$time = ChronosTime::create(14, 30, 0);
+// Parse or build from parts
+$time = ChronosTime::parse('14:30:00');
+$time = ChronosTime::midnight()->setTime(14, 30, 0);
 
-// Arithmetic
+// Arithmetic (wraps around midnight)
 $later = $time->addHours(2)->addMinutes(15);
 ```
 
