@@ -210,7 +210,7 @@ $time->isWithinNext('3 hours');
 In addition to comparing datetimes, calculating differences or deltas between
 two values is a common task:
 ```php
-// Get a DateInterval representing the difference
+// Get a ChronosInterval representing the difference
 $first->diff($second);
 
 // Get difference as a count of specific units.
@@ -229,6 +229,55 @@ echo $date->diffForHumans();
 // Difference from another point in time.
 echo $date->diffForHumans($other); // 1 hour ago;
 ```
+
+## Working with Intervals
+
+`Chronos::diff()`, `ChronosDate::diff()` and `Chronos::fromNow()` return a
+`ChronosInterval`. It decorates the native `DateInterval`, so all the usual
+properties (`y`, `m`, `d`, `h`, `i`, `s`, `f`, `invert`, `days`) keep working
+while adding convenience methods on top:
+```php
+$interval = $first->diff($second);
+
+// ISO 8601 duration string. __toString() returns the same value.
+echo $interval->toIso8601String(); // P1Y2M3D
+echo $interval;                    // P1Y2M3D
+
+// Totals. totalDays() is exact when the interval comes from diff();
+// totalSeconds() approximates using 30-day months and 365-day years.
+$interval->totalDays();
+$interval->totalSeconds();
+
+// State checks.
+$interval->isZero();
+$interval->isNegative();
+
+// A strtotime()-compatible relative string.
+echo $interval->toDateString(); // 1 year 2 months 3 days
+
+// Component-wise arithmetic (no overflow normalization).
+$interval->add($other);
+$interval->sub($other);
+```
+You can also build intervals directly:
+```php
+use Cake\Chronos\ChronosInterval;
+
+ChronosInterval::create('P1Y2M3D');
+ChronosInterval::createFromValues(years: 1, months: 2, days: 3);
+ChronosInterval::createFromDateString('1 year 2 days');
+ChronosInterval::instance($dateInterval);
+```
+When an API requires a native `DateInterval`, call `toNative()`:
+```php
+$native = $first->diff($second)->toNative();
+```
+
+> [!NOTE]
+> `ChronosInterval` is a decorator and does **not** extend `DateInterval`, so
+> code that type-hints `DateInterval` or relies on `instanceof DateInterval`
+> against the result of `diff()`/`fromNow()` must call `->toNative()` to get
+> the wrapped `DateInterval` back.
 
 ## Formatting Strings
 
