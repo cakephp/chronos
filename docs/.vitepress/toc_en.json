@@ -5,6 +5,7 @@
       "collapsed": false,
       "items": [
         { "text": "Introduction", "link": "/index" },
+        { "text": "4.x Migration Guide", "link": "/4-x-migration-guide" },
         { "text": "3.x Migration Guide", "link": "/3-x-migration-guide" },
         { "text": "API", "link": "https://api.cakephp.org/chronos" }
       ]
