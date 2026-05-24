@@ -232,6 +232,10 @@ echo $date->diffForHumans($other); // 1 hour ago;
 
 ## Working with Intervals
 
+> [!TIP] Changed in 4.x
+> `diff()` and `fromNow()` previously returned a native `DateInterval`. See the
+> [4.x Migration Guide](/4-x-migration-guide).
+
 `Chronos::diff()`, `ChronosDate::diff()` and `Chronos::fromNow()` return a
 `ChronosInterval`. It decorates the native `DateInterval`, so all the usual
 properties (`y`, `m`, `d`, `h`, `i`, `s`, `f`, `invert`, `days`) keep working
