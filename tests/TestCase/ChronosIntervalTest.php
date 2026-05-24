@@ -15,11 +15,32 @@ declare(strict_types=1);
 namespace Cake\Chronos\Test\TestCase;
 
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Cake\Chronos\ChronosInterval;
 use DateInterval;
 
 class ChronosIntervalTest extends TestCase
 {
+    public function testChronosDiffReturnsChronosInterval(): void
+    {
+        $start = new Chronos('2020-01-01');
+        $end = new Chronos('2020-01-11');
+        $diff = $start->diff($end);
+
+        $this->assertInstanceOf(ChronosInterval::class, $diff);
+        $this->assertSame(10, $diff->d);
+    }
+
+    public function testChronosDateDiffReturnsChronosInterval(): void
+    {
+        $start = ChronosDate::create(2020, 1, 1);
+        $end = ChronosDate::create(2020, 1, 11);
+        $diff = $start->diff($end);
+
+        $this->assertInstanceOf(ChronosInterval::class, $diff);
+        $this->assertSame(10, $diff->d);
+    }
+
     public function testCreateFromSpec(): void
     {
         $interval = ChronosInterval::create('P1Y2M3D');
@@ -88,10 +109,8 @@ class ChronosIntervalTest extends TestCase
     {
         $past = new Chronos('2020-01-01');
         $future = new Chronos('2021-02-02');
-        $diff = $past->diff($future);
-        $diff->invert = 1;
+        $interval = $future->diff($past);
 
-        $interval = ChronosInterval::instance($diff);
         $this->assertStringStartsWith('-P', $interval->toIso8601String());
     }
 
@@ -123,9 +142,8 @@ class ChronosIntervalTest extends TestCase
     {
         $start = new Chronos('2020-01-01');
         $end = new Chronos('2020-01-11');
-        $diff = $start->diff($end);
+        $interval = $start->diff($end);
 
-        $interval = ChronosInterval::instance($diff);
         $this->assertSame(10, $interval->totalDays());
     }
 
@@ -136,9 +154,8 @@ class ChronosIntervalTest extends TestCase
 
         $past = new Chronos('2020-01-01');
         $future = new Chronos('2020-01-02');
-        $diff = $future->diff($past);
+        $interval = $future->diff($past);
 
-        $interval = ChronosInterval::instance($diff);
         $this->assertTrue($interval->isNegative());
     }
 
@@ -296,9 +313,8 @@ class ChronosIntervalTest extends TestCase
     {
         $past = new Chronos('2020-01-01');
         $future = new Chronos('2020-01-02');
-        $diff = $future->diff($past);
+        $interval = $future->diff($past);
 
-        $interval = ChronosInterval::instance($diff);
         $this->assertStringStartsWith('-', $interval->toDateString());
     }
 
