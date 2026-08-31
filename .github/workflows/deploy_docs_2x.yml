@@ -5,6 +5,9 @@ on:
     branches:
       - 2.x
 
+permissions:
+    contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/github-action@master
+        uses: dokku/github-action@cc7dec1d2b9fed249a14ae462bc953bba436f78c # v1.10.0
         with:
           git_remote_url: 'ssh://dokku@apps.cakephp.org:22/chronos-docs-2'
           ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
