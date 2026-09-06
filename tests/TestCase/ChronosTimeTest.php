@@ -53,6 +53,19 @@ class ChronosTimeTest extends TestCase
         $this->assertSame('00:59:59.999999', $t->format('H:i:s.u'));
     }
 
+    public function testConstructFromStringWithFractionalSeconds(): void
+    {
+        // The fractional part is a fraction of a second, matching DateTime.
+        $t = new ChronosTime('12:00:00.5');
+        $this->assertSame('12:00:00.500000', $t->format('H:i:s.u'));
+
+        $t = new ChronosTime('12:00:00.05');
+        $this->assertSame('12:00:00.050000', $t->format('H:i:s.u'));
+
+        $t = new ChronosTime('12:00:00.000005');
+        $this->assertSame('12:00:00.000005', $t->format('H:i:s.u'));
+    }
+
     public function testConstructFromInstance(): void
     {
         $t = new ChronosTime(new DateTimeImmutable('23:59:59.999999'));

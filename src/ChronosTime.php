@@ -122,7 +122,9 @@ class ChronosTime implements Stringable
         $hours = (int)$matches[1];
         $minutes = (int)$matches[2];
         $seconds = (int)($matches[3] ?? 0);
-        $microseconds = (int)substr($matches[4] ?? '', 0, 6);
+        // The fraction is of a second, so pad on the right to microseconds:
+        // without it ".5" reads as 5us instead of 500000 (half a second).
+        $microseconds = (int)str_pad(substr($matches[4] ?? '', 0, 6), 6, '0', STR_PAD_RIGHT);
 
         if ($hours > 24 || $minutes > 59 || $seconds > 59 || $microseconds > 999_999) {
             throw new InvalidArgumentException(sprintf('Time string `%s` contains invalid values.', $time));
