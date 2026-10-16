@@ -300,7 +300,7 @@ class ChronosDate implements Stringable
      */
     public function add(DateInterval $interval): static
     {
-        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+        if ($interval->f != 0 || $interval->s !== 0 || $interval->i !== 0 || $interval->h !== 0) {
             throw new InvalidArgumentException('Cannot add intervals with time components');
         }
         $new = clone $this;
@@ -319,7 +319,7 @@ class ChronosDate implements Stringable
      */
     public function sub(DateInterval $interval): static
     {
-        if ($interval->f > 0 || $interval->s > 0 || $interval->i > 0 || $interval->h > 0) {
+        if ($interval->f != 0 || $interval->s !== 0 || $interval->i !== 0 || $interval->h !== 0) {
             throw new InvalidArgumentException('Cannot subtract intervals with time components');
         }
         $new = clone $this;
@@ -338,7 +338,21 @@ class ChronosDate implements Stringable
      */
     public function modify(string $modifier): static
     {
-        if (preg_match('/hour|minute|second/', $modifier)) {
+        $parsed = date_parse($modifier);
+        $relative = $parsed['relative'] ?? [];
+        $timestampSeconds = 0;
+        if (preg_match('/(?:^|\s)@(-?\d+)(?:\.\d+)?(?:\s|$)/', $modifier, $matches)) {
+            $timestampSeconds = (int)$matches[1];
+        }
+        if (
+            ($relative['hour'] ?? 0) !== 0 ||
+            ($relative['minute'] ?? 0) !== 0 ||
+            ($relative['second'] ?? 0) !== $timestampSeconds ||
+            preg_match(
+                '/(?<![[:alpha:]])(?:milliseconds?|microseconds?|msecs?|usecs?|µsecs?|ms|µs)(?![[:alpha:]])/iu',
+                $modifier,
+            )
+        ) {
             throw new InvalidArgumentException('Cannot modify date objects by time values');
         }
 
