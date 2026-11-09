@@ -339,16 +339,13 @@ class ChronosDate implements Stringable
     public function modify(string $modifier): static
     {
         // Validate before modifying: '+24 hours' or '1000 ms' leave no time-of-day trace afterwards.
-        $parsed = date_parse($modifier);
+        // date_parse() counts an @timestamp as relative seconds (negated by 'ago'), so strip it first.
+        $parsed = date_parse((string)preg_replace('/@-?\d+(?:\.\d+)?/', ' ', $modifier));
         $relative = $parsed['relative'] ?? [];
-        $timestampSeconds = 0;
-        if (preg_match('/@(-?\d+)/', $modifier, $matches)) {
-            $timestampSeconds = (int)$matches[1];
-        }
         if (
             ($relative['hour'] ?? 0) !== 0 ||
             ($relative['minute'] ?? 0) !== 0 ||
-            ($relative['second'] ?? 0) !== $timestampSeconds ||
+            ($relative['second'] ?? 0) !== 0 ||
             preg_match(
                 '/(?<![[:alpha:]])(?:milliseconds?|microseconds?|msecs?|usecs?|µsecs?|ms|µs)(?![[:alpha:]])/iu',
                 $modifier,

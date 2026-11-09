@@ -185,6 +185,32 @@ class AddTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
+    public static function timestampWithAgoProvider(): array
+    {
+        return [
+            'date component ago' => ['@86400 1 day ago', '1969-12-30'],
+            'bare ago' => ['@86400 ago', '1969-12-31'],
+            'ago before timestamp' => ['1 day ago @86400', '1970-01-01'],
+        ];
+    }
+
+    #[DataProvider('timestampWithAgoProvider')]
+    public function testModifyTimestampWithAgo(string $modifier, string $expected): void
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $this->assertSame($expected, $date->modify($modifier)->toDateString());
+    }
+
+    public function testModifyTimestampWithTimeComponentAgoError(): void
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $this->expectException(InvalidArgumentException::class);
+        $date->modify('@86400 10 seconds ago');
+    }
+
     #[DataProvider('timestampWithoutWhitespaceProvider')]
     public function testModifyTimestampWithoutWhitespace(string $modifier, string $expected): void
     {
