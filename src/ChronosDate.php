@@ -338,6 +338,7 @@ class ChronosDate implements Stringable
      */
     public function modify(string $modifier): static
     {
+        // Validate before modifying: '+24 hours' or '1000 ms' leave no time-of-day trace afterwards.
         $parsed = date_parse($modifier);
         $relative = $parsed['relative'] ?? [];
         $timestampSeconds = 0;
