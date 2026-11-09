@@ -342,7 +342,7 @@ class ChronosDate implements Stringable
         $parsed = date_parse($modifier);
         $relative = $parsed['relative'] ?? [];
         $timestampSeconds = 0;
-        if (preg_match('/(?:^|\s)@(-?\d+)(?:\.\d+)?(?:\s|$)/', $modifier, $matches)) {
+        if (preg_match('/@(-?\d+)/', $modifier, $matches)) {
             $timestampSeconds = (int)$matches[1];
         }
         if (

@@ -18,6 +18,7 @@ use Cake\Chronos\ChronosDate;
 use Cake\Chronos\Test\TestCase\TestCase;
 use DateInterval;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AddTest extends TestCase
 {
@@ -168,6 +169,34 @@ class AddTest extends TestCase
         $date = ChronosDate::create(2001, 1, 1);
         $new = $date->modify('@86400 +1 day');
         $this->assertSame('1970-01-03', $new->toDateString());
+    }
+
+    /**
+     * @return array<string, array{string, string}>
+     */
+    public static function timestampWithoutWhitespaceProvider(): array
+    {
+        return [
+            'relative suffix' => ['@86400+1 day', '1970-01-03'],
+            'zone abbreviation' => ['@86400UTC', '1970-01-02'],
+            'zone offset' => ['@86400+00:00', '1970-01-02'],
+            'negative timestamp' => ['@-86400+1 day', '1970-01-01'],
+            'relative prefix' => ['+1 day@86400', '1970-01-03'],
+        ];
+    }
+
+    #[DataProvider('timestampWithoutWhitespaceProvider')]
+    public function testModifyTimestampWithoutWhitespace(string $modifier, string $expected): void
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $this->assertSame($expected, $date->modify($modifier)->toDateString());
+    }
+
+    public function testModifyTimestampWithTimeComponentError(): void
+    {
+        $date = ChronosDate::create(2001, 1, 1);
+        $this->expectException(InvalidArgumentException::class);
+        $date->modify('@86400+10 seconds');
     }
 
     public function testModifyAcrossSkippedMidnight(): void
