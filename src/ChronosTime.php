@@ -855,7 +855,7 @@ class ChronosTime implements Stringable
     {
         $timezone = is_string($timezone) ? new DateTimeZone($timezone) : $timezone;
 
-        return (new DateTimeImmutable(timezone: $timezone))->setTime(
+        return new DateTimeImmutable(timezone: $timezone)->setTime(
             $this->getHours(),
             $this->getMinutes(),
             $this->getSeconds(),

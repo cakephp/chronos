@@ -15,6 +15,14 @@
       <code><![CDATA[$timezone]]></code>
     </MethodSignatureMismatch>
   </file>
+  <file src="src/ChronosDatePeriod.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[int]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->iterator->key()]]></code>
+    </NullableReturnStatement>
+  </file>
   <file src="src/ChronosInterval.php">
     <InaccessibleProperty>
       <code><![CDATA[$result->d]]></code>
@@ -32,5 +40,13 @@
       <code><![CDATA[$result->y]]></code>
       <code><![CDATA[$result->y]]></code>
     </InaccessibleProperty>
+  </file>
+  <file src="src/ChronosPeriod.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[int]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->iterator->key()]]></code>
+    </NullableReturnStatement>
   </file>
 </files>

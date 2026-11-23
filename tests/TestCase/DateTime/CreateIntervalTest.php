@@ -37,10 +37,10 @@ class CreateIntervalTest extends TestCase
         $i = Chronos::createInterval(days: 1, hours: 25, minutes: 61, seconds: 61, microseconds: 1_000_001);
         $this->assertDateInterval($i, days: 2, hours: 2, minutes: 2, seconds: 2, microseconds: 0.000001);
 
-        $i = Chronos::createInterval(days: null, hours: 25, minutes: null, seconds: null, microseconds: 1_000_001);
+        $i = Chronos::createInterval(hours: 25, microseconds: 1_000_001);
         $this->assertDateInterval($i, days: 1, hours: 1, minutes: 0, seconds: 1, microseconds: 0.000001);
 
-        $i = Chronos::createInterval(days: null, hours: null, minutes: 61, seconds: null, microseconds: null);
+        $i = Chronos::createInterval(minutes: 61);
         $this->assertDateInterval($i, days: 0, hours: 1, minutes: 1, seconds: 0, microseconds: 0.0);
     }
 }

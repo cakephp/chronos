@@ -244,7 +244,6 @@ trait FormattingTrait
      */
     public function toQuarter(): int
     {
-        /** @var int<1, 4> */
         return (int)ceil((int)$this->format('m') / 3);
     }
 

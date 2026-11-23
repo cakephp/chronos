@@ -76,9 +76,9 @@ class ChronosDatePeriod implements Iterator
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function key(): ?int
+    public function key(): int
     {
         return $this->iterator->key();
     }

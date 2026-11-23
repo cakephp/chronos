@@ -899,7 +899,6 @@ class Chronos extends DateTimeImmutable implements Stringable
      *
      * @param int|null $value Time unit value
      * @param int $max Time unit max value
-     * @return int|null
      */
     protected static function rolloverTime(?int &$value, int $max): ?int
     {
@@ -1739,9 +1738,7 @@ class Chronos extends DateTimeImmutable implements Stringable
      */
     public function next(?int $dayOfWeek = null): static
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
-        }
+        $dayOfWeek ??= $this->dayOfWeek;
 
         $day = static::$days[$dayOfWeek];
 
@@ -1760,9 +1757,7 @@ class Chronos extends DateTimeImmutable implements Stringable
      */
     public function previous(?int $dayOfWeek = null): static
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
-        }
+        $dayOfWeek ??= $this->dayOfWeek;
 
         $day = static::$days[$dayOfWeek];
 

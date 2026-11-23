@@ -818,9 +818,7 @@ class ChronosDate implements Stringable
      */
     public function next(?int $dayOfWeek = null): static
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
-        }
+        $dayOfWeek ??= $this->dayOfWeek;
 
         $day = static::$days[$dayOfWeek];
 
@@ -839,9 +837,7 @@ class ChronosDate implements Stringable
      */
     public function previous(?int $dayOfWeek = null): static
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
-        }
+        $dayOfWeek ??= $this->dayOfWeek;
 
         $day = static::$days[$dayOfWeek];
 

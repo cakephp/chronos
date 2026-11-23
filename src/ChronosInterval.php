@@ -95,6 +95,7 @@ class ChronosInterval implements Stringable
     public int|false $days {
         get => $this->interval->days;
     }
+
     // phpcs:enable
 
     /**
