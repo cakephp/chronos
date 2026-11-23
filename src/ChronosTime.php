@@ -64,7 +64,7 @@ class ChronosTime implements Stringable
      * The widened type allows subclasses to use IntlDateFormatter constants
      * while maintaining backward compatibility.
      *
-     * @var array|string|int
+     * @var array<int>|string|int
      */
     protected static array|string|int $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
@@ -496,7 +496,7 @@ class ChronosTime implements Stringable
      * @param bool $absolute Whether to return an absolute interval
      * @return \DateInterval
      */
-    public function diff(ChronosTime $target, bool $absolute = false): DateInterval
+    public function diff(self $target, bool $absolute = false): DateInterval
     {
         $timezone = new DateTimeZone('UTC');
         $a = new DateTimeImmutable('1970-01-01 ' . $this->format('H:i:s.u'), $timezone);
@@ -512,7 +512,7 @@ class ChronosTime implements Stringable
      * @param bool $absolute Whether to return an absolute value
      * @return int
      */
-    public function diffInHours(?ChronosTime $other = null, bool $absolute = true): int
+    public function diffInHours(?self $other = null, bool $absolute = true): int
     {
         return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_HOUR);
     }
@@ -524,7 +524,7 @@ class ChronosTime implements Stringable
      * @param bool $absolute Whether to return an absolute value
      * @return int
      */
-    public function diffInMinutes(?ChronosTime $other = null, bool $absolute = true): int
+    public function diffInMinutes(?self $other = null, bool $absolute = true): int
     {
         return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_MINUTE);
     }
@@ -536,7 +536,7 @@ class ChronosTime implements Stringable
      * @param bool $absolute Whether to return an absolute value
      * @return int
      */
-    public function diffInSeconds(?ChronosTime $other = null, bool $absolute = true): int
+    public function diffInSeconds(?self $other = null, bool $absolute = true): int
     {
         return intdiv($this->diffInTicks($other, $absolute), self::TICKS_PER_SECOND);
     }
@@ -549,7 +549,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime ...$others Additional candidates
      * @return static
      */
-    public function closest(ChronosTime $first, ChronosTime $second, ChronosTime ...$others): static
+    public function closest(self $first, self $second, self ...$others): static
     {
         $closest = $first;
         $distance = abs($this->ticks - $first->ticks);
@@ -575,7 +575,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime ...$others Additional candidates
      * @return static
      */
-    public function farthest(ChronosTime $first, ChronosTime $second, ChronosTime ...$others): static
+    public function farthest(self $first, self $second, self ...$others): static
     {
         $farthest = $first;
         $distance = abs($this->ticks - $first->ticks);
@@ -599,7 +599,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
      * @return static
      */
-    public function min(?ChronosTime $other = null): static
+    public function min(?self $other = null): static
     {
         $other ??= static::now();
 
@@ -612,7 +612,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime|null $other Target time, defaults to now
      * @return static
      */
-    public function max(?ChronosTime $other = null): static
+    public function max(?self $other = null): static
     {
         $other ??= static::now();
 
@@ -652,7 +652,7 @@ class ChronosTime implements Stringable
      * @param bool $absolute Whether to return an absolute value
      * @return int
      */
-    protected function diffInTicks(?ChronosTime $other, bool $absolute): int
+    protected function diffInTicks(?self $other, bool $absolute): int
     {
         $other ??= static::now();
         $delta = $other->ticks - $this->ticks;
@@ -662,7 +662,7 @@ class ChronosTime implements Stringable
 
     /**
      * @param int $a Left side
-     * @param int $a Right side
+     * @param int $b Right side
      * @return int
      */
     protected static function mod(int $a, int $b): int

@@ -61,12 +61,14 @@ class ChronosDate implements Stringable
      * The widened type allows subclasses (like CakePHP I18n classes) to use
      * IntlDateFormatter constants while maintaining backward compatibility.
      *
-     * @var array|string|int
+     * @var array<int>|string|int
      */
     protected static array|string|int $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
      * Names of days of the week.
+     *
+     * @var array<int, string>
      */
     protected static array $days = [
         Chronos::MONDAY => 'Monday',
@@ -85,6 +87,8 @@ class ChronosDate implements Stringable
 
     /**
      * Errors from last time createFromFormat() was called.
+     *
+     * @var array{warning_count: int, warnings: array<int, string>, error_count: int, errors: array<int, string>}|false
      */
     protected static array|false $lastErrors = false;
 
@@ -251,7 +255,7 @@ class ChronosDate implements Stringable
      *
      * Returns the same data as DateTimeImmutable::getLastErrors().
      *
-     * @return array|false
+     * @return array{warning_count: int, warnings: array<int, string>, error_count: int, errors: array<int, string>}|false
      */
     public static function getLastErrors(): array|false
     {
@@ -339,6 +343,7 @@ class ChronosDate implements Stringable
      * Attempting to change a time component will raise an exception
      *
      * @param string $modifier Date modifier
+     * @throws \DateMalformedStringException If an invalid string is passed
      * @return static
      */
     public function modify(string $modifier): static
@@ -348,11 +353,7 @@ class ChronosDate implements Stringable
         }
 
         $new = clone $this;
-        $native = $new->native->modify($modifier);
-        if ($native === false) {
-            throw new InvalidArgumentException(sprintf('Unable to modify date using `%s`', $modifier));
-        }
-        $new->native = $native;
+        $new->native = $new->native->modify($modifier);
 
         if ($new->format('H:i:s') !== '00:00:00') {
             $new->native = $new->native->setTime(0, 0, 0);
@@ -1713,7 +1714,7 @@ class ChronosDate implements Stringable
     /**
      * Return properties for debugging.
      *
-     * @return array
+     * @return array{hasFixedNow: bool, date: string}
      */
     public function __debugInfo(): array
     {

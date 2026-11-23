@@ -240,10 +240,11 @@ trait FormattingTrait
     /**
      * Returns the quarter
      *
-     * @return int 1, 2, 3, or 4 quarter of year
+     * @return int<1, 4> 1, 2, 3, or 4 quarter of year
      */
     public function toQuarter(): int
     {
+        /** @var int<1, 4> */
         return (int)ceil((int)$this->format('m') / 3);
     }
 

@@ -17,38 +17,9 @@ permissions:
 
 jobs:
   testsuite:
-    uses: cakephp/.github/.github/workflows/testsuite-without-db.yml@5.x
+    uses: cakephp/.github/.github/workflows/testsuite-without-db.yml@6.x
     secrets: inherit
 
   cs-stan:
-    name: Coding Standard & Static Analysis
-    runs-on: ubuntu-24.04
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: mbstring, intl
-          coverage: none
-          tools: phive, cs2pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Composer install
-        uses: ramsey/composer-install@v3
-
-      - name: Install PHP tools with phive.
-        run: "phive install --trust-gpg-keys 'CF1A108D0E7AE720,51C67305FFC2E5C0,12CE0F1D262429A5,99BF4D9A33D65E1E'"
-
-      - name: Run phpcs
-        if: always()
-        run: vendor/bin/phpcs --report=checkstyle | cs2pr
-
-      - name: Run phpstan
-        if: always()
-        run: tools/phpstan analyse --error-format=github
+      uses: cakephp/.github/.github/workflows/cs-stan.yml@6.x
+      secrets: inherit

@@ -22,6 +22,8 @@ class Translator
 {
     /**
      * Translation strings.
+     *
+     * @var array<string, string>
      */
     public static array $strings = [
         'year' => '1 year',
@@ -61,7 +63,7 @@ class Translator
      *
      * @param string $key The key to use.
      * @param int $count The number of items in the translation.
-     * @param array $vars Additional context variables.
+     * @param array<string, mixed> $vars Additional context variables.
      * @return string The translated message or ''.
      */
     public function plural(string $key, int $count, array $vars = []): string
@@ -77,7 +79,7 @@ class Translator
      * Get a singular message.
      *
      * @param string $key The key to use.
-     * @param array $vars Additional context variables.
+     * @param array<string, mixed> $vars Additional context variables.
      * @return string The translated message or ''.
      */
     public function singular(string $key, array $vars = []): string

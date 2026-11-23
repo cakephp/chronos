@@ -64,7 +64,7 @@ class ChronosDatePeriod implements Iterator
             && $interval->h === 0
             && $interval->i === 0
             && $interval->s === 0
-            && (int)($interval->f * 1_000_000) === 0;
+            && (int)($interval->f * 1_000_000.0) === 0;
     }
 
     /**
@@ -76,9 +76,9 @@ class ChronosDatePeriod implements Iterator
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function key(): int
+    public function key(): ?int
     {
         return $this->iterator->key();
     }

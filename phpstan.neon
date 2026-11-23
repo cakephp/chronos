@@ -6,7 +6,6 @@ parameters:
 	paths:
 		- src/
 	ignoreErrors:
-		- identifier: missingType.iterableValue
 		- identifier: property.readOnlyByPhpDocDefaultValue
 		- identifier: property.readOnlyByPhpDocAssignNotInConstructor
 		-
