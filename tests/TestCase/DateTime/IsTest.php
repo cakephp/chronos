@@ -412,35 +412,35 @@ class IsTest extends TestCase
 
     public function testWasWithinLast(): void
     {
-        $this->assertTrue((new Chronos('-1 day'))->wasWithinLast('1 day'));
-        $this->assertTrue((new Chronos('-1 week'))->wasWithinLast('1 week'));
-        $this->assertTrue((new Chronos('-1 year'))->wasWithinLast('1 year'));
-        $this->assertTrue((new Chronos('-1 second'))->wasWithinLast('1 second'));
-        $this->assertTrue((new Chronos('-1 day'))->wasWithinLast('1 week'));
-        $this->assertTrue((new Chronos('-1 week'))->wasWithinLast('2 week'));
-        $this->assertTrue((new Chronos('-1 second'))->wasWithinLast('10 minutes'));
-        $this->assertTrue((new Chronos('-1 month'))->wasWithinLast('13 month'));
-        $this->assertTrue((new Chronos('-1 seconds'))->wasWithinLast('1 hour'));
-        $this->assertFalse((new Chronos('-1 year'))->wasWithinLast('1 second'));
-        $this->assertFalse((new Chronos('-1 year'))->wasWithinLast('0 year'));
-        $this->assertFalse((new Chronos('-1 weeks'))->wasWithinLast('1 day'));
+        $this->assertTrue(new Chronos('-1 day')->wasWithinLast('1 day'));
+        $this->assertTrue(new Chronos('-1 week')->wasWithinLast('1 week'));
+        $this->assertTrue(new Chronos('-1 year')->wasWithinLast('1 year'));
+        $this->assertTrue(new Chronos('-1 second')->wasWithinLast('1 second'));
+        $this->assertTrue(new Chronos('-1 day')->wasWithinLast('1 week'));
+        $this->assertTrue(new Chronos('-1 week')->wasWithinLast('2 week'));
+        $this->assertTrue(new Chronos('-1 second')->wasWithinLast('10 minutes'));
+        $this->assertTrue(new Chronos('-1 month')->wasWithinLast('13 month'));
+        $this->assertTrue(new Chronos('-1 seconds')->wasWithinLast('1 hour'));
+        $this->assertFalse(new Chronos('-1 year')->wasWithinLast('1 second'));
+        $this->assertFalse(new Chronos('-1 year')->wasWithinLast('0 year'));
+        $this->assertFalse(new Chronos('-1 weeks')->wasWithinLast('1 day'));
     }
 
     public function testIsWithinNext(): void
     {
-        $this->assertFalse((new Chronos('-1 day'))->isWithinNext('1 day'));
-        $this->assertFalse((new Chronos('-1 week'))->isWithinNext('1 week'));
-        $this->assertFalse((new Chronos('-1 year'))->isWithinNext('1 year'));
-        $this->assertFalse((new Chronos('-1 second'))->isWithinNext('1 second'));
-        $this->assertFalse((new Chronos('-1 day'))->isWithinNext('1 week'));
-        $this->assertFalse((new Chronos('-1 week'))->isWithinNext('2 week'));
-        $this->assertFalse((new Chronos('-1 second'))->isWithinNext('10 minutes'));
-        $this->assertFalse((new Chronos('-1 month'))->isWithinNext('13 month'));
-        $this->assertFalse((new Chronos('-1 seconds'))->isWithinNext('1 hour'));
-        $this->assertTrue((new Chronos('+1 day'))->isWithinNext('1 day'));
-        $this->assertTrue((new Chronos('+1 week'))->isWithinNext('7 day'));
-        $this->assertTrue((new Chronos('+1 second'))->isWithinNext('1 minute'));
-        $this->assertTrue((new Chronos('+1 month'))->isWithinNext('1 month'));
+        $this->assertFalse(new Chronos('-1 day')->isWithinNext('1 day'));
+        $this->assertFalse(new Chronos('-1 week')->isWithinNext('1 week'));
+        $this->assertFalse(new Chronos('-1 year')->isWithinNext('1 year'));
+        $this->assertFalse(new Chronos('-1 second')->isWithinNext('1 second'));
+        $this->assertFalse(new Chronos('-1 day')->isWithinNext('1 week'));
+        $this->assertFalse(new Chronos('-1 week')->isWithinNext('2 week'));
+        $this->assertFalse(new Chronos('-1 second')->isWithinNext('10 minutes'));
+        $this->assertFalse(new Chronos('-1 month')->isWithinNext('13 month'));
+        $this->assertFalse(new Chronos('-1 seconds')->isWithinNext('1 hour'));
+        $this->assertTrue(new Chronos('+1 day')->isWithinNext('1 day'));
+        $this->assertTrue(new Chronos('+1 week')->isWithinNext('7 day'));
+        $this->assertTrue(new Chronos('+1 second')->isWithinNext('1 minute'));
+        $this->assertTrue(new Chronos('+1 month')->isWithinNext('1 month'));
     }
 
     #[TestWith([1, true, false])]

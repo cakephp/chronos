@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="7.16.0@708bf98874d359acbdcedb84f8624e9ec215867d">
+  <file src="src/Chronos.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[parent::modify($modifier)]]></code>
+    </FalsableReturnStatement>
+    <ImplementedReturnTypeMismatch>
+      <code><![CDATA[\Cake\Chronos\ChronosInterval]]></code>
+    </ImplementedReturnTypeMismatch>
+    <InaccessibleProperty>
+      <code><![CDATA[$instance->f]]></code>
+    </InaccessibleProperty>
+    <MethodSignatureMismatch>
+      <code><![CDATA[$timezone]]></code>
+      <code><![CDATA[$timezone]]></code>
+    </MethodSignatureMismatch>
+  </file>
+  <file src="src/ChronosDatePeriod.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[int]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->iterator->key()]]></code>
+    </NullableReturnStatement>
+  </file>
+  <file src="src/ChronosInterval.php">
+    <InaccessibleProperty>
+      <code><![CDATA[$result->d]]></code>
+      <code><![CDATA[$result->d]]></code>
+      <code><![CDATA[$result->f]]></code>
+      <code><![CDATA[$result->f]]></code>
+      <code><![CDATA[$result->h]]></code>
+      <code><![CDATA[$result->h]]></code>
+      <code><![CDATA[$result->i]]></code>
+      <code><![CDATA[$result->i]]></code>
+      <code><![CDATA[$result->m]]></code>
+      <code><![CDATA[$result->m]]></code>
+      <code><![CDATA[$result->s]]></code>
+      <code><![CDATA[$result->s]]></code>
+      <code><![CDATA[$result->y]]></code>
+      <code><![CDATA[$result->y]]></code>
+    </InaccessibleProperty>
+  </file>
+  <file src="src/ChronosPeriod.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[int]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->iterator->key()]]></code>
+    </NullableReturnStatement>
+  </file>
+</files>

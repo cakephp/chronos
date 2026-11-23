@@ -188,7 +188,7 @@ class StringsTest extends TestCase
     #[DataProvider('toQuarterProvider')]
     public function testToQuarter(string $date, int $expected): void
     {
-        $this->assertSame($expected, (new Chronos($date))->toQuarter());
+        $this->assertSame($expected, new Chronos($date)->toQuarter());
     }
 
     public static function toQuarterRangeProvider(): array
@@ -204,7 +204,7 @@ class StringsTest extends TestCase
     #[DataProvider('toQuarterRangeProvider')]
     public function testToQuarterRange(string $date, array $expected): void
     {
-        $this->assertSame($expected, (new Chronos($date))->toQuarterRange());
+        $this->assertSame($expected, new Chronos($date)->toQuarterRange());
     }
 
     /**
@@ -230,7 +230,7 @@ class StringsTest extends TestCase
     #[DataProvider('toWeekProvider')]
     public function testToWeek(string $date, int $expected): void
     {
-        $this->assertSame($expected, (new Chronos($date))->toWeek());
+        $this->assertSame($expected, new Chronos($date)->toWeek());
     }
 
     public function testToNative(): void

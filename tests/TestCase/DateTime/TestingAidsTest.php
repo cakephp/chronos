@@ -217,9 +217,9 @@ class TestingAidsTest extends TestCase
         Chronos::setTestNow($c);
 
         $result = new Chronos('now');
-        $this->assertSame((new DateTimeZone('America/Toronto'))->getName(), $result->tz->getName());
+        $this->assertSame(new DateTimeZone('America/Toronto')->getName(), $result->tz->getName());
         $this->assertSame('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
-        $this->assertSame((new DateTimeZone('Europe/Copenhagen'))->getName(), Chronos::getTestNow()->tz->getName());
+        $this->assertSame(new DateTimeZone('Europe/Copenhagen')->getName(), Chronos::getTestNow()->tz->getName());
     }
 
     /**

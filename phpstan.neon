@@ -1,3 +1,6 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
 	level: 8
 	treatPhpDocTypesAsCertain: false
@@ -6,17 +9,5 @@ parameters:
 	paths:
 		- src/
 	ignoreErrors:
-		- identifier: missingType.iterableValue
 		- identifier: property.readOnlyByPhpDocDefaultValue
 		- identifier: property.readOnlyByPhpDocAssignNotInConstructor
-		-
-			message: "#with generic class DatePeriod but does not specify its types: TDate, TEnd, TRecurrences$#"
-			count: 1
-			path: src/ChronosPeriod.php
-		-
-			message: "#with generic class DatePeriod but does not specify its types: TDate, TEnd, TRecurrences$#"
-			count: 1
-			path: src/ChronosDatePeriod.php
-		-
-			identifier: method.childReturnType
-			path: src/Chronos.php

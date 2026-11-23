@@ -349,14 +349,14 @@ class DiffTest extends TestCase
 
     public function testDiffForHumansWithoutDiff(): void
     {
-        $this->wrapWithTestNow(function () {
+        $this->wrapWithTestNow(function (): void {
             $this->assertSame('just now', ChronosDate::parse(Chronos::now())->diffForHumans());
         });
     }
 
     public function testDiffForHumansWithoutDiffAbsolute(): void
     {
-        $this->wrapWithTestNow(function () {
+        $this->wrapWithTestNow(function (): void {
             $this->assertSame('just now', ChronosDate::parse(Chronos::now())->diffForHumans(null, true));
         });
     }

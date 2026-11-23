@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Return type \(Cake\\Chronos\\ChronosInterval\) of method Cake\\Chronos\\Chronos\:\:diff\(\) should be compatible with return type \(DateInterval&object\{days\: int\}\) of method DateTimeImmutable\:\:diff\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: '#^Return type \(Cake\\Chronos\\ChronosInterval\) of method Cake\\Chronos\\Chronos\:\:diff\(\) should be compatible with return type \(DateInterval&object\{days\: int\}\) of method DateTimeInterface\:\:diff\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Chronos.php
+
+		-
+			message: '#^Method Cake\\Chronos\\ChronosDate\:\:toQuarter\(\) should return int\<1, 4\> but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: src/ChronosDate.php
+
+		-
+			message: '#^Method Cake\\Chronos\\ChronosDatePeriod\:\:__construct\(\) has parameter \$period with generic class DatePeriod but does not specify its types\: TDate, TEnd, TRecurrences$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/ChronosDatePeriod.php
+
+		-
+			message: '#^Method Cake\\Chronos\\ChronosPeriod\:\:__construct\(\) has parameter \$period with generic class DatePeriod but does not specify its types\: TDate, TEnd, TRecurrences$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/ChronosPeriod.php

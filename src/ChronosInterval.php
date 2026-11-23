@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cake\Chronos;
 
 use DateInterval;
-use InvalidArgumentException;
 use Stringable;
 
 /**
@@ -23,15 +22,6 @@ use Stringable;
  * This class uses the decorator pattern to wrap a native DateInterval,
  * providing ISO 8601 duration string formatting and factory methods.
  *
- * @property-read int $y Years
- * @property-read int $m Months
- * @property-read int $d Days
- * @property-read int $h Hours
- * @property-read int $i Minutes
- * @property-read int $s Seconds
- * @property-read float $f Microseconds as a fraction of a second
- * @property-read int $invert 1 if the interval is negative
- * @property-read int|false $days Total days if created from diff(), false otherwise
  * @phpstan-consistent-constructor
  */
 class ChronosInterval implements Stringable
@@ -40,6 +30,73 @@ class ChronosInterval implements Stringable
      * The wrapped DateInterval instance.
      */
     protected DateInterval $interval;
+
+    // PHPCS sniffs do not support property hooks yet.
+    // phpcs:disable PSR2.Classes.PropertyDeclaration,Squiz.Scope.MemberVarScope
+    /**
+     * Years
+     */
+    public int $y {
+        get => $this->interval->y;
+    }
+
+    /**
+     * Months
+     */
+    public int $m {
+        get => $this->interval->m;
+    }
+
+    /**
+     * Days
+     */
+    public int $d {
+        get => $this->interval->d;
+    }
+
+    /**
+     * Hours
+     */
+    public int $h {
+        get => $this->interval->h;
+    }
+
+    /**
+     * Minutes
+     */
+    public int $i {
+        get => $this->interval->i;
+    }
+
+    /**
+     * Seconds
+     */
+    public int $s {
+        get => $this->interval->s;
+    }
+
+    /**
+     * Microseconds as a fraction of a second
+     */
+    public float $f {
+        get => $this->interval->f;
+    }
+
+    /**
+     * 1 if the interval is negative
+     */
+    public int $invert {
+        get => $this->interval->invert;
+    }
+
+    /**
+     * Total days if created from diff(), false otherwise
+     */
+    public int|false $days {
+        get => $this->interval->days;
+    }
+
+    // phpcs:enable
 
     /**
      * Create a new ChronosInterval instance.
@@ -118,17 +175,12 @@ class ChronosInterval implements Stringable
      *
      * @param string $datetime A relative date/time string.
      * @return static
-     * @throws \InvalidArgumentException If the string cannot be parsed.
+     * @throws \DateMalformedStringException If an invalid string is passed
      * @see https://www.php.net/manual/en/dateinterval.createfromdatestring.php
      */
     public static function createFromDateString(string $datetime): static
     {
-        $interval = DateInterval::createFromDateString($datetime);
-        if ($interval === false) {
-            throw new InvalidArgumentException('Unable to parse interval string: ' . $datetime);
-        }
-
-        return new static($interval);
+        return new static(DateInterval::createFromDateString($datetime));
     }
 
     /**
@@ -175,7 +227,7 @@ class ChronosInterval implements Stringable
             if ($this->interval->s || $this->interval->f) {
                 $seconds = (string)$this->interval->s;
                 if ($this->interval->f) {
-                    $fraction = rtrim(sprintf('%06d', (int)($this->interval->f * 1000000)), '0');
+                    $fraction = rtrim(sprintf('%06d', (int)($this->interval->f * 1_000_000.0)), '0');
                     if ($fraction !== '') {
                         $seconds .= '.' . $fraction;
                     }
@@ -283,9 +335,9 @@ class ChronosInterval implements Stringable
      * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to add.
      * @return static
      */
-    public function add(DateInterval|ChronosInterval $interval): static
+    public function add(DateInterval|self $interval): static
     {
-        if ($interval instanceof ChronosInterval) {
+        if ($interval instanceof self) {
             $interval = $interval->toNative();
         }
 
@@ -311,9 +363,9 @@ class ChronosInterval implements Stringable
      * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to subtract.
      * @return static
      */
-    public function sub(DateInterval|ChronosInterval $interval): static
+    public function sub(DateInterval|self $interval): static
     {
-        if ($interval instanceof ChronosInterval) {
+        if ($interval instanceof self) {
             $interval = $interval->toNative();
         }
 
@@ -377,28 +429,6 @@ class ChronosInterval implements Stringable
     public function __toString(): string
     {
         return $this->toIso8601String();
-    }
-
-    /**
-     * Allow read access to DateInterval properties.
-     *
-     * @param string $name Property name.
-     * @return mixed
-     */
-    public function __get(string $name): mixed
-    {
-        return $this->interval->{$name};
-    }
-
-    /**
-     * Check if a DateInterval property exists.
-     *
-     * @param string $name Property name.
-     * @return bool
-     */
-    public function __isset(string $name): bool
-    {
-        return isset($this->interval->{$name});
     }
 
     /**
