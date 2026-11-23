@@ -38,8 +38,6 @@ class ChronosInterval implements Stringable
 {
     /**
      * The wrapped DateInterval instance.
-     *
-     * @var \DateInterval
      */
     protected DateInterval $interval;
 
@@ -127,7 +125,7 @@ class ChronosInterval implements Stringable
     {
         $interval = DateInterval::createFromDateString($datetime);
         if ($interval === false) {
-            throw new InvalidArgumentException("Unable to parse interval string: {$datetime}");
+            throw new InvalidArgumentException('Unable to parse interval string: ' . $datetime);
         }
 
         return new static($interval);

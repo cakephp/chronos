@@ -15,6 +15,7 @@ namespace Cake\Chronos\Test\Benchmark;
 
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
+use Generator;
 
 /**
  * @BeforeMethods({"init"})
@@ -22,20 +23,20 @@ use Cake\Chronos\ChronosDate;
  */
 class ConstructBench
 {
-    private $savedTz;
+    private ?string $savedTz = null;
 
-    public function init()
+    public function init(): void
     {
         $this->savedTz = date_default_timezone_get();
         date_default_timezone_set('America/Toronto');
     }
 
-    public function shutdown()
+    public function shutdown(): void
     {
         date_default_timezone_set($this->savedTz);
     }
 
-    public function provideClasses()
+    public function provideClasses(): Generator
     {
         yield 'chronos' => ['class' => Chronos::class];
         yield 'date' => ['class' => ChronosDate::class];
@@ -46,7 +47,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchNow($params)
+    public function benchNow(array $params): void
     {
         $class = $params['class'];
         $class::now();
@@ -57,7 +58,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchNowTimezone($params)
+    public function benchNowTimezone(array $params): void
     {
         $class = $params['class'];
         $class::now('Europe/London');
@@ -68,7 +69,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchRelative($params)
+    public function benchRelative(array $params): void
     {
         $class = $params['class'];
         $class::parse('+2 days');
@@ -79,7 +80,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchRelativeTimezone($params)
+    public function benchRelativeTimezone(array $params): void
     {
         $class = $params['class'];
         $class::parse('+2 days', 'Europe/London');
@@ -90,7 +91,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFixed($params)
+    public function benchFixed(array $params): void
     {
         $class = $params['class'];
         $class::parse('2001-01-01 01:02:03.123456');
@@ -101,7 +102,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFixedTimezone($params)
+    public function benchFixedTimezone(array $params): void
     {
         $class = $params['class'];
         $class::parse('2001-01-01 01:02:03.123456', 'Europe/London');
@@ -112,7 +113,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchCreate($params)
+    public function benchCreate(array $params): void
     {
         $class = $params['class'];
         $class::create(2001, 01, 01, 01, 02, 03);
@@ -123,7 +124,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchCreateTimezone($params)
+    public function benchCreateTimezone(array $params): void
     {
         $class = $params['class'];
         $class::create(2001, 01, 01, 01, 02, 03, 'Europe/London');
@@ -134,7 +135,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFromFormat($params)
+    public function benchFromFormat(array $params): void
     {
         $class = $params['class'];
         $class::createFromFormat('Y-m-d H:i:s.u', '2001-01-01 01:02:03.123456');
@@ -145,7 +146,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFromFormatTimezone($params)
+    public function benchFromFormatTimezone(array $params): void
     {
         $class = $params['class'];
         $class::createFromFormat('Y-m-d H:i:s.u', '2001-01-01 01:02:03.123456', 'Europe/London');
@@ -156,7 +157,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFromTimestamp($params)
+    public function benchFromTimestamp(array $params): void
     {
         $class = $params['class'];
         $class::createFromTimestamp(1454284800);
@@ -167,7 +168,7 @@ class ConstructBench
      * @Iterations(5)
      * @ParamProviders({"provideClasses"})
      */
-    public function benchFromTimestampUTC($params)
+    public function benchFromTimestampUTC(array $params): void
     {
         $class = $params['class'];
         $class::createFromTimestamp(1454284800);

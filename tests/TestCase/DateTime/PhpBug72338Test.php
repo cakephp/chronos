@@ -23,7 +23,7 @@ class PhpBug72338Test extends TestCase
     /**
      * Ensures that $date->format('U') returns unchanged timestamp
      */
-    public function testTimestamp()
+    public function testTimestamp(): void
     {
         $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00');
         $this->assertSame('0', $date->format('U'));
@@ -32,7 +32,7 @@ class PhpBug72338Test extends TestCase
     /**
      * Ensures that date created from string with timezone and with same timezone set by setTimezone() is equal
      */
-    public function testEqualSetAndCreate()
+    public function testEqualSetAndCreate(): void
     {
         $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00');
         $date1 = new Chronos('1970-01-01T02:00:00+02:00');
@@ -42,7 +42,7 @@ class PhpBug72338Test extends TestCase
     /**
      * Ensures that second call to setTimezone() dont changing timestamp
      */
-    public function testSecondSetTimezone()
+    public function testSecondSetTimezone(): void
     {
         $date = Chronos::createFromTimestamp(0)->setTimezone('+02:00')->setTimezone('Europe/Moscow');
         $this->assertSame('0', $date->format('U'));

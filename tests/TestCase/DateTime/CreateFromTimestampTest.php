@@ -21,14 +21,14 @@ use DateTimeZone;
 
 class CreateFromTimestampTest extends TestCase
 {
-    public function testCreateReturnsDatingInstance()
+    public function testCreateReturnsDatingInstance(): void
     {
         $d = Chronos::createFromTimestamp(Chronos::create(1975, 5, 21, 22, 32, 5)->timestamp);
         $this->assertDateTime($d, 1975, 5, 22, 2, 32, 5);
         $this->assertSame('+00:00', $d->tzName);
     }
 
-    public function testCreateFromTimestampUsesUTC()
+    public function testCreateFromTimestampUsesUTC(): void
     {
         $d = Chronos::createFromTimestamp(0);
 
@@ -37,14 +37,14 @@ class CreateFromTimestampTest extends TestCase
         $this->assertSame('+00:00', $d->tzName);
     }
 
-    public function testCreateFromTimestampWithDateTimeZone()
+    public function testCreateFromTimestampWithDateTimeZone(): void
     {
         $d = Chronos::createFromTimestamp(0, new DateTimeZone('UTC'));
         $this->assertSame('UTC', $d->tzName);
         $this->assertDateTime($d, 1970, 1, 1, 0, 0, 0);
     }
 
-    public function testCreateFromTimestampWithString()
+    public function testCreateFromTimestampWithString(): void
     {
         $d = Chronos::createFromTimestamp(0, 'America/Toronto');
         // We know Toronto is -5 since no DST in Jan

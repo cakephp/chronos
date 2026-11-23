@@ -23,7 +23,7 @@ use RuntimeException;
 
 class TestingAidsTest extends TestCase
 {
-    public function testTestingAidsWithTestNowNotSet()
+    public function testTestingAidsWithTestNowNotSet(): void
     {
         Chronos::setTestNow();
 
@@ -31,7 +31,7 @@ class TestingAidsTest extends TestCase
         $this->assertNull(Chronos::getTestNow());
     }
 
-    public function testTestingAidsWithTestNowSet()
+    public function testTestingAidsWithTestNowSet(): void
     {
         $notNow = Chronos::yesterday();
         Chronos::setTestNow($notNow);
@@ -40,14 +40,14 @@ class TestingAidsTest extends TestCase
         $this->assertSame($notNow, Chronos::getTestNow());
     }
 
-    public function testTestingAidsWithTestNowSetToString()
+    public function testTestingAidsWithTestNowSetToString(): void
     {
         Chronos::setTestNow('2016-11-23');
         $this->assertTrue(Chronos::hasTestNow());
         $this->assertSame((string)Chronos::getTestNow(), (string)Chronos::parse('2016-11-23'));
     }
 
-    public function testConstructorWithTestValueSet()
+    public function testConstructorWithTestValueSet(): void
     {
         $notNow = Chronos::yesterday();
         Chronos::setTestNow($notNow);
@@ -58,7 +58,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame((string)$notNow, (string)new Chronos('now'));
     }
 
-    public function testNowWithTestValueSet()
+    public function testNowWithTestValueSet(): void
     {
         $notNow = Chronos::yesterday();
         Chronos::setTestNow($notNow);
@@ -69,7 +69,7 @@ class TestingAidsTest extends TestCase
     /**
      * Ensure that using test now doesn't mutate test now.
      */
-    public function testNowNoMutateDateTime()
+    public function testNowNoMutateDateTime(): void
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
@@ -85,7 +85,7 @@ class TestingAidsTest extends TestCase
     /**
      * Ensure that using test now doesn't mutate test now.
      */
-    public function testNowNoMutateDate()
+    public function testNowNoMutateDate(): void
     {
         $value = '2018-06-21 10:11:12';
         $notNow = new Chronos($value);
@@ -101,7 +101,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2018-06-20 00:00:00', $instance->format('Y-m-d H:i:s'));
     }
 
-    public function testParseWithTestValueSet()
+    public function testParseWithTestValueSet(): void
     {
         $notNow = Chronos::yesterday();
         Chronos::setTestNow($notNow);
@@ -112,7 +112,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame((string)$notNow, (string)Chronos::parse('now'));
     }
 
-    public function testParseRelativeWithTestValueSet()
+    public function testParseRelativeWithTestValueSet(): void
     {
         $notNow = Chronos::parse('2013-09-01 05:15:05');
         Chronos::setTestNow($notNow);
@@ -161,7 +161,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-09-30 05:15:05', Chronos::parse('last day of this month')->toDateTimeString());
     }
 
-    public function testParseRelativeWithMinusSignsInDate()
+    public function testParseRelativeWithMinusSignsInDate(): void
     {
         $notNow = Chronos::parse('2013-09-01 05:15:05');
         Chronos::setTestNow($notNow);
@@ -170,7 +170,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2000-10-10 00:00:00', Chronos::parse('2000-10-10')->toDateTimeString());
     }
 
-    public function testParseWithTimeZone()
+    public function testParseWithTimeZone(): void
     {
         $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
         Chronos::setTestNow($notNow);
@@ -180,7 +180,7 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-07-01T09:00:00-07:00', Chronos::parse('now', 'America/Vancouver')->toIso8601String());
     }
 
-    public function testParseRelativeWithTimeZone()
+    public function testParseRelativeWithTimeZone(): void
     {
         $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
         Chronos::setTestNow($notNow);
@@ -192,7 +192,7 @@ class TestingAidsTest extends TestCase
     /**
      * Test parse() with relative values and timezones
      */
-    public function testParseRelativeWithTimezoneAndTestValueSet()
+    public function testParseRelativeWithTimezoneAndTestValueSet(): void
     {
         $notNow = Chronos::parse('2013-07-01 12:00:00', 'America/New_York');
         Chronos::setTestNow($notNow);
@@ -211,12 +211,12 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2013-07-01T06:30:00-05:00', Chronos::parse('06:30:00', 'America/Mexico_City')->toIso8601String());
     }
 
-    public function testNullTimezone()
+    public function testNullTimezone(): void
     {
         $c = new Chronos('2016-01-01 00:00:00', 'Europe/Copenhagen');
         Chronos::setTestNow($c);
 
-        $result = new Chronos('now', null);
+        $result = new Chronos('now');
         $this->assertSame((new DateTimeZone('America/Toronto'))->getName(), $result->tz->getName());
         $this->assertSame('2015-12-31 18:00:00', $result->format('Y-m-d H:i:s'));
         $this->assertSame((new DateTimeZone('Europe/Copenhagen'))->getName(), Chronos::getTestNow()->tz->getName());
@@ -225,7 +225,7 @@ class TestingAidsTest extends TestCase
     /**
      * Test that setting testNow() on one class sets it on all of the chronos classes.
      */
-    public function testSetTestNowSingular()
+    public function testSetTestNowSingular(): void
     {
         $c = new Chronos('2016-01-03 00:00:00', 'Europe/Copenhagen');
         Chronos::setTestNow($c);
@@ -233,11 +233,11 @@ class TestingAidsTest extends TestCase
         $this->assertSame($c, Chronos::getTestNow());
     }
 
-    public function testWithTestNowSetsAndRestoresNull()
+    public function testWithTestNowSetsAndRestoresNull(): void
     {
         $this->assertNull(Chronos::getTestNow());
 
-        $result = Chronos::withTestNow('2023-06-15 12:00:00', function () {
+        $result = Chronos::withTestNow('2023-06-15 12:00:00', function (): string {
             $this->assertNotNull(Chronos::getTestNow());
             $this->assertSame('2023-06-15', Chronos::now()->format('Y-m-d'));
 
@@ -248,12 +248,12 @@ class TestingAidsTest extends TestCase
         $this->assertNull(Chronos::getTestNow());
     }
 
-    public function testWithTestNowRestoresPreviousTestNow()
+    public function testWithTestNowRestoresPreviousTestNow(): void
     {
         $original = new Chronos('2020-01-01 00:00:00');
         Chronos::setTestNow($original);
 
-        Chronos::withTestNow('2023-06-15 12:00:00', function () {
+        Chronos::withTestNow('2023-06-15 12:00:00', function (): void {
             $this->assertSame('2023-06-15', Chronos::now()->format('Y-m-d'));
         });
 
@@ -261,14 +261,14 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2020-01-01', Chronos::now()->format('Y-m-d'));
     }
 
-    public function testWithTestNowNested()
+    public function testWithTestNowNested(): void
     {
         Chronos::setTestNow('2020-01-01 00:00:00');
 
-        Chronos::withTestNow('2021-06-15 00:00:00', function () {
+        Chronos::withTestNow('2021-06-15 00:00:00', function (): void {
             $this->assertSame('2021-06-15', Chronos::now()->format('Y-m-d'));
 
-            Chronos::withTestNow('2022-12-25 00:00:00', function () {
+            Chronos::withTestNow('2022-12-25 00:00:00', function (): void {
                 $this->assertSame('2022-12-25', Chronos::now()->format('Y-m-d'));
             });
 
@@ -278,13 +278,13 @@ class TestingAidsTest extends TestCase
         $this->assertSame('2020-01-01', Chronos::now()->format('Y-m-d'));
     }
 
-    public function testWithTestNowRestoresOnException()
+    public function testWithTestNowRestoresOnException(): void
     {
         $original = new Chronos('2020-01-01 00:00:00');
         Chronos::setTestNow($original);
 
         try {
-            Chronos::withTestNow('2023-06-15 12:00:00', function () {
+            Chronos::withTestNow('2023-06-15 12:00:00', function (): void {
                 throw new RuntimeException('Test exception');
             });
             $this->fail('Exception should have been thrown');
@@ -295,11 +295,11 @@ class TestingAidsTest extends TestCase
         $this->assertSame($original, Chronos::getTestNow());
     }
 
-    public function testWithTestNowWithChronosInstance()
+    public function testWithTestNowWithChronosInstance(): void
     {
         $testTime = new Chronos('2023-06-15 14:30:00');
 
-        $result = Chronos::withTestNow($testTime, function () {
+        $result = Chronos::withTestNow($testTime, function (): string {
             return Chronos::now()->format('Y-m-d H:i:s');
         });
 
@@ -307,11 +307,11 @@ class TestingAidsTest extends TestCase
         $this->assertNull(Chronos::getTestNow());
     }
 
-    public function testWithTestNowWithNull()
+    public function testWithTestNowWithNull(): void
     {
         Chronos::setTestNow('2020-01-01 00:00:00');
 
-        Chronos::withTestNow(null, function () {
+        Chronos::withTestNow(null, function (): void {
             $this->assertNull(Chronos::getTestNow());
         });
 

@@ -4,7 +4,6 @@
       "text": "CakePHP Chronos",
       "collapsed": false,
       "items": [
-        { "text": "概要", "link": "/ja/index" },
         { "text": "API", "link": "https://api.cakephp.org/chronos" }
       ]
     }

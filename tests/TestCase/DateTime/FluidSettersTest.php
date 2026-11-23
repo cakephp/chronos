@@ -21,7 +21,7 @@ use Cake\Chronos\Test\TestCase\TestCase;
 
 class FluidSettersTest extends TestCase
 {
-    public function testFluidYearSetter()
+    public function testFluidYearSetter(): void
     {
         $d = Chronos::now();
         $d = $d->year(1995);
@@ -29,7 +29,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(1995, $d->year);
     }
 
-    public function testFluidMonthSetter()
+    public function testFluidMonthSetter(): void
     {
         $d = Chronos::now();
         $d = $d->month(3);
@@ -37,7 +37,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(3, $d->month);
     }
 
-    public function testFluidMonthSetterWithWrap()
+    public function testFluidMonthSetterWithWrap(): void
     {
         $d = Chronos::createFromDate(2012, 8, 21);
         $d = $d->month(13);
@@ -45,7 +45,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(1, $d->month);
     }
 
-    public function testFluidDaySetter()
+    public function testFluidDaySetter(): void
     {
         $d = Chronos::now();
         $d = $d->day(2);
@@ -53,7 +53,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(2, $d->day);
     }
 
-    public function testFluidDaySetterWithWrap()
+    public function testFluidDaySetterWithWrap(): void
     {
         $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->day(32);
@@ -61,7 +61,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(1, $d->day);
     }
 
-    public function testFluidSetDate()
+    public function testFluidSetDate(): void
     {
         $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->setDate(1995, 13, 32);
@@ -69,7 +69,7 @@ class FluidSettersTest extends TestCase
         $this->assertDateTime($d, 1996, 2, 1);
     }
 
-    public function testFluidChronosSetISODate()
+    public function testFluidChronosSetISODate(): void
     {
         $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->setISODate(2023, 17, 3);
@@ -77,7 +77,7 @@ class FluidSettersTest extends TestCase
         $this->assertDateTime($d, 2023, 04, 26);
     }
 
-    public function testFluidChronosDateSetISODate()
+    public function testFluidChronosDateSetISODate(): void
     {
         $d = ChronosDate::create(2000, 1, 1);
         $d = $d->setISODate(2023, 17, 3);
@@ -85,7 +85,7 @@ class FluidSettersTest extends TestCase
         $this->assertDateTime($d, 2023, 04, 26);
     }
 
-    public function testFluidHourSetter()
+    public function testFluidHourSetter(): void
     {
         $d = Chronos::now();
         $d = $d->hour(2);
@@ -93,7 +93,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(2, $d->hour);
     }
 
-    public function testFluidHourSetterWithWrap()
+    public function testFluidHourSetterWithWrap(): void
     {
         $d = Chronos::now();
         $d = $d->hour(25);
@@ -101,7 +101,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(1, $d->hour);
     }
 
-    public function testFluidMinuteSetter()
+    public function testFluidMinuteSetter(): void
     {
         $d = Chronos::now();
         $d = $d->minute(2);
@@ -109,7 +109,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(2, $d->minute);
     }
 
-    public function testFluidMinuteSetterWithWrap()
+    public function testFluidMinuteSetterWithWrap(): void
     {
         $d = Chronos::now();
         $d = $d->minute(61);
@@ -117,7 +117,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(1, $d->minute);
     }
 
-    public function testFluidSecondSetter()
+    public function testFluidSecondSetter(): void
     {
         $d = Chronos::now();
         $d = $d->second(2);
@@ -125,7 +125,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(2, $d->second);
     }
 
-    public function testFluidSecondSetterWithWrap()
+    public function testFluidSecondSetterWithWrap(): void
     {
         $d = Chronos::now();
         $d = $d->second(62);
@@ -133,7 +133,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame(2, $d->second);
     }
 
-    public function testFluidMicroecondSetter()
+    public function testFluidMicroecondSetter(): void
     {
         $d = Chronos::now();
         $second = $d->second;
@@ -143,7 +143,7 @@ class FluidSettersTest extends TestCase
         $this->assertSame($second, $d->second);
     }
 
-    public function testFluidSetTime()
+    public function testFluidSetTime(): void
     {
         $d = Chronos::createFromDate(2000, 1, 1);
         $d = $d->setTime(25, 61, 61);
@@ -151,7 +151,7 @@ class FluidSettersTest extends TestCase
         $this->assertDateTime($d, 2000, 1, 2, 2, 2, 1);
     }
 
-    public function testFluidTimestampSetter()
+    public function testFluidTimestampSetter(): void
     {
         $d = Chronos::now();
         $d = $d->timestamp(10);

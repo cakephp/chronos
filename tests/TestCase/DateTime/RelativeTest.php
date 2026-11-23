@@ -20,7 +20,7 @@ use Cake\Chronos\Test\TestCase\TestCase;
 
 class RelativeTest extends TestCase
 {
-    public function testSecondsSinceMidnight()
+    public function testSecondsSinceMidnight(): void
     {
         $d = Chronos::today()->addSeconds(30);
         $this->assertSame(30, $d->secondsSinceMidnight());
@@ -35,7 +35,7 @@ class RelativeTest extends TestCase
         $this->assertSame(42, $d->secondsSinceMidnight());
     }
 
-    public function testSecondsUntilEndOfDay()
+    public function testSecondsUntilEndOfDay(): void
     {
         $d = Chronos::today()->endOfDay();
         $this->assertSame(0, $d->secondsUntilEndOfDay());

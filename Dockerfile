@@ -1,7 +1,7 @@
 # ----------------------
 # 1. Build stage
 # ----------------------
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Git is required because docs/package.json pulls a dependency from GitHub.
 RUN apk add --no-cache git openssh-client
@@ -13,18 +13,18 @@ COPY docs/ ./
 RUN npm ci
 
 # Increase max-old-space-size to avoid memory issues during build
-ENV NODE_OPTIONS="--max-old-space-size=8192"
+#ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # Build the site.
 RUN npm run docs:build
 
 # ----------------------
-# 2. Runtime stage (nginx)
+# 2. Runtime stage (angie)
 # ----------------------
-FROM nginx:1.27-alpine AS runner
+FROM docker.angie.software/angie:latest AS runner
 
 # Copy built files
-COPY --from=builder /app/docs/.vitepress/dist /usr/share/nginx/html
+COPY --from=builder /app/docs/.vitepress/dist /usr/share/angie/html
 
 # Expose port
 EXPOSE 80
@@ -32,5 +32,5 @@ EXPOSE 80
 # Health check (optional)
 HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost:80/ || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start angie
+CMD ["angie", "-g", "daemon off;"]

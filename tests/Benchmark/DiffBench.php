@@ -21,7 +21,11 @@ use Cake\Chronos\Chronos;
  */
 class DiffBench
 {
-    public function init()
+    public $from;
+
+    public $to;
+
+    public function init(): void
     {
         $this->from = new Chronos('2019-01-01 00:00:00');
         $this->to = new Chronos('2020-01-01 00:00:00');
@@ -35,7 +39,7 @@ class DiffBench
      * @Revs(1000)
      * @Iterations(5)
      */
-    public function benchDiffYears()
+    public function benchDiffYears(): void
     {
         $this->from->diffInYears($this->to);
     }
@@ -44,7 +48,7 @@ class DiffBench
      * @Revs(1000)
      * @Iterations(5)
      */
-    public function benchDiffMonths()
+    public function benchDiffMonths(): void
     {
         $this->from->diffInMonths($this->to);
     }
@@ -53,7 +57,7 @@ class DiffBench
      * @Revs(1000)
      * @Iterations(5)
      */
-    public function benchDiffDays()
+    public function benchDiffDays(): void
     {
         $this->from->diffInDays($this->to);
     }

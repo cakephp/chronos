@@ -21,19 +21,19 @@ use DateTimeZone;
 
 class CreateFromTimeTest extends TestCase
 {
-    public function testCreateFromDateWithDefaults()
+    public function testCreateFromDateWithDefaults(): void
     {
         $d = Chronos::createFromTime();
-        $this->assertSame($d->timestamp, Chronos::create(null, null, null, null, null, null)->timestamp);
+        $this->assertSame($d->timestamp, Chronos::create()->timestamp);
     }
 
-    public function testCreateFromDate()
+    public function testCreateFromDate(): void
     {
         $d = Chronos::createFromTime(23, 5, 21);
         $this->assertDateTime($d, Chronos::now()->year, Chronos::now()->month, Chronos::now()->day, 23, 5, 21);
     }
 
-    public function testCreateFromTimeWithHour()
+    public function testCreateFromTimeWithHour(): void
     {
         $d = Chronos::createFromTime(22);
         $this->assertSame(22, $d->hour);
@@ -41,25 +41,25 @@ class CreateFromTimeTest extends TestCase
         $this->assertSame(0, $d->second);
     }
 
-    public function testCreateFromTimeWithMinute()
+    public function testCreateFromTimeWithMinute(): void
     {
         $d = Chronos::createFromTime(null, 5);
         $this->assertSame(5, $d->minute);
     }
 
-    public function testCreateFromTimeWithSecond()
+    public function testCreateFromTimeWithSecond(): void
     {
         $d = Chronos::createFromTime(null, null, 21);
         $this->assertSame(21, $d->second);
     }
 
-    public function testCreateFromTimeWithMicrosecond()
+    public function testCreateFromTimeWithMicrosecond(): void
     {
         $d = Chronos::createFromTime(null, null, null, 123456);
         $this->assertSame(123456, $d->microsecond);
     }
 
-    public function testCreateFromTimeWithDateTimeZone()
+    public function testCreateFromTimeWithDateTimeZone(): void
     {
         $now = Chronos::now();
         $d = Chronos::createFromTime(12, 0, 0, 0, new DateTimeZone('Europe/London'));
@@ -67,7 +67,7 @@ class CreateFromTimeTest extends TestCase
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTimeWithTimeZoneString()
+    public function testCreateFromTimeWithTimeZoneString(): void
     {
         $now = Chronos::now();
         $d = Chronos::createFromTime(12, 0, 0, 0, 'Europe/London');

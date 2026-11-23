@@ -21,290 +21,290 @@ use Cake\Chronos\Test\TestCase\TestCase;
 
 class DayOfWeekModifiersTest extends TestCase
 {
-    public function testStartOfWeek()
+    public function testStartOfWeek(): void
     {
-        $d = ChronosDate::create(1980, 8, 7, 12, 11, 9)->startOfWeek();
-        $this->assertDate($d, 1980, 8, 4, 0, 0, 0);
+        $d = ChronosDate::create(1980, 8, 7)->startOfWeek();
+        $this->assertDate($d, 1980, 8, 4);
     }
 
-    public function testStartOfWeekFromWeekStart()
+    public function testStartOfWeekFromWeekStart(): void
     {
         $d = ChronosDate::create(1980, 8, 4)->startOfWeek();
-        $this->assertDate($d, 1980, 8, 4, 0, 0, 0);
+        $this->assertDate($d, 1980, 8, 4);
     }
 
-    public function testStartOfWeekCrossingYearBoundary()
+    public function testStartOfWeekCrossingYearBoundary(): void
     {
-        $d = ChronosDate::create(2013, 12, 31, 'GMT');
-        $this->assertDate($d->startOfWeek(), 2013, 12, 30, 0, 0, 0);
+        $d = ChronosDate::create(2013, 12, 31);
+        $this->assertDate($d->startOfWeek(), 2013, 12, 30);
     }
 
-    public function testEndOfWeek()
+    public function testEndOfWeek(): void
     {
-        $d = ChronosDate::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
-        $this->assertDate($d, 1980, 8, 10, 23, 59, 59);
+        $d = ChronosDate::create(1980, 8, 7)->endOfWeek();
+        $this->assertDate($d, 1980, 8, 10);
     }
 
-    public function testEndOfWeekFromWeekEnd()
+    public function testEndOfWeekFromWeekEnd(): void
     {
         $d = ChronosDate::create(1980, 8, 9)->endOfWeek();
-        $this->assertDate($d, 1980, 8, 10, 23, 59, 59);
+        $this->assertDate($d, 1980, 8, 10);
     }
 
-    public function testEndOfWeekCrossingYearBoundary()
+    public function testEndOfWeekCrossingYearBoundary(): void
     {
-        $d = ChronosDate::create(2013, 12, 31, 'GMT');
-        $this->assertDate($d->endOfWeek(), 2014, 1, 5, 23, 59, 59);
+        $d = ChronosDate::create(2013, 12, 31);
+        $this->assertDate($d->endOfWeek(), 2014, 1, 5);
     }
 
-    public function testNext()
+    public function testNext(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->next();
-        $this->assertDate($d, 1975, 5, 28, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 28);
     }
 
-    public function testStartOrEndOfWeekFromWeekWithUTC()
+    public function testStartOrEndOfWeekFromWeekWithUTC(): void
     {
-        $d = ChronosDate::create(2016, 7, 27, 17, 13, 7, 0, 'UTC');
-        $this->assertDate($d->startOfWeek(), 2016, 7, 25, 0, 0, 0);
-        $this->assertDate($d->endOfWeek(), 2016, 7, 31, 23, 59, 59);
-        $this->assertDate($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
+        $d = ChronosDate::create(2016, 7, 27);
+        $this->assertDate($d->startOfWeek(), 2016, 7, 25);
+        $this->assertDate($d->endOfWeek(), 2016, 7, 31);
+        $this->assertDate($d->startOfWeek()->endOfWeek(), 2016, 7, 31);
     }
 
-    public function testStartOrEndOfWeekFromWeekWithOtherTimezone()
+    public function testStartOrEndOfWeekFromWeekWithOtherTimezone(): void
     {
-        $d = ChronosDate::create(2016, 7, 27, 17, 13, 7, 0, 'America/New_York');
-        $this->assertDate($d->startOfWeek(), 2016, 7, 25, 0, 0, 0);
-        $this->assertDate($d->endOfWeek(), 2016, 7, 31, 23, 59, 59);
-        $this->assertDate($d->startOfWeek()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
+        $d = ChronosDate::create(2016, 7, 27);
+        $this->assertDate($d->startOfWeek(), 2016, 7, 25);
+        $this->assertDate($d->endOfWeek(), 2016, 7, 31);
+        $this->assertDate($d->startOfWeek()->endOfWeek(), 2016, 7, 31);
     }
 
-    public function testNextMonday()
+    public function testNextMonday(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->next(Chronos::MONDAY);
-        $this->assertDate($d, 1975, 5, 26, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 26);
     }
 
-    public function testNextSaturday()
+    public function testNextSaturday(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->next(6);
-        $this->assertDate($d, 1975, 5, 24, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 24);
     }
 
-    public function testNextTimestamp()
+    public function testNextTimestamp(): void
     {
         $d = ChronosDate::create(1975, 11, 14)->next();
-        $this->assertDate($d, 1975, 11, 21, 0, 0, 0);
+        $this->assertDate($d, 1975, 11, 21);
     }
 
-    public function testPrevious()
+    public function testPrevious(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->previous();
-        $this->assertDate($d, 1975, 5, 14, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 14);
     }
 
-    public function testPreviousMonday()
+    public function testPreviousMonday(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->previous(Chronos::MONDAY);
-        $this->assertDate($d, 1975, 5, 19, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 19);
     }
 
-    public function testPreviousSaturday()
+    public function testPreviousSaturday(): void
     {
         $d = ChronosDate::create(1975, 5, 21)->previous(6);
-        $this->assertDate($d, 1975, 5, 17, 0, 0, 0);
+        $this->assertDate($d, 1975, 5, 17);
     }
 
-    public function testPreviousTimestamp()
+    public function testPreviousTimestamp(): void
     {
         $d = ChronosDate::create(1975, 11, 28)->previous();
-        $this->assertDate($d, 1975, 11, 21, 0, 0, 0);
+        $this->assertDate($d, 1975, 11, 21);
     }
 
-    public function testFirstDayOfMonth()
+    public function testFirstDayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfMonth();
-        $this->assertDate($d, 1975, 11, 1, 0, 0, 0);
+        $this->assertDate($d, 1975, 11, 1);
     }
 
-    public function testFirstWednesdayOfMonth()
+    public function testFirstWednesdayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfMonth(Chronos::WEDNESDAY);
-        $this->assertDate($d, 1975, 11, 5, 0, 0, 0);
+        $this->assertDate($d, 1975, 11, 5);
     }
 
-    public function testFirstFridayOfMonth()
+    public function testFirstFridayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfMonth(5);
-        $this->assertDate($d, 1975, 11, 7, 0, 0, 0);
+        $this->assertDate($d, 1975, 11, 7);
     }
 
-    public function testLastDayOfMonth()
+    public function testLastDayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 12, 5)->lastOfMonth();
-        $this->assertDate($d, 1975, 12, 31, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 31);
     }
 
-    public function testLastTuesdayOfMonth()
+    public function testLastTuesdayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 12, 1)->lastOfMonth(Chronos::TUESDAY);
-        $this->assertDate($d, 1975, 12, 30, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 30);
     }
 
-    public function testLastFridayOfMonth()
+    public function testLastFridayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 12, 5)->lastOfMonth(5);
-        $this->assertDate($d, 1975, 12, 26, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 26);
     }
 
-    public function testNthOfMonthOutsideScope()
+    public function testNthOfMonthOutsideScope(): void
     {
         $this->assertFalse(ChronosDate::create(1975, 12, 5)->nthOfMonth(6, Chronos::MONDAY));
     }
 
-    public function testNthOfMonthOutsideYear()
+    public function testNthOfMonthOutsideYear(): void
     {
         $this->assertFalse(ChronosDate::create(1975, 12, 5)->nthOfMonth(55, Chronos::MONDAY));
     }
 
-    public function test2ndMondayOfMonth()
+    public function test2ndMondayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 12, 5)->nthOfMonth(2, Chronos::MONDAY);
-        $this->assertDate($d, 1975, 12, 8, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 8);
     }
 
-    public function test3rdWednesdayOfMonth()
+    public function test3rdWednesdayOfMonth(): void
     {
         $d = ChronosDate::create(1975, 12, 5)->nthOfMonth(3, 3);
-        $this->assertDate($d, 1975, 12, 17, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 17);
     }
 
-    public function testFirstDayOfQuarter()
+    public function testFirstDayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfQuarter();
-        $this->assertDate($d, 1975, 10, 1, 0, 0, 0);
+        $this->assertDate($d, 1975, 10, 1);
     }
 
-    public function testFirstWednesdayOfQuarter()
+    public function testFirstWednesdayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfQuarter(Chronos::WEDNESDAY);
-        $this->assertDate($d, 1975, 10, 1, 0, 0, 0);
+        $this->assertDate($d, 1975, 10, 1);
     }
 
-    public function testFirstFridayOfQuarter()
+    public function testFirstFridayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfQuarter(5);
-        $this->assertDate($d, 1975, 10, 3, 0, 0, 0);
+        $this->assertDate($d, 1975, 10, 3);
     }
 
-    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+    public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth(): void
     {
         $d = ChronosDate::create(2014, 5, 31)->firstOfQuarter();
-        $this->assertDate($d, 2014, 4, 1, 0, 0, 0);
+        $this->assertDate($d, 2014, 4, 1);
     }
 
-    public function testLastDayOfQuarter()
+    public function testLastDayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->lastOfQuarter();
-        $this->assertDate($d, 1975, 9, 30, 0, 0, 0);
+        $this->assertDate($d, 1975, 9, 30);
     }
 
-    public function testLastTuesdayOfQuarter()
+    public function testLastTuesdayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 8, 1)->lastOfQuarter(Chronos::TUESDAY);
-        $this->assertDate($d, 1975, 9, 30, 0, 0, 0);
+        $this->assertDate($d, 1975, 9, 30);
     }
 
-    public function testLastFridayOfQuarter()
+    public function testLastFridayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 7, 5)->lastOfQuarter(5);
-        $this->assertDate($d, 1975, 9, 26, 0, 0, 0);
+        $this->assertDate($d, 1975, 9, 26);
     }
 
-    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth()
+    public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth(): void
     {
         $d = ChronosDate::create(2014, 5, 31)->lastOfQuarter();
-        $this->assertDate($d, 2014, 6, 30, 0, 0, 0);
+        $this->assertDate($d, 2014, 6, 30);
     }
 
-    public function testNthOfQuarterOutsideScope()
+    public function testNthOfQuarterOutsideScope(): void
     {
         $this->assertFalse(ChronosDate::create(1975, 1, 5)->nthOfQuarter(20, Chronos::MONDAY));
     }
 
-    public function testNthOfQuarterOutsideYear()
+    public function testNthOfQuarterOutsideYear(): void
     {
         $this->assertFalse(ChronosDate::create(1975, 1, 5)->nthOfQuarter(55, Chronos::MONDAY));
     }
 
-    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+    public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth(): void
     {
         $d = ChronosDate::create(2014, 5, 31)->nthOfQuarter(2, Chronos::MONDAY);
-        $this->assertDate($d, 2014, 4, 14, 0, 0, 0);
+        $this->assertDate($d, 2014, 4, 14);
     }
 
-    public function test2ndMondayOfQuarter()
+    public function test2ndMondayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->nthOfQuarter(2, Chronos::MONDAY);
-        $this->assertDate($d, 1975, 7, 14, 0, 0, 0);
+        $this->assertDate($d, 1975, 7, 14);
     }
 
-    public function test3rdWednesdayOfQuarter()
+    public function test3rdWednesdayOfQuarter(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->nthOfQuarter(3, 3);
-        $this->assertDate($d, 1975, 7, 16, 0, 0, 0);
+        $this->assertDate($d, 1975, 7, 16);
     }
 
-    public function testFirstDayOfYear()
+    public function testFirstDayOfYear(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfYear();
-        $this->assertDate($d, 1975, 1, 1, 0, 0, 0);
+        $this->assertDate($d, 1975, 1, 1);
     }
 
-    public function testFirstWednesdayOfYear()
+    public function testFirstWednesdayOfYear(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfYear(Chronos::WEDNESDAY);
-        $this->assertDate($d, 1975, 1, 1, 0, 0, 0);
+        $this->assertDate($d, 1975, 1, 1);
     }
 
-    public function testFirstFridayOfYear()
+    public function testFirstFridayOfYear(): void
     {
         $d = ChronosDate::create(1975, 11, 21)->firstOfYear(5);
-        $this->assertDate($d, 1975, 1, 3, 0, 0, 0);
+        $this->assertDate($d, 1975, 1, 3);
     }
 
-    public function testLastDayOfYear()
+    public function testLastDayOfYear(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->lastOfYear();
-        $this->assertDate($d, 1975, 12, 31, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 31);
     }
 
-    public function testLastTuesdayOfYear()
+    public function testLastTuesdayOfYear(): void
     {
         $d = ChronosDate::create(1975, 8, 1)->lastOfYear(Chronos::TUESDAY);
-        $this->assertDate($d, 1975, 12, 30, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 30);
     }
 
-    public function testLastFridayOfYear()
+    public function testLastFridayOfYear(): void
     {
         $d = ChronosDate::create(1975, 7, 5)->lastOfYear(5);
-        $this->assertDate($d, 1975, 12, 26, 0, 0, 0);
+        $this->assertDate($d, 1975, 12, 26);
     }
 
-    public function testNthOfYearOutsideScope()
+    public function testNthOfYearOutsideScope(): void
     {
         $this->assertFalse(ChronosDate::create(1975, 1, 5)->nthOfYear(55, Chronos::MONDAY));
     }
 
-    public function test2ndMondayOfYear()
+    public function test2ndMondayOfYear(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->nthOfYear(2, Chronos::MONDAY);
-        $this->assertDate($d, 1975, 1, 13, 0, 0, 0);
+        $this->assertDate($d, 1975, 1, 13);
     }
 
-    public function test3rdWednesdayOfYear()
+    public function test3rdWednesdayOfYear(): void
     {
         $d = ChronosDate::create(1975, 8, 5)->nthOfYear(3, 3);
-        $this->assertDate($d, 1975, 1, 15, 0, 0, 0);
+        $this->assertDate($d, 1975, 1, 15);
     }
 }

@@ -22,100 +22,100 @@ use PHPUnit\Framework\Attributes\TestWith;
 
 class GettersTest extends TestCase
 {
-    public function testGettersThrowExceptionOnUnknownGetter()
+    public function testGettersThrowExceptionOnUnknownGetter(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         Chronos::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
 
-    public function testYearGetter()
+    public function testYearGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(1234, $d->year);
     }
 
-    public function testYearIsoGetter()
+    public function testYearIsoGetter(): void
     {
         $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(2013, $d->yearIso);
     }
 
-    public function testMonthGetter()
+    public function testMonthGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(5, $d->month);
     }
 
-    public function testDayGetter()
+    public function testDayGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(6, $d->day);
     }
 
-    public function testHourGetter()
+    public function testHourGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(7, $d->hour);
     }
 
-    public function testMinuteGetter()
+    public function testMinuteGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(8, $d->minute);
     }
 
-    public function testSecondGetter()
+    public function testSecondGetter(): void
     {
         $d = Chronos::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(9, $d->second);
     }
 
-    public function testMicroGetter()
+    public function testMicroGetter(): void
     {
         $micro = 345678;
         $d = Chronos::parse('2014-01-05 12:34:11.' . $micro);
         $this->assertSame($micro, $d->micro);
     }
 
-    public function testDayOfWeekGetter()
+    public function testDayOfWeekGetter(): void
     {
         $d = Chronos::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame(Chronos::MONDAY, $d->dayOfWeek);
     }
 
-    public function testDayOfWeekNameGetter()
+    public function testDayOfWeekNameGetter(): void
     {
         $d = Chronos::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame('Monday', $d->dayOfWeekName);
     }
 
-    public function testDayOfYearGetter()
+    public function testDayOfYearGetter(): void
     {
         $d = Chronos::createFromDate(2012, 5, 7);
         $this->assertSame(127, $d->dayOfYear);
     }
 
-    public function testDaysInMonthGetter()
+    public function testDaysInMonthGetter(): void
     {
         $d = Chronos::createFromDate(2012, 5, 7);
         $this->assertSame(31, $d->daysInMonth);
     }
 
-    public function testTimestampGetter()
+    public function testTimestampGetter(): void
     {
         $d = Chronos::create();
         $d = $d->setTimezone('GMT')->setDateTime(1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->timestamp);
     }
 
-    public function testGetAge()
+    public function testGetAge(): void
     {
         $d = Chronos::now();
         $this->assertSame(0, $d->age);
     }
 
-    public function testGetAgeWithRealAge()
+    public function testGetAgeWithRealAge(): void
     {
         $d = Chronos::createFromDate(1975, 5, 21);
         $age = intval(substr(
@@ -127,37 +127,37 @@ class GettersTest extends TestCase
         $this->assertSame($age, $d->age);
     }
 
-    public function testGetQuarterFirst()
+    public function testGetQuarterFirst(): void
     {
         $d = Chronos::createFromDate(2012, 1, 1);
         $this->assertSame(1, $d->quarter);
     }
 
-    public function testGetQuarterFirstEnd()
+    public function testGetQuarterFirstEnd(): void
     {
         $d = Chronos::createFromDate(2012, 3, 31);
         $this->assertSame(1, $d->quarter);
     }
 
-    public function testGetQuarterSecond()
+    public function testGetQuarterSecond(): void
     {
         $d = Chronos::createFromDate(2012, 4, 1);
         $this->assertSame(2, $d->quarter);
     }
 
-    public function testGetQuarterThird()
+    public function testGetQuarterThird(): void
     {
         $d = Chronos::createFromDate(2012, 7, 1);
         $this->assertSame(3, $d->quarter);
     }
 
-    public function testGetQuarterFourth()
+    public function testGetQuarterFourth(): void
     {
         $d = Chronos::createFromDate(2012, 10, 1);
         $this->assertSame(4, $d->quarter);
     }
 
-    public function testGetQuarterFirstLast()
+    public function testGetQuarterFirstLast(): void
     {
         $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(4, $d->quarter);
@@ -181,7 +181,7 @@ class GettersTest extends TestCase
         $this->assertSame($expectedHalfOfYear, $d->half);
     }
 
-    public function testGetLocalTrue()
+    public function testGetLocalTrue(): void
     {
         // Default timezone has been set to America/Toronto in TestCase.php
         // @see : https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
@@ -189,19 +189,19 @@ class GettersTest extends TestCase
         $this->assertTrue(Chronos::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }
 
-    public function testGetLocalFalse()
+    public function testGetLocalFalse(): void
     {
         $this->assertFalse(Chronos::createFromDate(2012, 7, 1, 'UTC')->local);
         $this->assertFalse(Chronos::createFromDate(2012, 7, 1, 'Europe/London')->local);
     }
 
-    public function testGetUtcFalse()
+    public function testGetUtcFalse(): void
     {
         $this->assertFalse(Chronos::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
         $this->assertFalse(Chronos::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
     }
 
-    public function testGetUtcTrue()
+    public function testGetUtcTrue(): void
     {
         $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
         $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
@@ -213,57 +213,57 @@ class GettersTest extends TestCase
         $this->assertTrue(Chronos::createFromDate(2013, 1, 1, 'GMT')->utc);
     }
 
-    public function testGetDstFalse()
+    public function testGetDstFalse(): void
     {
         $this->assertFalse(Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
     }
 
-    public function testGetDstTrue()
+    public function testGetDstTrue(): void
     {
         $this->assertTrue(Chronos::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
     }
 
-    public function testOffsetForTorontoWithDST()
+    public function testOffsetForTorontoWithDST(): void
     {
         $this->assertSame(-18000, Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForTorontoNoDST()
+    public function testOffsetForTorontoNoDST(): void
     {
         $this->assertSame(-14400, Chronos::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForGMT()
+    public function testOffsetForGMT(): void
     {
         $this->assertSame(0, Chronos::createFromDate(2012, 6, 1, 'GMT')->offset);
     }
 
-    public function testOffsetHoursForTorontoWithDST()
+    public function testOffsetHoursForTorontoWithDST(): void
     {
         $this->assertSame(-5, Chronos::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForTorontoNoDST()
+    public function testOffsetHoursForTorontoNoDST(): void
     {
         $this->assertSame(-4, Chronos::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForGMT()
+    public function testOffsetHoursForGMT(): void
     {
         $this->assertSame(0, Chronos::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
     }
 
-    public function testIsLeapYearTrue()
+    public function testIsLeapYearTrue(): void
     {
         $this->assertTrue(Chronos::createFromDate(2012, 1, 1)->isLeapYear());
     }
 
-    public function testIsLeapYearFalse()
+    public function testIsLeapYearFalse(): void
     {
         $this->assertFalse(Chronos::createFromDate(2011, 1, 1)->isLeapYear());
     }
 
-    public function testWeekOfMonth()
+    public function testWeekOfMonth(): void
     {
         $this->assertSame(5, Chronos::createFromDate(2012, 9, 30)->weekOfMonth);
         $this->assertSame(4, Chronos::createFromDate(2012, 9, 28)->weekOfMonth);
@@ -272,19 +272,19 @@ class GettersTest extends TestCase
         $this->assertSame(1, Chronos::createFromDate(2012, 9, 1)->weekOfMonth);
     }
 
-    public function testWeekOfYearFirstWeek()
+    public function testWeekOfYearFirstWeek(): void
     {
         $this->assertSame(52, Chronos::createFromDate(2012, 1, 1)->weekOfYear);
         $this->assertSame(1, Chronos::createFromDate(2012, 1, 2)->weekOfYear);
     }
 
-    public function testWeekOfYearLastWeek()
+    public function testWeekOfYearLastWeek(): void
     {
         $this->assertSame(52, Chronos::createFromDate(2012, 12, 30)->weekOfYear);
         $this->assertSame(1, Chronos::createFromDate(2012, 12, 31)->weekOfYear);
     }
 
-    public function testGetWeekStartsAt()
+    public function testGetWeekStartsAt(): void
     {
         $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(Chronos::MONDAY, $d->getWeekStartsAt());
@@ -293,7 +293,7 @@ class GettersTest extends TestCase
         $this->assertSame(Chronos::SUNDAY, $d->getWeekStartsAt());
     }
 
-    public function testGetWeekEndsAt()
+    public function testGetWeekEndsAt(): void
     {
         $d = Chronos::createFromDate(2012, 12, 31);
         $this->assertSame(Chronos::SUNDAY, $d->getWeekEndsAt());
@@ -302,31 +302,31 @@ class GettersTest extends TestCase
         $this->assertSame(Chronos::SATURDAY, $d->getWeekEndsAt());
     }
 
-    public function testGetTimezone()
+    public function testGetTimezone(): void
     {
         $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezone->getName());
     }
 
-    public function testGetTz()
+    public function testGetTz(): void
     {
         $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tz->getName());
     }
 
-    public function testGetTimezoneName()
+    public function testGetTimezoneName(): void
     {
         $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezoneName);
     }
 
-    public function testGetTzName()
+    public function testGetTzName(): void
     {
         $dt = Chronos::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tzName);
     }
 
-    public function testInvalidGetter()
+    public function testInvalidGetter(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

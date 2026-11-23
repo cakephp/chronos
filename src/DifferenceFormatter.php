@@ -28,8 +28,6 @@ class DifferenceFormatter implements DifferenceFormatterInterface
 {
     /**
      * The text translator object
-     *
-     * @var \Cake\Chronos\Translator
      */
     protected Translator $translate;
 

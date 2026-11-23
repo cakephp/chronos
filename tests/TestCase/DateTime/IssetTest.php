@@ -20,12 +20,12 @@ use Cake\Chronos\Test\TestCase\TestCase;
 
 class IssetTest extends TestCase
 {
-    public function testIssetReturnFalseForUnknownProperty()
+    public function testIssetReturnFalseForUnknownProperty(): void
     {
         $this->assertFalse(isset(Chronos::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
     }
 
-    public function testIssetReturnTrueForProperties()
+    public function testIssetReturnTrueForProperties(): void
     {
         $properties = [
             'year',

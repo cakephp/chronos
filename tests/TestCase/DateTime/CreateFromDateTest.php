@@ -21,44 +21,44 @@ use DateTimeZone;
 
 class CreateFromDateTest extends TestCase
 {
-    public function testCreateFromDateWithDefaults()
+    public function testCreateFromDateWithDefaults(): void
     {
         $d = Chronos::createFromDate();
-        $this->assertSame($d->timestamp, Chronos::create(null, null, null, null, null, null, null)->timestamp);
+        $this->assertSame($d->timestamp, Chronos::create()->timestamp);
     }
 
-    public function testCreateFromDate()
+    public function testCreateFromDate(): void
     {
         $d = Chronos::createFromDate(1975, 5, 21);
         $this->assertDateTime($d, 1975, 5, 21);
     }
 
-    public function testCreateFromDateWithYear()
+    public function testCreateFromDateWithYear(): void
     {
         $d = Chronos::createFromDate(1975);
         $this->assertSame(1975, $d->year);
     }
 
-    public function testCreateFromDateWithMonth()
+    public function testCreateFromDateWithMonth(): void
     {
         $d = Chronos::createFromDate(null, 5);
         $this->assertSame(5, $d->month);
     }
 
-    public function testCreateFromDateWithDay()
+    public function testCreateFromDateWithDay(): void
     {
         $d = Chronos::createFromDate(null, null, 21);
         $this->assertSame(21, $d->day);
     }
 
-    public function testCreateFromDateWithTimezone()
+    public function testCreateFromDateWithTimezone(): void
     {
         $d = Chronos::createFromDate(1975, 5, 21, 'Europe/London');
         $this->assertDateTime($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromDateWithDateTimeZone()
+    public function testCreateFromDateWithDateTimeZone(): void
     {
         $d = Chronos::createFromDate(1975, 5, 21, new DateTimeZone('Europe/London'));
         $this->assertDateTime($d, 1975, 5, 21);
