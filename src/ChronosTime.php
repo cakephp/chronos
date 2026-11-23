@@ -79,7 +79,7 @@ class ChronosTime implements Stringable
      * @param \DateTimeZone|string|null $timezone The timezone to use for now
      */
     public function __construct(
-        ChronosTime|DateTimeInterface|string|null $time = null,
+        self|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null,
     ) {
         if ($time === null) {
@@ -90,7 +90,7 @@ class ChronosTime implements Stringable
             $this->ticks = static::parseString($time->format('H:i:s.u'));
         } elseif (is_string($time)) {
             $this->ticks = static::parseString($time);
-        } elseif ($time instanceof ChronosTime) {
+        } elseif ($time instanceof self) {
             $this->ticks = $time->ticks;
         } else {
             $this->ticks = static::parseString($time->format('H:i:s.u'));
@@ -107,7 +107,7 @@ class ChronosTime implements Stringable
      * @return static
      */
     public static function parse(
-        ChronosTime|DateTimeInterface|string|null $time = null,
+        self|DateTimeInterface|string|null $time = null,
         DateTimeZone|string|null $timezone = null,
     ): static {
         return new static($time, $timezone);
@@ -727,7 +727,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $target Target time
      * @return bool
      */
-    public function equals(ChronosTime $target): bool
+    public function equals(self $target): bool
     {
         return $this->ticks === $target->ticks;
     }
@@ -738,7 +738,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $target Target time
      * @return bool
      */
-    public function greaterThan(ChronosTime $target): bool
+    public function greaterThan(self $target): bool
     {
         return $this->ticks > $target->ticks;
     }
@@ -749,7 +749,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $target Target time
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosTime $target): bool
+    public function greaterThanOrEquals(self $target): bool
     {
         return $this->ticks >= $target->ticks;
     }
@@ -760,7 +760,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $target Target time
      * @return bool
      */
-    public function lessThan(ChronosTime $target): bool
+    public function lessThan(self $target): bool
     {
         return $this->ticks < $target->ticks;
     }
@@ -771,7 +771,7 @@ class ChronosTime implements Stringable
      * @param \Cake\Chronos\ChronosTime $target Target time
      * @return bool
      */
-    public function lessThanOrEquals(ChronosTime $target): bool
+    public function lessThanOrEquals(self $target): bool
     {
         return $this->ticks <= $target->ticks;
     }
@@ -784,7 +784,7 @@ class ChronosTime implements Stringable
      * @param bool $equals Whether to include the beginning and end of range
      * @return bool
      */
-    public function between(ChronosTime $start, ChronosTime $end, bool $equals = true): bool
+    public function between(self $start, self $end, bool $equals = true): bool
     {
         if ($start->greaterThan($end)) {
             [$start, $end] = [$end, $start];

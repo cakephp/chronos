@@ -283,9 +283,9 @@ class ChronosInterval implements Stringable
      * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to add.
      * @return static
      */
-    public function add(DateInterval|ChronosInterval $interval): static
+    public function add(DateInterval|self $interval): static
     {
-        if ($interval instanceof ChronosInterval) {
+        if ($interval instanceof self) {
             $interval = $interval->toNative();
         }
 
@@ -311,9 +311,9 @@ class ChronosInterval implements Stringable
      * @param \DateInterval|\Cake\Chronos\ChronosInterval $interval The interval to subtract.
      * @return static
      */
-    public function sub(DateInterval|ChronosInterval $interval): static
+    public function sub(DateInterval|self $interval): static
     {
-        if ($interval instanceof ChronosInterval) {
+        if ($interval instanceof self) {
             $interval = $interval->toNative();
         }
 

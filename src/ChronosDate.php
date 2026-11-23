@@ -106,7 +106,7 @@ class ChronosDate implements Stringable
      * @param \DateTimeZone|string|null $timezone The time zone used for 'now'
      */
     public function __construct(
-        ChronosDate|DateTimeInterface|string $time = 'now',
+        self|DateTimeInterface|string $time = 'now',
         DateTimeZone|string|null $timezone = null,
     ) {
         $this->native = $this->createNative($time, $timezone);
@@ -120,7 +120,7 @@ class ChronosDate implements Stringable
      * @return \DateTimeImmutable
      */
     protected function createNative(
-        ChronosDate|DateTimeInterface|string $time,
+        self|DateTimeInterface|string $time,
         DateTimeZone|string|null $timezone,
     ): DateTimeImmutable {
         if (!is_string($time)) {
@@ -198,7 +198,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate|\DateTimeInterface|string $time The strtotime compatible string to parse
      * @return static
      */
-    public static function parse(ChronosDate|DateTimeInterface|string $time): static
+    public static function parse(self|DateTimeInterface|string $time): static
     {
         return new static($time);
     }
@@ -400,7 +400,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute Whether the interval is forced to be positive
      * @return \Cake\Chronos\ChronosInterval
      */
-    public function diff(ChronosDate $target, bool $absolute = false): ChronosInterval
+    public function diff(self $target, bool $absolute = false): ChronosInterval
     {
         return new ChronosInterval($this->native->diff($target->native, $absolute));
     }
@@ -1034,7 +1034,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function equals(ChronosDate $other): bool
+    public function equals(self $other): bool
     {
         return $this->native == $other->native;
     }
@@ -1045,7 +1045,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function notEquals(ChronosDate $other): bool
+    public function notEquals(self $other): bool
     {
         return !$this->equals($other);
     }
@@ -1056,7 +1056,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function greaterThan(ChronosDate $other): bool
+    public function greaterThan(self $other): bool
     {
         return $this->native > $other->native;
     }
@@ -1067,7 +1067,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function greaterThanOrEquals(ChronosDate $other): bool
+    public function greaterThanOrEquals(self $other): bool
     {
         return $this->native >= $other->native;
     }
@@ -1078,7 +1078,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function lessThan(ChronosDate $other): bool
+    public function lessThan(self $other): bool
     {
         return $this->native < $other->native;
     }
@@ -1089,7 +1089,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate $other The instance to compare with.
      * @return bool
      */
-    public function lessThanOrEquals(ChronosDate $other): bool
+    public function lessThanOrEquals(self $other): bool
     {
         return $this->native <= $other->native;
     }
@@ -1102,7 +1102,7 @@ class ChronosDate implements Stringable
      * @param bool $equals Whether to include the beginning and end of range
      * @return bool
      */
-    public function between(ChronosDate $start, ChronosDate $end, bool $equals = true): bool
+    public function between(self $start, self $end, bool $equals = true): bool
     {
         if ($start->greaterThan($end)) {
             [$start, $end] = [$end, $start];
@@ -1123,7 +1123,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function closest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
+    public function closest(self $first, self $second, self ...$others): self
     {
         $closest = $first;
         $closestDiffInDays = $this->diffInDays($first);
@@ -1146,7 +1146,7 @@ class ChronosDate implements Stringable
      * @param \Cake\Chronos\ChronosDate ...$others Others instance to compare with.
      * @return self
      */
-    public function farthest(ChronosDate $first, ChronosDate $second, ChronosDate ...$others): ChronosDate
+    public function farthest(self $first, self $second, self ...$others): self
     {
         $farthest = $first;
         $farthestDiffInDays = $this->diffInDays($first);
@@ -1464,12 +1464,12 @@ class ChronosDate implements Stringable
     public function diffFiltered(
         DateInterval $interval,
         callable $callback,
-        ?ChronosDate $other = null,
+        ?self $other = null,
         bool $absolute = true,
         int $options = 0,
     ): int {
         $start = $this;
-        $end = $other ?? new ChronosDate(Chronos::now());
+        $end = $other ?? new self(Chronos::now());
         $inverse = false;
 
         if ($end < $start) {
@@ -1498,7 +1498,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInYears(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInYears(?self $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? new static(new Chronos()), $absolute);
 
@@ -1512,7 +1512,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInMonths(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInMonths(?self $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? new static(Chronos::now()), $absolute);
         $months = $diff->y * Chronos::MONTHS_PER_YEAR + $diff->m;
@@ -1527,7 +1527,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInWeeks(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInWeeks(?self $other = null, bool $absolute = true): int
     {
         return (int)($this->diffInDays($other, $absolute) / Chronos::DAYS_PER_WEEK);
     }
@@ -1539,7 +1539,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute Get the absolute of the difference
      * @return int
      */
-    public function diffInDays(?ChronosDate $other = null, bool $absolute = true): int
+    public function diffInDays(?self $other = null, bool $absolute = true): int
     {
         $diff = $this->diff($other ?? new static(Chronos::now()), $absolute);
 
@@ -1557,7 +1557,7 @@ class ChronosDate implements Stringable
      */
     public function diffInDaysFiltered(
         callable $callback,
-        ?ChronosDate $other = null,
+        ?self $other = null,
         bool $absolute = true,
         int $options = 0,
     ): int {
@@ -1572,9 +1572,9 @@ class ChronosDate implements Stringable
      * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekdays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
+    public function diffInWeekdays(?self $other = null, bool $absolute = true, int $options = 0): int
     {
-        return $this->diffInDaysFiltered(function (ChronosDate $date): bool {
+        return $this->diffInDaysFiltered(function (self $date): bool {
             return $date->isWeekday();
         }, $other, $absolute, $options);
     }
@@ -1587,9 +1587,9 @@ class ChronosDate implements Stringable
      * @param int $options DatePeriod options, {@see https://www.php.net/manual/en/class.dateperiod.php}
      * @return int
      */
-    public function diffInWeekendDays(?ChronosDate $other = null, bool $absolute = true, int $options = 0): int
+    public function diffInWeekendDays(?self $other = null, bool $absolute = true, int $options = 0): int
     {
-        return $this->diffInDaysFiltered(function (ChronosDate $date): bool {
+        return $this->diffInDaysFiltered(function (self $date): bool {
             return $date->isWeekend();
         }, $other, $absolute, $options);
     }
@@ -1613,7 +1613,7 @@ class ChronosDate implements Stringable
      * @param bool $absolute removes difference modifiers ago, after, etc
      * @return string
      */
-    public function diffForHumans(?ChronosDate $other = null, bool $absolute = false): string
+    public function diffForHumans(?self $other = null, bool $absolute = false): string
     {
         return static::diffFormatter()->diffForHumans($this, $other, $absolute);
     }

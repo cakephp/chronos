@@ -29,7 +29,7 @@
         "psr/clock": "^1.0"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^5.0",
+        "cakephp/cakephp-codesniffer": "^6.0",
         "phpunit/phpunit": "^10.5.58 || ^11.5.3 || ^12.1.3"
     },
     "provide": {
@@ -71,5 +71,7 @@
         "rector-check": "vendor/bin/rector process --dry-run",
         "rector-fix": "vendor/bin/rector process",
         "test": "phpunit"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
